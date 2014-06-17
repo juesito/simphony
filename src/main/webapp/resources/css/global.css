@@ -1,0 +1,22 @@
+/* 
+    Document   : global
+    Created on : 16-ene-2014, 12:58:42
+    Author     : ga25rciaj
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+
+@import url(svbol.css);
+@import url(default.css);
+@import url(color.css);
+@import url(cssLayout.css);
+@import url(jsfcrud.css);
+
+

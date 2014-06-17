@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="Description" content="Venta de boletos PEMEX Cd. Carmen-Tampico" />
+        <meta name="Author" lang="es" content="Jesus Armando Garcia Quiñones" />
+        <meta name="copyright" content="&copy; Jafra Manufacturing S.A. de C.V." />
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        </f:facet>
+        <link id="page_favicon" type="image/x-icon" rel="icon" href="#{facesContext.externalContext.requestContextPath}/images/company/favicon.ico" />
+        <link href="#{facesContext.externalContext.requestContextPath}/resources/css/global.css" rel="stylesheet" type="text/css" />
+        <title>Simphony</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top-band" class="top-band">
+            <ui:insert name="top-band">
+                <ui:include src="./../../include/top-band.xhtml"></ui:include>
+            </ui:insert>
+        </div>
+        
+        <div id="wrapper" class="wrapper">
+            <div id="top" class="top">
+                <ui:insert name="top">
+                    <ui:include src="./../../include/header.xhtml">
+                    </ui:include>
+                </ui:insert>
+            </div>
+            <div id="top-band2" class="top-band2">
+                <ui:insert name="top-band2">
+                    <ui:include src="./../../include/top-band2.xhtml"></ui:include>
+                </ui:insert>
+            </div>
+            <div>
+                <div id="left">
+                    <ui:insert name="left">
+                        <ui:include src="./../../include/menu.xhtml"></ui:include>
+                    </ui:insert>
+                </div>
+                <div id="content" class="left_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+        </div>
+    </h:body>
+
+</html>

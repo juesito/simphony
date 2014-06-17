@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:view contentType="text/html">
+
+        <h:body>
+            <ui:composition>
+                <h:form id="sform">
+                    <p:growl id="growl" showDetail="true" showSummary="true" />
+
+                    <p:panelGrid id="login"  >
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel value="" styleClass="disable" 
+                                               style="color:red !important;" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel for="userId" value="Usuario:"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:inputText id="userId" value="" style="font-size: 10px;"
+                                             maxlength="15" required="true" size="16"
+                                             immediate="true" tabindex="1" >
+                                    <f:validateLength minimum="2" />
+                                </p:inputText>
+                                <p:watermark for="userId" value="Usuario" />
+                                <h:message for="userId"  showDetail="false"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:password id="nick" value="" style="font-size: 10px;"
+                                            maxlength="15" size="16"  immediate="true"
+                                            tabindex="2" feedback="false"
+                                            required="true" />
+                                <p:watermark for="nick" value="Contraseña" />
+                                <h:message for="nick" showSummary="false"/>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:commandButton update=":sform:growl" 
+                                                 tabindex="3" styleClass="catalog-button"
+                                                 value="Entrar" ajax="false"    />  
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:commandLink  value="Olvido su contraseña" 
+                                                process="@this"  style="font-size: 12px;color:red !important;" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>                 
+
+
+                </h:form>
+            </ui:composition>
+        </h:body>
+    </f:view>
+</html>

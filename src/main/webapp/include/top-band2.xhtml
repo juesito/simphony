@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:view contentType="text/html">
+        <h:body>
+            <ui:composition>
+                <h:form>
+                    <div id="marco-band2"> 
+
+                        <p:menubar>
+                            <p:submenu label="Inicio" icon="ui-icon-home">
+                                <p:menuitem value="Inicio" action="toindex" />
+                                <p:menuitem value="Salir" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Ventas" icon="ui-icon-cart">
+                                <p:menuitem value="Venta diaria" url="#" icon="ui-icon-document"/>
+                                <p:menuitem value="Cancelación" url="#" icon="ui-icon-closethick"/>
+                            </p:submenu>
+                            <p:submenu label="Operación" icon="ui-icon-document">
+                                <p:menuitem value="Corridas abiertas" url="#" icon="ui-icon-contact"/>
+                                <p:menuitem value="Nuevas corridas" url="#" />
+                                <p:menuitem value="Guías de autobus" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Reportes" icon="ui-icon-pencil">
+                                <p:menuitem value="Por agremiado" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+                                <p:menuitem value="Por punto de venta" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                <p:menuitem value="Por usuario" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                <p:menuitem value="Por corrida" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                <p:menuitem value="Por destino" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                <p:menuitem value="Por autobús" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                            </p:submenu>
+                            <p:submenu label="Catalogos" icon="ui-icon-pencil">
+                                <p:menuitem value="Autobuses" /> 
+                                <p:menuitem value="Operadores" /> 
+                                <p:menuitem value="Itinerarios" /> 
+                                <p:menuitem value="Oficinas" /> 
+                                <p:menuitem value="Unidades" /> 
+                                <p:menuitem value="Tarifas" /> 
+                                <p:menuitem value="Usuarios" action="#{userBean.toUsers}" ajax="false" /> 
+                            </p:submenu>
+                        </p:menubar>
+
+
+                    </div>
+                    <div id="marco-band-sts">
+                        <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  
+                            <f:facet name="start">  
+                                <h:graphicImage value="../images/company/ajax-loader.gif" />  
+                            </f:facet>  
+
+                            <f:facet name="complete">  
+                                <h:outputText value="" />  
+                            </f:facet>  
+                        </p:ajaxStatus>
+                    </div>
+                </h:form>
+
+            </ui:composition>
+        </h:body>
+    </f:view>
+</html>

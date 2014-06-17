@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings id="_140279311587854" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:package>com.simphony.entities</jpa:package>
+    <jpa:schema>svbol</jpa:schema>
+    <jpa:entity class="User" minimized="false" id="_1402793127702">
+        <jpa:table name="usuarios" catalog="usuarios" schema="svbol"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" id="_140279313472358">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="name" attribute-type="String" id="_140279321407159">
+                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="60"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_140279311587855">
+        <plane elementRef="_140279311587854" id="_140279311587856_p">
+            <shape elementRef="_1402793127702" id="_1402793127702_gui">
+                <Bounds x="186.0" y="151.0" width="129.0" height="88.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

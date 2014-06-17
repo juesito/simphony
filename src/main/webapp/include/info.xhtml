@@ -1,0 +1,33 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <f:view contentType="text/html">
+        <h:body>                        
+            <h:form>
+                <div id="main-marquee" class="text-info"> 
+                    <div id="gallery-marquee" class="msj-info-right">
+
+                        <!-- Galleria -->
+                        <p:galleria id="contentGalleria" value="#{galleriaBean.images}" var="image" 
+                                    panelWidth="300" panelHeight="250" showFilmstrip="false" showCaption="false"
+                                    effect="fade" effectSpeed="600" transitionInterval="10000"  >
+                            <p:graphicImage value="/images/galleria/#{image}" style="min-width: 220px !important;" height="250" width="300"/>
+
+                        </p:galleria>
+
+                        <p:outputLabel value="#{msgs.info_altmsj02}" styleClass="welcome-msg-gallery" />
+                    </div>
+                    <div id="msj-info-left" class="msj-info-left">
+                        <p:outputLabel value="#{msgs.info_titlemsj}" styleClass="welcome-title"/>
+                        <br />
+                        <p:outputLabel value="#{msgs.info_main_title}" styleClass="welcome-msg"/>
+                    </div>
+                </div>
+
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
