@@ -24,6 +24,7 @@ import javax.faces.bean.SessionScoped;
 public class UserBean {
 
     private User user = new User();
+    private User current = new User();
     private User selected = new User();
     private List<User> list = new ArrayList<User>();
 
@@ -57,12 +58,6 @@ public class UserBean {
         this.userService = userService;
     }
 
-    public String save() {
-        this.userService.getUserRepository().save(user);
-        user = new User();
-        return "";
-    }
-
     public List<User> getList() {
         return list;
     }
@@ -78,12 +73,44 @@ public class UserBean {
     public void setSelected(User selected) {
         this.selected = selected;
     }
+
+    public User getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(User current) {
+        this.current = current;
+    }
     
+    /**
+     * Controlador para navegar a crear usuario
+     * @return 
+     */
     public String addUser(){
         user = new User();
         return "addUser";
     }
     
+    public String save() {
+        this.userService.getUserRepository().save(user);
+        user = new User();
+        return "";
+    }
+    
+    public String login(){
+        System.out.println("Before" + current);
+        current = this.userService.getUserRepository().login(current.getAlias(), current.getPassword());
+        System.out.println("After" + current);
+        if(current == null){
+            current = new User();
+        }
+        return "toIndex";
+    }
+    
+    /**
+     * Controlador listar usuarios
+     * @return 
+     */
     public String toUsers(){
         list.clear();
         Iterable<User> c = this.getUserService().getUserRepository().findAll();
