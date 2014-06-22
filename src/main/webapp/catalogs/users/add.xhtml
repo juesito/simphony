@@ -14,9 +14,27 @@
                     <!-- Grid para agregar entidad -->
                     <p:panelGrid>
                         <p:row>
-                            <p:outputLabel value="Nombre" />
+                            <p:column>
+                                <p:outputLabel value="Nombre" />
+                            </p:column>
                             <p:column>
                                 <p:inputText value="#{userBean.user.name}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Nick" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{userBean.user.nick}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Password" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{userBean.user.password}" />
                             </p:column>
                         </p:row>
                         <p:row>
@@ -26,7 +44,7 @@
                             </p:column>
                             <p:column>
                                 <p:commandButton value="Cancelar" action="#{userBean.save}"
-                                                  />
+                                                 />
                             </p:column>
                         </p:row>
                     </p:panelGrid>

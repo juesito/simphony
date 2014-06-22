@@ -1,23 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jpa:entity-mappings id="_140279311587854" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<jpa:entity-mappings persistenceUnitName="simphony_pu" id="_14034759494911" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:description>Base de datos simphony</jpa:description>
     <jpa:package>com.simphony.entities</jpa:package>
-    <jpa:schema>svbol</jpa:schema>
-    <jpa:entity class="User" minimized="false" id="_1402793127702">
-        <jpa:table name="usuarios" catalog="usuarios" schema="svbol"/>
+    <jpa:schema>simphonybd</jpa:schema>
+    <jpa:entity name="User" class="User" minimized="false" id="_1403475991747">
+        <jpa:description>Catalogo de usuarios</jpa:description>
+        <jpa:table name="usuarios" catalog="usuarios" schema="simphonybd"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="Long" id="_140279313472358">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
-                <jpa:generated-value strategy="AUTO"/>
+            <jpa:id name="id" attribute-type="Long" id="_14034762491075">
+                <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="255" precision="0" scale="0"/>
+                <jpa:generated-value/>
             </jpa:id>
-            <jpa:basic name="name" attribute-type="String" id="_140279321407159">
-                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="60"/>
+            <jpa:basic name="name" attribute-type="String" id="_14034762619096">
+                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" length="60" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="nick" attribute-type="String" id="_14034762625797">
+                <jpa:column name="nick" unique="false" nullable="true" insertable="true" updatable="true" length="10" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="password" attribute-type="String" id="_14034762641608">
+                <jpa:column name="contrasena" unique="false" nullable="true" insertable="true" updatable="true" length="10" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="status" attribute-type="String" id="_14034762646209">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" length="1" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="createdDate" attribute-type="java.util.Date" id="_140347626513010">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:diagram id="_140279311587855">
-        <plane elementRef="_140279311587854" id="_140279311587856_p">
-            <shape elementRef="_1402793127702" id="_1402793127702_gui">
-                <Bounds x="186.0" y="151.0" width="129.0" height="88.0"/>
+    <jpa:entity name="Population" class="Population" minimized="false" id="_1403477405854">
+        <jpa:table name="poblaciones" catalog="poblaciones" schema="simphonybd"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" id="_140347748038612">
+                <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" table="poblaciones" length="255" precision="0" scale="0"/>
+                <jpa:generated-value/>
+            </jpa:id>
+            <jpa:basic name="description" attribute-type="String" id="_140347870801628">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="status" attribute-type="String" id="_140347870903629">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_14034759494922">
+        <plane elementRef="_14034759494911" id="_14034759494923_p">
+            <shape elementRef="_1403475991747" id="_1403475991747_gui">
+                <Bounds x="248.0" y="56.0" width="128.0" height="176.0"/>
+            </shape>
+            <shape elementRef="_1403477405854" id="_1403477405854_gui">
+                <Bounds x="495.0" y="67.0" width="156.0" height="113.0"/>
             </shape>
         </plane>
     </jpa:diagram>
