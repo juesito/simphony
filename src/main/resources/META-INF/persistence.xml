@@ -7,25 +7,14 @@
     <class>com.simphony.entities.Population</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="jeargaqu"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-      <property name="hibernate.show_sql" value="true"/>
-      <property name="hibernate.hbm2ddl.auto" value="create"/>
-    </properties>
-  </persistence-unit>
-  <persistence-unit name="DEFAULT_PU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
-      <property name="javax.persistence.jdbc.password" value="app"/>
-      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.user" value="app"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.jdbc.url" value="${jdbc.url}"/>
+      <property name="javax.persistence.jdbc.password" value="${jdbc.password}"/>
+      <property name="javax.persistence.jdbc.driver" value="${jdbc.driverClassName}"/>
+      <property name="javax.persistence.jdbc.user" value="${jdbc.username}"/>
+      <property name="hibernate.dialect" value="${hibernate.dialect}"/>
+      <property name="hibernate.show_sql" value="${hibernate.show_sql}"/>
+      <property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
