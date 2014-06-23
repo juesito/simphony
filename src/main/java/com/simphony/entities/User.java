@@ -51,7 +51,7 @@ public class User implements Serializable {
     public User() {
         Calendar cal = Calendar.getInstance();
         createdDate = cal.getTime();
-        status = "A";
+        status = "B";
         this.connected = false;
         name = "";
     }

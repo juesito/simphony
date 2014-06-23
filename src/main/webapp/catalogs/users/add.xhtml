@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -37,6 +38,18 @@
                                 <p:inputText value="#{userBean.user.password}" />
                             </p:column>
                         </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Población:" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu value="" >
+                                    <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
+                                    <f:selectItems value="#{populationBox.box}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        
                         <p:row>
                             <p:column>
                                 <p:commandButton value="Guardar" action="#{userBean.save}"
