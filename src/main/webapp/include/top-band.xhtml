@@ -9,7 +9,8 @@
             <h:form>
 
                 <div id="user-band">
-                    <p:outputLabel value="Fuera de linea" />
+                    <p:outputLabel value="Fuera de linea" rendered="#{userBean.current.name eq ''}" />
+                    <p:outputLabel value="En linea #{userBean.current.name}" rendered="#{userBean.current.name ne ''}" />
                 </div>
             </h:form>
         </ui:composition>
