@@ -27,6 +27,7 @@ public class UserBean {
     private User current = new User();
     private User selected = new User();
     private List<User> list = new ArrayList<User>();
+    
 
     @ManagedProperty(value = "#{userService}")
     private UserService userService;
@@ -73,7 +74,7 @@ public class UserBean {
     public void setSelected(User selected) {
         this.selected = selected;
     }
-
+    
     public User getCurrent() {
         return current;
     }
@@ -82,10 +83,6 @@ public class UserBean {
         this.current = current;
     }
     
-    /**
-     * Controlador para navegar a crear usuario
-     * @return 
-     */
     public String addUser(){
         user = new User();
         return "addUser";
@@ -95,18 +92,8 @@ public class UserBean {
         this.userService.getUserRepository().save(user);
         user = new User();
         return "";
-    }
-    
-    public String login(){
-        System.out.println("Before" + current);
-        current = this.userService.getUserRepository().login(current.getAlias(), current.getPassword());
-        System.out.println("After" + current);
-        if(current == null){
-            current = new User();
-        }
-        return "toIndex";
-    }
-    
+    }    
+        
     /**
      * Controlador listar usuarios
      * @return 
@@ -120,5 +107,14 @@ public class UserBean {
         }
         return "toUsers";
     }
+    
+    public String login(){
+        current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
+        if(current != null){
+            current.setConnected(Boolean.TRUE);
+        }
+        return "toindex";
+    }
+    
 
 }

@@ -25,6 +25,10 @@
                                 <p:outputLabel value="#{user.name}" />
                             </p:column>
                             
+                            <p:column headerText="Nick" >
+                                <p:outputLabel value="#{user.nick}" />
+                            </p:column>
+                            
                             <p:column style="width:4%;text-align: center">
                                 <p:commandButton update=":form:carDetail" 
                                                  oncomplete="PF('userDialog').show()" icon="ui-icon-search" 

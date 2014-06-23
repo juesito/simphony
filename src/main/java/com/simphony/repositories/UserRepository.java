@@ -7,7 +7,9 @@
 package com.simphony.repositories;
 
 import com.simphony.entities.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,6 +18,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>{
- 
-    public User login(String nick, String password);
+    
+    @Query("SELECT p FROM User p "
+        + "WHERE LOWER(p.nick) = LOWER(:nick) AND contrasena = (:password)")
+    public User login(@Param("nick") String nick, @Param("password") String password);
+    
 }
