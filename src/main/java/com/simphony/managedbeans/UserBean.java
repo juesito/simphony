@@ -6,6 +6,7 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.UserService;
+import com.simphony.entities.Population;
 import com.simphony.entities.User;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +29,7 @@ public class UserBean {
     private User current = new User();
     private User selected = new User();
     private List<User> list = new ArrayList<User>();
+    private Population population = new Population();
 
     @ManagedProperty(value = "#{userService}")
     private UserService userService;
@@ -125,5 +127,15 @@ public class UserBean {
         }
         return "toindex";
     }
+
+    public Population getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(Population population) {
+        this.population = population;
+    }
+    
+    
 
 }

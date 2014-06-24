@@ -48,10 +48,21 @@
                                 <p:outputLabel value="Población:" />
                             </p:column>
                             <p:column>
-                                <p:selectOneMenu value="2" >
-                                    <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
-                                    <f:selectItems value="#{populationBox.box}" />
+                                <p:outputLabel for="advanced" value="Advanced:"  />
+                                <p:selectOneMenu id="advanced" value="#{userBean.population}" 
+                                                 converter="populationConverter" panelStyle="width:180px"
+                                                 effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                                    <f:selectItems value="#{boxService.box}" var="box" itemLabel="#{box.description}" itemValue="#{theme}" />
+
+                                    <p:column style="width:10%">
+                                        <h:outputText styleClass="ui-theme ui-theme-#{t.description}" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{t.displayName}" />
+                                    </p:column>
                                 </p:selectOneMenu>
+
+
                             </p:column>
                             <p:column>
                                 <p:outputLabel value="Tipo de usuario" />
