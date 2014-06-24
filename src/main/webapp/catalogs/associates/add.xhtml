@@ -54,14 +54,38 @@
                                 <p:inputText value="#{associateBean.associate.state}" />
                             </p:column>
                         </p:row>
-                        
+                        <p:row>
+                             <p:column>
+                                <p:outputLabel value="Sección" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.section}" />
+                            </p:column>
+                        </p:row>
+                       <p:row>
+                             <p:column>
+                                <p:outputLabel value="Teléfono" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.phoneId}" />
+                            </p:column>
+                        </p:row>
+                       <p:row>
+                             <p:column>
+                                <p:outputLabel value="Email" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.email}" />
+                            </p:column>
+                        </p:row>
+                       
                         <p:row>
                             <p:column>
-                                <p:commandButton value="Guardar" action="#{userBean.save}"
+                                <p:commandButton value="Guardar" action="#{associateBean.save}"
                                                  ajax="false" />
                             </p:column>
                             <p:column>
-                                <p:commandButton value="Cancelar" action="#{userBean.save}"
+                                <p:commandButton value="Cancelar" action="#{associateBean.toAssociates}"
                                                  />
                             </p:column>
                         </p:row>

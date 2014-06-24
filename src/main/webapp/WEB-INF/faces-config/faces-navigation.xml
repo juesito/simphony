@@ -30,5 +30,16 @@
             <from-outcome>toPopulations</from-outcome>
             <to-view-id>/catalogs/populations/list.xhtml</to-view-id>
         </navigation-case>
+                <navigation-case>
+            <description>de catalogo de agremiados</description>
+            <from-outcome>toAssociates</from-outcome>
+            <to-view-id>/catalogs/associates/list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>        
+            <from-outcome>addAssociate</from-outcome>
+            <to-view-id>/catalogs/associates/add.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
     </navigation-rule>
 </faces-config>
