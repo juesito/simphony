@@ -9,12 +9,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Population")
 @Table(name="poblaciones",schema="simphonybd")
 public  class Population implements Serializable {
+
+
+    @Column(name="horaCreacion")
+    @Basic
+    private Date createHour;
+
+
+    @Column(name="descripcion",length=60)
+    @Basic
+    private String description;
 
 
     @Column(name="id")
@@ -28,27 +37,35 @@ public  class Population implements Serializable {
     private String status;
 
 
-    @Column(name="descripcion",length=60)
-    @Basic
-    private String description;
-
-
-    @Id@OneToOne(targetEntity=User.class)
-    private User userId;
-
-
     @Column(name="fechaCreacion")
     @Basic
     private Date createDate;
 
-
-    @Column(name="horaCreacion")
-    @Basic
-    private Date createHour;
-
     public Population(){
 
     }
+
+
+   public Date getCreateHour() {
+        return this.createHour;
+    }
+
+
+  public void setCreateHour (Date createHour) {
+        this.createHour = createHour;
+    }
+
+
+
+   public String getDescription() {
+        return this.description;
+    }
+
+
+  public void setDescription (String description) {
+        this.description = description;
+    }
+
 
 
    public Long getId() {
@@ -73,28 +90,6 @@ public  class Population implements Serializable {
 
 
 
-   public String getDescription() {
-        return this.description;
-    }
-
-
-  public void setDescription (String description) {
-        this.description = description;
-    }
-
-
-
-   public User getUserId() {
-        return this.userId;
-    }
-
-
-  public void setUserId (User userId) {
-        this.userId = userId;
-    }
-
-
-
    public Date getCreateDate() {
         return this.createDate;
     }
@@ -102,17 +97,6 @@ public  class Population implements Serializable {
 
   public void setCreateDate (Date createDate) {
         this.createDate = createDate;
-    }
-
-
-
-   public Date getCreateHour() {
-        return this.createHour;
-    }
-
-
-  public void setCreateHour (Date createHour) {
-        this.createHour = createHour;
     }
 
 }

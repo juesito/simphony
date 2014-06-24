@@ -13,18 +13,9 @@ import javax.persistence.Table;
 public  class Associate implements Serializable {
 
 
-    @Column(name="id")
-    @Id
-    private Long id;
-
-
+    @Column(name="ciudad",length=50)
     @Basic
-    private String platform;
-
-
-    @Column(name="email",length=100)
-    @Basic
-    private String email;
+    private String city;
 
 
     @Column(name="Nombre",length=60)
@@ -32,9 +23,9 @@ public  class Associate implements Serializable {
     private String name;
 
 
-    @Column(name="estado",length=50)
+    @Column(name="apellidoPaterno",length=60)
     @Basic
-    private String state;
+    private String lastName1;
 
 
     @Column(name="telefono",length=10)
@@ -42,14 +33,14 @@ public  class Associate implements Serializable {
     private String phoneId;
 
 
+    @Column(name="NoFicha",length=10)
+    @Basic
+    private String keyId;
+
+
     @Column(name="apellidoMaterno",length=60)
     @Basic
     private String lastName2;
-
-
-    @Column(name="apellidoPaterno",length=60)
-    @Basic
-    private String lastName1;
 
 
     @Column(name="seccion",length=15)
@@ -57,49 +48,36 @@ public  class Associate implements Serializable {
     private String section;
 
 
-    @Column(name="NoFicha",length=10)
-    @Basic
-    private String keyId;
+    @Column(name="id")
+    @Id
+    private Long id;
 
 
-    @Column(name="ciudad",length=50)
+    @Column(name="estado",length=50)
     @Basic
-    private String city;
+    private String state;
+
+
+    @Column(name="email",length=100)
+    @Basic
+    private String email;
+
+
+    @Basic
+    private String platform;
 
     public Associate(){
 
     }
 
 
-   public Long getId() {
-        return this.id;
+   public String getCity() {
+        return this.city;
     }
 
 
-  public void setId (Long id) {
-        this.id = id;
-    }
-
-
-
-   public String getPlatform() {
-        return this.platform;
-    }
-
-
-  public void setPlatform (String platform) {
-        this.platform = platform;
-    }
-
-
-
-   public String getEmail() {
-        return this.email;
-    }
-
-
-  public void setEmail (String email) {
-        this.email = email;
+  public void setCity (String city) {
+        this.city = city;
     }
 
 
@@ -115,13 +93,13 @@ public  class Associate implements Serializable {
 
 
 
-   public String getState() {
-        return this.state;
+   public String getLastName1() {
+        return this.lastName1;
     }
 
 
-  public void setState (String state) {
-        this.state = state;
+  public void setLastName1 (String lastName1) {
+        this.lastName1 = lastName1;
     }
 
 
@@ -137,6 +115,17 @@ public  class Associate implements Serializable {
 
 
 
+   public String getKeyId() {
+        return this.keyId;
+    }
+
+
+  public void setKeyId (String keyId) {
+        this.keyId = keyId;
+    }
+
+
+
    public String getLastName2() {
         return this.lastName2;
     }
@@ -144,17 +133,6 @@ public  class Associate implements Serializable {
 
   public void setLastName2 (String lastName2) {
         this.lastName2 = lastName2;
-    }
-
-
-
-   public String getLastName1() {
-        return this.lastName1;
-    }
-
-
-  public void setLastName1 (String lastName1) {
-        this.lastName1 = lastName1;
     }
 
 
@@ -170,24 +148,46 @@ public  class Associate implements Serializable {
 
 
 
-   public String getKeyId() {
-        return this.keyId;
+   public Long getId() {
+        return this.id;
     }
 
 
-  public void setKeyId (String keyId) {
-        this.keyId = keyId;
+  public void setId (Long id) {
+        this.id = id;
     }
 
 
 
-   public String getCity() {
-        return this.city;
+   public String getState() {
+        return this.state;
     }
 
 
-  public void setCity (String city) {
-        this.city = city;
+  public void setState (String state) {
+        this.state = state;
+    }
+
+
+
+   public String getEmail() {
+        return this.email;
+    }
+
+
+  public void setEmail (String email) {
+        this.email = email;
+    }
+
+
+
+   public String getPlatform() {
+        return this.platform;
+    }
+
+
+  public void setPlatform (String platform) {
+        this.platform = platform;
     }
 
 }

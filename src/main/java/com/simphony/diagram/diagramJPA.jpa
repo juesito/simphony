@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jpa:entity-mappings theme="METRO" persistenceUnitName="simphony_pu" id="_14034759494911" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<jpa:entity-mappings theme="MAC" persistenceUnitName="simphony_pu" id="_14034759494911" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <jpa:description>Base de datos simphony</jpa:description>
     <jpa:package>com.simphony.entities</jpa:package>
     <jpa:schema>simphonybd</jpa:schema>
@@ -30,17 +30,8 @@
                 <jpa:column name="horaCreacion" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="userType" attribute-type="String" id="_140356161167022">
-                <jpa:column name="tipoUsuario" unique="false" nullable="true" insertable="true" updatable="true" length="2"/>
+                <jpa:column name="tipoUsuario" unique="false" nullable="true" insertable="true" updatable="true" length="2" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:many-to-one name="salePointId" target-entity="SalePoint" optional="true" primaryKey="true" connected-entity-id="_1403541049985" id="_140354566530118">
-                <jpa:join-table/>
-            </jpa:many-to-one>
-            <jpa:many-to-one name="populationId" target-entity="Population" optional="true" primaryKey="true" connected-entity-id="_1403477405854" id="_14035469924928">
-                <jpa:join-table/>
-            </jpa:many-to-one>
-            <jpa:many-to-one name="workCenterId" target-entity="workCenter" optional="true" primaryKey="true" connected-entity-id="_1403556840589" id="_140355702984918">
-                <jpa:join-table/>
-            </jpa:many-to-one>
             <jpa:transient name="connected" attribute-type="java.lang.Boolean" id="_140348614310611"/>
         </jpa:attributes>
     </jpa:entity>
@@ -63,9 +54,6 @@
             <jpa:basic name="createHour" attribute-type="java.util.Date" id="_140355670109010">
                 <jpa:column name="horaCreacion" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="userId" target-entity="User" optional="true" primaryKey="true" connected-entity-id="_1403475991747" id="_140355712712121">
-                <jpa:join-table/>
-            </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity name="SalePoint" class="SalePoint" minimized="false" id="_1403541049985">
@@ -87,9 +75,6 @@
             <jpa:basic name="createHour" attribute-type="java.util.Date" id="_140354123698516">
                 <jpa:column name="horaCreacion" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="userId" target-entity="User" optional="true" primaryKey="true" connected-entity-id="_1403475991747" id="_140355708667919">
-                <jpa:join-table/>
-            </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity name="workCenter" class="workCenter" minimized="false" id="_1403556840589">
@@ -112,66 +97,63 @@
             <jpa:basic name="createHour" attribute-type="java.util.Date" id="_140355688790217">
                 <jpa:column name="horaCreacion" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-one name="userId" target-entity="User" optional="true" primaryKey="true" connected-entity-id="_1403475991747" id="_140355711035720">
-                <jpa:join-table/>
-            </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity name="Associate" class="Associate" minimized="false" id="_1403582759903">
         <jpa:table name="Agremiado" schema="simphonybd"/>
         <jpa:attributes>
             <jpa:id name="id" attribute-type="Long" id="_140358295563015">
-                <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0"/>
+                <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value/>
             </jpa:id>
             <jpa:basic name="keyId" attribute-type="String" id="_140358299004016">
-                <jpa:column name="NoFicha" unique="false" nullable="true" insertable="true" updatable="true" length="10"/>
+                <jpa:column name="NoFicha" unique="false" nullable="true" insertable="true" updatable="true" length="10" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="name" attribute-type="String" id="_140358299023217">
-                <jpa:column name="Nombre" unique="false" nullable="true" insertable="true" updatable="true" length="60"/>
+                <jpa:column name="Nombre" unique="false" nullable="true" insertable="true" updatable="true" length="60" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="lastName1" attribute-type="String" id="_140358299041518">
-                <jpa:column name="apellidoPaterno" unique="false" nullable="true" insertable="true" updatable="true" length="60"/>
+                <jpa:column name="apellidoPaterno" unique="false" nullable="true" insertable="true" updatable="true" length="60" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="lastName2" attribute-type="String" id="_140358299075219">
-                <jpa:column name="apellidoMaterno" unique="false" nullable="true" insertable="true" updatable="true" length="60"/>
+                <jpa:column name="apellidoMaterno" unique="false" nullable="true" insertable="true" updatable="true" length="60" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="phoneId" attribute-type="String" id="_140358331634120">
-                <jpa:column name="telefono" unique="false" nullable="true" insertable="true" updatable="true" length="10"/>
+                <jpa:column name="telefono" unique="false" nullable="true" insertable="true" updatable="true" length="10" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="email" attribute-type="String" id="_140358331706921">
-                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" length="100"/>
+                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" length="100" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="platform" attribute-type="String" id="_140358331782922">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="city" attribute-type="String" id="_140358355579823">
-                <jpa:column name="ciudad" unique="false" nullable="true" insertable="true" updatable="true" length="50"/>
+                <jpa:column name="ciudad" unique="false" nullable="true" insertable="true" updatable="true" length="50" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="state" attribute-type="String" id="_140358355652524">
-                <jpa:column name="estado" unique="false" nullable="true" insertable="true" updatable="true" length="50"/>
+                <jpa:column name="estado" unique="false" nullable="true" insertable="true" updatable="true" length="50" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="section" attribute-type="String" id="_140358355715825">
-                <jpa:column name="seccion" unique="false" nullable="true" insertable="true" updatable="true" length="15"/>
+                <jpa:column name="seccion" unique="false" nullable="true" insertable="true" updatable="true" length="15" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1403475991747" id="_1403475991747_gui">
-                <Bounds x="13.0" y="81.0" width="139.0" height="314.0"/>
+                <Bounds x="13.0" y="81.0" width="128.0" height="252.0"/>
             </shape>
             <shape elementRef="_1403477405854" id="_1403477405854_gui">
-                <Bounds x="457.0" y="34.0" width="169.0" height="181.0"/>
+                <Bounds x="403.0" y="34.0" width="156.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403541049985" id="_1403541049985_gui">
-                <Bounds x="259.0" y="127.0" width="160.0" height="181.0"/>
+                <Bounds x="184.0" y="34.0" width="150.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403556840589" id="_1403556840589_gui">
-                <Bounds x="308.0" y="380.0" width="175.0" height="181.0"/>
+                <Bounds x="184.0" y="219.0" width="163.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403582759903" id="_1403582759903_gui">
-                <Bounds x="588.0" y="268.0" width="161.0" height="268.0"/>
+                <Bounds x="403.0" y="219.0" width="153.0" height="281.0"/>
             </shape>
         </plane>
     </jpa:diagram>
