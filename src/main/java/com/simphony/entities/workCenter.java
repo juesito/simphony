@@ -6,24 +6,21 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity(name="Population")
-@Table(name="poblaciones",schema="simphonybd")
-public  class Population implements Serializable {
+@Entity(name="workCenter")
+@Table(name="estacionTrabajo",schema="simphonybd")
+public  class workCenter implements Serializable {
 
 
     @Column(name="id")
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
 
-    @Column(name="estatus")
+    @Column(name="estatus",length=1)
     @Basic
     private String status;
 
@@ -46,7 +43,7 @@ public  class Population implements Serializable {
     @Basic
     private Date createHour;
 
-    public Population(){
+    public workCenter(){
 
     }
 

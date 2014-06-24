@@ -12,9 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity(name="Population")
-@Table(name="poblaciones",schema="simphonybd")
-public  class Population implements Serializable {
+@Entity(name="SalePoint")
+@Table(name="puntodeventa",schema="simphonybd")
+public  class SalePoint implements Serializable {
 
 
     @Column(name="id")
@@ -23,7 +23,7 @@ public  class Population implements Serializable {
     private Long id;
 
 
-    @Column(name="estatus")
+    @Column(name="estatus",length=1)
     @Basic
     private String status;
 
@@ -46,7 +46,7 @@ public  class Population implements Serializable {
     @Basic
     private Date createHour;
 
-    public Population(){
+    public SalePoint(){
 
     }
 

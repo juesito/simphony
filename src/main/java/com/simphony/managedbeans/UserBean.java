@@ -24,10 +24,9 @@ import javax.faces.bean.SessionScoped;
 public class UserBean {
 
     private User user = new User();
+    private User current = new User();
     private User selected = new User();
     private List<User> list = new ArrayList<User>();
-    protected User current = new User();
-
     
 
     @ManagedProperty(value = "#{userService}")
@@ -60,12 +59,6 @@ public class UserBean {
         this.userService = userService;
     }
 
-    public String save() {
-        this.userService.getUserRepository().save(user);
-        user = new User();
-        return "";
-    }
-
     public List<User> getList() {
         return list;
     }
@@ -95,6 +88,16 @@ public class UserBean {
         return "addUser";
     }
     
+    public String save() {
+        this.userService.getUserRepository().save(user);
+        user = new User();
+        return "";
+    }    
+        
+    /**
+     * Controlador listar usuarios
+     * @return 
+     */
     public String toUsers(){
         list.clear();
         Iterable<User> c = this.getUserService().getUserRepository().findAll();

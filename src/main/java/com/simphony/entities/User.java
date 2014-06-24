@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -26,9 +25,12 @@ public  class User implements Serializable {
     private Long id;
 
 
-    @ManyToOne(targetEntity=Population.class)
-    @JoinTable(name="Poblaciones",schema="simphonybd",catalog="Poblaciones")
+    @Id@ManyToOne(targetEntity=Population.class)
     private Population populationId;
+
+
+    @Id@ManyToOne(targetEntity=SalePoint.class)
+    private SalePoint salePointId;
 
 
     @Column(name="nick",length=10)
@@ -50,6 +52,10 @@ public  class User implements Serializable {
     private String name;
 
 
+    @Id@ManyToOne(targetEntity=workCenter.class)
+    private workCenter workCenterId;
+
+
     @Column(name="fechaCreacion")
     @Basic
     private Date createdDate;
@@ -58,6 +64,16 @@ public  class User implements Serializable {
     @Column(name="contrasena",length=10)
     @Basic
     private String password;
+
+
+    @Column(name="tipoUsuario",length=2)
+    @Basic
+    private String userType;
+
+
+    @Column(name="horaCreacion")
+    @Basic
+    private Date createHour;
 
     public User(){
 
@@ -82,6 +98,17 @@ public  class User implements Serializable {
 
   public void setPopulationId (Population populationId) {
         this.populationId = populationId;
+    }
+
+
+
+   public SalePoint getSalePointId() {
+        return this.salePointId;
+    }
+
+
+  public void setSalePointId (SalePoint salePointId) {
+        this.salePointId = salePointId;
     }
 
 
@@ -130,6 +157,17 @@ public  class User implements Serializable {
 
 
 
+   public workCenter getWorkCenterId() {
+        return this.workCenterId;
+    }
+
+
+  public void setWorkCenterId (workCenter workCenterId) {
+        this.workCenterId = workCenterId;
+    }
+
+
+
    public Date getCreatedDate() {
         return this.createdDate;
     }
@@ -148,6 +186,28 @@ public  class User implements Serializable {
 
   public void setPassword (String password) {
         this.password = password;
+    }
+
+
+
+   public String getUserType() {
+        return this.userType;
+    }
+
+
+  public void setUserType (String userType) {
+        this.userType = userType;
+    }
+
+
+
+   public Date getCreateHour() {
+        return this.createHour;
+    }
+
+
+  public void setCreateHour (Date createHour) {
+        this.createHour = createHour;
     }
 
 }

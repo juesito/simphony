@@ -6,7 +6,7 @@
     <application>
         <resource-bundle>
             <base-name>messages</base-name>
-            <var>msg</var>
+            <var>msgs</var>
         </resource-bundle>
         <locale-config>
             <default-locale>en</default-locale>
