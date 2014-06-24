@@ -7,7 +7,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="workCenter")
@@ -28,10 +27,6 @@ public  class workCenter implements Serializable {
     @Column(name="descripcion",length=60)
     @Basic
     private String description;
-
-
-    @Id@OneToOne(targetEntity=User.class)
-    private User userId;
 
 
     @Column(name="fechaCreacion")
@@ -77,17 +72,6 @@ public  class workCenter implements Serializable {
 
   public void setDescription (String description) {
         this.description = description;
-    }
-
-
-
-   public User getUserId() {
-        return this.userId;
-    }
-
-
-  public void setUserId (User userId) {
-        this.userId = userId;
     }
 
 

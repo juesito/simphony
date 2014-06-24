@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Population")
@@ -31,10 +30,6 @@ public  class Population implements Serializable {
     @Column(name="descripcion",length=60)
     @Basic
     private String description;
-
-
-    @Id@OneToOne(targetEntity=User.class)
-    private User userId;
 
 
     @Column(name="fechaCreacion")
@@ -80,17 +75,6 @@ public  class Population implements Serializable {
 
   public void setDescription (String description) {
         this.description = description;
-    }
-
-
-
-   public User getUserId() {
-        return this.userId;
-    }
-
-
-  public void setUserId (User userId) {
-        this.userId = userId;
     }
 
 

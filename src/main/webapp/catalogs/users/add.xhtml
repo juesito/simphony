@@ -21,8 +21,6 @@
                             <p:column>
                                 <p:inputText value="#{userBean.user.name}" />
                             </p:column>
-                        </p:row>
-                        <p:row>
                             <p:column>
                                 <p:outputLabel value="Nick" />
                             </p:column>
@@ -35,21 +33,39 @@
                                 <p:outputLabel value="Password" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{userBean.user.password}" />
+                                <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" required="true" />
                             </p:column>
+                            <p:column>
+                                <p:outputLabel value="Confirmar Password" />
+                            </p:column>
+                            <p:column>
+                                <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" required="true" />
+                            </p:column>
+
                         </p:row>
                         <p:row>
                             <p:column>
                                 <p:outputLabel value="Población:" />
                             </p:column>
                             <p:column>
-                                <p:selectOneMenu value="" >
+                                <p:selectOneMenu value="2" >
                                     <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
                                     <f:selectItems value="#{populationBox.box}" />
                                 </p:selectOneMenu>
                             </p:column>
+                            <p:column>
+                                <p:outputLabel value="Tipo de usuario" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu value="#{userBean.user.userType}" >
+                                    <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="A" />
+                                    <f:selectItem itemLabel="Vendedor" itemValue="V" />
+                                </p:selectOneMenu>
+
+                            </p:column>
                         </p:row>
-                        
+
                         <p:row>
                             <p:column>
                                 <p:commandButton value="Guardar" action="#{userBean.save}"

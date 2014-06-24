@@ -3,6 +3,7 @@ package com.simphony.entities;
 import java.io.Serializable;
 
 import java.lang.Boolean;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,8 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 @Entity(name="User")
@@ -23,14 +24,6 @@ public  class User implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-
-    @Id@ManyToOne(targetEntity=Population.class)
-    private Population populationId;
-
-
-    @Id@ManyToOne(targetEntity=SalePoint.class)
-    private SalePoint salePointId;
 
 
     @Column(name="nick",length=10)
@@ -52,12 +45,9 @@ public  class User implements Serializable {
     private String name;
 
 
-    @Id@ManyToOne(targetEntity=workCenter.class)
-    private workCenter workCenterId;
-
-
     @Column(name="fechaCreacion")
     @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdDate;
 
 
@@ -73,10 +63,11 @@ public  class User implements Serializable {
 
     @Column(name="horaCreacion")
     @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createHour;
 
     public User(){
-
+       
     }
 
 
@@ -87,28 +78,6 @@ public  class User implements Serializable {
 
   public void setId (Long id) {
         this.id = id;
-    }
-
-
-
-   public Population getPopulationId() {
-        return this.populationId;
-    }
-
-
-  public void setPopulationId (Population populationId) {
-        this.populationId = populationId;
-    }
-
-
-
-   public SalePoint getSalePointId() {
-        return this.salePointId;
-    }
-
-
-  public void setSalePointId (SalePoint salePointId) {
-        this.salePointId = salePointId;
     }
 
 
@@ -153,17 +122,6 @@ public  class User implements Serializable {
 
   public void setName (String name) {
         this.name = name;
-    }
-
-
-
-   public workCenter getWorkCenterId() {
-        return this.workCenterId;
-    }
-
-
-  public void setWorkCenterId (workCenter workCenterId) {
-        this.workCenterId = workCenterId;
     }
 
 

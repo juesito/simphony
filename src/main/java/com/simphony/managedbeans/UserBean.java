@@ -8,6 +8,7 @@ package com.simphony.managedbeans;
 import com.simphony.beans.UserService;
 import com.simphony.entities.User;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -27,7 +28,6 @@ public class UserBean {
     private User current = new User();
     private User selected = new User();
     private List<User> list = new ArrayList<User>();
-    
 
     @ManagedProperty(value = "#{userService}")
     private UserService userService;
@@ -40,6 +40,10 @@ public class UserBean {
 
     @PostConstruct
     public void postInitialization() {
+        Calendar cal = Calendar.getInstance();
+        this.current.setCreatedDate(cal.getTime());
+        this.current.setStatus("A");
+        this.current.setName("");
 
     }
 
@@ -74,7 +78,7 @@ public class UserBean {
     public void setSelected(User selected) {
         this.selected = selected;
     }
-    
+
     public User getCurrent() {
         return current;
     }
@@ -82,23 +86,29 @@ public class UserBean {
     public void setCurrent(User current) {
         this.current = current;
     }
-    
-    public String addUser(){
+
+    public String addUser() {
         user = new User();
+        Calendar cal = Calendar.getInstance();
+        this.user.setCreatedDate(cal.getTime());
+        this.user.setCreateHour(cal.getTime());
+        this.user.setStatus("A");
+        this.user.setName("");
         return "addUser";
     }
-    
+
     public String save() {
         this.userService.getUserRepository().save(user);
         user = new User();
         return "";
-    }    
-        
+    }
+
     /**
      * Controlador listar usuarios
-     * @return 
+     *
+     * @return
      */
-    public String toUsers(){
+    public String toUsers() {
         list.clear();
         Iterable<User> c = this.getUserService().getUserRepository().findAll();
         Iterator<User> cu = c.iterator();
@@ -107,14 +117,13 @@ public class UserBean {
         }
         return "toUsers";
     }
-    
-    public String login(){
+
+    public String login() {
         current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
-        if(current != null){
+        if (current != null) {
             current.setConnected(Boolean.TRUE);
         }
         return "toindex";
     }
-    
 
 }
