@@ -26,6 +26,9 @@
             <jpa:basic name="createdDate" attribute-type="java.util.Date" id="_140347626513010">
                 <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
+            <jpa:many-to-one name="populationId" target-entity="Population" optional="true" primaryKey="false" connected-entity-id="_1403477405854" id="_14035038999406">
+                <jpa:join-table name="Poblaciones" catalog="Poblaciones" schema="simphonybd"/>
+            </jpa:many-to-one>
             <jpa:transient name="connected" attribute-type="java.lang.Boolean" id="_140348614310611"/>
         </jpa:attributes>
     </jpa:entity>
@@ -47,7 +50,7 @@
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1403475991747" id="_1403475991747_gui">
-                <Bounds x="150.0" y="67.0" width="128.0" height="210.0"/>
+                <Bounds x="150.0" y="67.0" width="128.0" height="244.0"/>
             </shape>
             <shape elementRef="_1403477405854" id="_1403477405854_gui">
                 <Bounds x="495.0" y="67.0" width="152.0" height="113.0"/>

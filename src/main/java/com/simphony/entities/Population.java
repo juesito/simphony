@@ -31,7 +31,7 @@ public  class Population implements Serializable {
     private String description;
 
     public Population(){
-        status = "A";
+
     }
 
 
