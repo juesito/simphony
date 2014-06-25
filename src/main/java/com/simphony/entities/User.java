@@ -2,7 +2,6 @@ package com.simphony.entities;
 
 import java.io.Serializable;
 
-import java.lang.Boolean;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity(name="User")
 @Table(name="usuarios",schema="simphonybd")
@@ -21,10 +20,6 @@ public  class User implements Serializable {
     @Column(name="nick",length=10)
     @Basic
     private String nick;
-
-
-    @Transient
-    private Boolean connected;
 
 
     @Column(name="contrasena",length=10)
@@ -58,9 +53,17 @@ public  class User implements Serializable {
     private String userType;
 
 
+    @ManyToOne(targetEntity=WorkCenter.class)
+    private WorkCenter workCenter;
+
+
     @Column(name="estatus",length=1)
     @Basic
     private String status;
+
+
+    @ManyToOne(targetEntity=Population.class)
+    private Population population;
 
     public User(){
 
@@ -74,17 +77,6 @@ public  class User implements Serializable {
 
   public void setNick (String nick) {
         this.nick = nick;
-    }
-
-
-
-    public Boolean isConnected() {
-        return this.connected;
-    }
-
-
-  public void setConnected (Boolean connected) {
-        this.connected = connected;
     }
 
 
@@ -155,6 +147,17 @@ public  class User implements Serializable {
 
 
 
+   public WorkCenter getWorkCenter() {
+        return this.workCenter;
+    }
+
+
+  public void setWorkCenter (WorkCenter workCenter) {
+        this.workCenter = workCenter;
+    }
+
+
+
    public String getStatus() {
         return this.status;
     }
@@ -162,6 +165,17 @@ public  class User implements Serializable {
 
   public void setStatus (String status) {
         this.status = status;
+    }
+
+
+
+   public Population getPopulation() {
+        return this.population;
+    }
+
+
+  public void setPopulation (Population population) {
+        this.population = population;
     }
 
 }

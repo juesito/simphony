@@ -13,22 +13,57 @@
             <ui:define name="content">
                 <div class="catalog-table">
                     <h:form id="form">
-                        
+
                         <p:outputLabel value="Catologo usuarios" class="welcome-title" />
-                        
+
                         <p:dataTable value="#{userBean.list}" var="user">
-                            
+
                             <p:column headerText="Id" >
                                 <p:outputLabel value="#{user.id}" />
                             </p:column>
                             <p:column headerText="Nombre" >
                                 <p:outputLabel value="#{user.name}" />
                             </p:column>
-                            
+
                             <p:column headerText="Nick" >
                                 <p:outputLabel value="#{user.nick}" />
                             </p:column>
+
+                            <p:column headerText="Estatus" >
+                                <p:outputLabel value="#{user.status}" />
+                            </p:column>
+
+                            <p:column headerText="Fecha Creación" >
+                                <p:calendar value="#{user.createdDate}" pattern="yyy/MMM/dd"
+                                            style="width:80px"/>
+                            </p:column>
                             
+                            <p:column headerText="Población">
+                                <p:selectOneMenu value="#{userBean.user.population}" 
+                                                 style="width:160px" disabled="true">
+                                    <f:selectItems value="#{boxPopulationService.box}"
+                                                   var="box" itemLabel="#{box.description}"/>
+
+                                </p:selectOneMenu>
+                            </p:column>
+
+                            <p:column headerText="Tipo" >
+                                <p:selectOneMenu value="#{uuser.userType}" disabled="true" >
+                                    <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="AD" />
+                                    <f:selectItem itemLabel="Vendedor" itemValue="VE" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            
+                            <p:column headerText="Centro de trabajo">
+                                <p:selectOneMenu value="#{userBean.user.workCenter}" 
+                                                 style="width:160px" disabled="true">
+                                    <f:selectItems value="#{boxWorkCenterService.box}"
+                                                   var="boxwc" itemLabel="#{boxwc.description}"/>
+
+                                </p:selectOneMenu>
+                            </p:column>
+
                             <p:column style="width:4%;text-align: center">
                                 <p:commandButton update=":form:carDetail" 
                                                  oncomplete="PF('userDialog').show()" icon="ui-icon-search" 
@@ -46,14 +81,14 @@
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="carDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty userBean.selected}" columnClasses="label,value">
-                                    
+
 
                                     <h:outputText value="Id:" />
                                     <h:outputText value="#{userBean.selected.id}" />
 
                                     <h:outputText value="Nombre" />
                                     <h:outputText value="#{userBean.selected.name}" />
-                                                                       
+
                                 </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>

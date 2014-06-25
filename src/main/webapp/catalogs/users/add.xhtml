@@ -21,8 +21,6 @@
                             <p:column>
                                 <p:inputText value="#{userBean.user.name}" />
                             </p:column>
-                        </p:row>
-                        <p:row>
                             <p:column>
                                 <p:outputLabel value="Nick" />
                             </p:column>
@@ -35,21 +33,60 @@
                                 <p:outputLabel value="Password" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{userBean.user.password}" />
+                                <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" required="true" />
                             </p:column>
+                            <p:column>
+                                <p:outputLabel value="Confirmar Password" />
+                            </p:column>
+                            <p:column>
+                                <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" required="true" />
+                            </p:column>
+
                         </p:row>
                         <p:row>
                             <p:column>
                                 <p:outputLabel value="Población:" />
                             </p:column>
                             <p:column>
-                                <p:selectOneMenu value="" >
-                                    <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
-                                    <f:selectItems value="#{populationBox.box}" />
+                                <p:selectOneMenu id="population" value="#{userBean.user.population}" 
+                                                 converter="populationConverter" 
+                                                 style="width:160px">
+                                    <f:selectItems value="#{boxPopulationService.box}" var="box" 
+                                                   itemLabel="#{box.description}" itemValue="#{box}" />
+
                                 </p:selectOneMenu>
+
+
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="Tipo de usuario" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu value="#{userBean.user.userType}" >
+                                    <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="AD" />
+                                    <f:selectItem itemLabel="Vendedor" itemValue="VD" />
+                                </p:selectOneMenu>
+
                             </p:column>
                         </p:row>
-                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Centro de trabajo" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu id="advanced" value="#{userBean.user.workCenter}" 
+                                                 converter="populationConverter" 
+                                                 style="width:160px">
+                                    <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
+                                                   itemLabel="#{boxwc.description}" itemValue="#{boxwc}" />
+
+                                </p:selectOneMenu>
+
+
+                            </p:column>
+                        </p:row>
+
                         <p:row>
                             <p:column>
                                 <p:commandButton value="Guardar" action="#{userBean.save}"

@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.simphony.selectors;
 
 import com.simphony.beans.PopulationService;
 import com.simphony.entities.Population;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -19,19 +22,22 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Soporte IT
  */
-@ManagedBean
-@SessionScoped
+@ManagedBean(name = "boxPopulationService", eager = true)
+@ApplicationScoped
 public class PopulationBox {
 
     @ManagedProperty(value = "#{populationService}")
     private PopulationService populationService;
-    
-    private Map<String,String> box = new HashMap<String, String>();
+
+    //private Map<String,String> box = new HashMap<String, String>();
+    private final List<Population> box = new ArrayList();
+
     /**
      * Creates a new instance of PopulationBox
      */
     public PopulationBox() {
     }
+
 
     public PopulationService getPopulationService() {
         return populationService;
@@ -41,23 +47,16 @@ public class PopulationBox {
         this.populationService = populationService;
     }
 
-    public Map<String, String> getBox() {
+    public List<Population> getBox() {
+        
         Iterable<Population> c = this.getPopulationService().getPopulationRepository().findAll();
         Iterator<Population> cu = c.iterator();
         while (cu.hasNext()) {
-           Population population = cu.next();
-           
-           box.put(Long.toString(population.getId()), population.getDescription());
+            Population population = cu.next();
+            box.add(population);
         }
-        
+
         return box;
     }
 
-    public void setBox(Map<String, String> box) {
-        this.box = box;
-    }
-    
-    
-    
-    
 }
