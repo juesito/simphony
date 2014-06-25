@@ -17,7 +17,7 @@ import javax.faces.convert.FacesConverter;
  *
  * @author root
  */
-@FacesConverter("WorkCenterConverter")
+@FacesConverter("workCenterConverter")
 public class WorkCenterConverter implements Converter {
 
     @Override

@@ -76,7 +76,7 @@
                             </p:column>
                             <p:column>
                                 <p:selectOneMenu id="advanced" value="#{userBean.user.workCenter}" 
-                                                 converter="populationConverter" 
+                                                 converter="workCenterConverter" 
                                                  style="width:160px">
                                     <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
                                                    itemLabel="#{boxwc.description}" itemValue="#{boxwc}" />
