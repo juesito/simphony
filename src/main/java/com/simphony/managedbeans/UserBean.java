@@ -42,10 +42,21 @@ public class UserBean {
 
     @PostConstruct
     public void postInitialization() {
+        
         Calendar cal = Calendar.getInstance();
         this.current.setCreatedDate(cal.getTime());
         this.current.setStatus("A");
         this.current.setName("");
+        
+        //Esta inicializacion sera temporal solo pruebas
+        this.user.setNick("Jueser");
+        this.user.setPassword("123");
+        this.user.setName("Jesus");
+        this.user.setStatus("A");
+        this.user.setUserType("AD");
+        this.user.setCreatedDate(cal.getTime());
+        this.user.setCreateHour(cal.getTime());
+        this.getUserService().getUserRepository().save(user);
 
     }
 
