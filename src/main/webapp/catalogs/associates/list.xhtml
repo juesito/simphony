@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -32,6 +33,15 @@
                             <p:column headerText="Estado" >
                                 <p:outputLabel value="#{associate.state}" />
                             </p:column>
+                            
+                            <p:column style="width:4%;text-align: center">
+                                <p:commandButton update=":form:carDetail" 
+                                                 oncomplete="PF('associateDialog').show()" icon="ui-icon-search" 
+                                                 title="View">
+                                    <f:setPropertyActionListener value="#{associate}" target="#{associateBean.selected}" />
+                                </p:commandButton>
+                            </p:column>
+                            
 
                         </p:dataTable>
 
@@ -39,7 +49,7 @@
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle agremiados -->
-                        <p:dialog header="Associate Info" widgetVar="associateDialog" modal="true" 
+                        <p:dialog header="Detalle agremiados" widgetVar="associateDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="carDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty associateBean.selected}" columnClasses="label,value">
@@ -49,6 +59,27 @@
 
                                     <h:outputText value="Nombre" />
                                     <h:outputText value="#{associateBean.selected.name}" />
+                                                                       
+                                    <h:outputText value="Apellido paterno" />
+                                    <h:outputText value="#{associateBean.selected.lastName1}" />
+                                                                       
+                                    <h:outputText value="Apellido Materno" />
+                                    <h:outputText value="#{associateBean.selected.lastName2}" />
+                                                                       
+                                    <h:outputText value="Plataforma" />
+                                    <h:outputText value="#{associateBean.selected.platform}" />
+                                                                       
+                                    <h:outputText value="Estado" />
+                                    <h:outputText value="#{associateBean.selected.state}" />
+                                                                       
+                                    <h:outputText value="Sección" />
+                                    <h:outputText value="#{associateBean.selected.section}" />
+                                                                       
+                                    <h:outputText value="Teléfono" />
+                                    <h:outputText value="#{associateBean.selected.phoneId}" />
+                                                                       
+                                    <h:outputText value="Email" />
+                                    <h:outputText value="#{associateBean.selected.email}" />
                                                                        
                                 </p:panelGrid>
                             </p:outputPanel>

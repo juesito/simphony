@@ -18,7 +18,7 @@
                                 <p:outputLabel value="Tirilla" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.keyId}" />
+                                <p:inputText value="#{associateBean.associate.keyId}" maxlength="10" />
                             </p:column>
                         </p:row>
 
@@ -27,7 +27,7 @@
                                 <p:outputLabel value="Nombre" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.name}" />
+                                <p:inputText value="#{associateBean.associate.name}" maxlength="25" />
                             </p:column>
                         </p:row>
                         <p:row>
@@ -35,15 +35,24 @@
                                 <p:outputLabel value="Apellido paterno" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.lastName1}" />
+                                <p:inputText value="#{associateBean.associate.lastName1}" maxlength="20" />
                             </p:column>
                         </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Apellido materno" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.lastName2}" maxlength="20" />
+                            </p:column>
+                        </p:row>
+
                         <p:row>
                             <p:column>
                                 <p:outputLabel value="Plataforma" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.platform}" />
+                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" />
                             </p:column>
                         </p:row>
                         <p:row>
@@ -51,7 +60,7 @@
                                 <p:outputLabel value="Estado" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.state}" />
+                                <p:inputText value="#{associateBean.associate.state}" maxlength="35" />
                             </p:column>
                         </p:row>
                         <p:row>
@@ -59,7 +68,7 @@
                                 <p:outputLabel value="Sección" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.section}" />
+                                <p:inputText value="#{associateBean.associate.section}" maxlength="15" />
                             </p:column>
                         </p:row>
                        <p:row>
@@ -75,7 +84,7 @@
                                 <p:outputLabel value="Email" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.email}" />
+                                <p:inputText value="#{associateBean.associate.email}" maxlength="100" />
                             </p:column>
                         </p:row>
                        

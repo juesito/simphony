@@ -50,5 +50,15 @@
             <from-outcome>toWorkCenter</from-outcome>
             <to-view-id>/catalogs/workCenters/list.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>addSalePoint</from-outcome>
+            <to-view-id>/catalogs/salePoints/add.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>toSalePoint</from-outcome>
+            <to-view-id>/catalogs/salePoints/list.xhtml</to-view-id>
+        </navigation-case>
+
     </navigation-rule>
 </faces-config>
