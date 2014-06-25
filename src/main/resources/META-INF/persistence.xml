@@ -6,8 +6,8 @@
     <class>com.simphony.entities.User</class>
     <class>com.simphony.entities.Population</class>
     <class>com.simphony.entities.SalePoint</class>
-    <class>com.simphony.entities.workCenter</class>
     <class>com.simphony.entities.Associate</class>
+    <class>com.simphony.entities.WorkCenter</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>

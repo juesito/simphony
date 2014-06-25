@@ -30,5 +30,14 @@
             <from-outcome>toPopulations</from-outcome>
             <to-view-id>/catalogs/populations/list.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>addWorkCenter</from-outcome>
+            <to-view-id>/catalogs/workCenters/add.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>toWorkCenter</from-outcome>
+            <to-view-id>/catalogs/workCenters/list.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>

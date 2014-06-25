@@ -8,9 +8,12 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.PopulationService;
 import com.simphony.entities.Population;
+import com.simphony.interfases.IConfigurable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -25,6 +28,7 @@ public class PopulationBean {
     
     private List<Population> list = new ArrayList();
     private Population current = new Population();
+    private Population population = new Population();
     private Population selected = new Population();
     
     @ManagedProperty(value = "#{populationService}")
@@ -34,6 +38,16 @@ public class PopulationBean {
      * Creates a new instance of PopulationBean
      */
     public PopulationBean() {
+    }
+    
+    @PostConstruct
+    public void postInitialization() {
+//        Calendar cal = Calendar.getInstance();
+//        population.setDescription("MEXICO");
+//        population.setCreateDate(cal.getTime());
+//        population.setCreateHour(cal.getTime());
+//        population.setStatus("A");
+//        this.getPopulationService().getPopulationRepository().save(population);
     }
 
     public List<Population> getList() {
@@ -62,6 +76,7 @@ public class PopulationBean {
     
     public String addPopulation(){
         current = new Population();
+        
         return "addPopulation";
     }
 
@@ -75,6 +90,10 @@ public class PopulationBean {
     
     
     public void save(){
+        Calendar cal = Calendar.getInstance();
+        this.current.setCreateDate(cal.getTime());
+        this.current.setCreateHour(cal.getTime());
+        this.current.setStatus(IConfigurable._ENABLED);
         this.getPopulationService().getPopulationRepository().save(this.current);
         this.current = new Population();
     }

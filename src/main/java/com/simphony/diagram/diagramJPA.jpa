@@ -32,7 +32,12 @@
             <jpa:basic name="userType" attribute-type="String" id="_140356161167022">
                 <jpa:column name="tipoUsuario" unique="false" nullable="true" insertable="true" updatable="true" length="2" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:transient name="connected" attribute-type="java.lang.Boolean" id="_140348614310611"/>
+            <jpa:many-to-one name="population" target-entity="Population" optional="true" primaryKey="false" connected-entity-id="_1403477405854" id="_140367670334812">
+                <jpa:join-table/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="workCenter" target-entity="WorkCenter" optional="true" primaryKey="false" connected-entity-id="_1403556840589" id="_140367861447213">
+                <jpa:join-table/>
+            </jpa:many-to-one>
         </jpa:attributes>
     </jpa:entity>
     <jpa:entity name="Population" class="Population" minimized="false" id="_1403477405854">
@@ -77,13 +82,13 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity name="workCenter" class="workCenter" minimized="false" id="_1403556840589">
+    <jpa:entity name="WorkCenter" class="WorkCenter" minimized="false" id="_1403556840589">
         <jpa:description>Catalogo de estaciones de trabajo</jpa:description>
         <jpa:table name="estacionTrabajo" schema="simphonybd"/>
         <jpa:attributes>
             <jpa:id name="id" attribute-type="Long" id="_140355687267713">
                 <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-                <jpa:generated-value/>
+                <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
             <jpa:basic name="description" attribute-type="String" id="_140355688531814">
                 <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" length="60" precision="0" scale="0"/>
@@ -104,7 +109,7 @@
         <jpa:attributes>
             <jpa:id name="id" attribute-type="Long" id="_140358295563015">
                 <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-                <jpa:generated-value/>
+                <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
             <jpa:basic name="keyId" attribute-type="String" id="_140358299004016">
                 <jpa:column name="NoFicha" unique="false" nullable="true" insertable="true" updatable="true" length="10" precision="0" scale="0"/>
@@ -141,16 +146,16 @@
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1403475991747" id="_1403475991747_gui">
-                <Bounds x="13.0" y="81.0" width="129.0" height="241.0"/>
+                <Bounds x="73.0" y="44.0" width="129.0" height="261.0"/>
             </shape>
             <shape elementRef="_1403477405854" id="_1403477405854_gui">
-                <Bounds x="457.0" y="33.0" width="169.0" height="148.0"/>
+                <Bounds x="297.0" y="91.0" width="169.0" height="148.0"/>
             </shape>
             <shape elementRef="_1403541049985" id="_1403541049985_gui">
-                <Bounds x="218.0" y="81.0" width="160.0" height="148.0"/>
+                <Bounds x="674.0" y="239.0" width="160.0" height="148.0"/>
             </shape>
             <shape elementRef="_1403556840589" id="_1403556840589_gui">
-                <Bounds x="187.0" y="296.0" width="175.0" height="148.0"/>
+                <Bounds x="251.0" y="343.0" width="177.0" height="148.0"/>
             </shape>
             <shape elementRef="_1403582759903" id="_1403582759903_gui">
                 <Bounds x="485.0" y="252.0" width="161.0" height="268.0"/>

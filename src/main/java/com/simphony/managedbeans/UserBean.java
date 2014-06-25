@@ -8,6 +8,7 @@ package com.simphony.managedbeans;
 import com.simphony.beans.UserService;
 import com.simphony.entities.Population;
 import com.simphony.entities.User;
+import com.simphony.interfases.IConfigurable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -23,7 +24,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class UserBean {
+public class UserBean implements IConfigurable {
 
     private User user = new User();
     private User current = new User();
@@ -45,18 +46,18 @@ public class UserBean {
         
         Calendar cal = Calendar.getInstance();
         this.current.setCreatedDate(cal.getTime());
-        this.current.setStatus("A");
-        this.current.setName("");
+        this.current.setStatus(_DISABLE);
+        this.current.setName(_BLANK);
         
         //Esta inicializacion sera temporal solo pruebas
-        this.user.setNick("Jueser");
-        this.user.setPassword("123");
-        this.user.setName("Jesus");
-        this.user.setStatus("A");
-        this.user.setUserType("AD");
-        this.user.setCreatedDate(cal.getTime());
-        this.user.setCreateHour(cal.getTime());
-        this.getUserService().getUserRepository().save(user);
+//        this.user.setNick("Jueser");
+//        this.user.setPassword("123");
+//        this.user.setName("Jesus");
+//        this.user.setStatus("A");
+//        this.user.setUserType("AD");
+//        this.user.setCreatedDate(cal.getTime());
+//        this.user.setCreateHour(cal.getTime());
+//        this.getUserService().getUserRepository().save(user);
 
     }
 
@@ -102,15 +103,17 @@ public class UserBean {
 
     public String addUser() {
         user = new User();
-        Calendar cal = Calendar.getInstance();
-        this.user.setCreatedDate(cal.getTime());
-        this.user.setCreateHour(cal.getTime());
-        this.user.setStatus("A");
-        this.user.setName("");
+        
         return "addUser";
     }
 
     public String save() {
+        
+        Calendar cal = Calendar.getInstance();
+        user.setCreatedDate(cal.getTime());
+        user.setCreateHour(cal.getTime());
+        user.setStatus(_ENABLED);
+        
         this.userService.getUserRepository().save(user);
         user = new User();
         return "";
@@ -134,7 +137,6 @@ public class UserBean {
     public String login() {
         current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
-            current.setConnected(Boolean.TRUE);
         }
         return "toindex";
     }

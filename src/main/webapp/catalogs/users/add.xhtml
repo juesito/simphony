@@ -48,18 +48,12 @@
                                 <p:outputLabel value="Población:" />
                             </p:column>
                             <p:column>
-                                <p:outputLabel for="advanced" value="Advanced:"  />
-                                <p:selectOneMenu id="advanced" value="#{userBean.population}" 
-                                                 converter="populationConverter" panelStyle="width:180px"
-                                                 effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
-                                    <f:selectItems value="#{boxService.box}" var="box" itemLabel="#{box.description}" itemValue="#{theme}" />
+                                <p:selectOneMenu id="population" value="#{userBean.user.population}" 
+                                                 converter="populationConverter" 
+                                                 style="width:160px">
+                                    <f:selectItems value="#{boxPopulationService.box}" var="box" 
+                                                   itemLabel="#{box.description}" itemValue="#{box}" />
 
-                                    <p:column style="width:10%">
-                                        <h:outputText styleClass="ui-theme ui-theme-#{t.description}" />
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{t.displayName}" />
-                                    </p:column>
                                 </p:selectOneMenu>
 
 
@@ -70,9 +64,25 @@
                             <p:column>
                                 <p:selectOneMenu value="#{userBean.user.userType}" >
                                     <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
-                                    <f:selectItem itemLabel="Administrador" itemValue="A" />
-                                    <f:selectItem itemLabel="Vendedor" itemValue="V" />
+                                    <f:selectItem itemLabel="Administrador" itemValue="AD" />
+                                    <f:selectItem itemLabel="Vendedor" itemValue="VD" />
                                 </p:selectOneMenu>
+
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="Centro de trabajo" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu id="advanced" value="#{userBean.user.workCenter}" 
+                                                 converter="populationConverter" 
+                                                 style="width:160px">
+                                    <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
+                                                   itemLabel="#{boxwc.description}" itemValue="#{boxwc}" />
+
+                                </p:selectOneMenu>
+
 
                             </p:column>
                         </p:row>

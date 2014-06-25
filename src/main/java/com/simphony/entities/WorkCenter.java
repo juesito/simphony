@@ -6,16 +6,19 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name="workCenter")
+@Entity(name="WorkCenter")
 @Table(name="estacionTrabajo",schema="simphonybd")
-public  class workCenter implements Serializable {
+public  class WorkCenter implements Serializable {
 
 
     @Column(name="id")
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
 
@@ -38,7 +41,7 @@ public  class workCenter implements Serializable {
     @Basic
     private Date createHour;
 
-    public workCenter(){
+    public WorkCenter(){
 
     }
 

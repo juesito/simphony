@@ -6,9 +6,8 @@
 
 package com.simphony.converters;
 
-import com.simphony.entities.Population;
-import com.simphony.selectors.PopulationBox;
-import java.lang.annotation.Annotation;
+import com.simphony.entities.WorkCenter;
+import com.simphony.selectors.WorkCenterBox;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -18,13 +17,13 @@ import javax.faces.convert.FacesConverter;
  *
  * @author root
  */
-@FacesConverter("populationConverter")
-public class PopulationConverter implements Converter {
+@FacesConverter("WorkCenterConverter")
+public class WorkCenterConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0) {
-            PopulationBox service = (PopulationBox) context.getExternalContext().getApplicationMap().get("boxPopulationService");
+            WorkCenterBox service = (WorkCenterBox) context.getExternalContext().getApplicationMap().get("boxWorkCenterService");
             return service.getBox().get(Integer.parseInt(value));
         }
         else {
@@ -35,11 +34,11 @@ public class PopulationConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if(value != null) {
-            return String.valueOf(((Population) value).getId());
+            return String.valueOf(((WorkCenter) value).getId());
         }
         else {
             return null;
         }
     }
-
+    
 }

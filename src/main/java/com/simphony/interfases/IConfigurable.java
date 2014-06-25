@@ -4,9 +4,7 @@ import java.text.SimpleDateFormat;
 
 public interface IConfigurable {
 
-    public final String _COSFRA = "COSFRAF65T";
-    public final String _BPCS = "BPCSF65TST";
-    public final String _DESARROLLO = "DESARROLLO";
+    
     public final SimpleDateFormat _SDFCHART = new SimpleDateFormat("yyyyMM");
     public final SimpleDateFormat _SDFCHARTLEGEND = new SimpleDateFormat("MMM yyyy");
     public final SimpleDateFormat _SDF = new SimpleDateFormat("yyyyMMdd");
@@ -19,40 +17,10 @@ public interface IConfigurable {
     //Global status
     public final String _ENABLED = "A";
     public final String _DISABLE = "B";
-    public final String _CLOSED = "C";
-    public final String _PROGRESS = "P";
-
-    //Variables para folios
-    public final String _NCR_UPLOAD = "CA";
-    public final String _TICKET_UPLOAD = "TI";
-    public final String _DEFECT_UPLOAD = "DE";
-    public final String _TRACEABILITY = "TR";
-    public final String _DOCS_BY_CLAIM = "DC";
-    public final String _DOCS_REQUESTED = "DR";
-    public final String _ATTENTIONS = "AT";
-    public final String _COMMENTS_ATTENTION = "CO";
-
-    //Estatus de la NCR
-    public final String _NCR_CREATED = "A";
-    public final String _NCR_REVISED = "TD";
-    public final String _NCR_PER_ANALIZED = "PA";
-    public final String _NCR_ANALIZED = "AN";
-    public final String _NCR_PROGRESS = "IP";
-    public final String _NCR_ON_VALIDATION = "OV";
-    public final String _NCR_CLOSED = "CL";
-    public final String _NCR_PREANALISIS = "PS";
-
-    //Estatus Usuarios
-    public final String _USR_ENABLED = "A";
-    public final String _USR_DISABLE = "B";
-
+    
     //Tipos usuario
-    public final String _USR_TYPE_ADMIN = "A";
-    public final String _USR_TYPE_QUALITY = "Q";
-    public final String _USR_TYPE_ANALIST = "N";
-    public final String _USR_TYPE_CAPTURE = "C";
-    public final String _USR_TYPE_AREA = "R";
-    public final String _USR_TYPE_DOCUMENTER = "D";
+    public final String _USR_TYPE_ADMIN = "AD";
+    public final String _USR_TYPE_VENDOR = "VD";
 
     //Areas usuario
     public final String _USR_AREA_IT = "IT";
