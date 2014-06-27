@@ -36,8 +36,8 @@
                                 <p:menuitem value="Autobuses" /> 
                                 <p:menuitem value="Operadores" /> 
                                 <p:menuitem value="Itinerarios" /> 
-                                <p:menuitem value="Oficinas" /> 
-                                <p:menuitem value="Unidades" /> 
+                                <p:menuitem value="Agremiados" action="#{associateBean.toAssociates}" ajax="false" /> 
+                                <p:menuitem value="Puntos de venta" action="#{salePointBean.toSalePoint()}" ajax="false" /> 
                                 <p:menuitem value="Tarifas" /> 
                                 <p:menuitem value="Centros de trabajo" action="#{workCenterBean.toWorkCenter()}" ajax="false" /> 
                                 <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 

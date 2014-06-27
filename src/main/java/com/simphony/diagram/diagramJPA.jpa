@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jpa:entity-mappings theme="METRO" persistenceUnitName="simphony_pu" id="_14034759494911" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<jpa:entity-mappings theme="METRO" persistenceUnitName="simphony_pu" id="_14034759494911" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <jpa:description>Base de datos simphony</jpa:description>
     <jpa:package>com.simphony.entities</jpa:package>
     <jpa:schema>simphonybd</jpa:schema>
@@ -146,19 +146,19 @@
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1403475991747" id="_1403475991747_gui">
-                <Bounds x="73.0" y="44.0" width="129.0" height="261.0"/>
+                <Bounds x="73.0" y="44.0" width="128.0" height="273.0"/>
             </shape>
             <shape elementRef="_1403477405854" id="_1403477405854_gui">
-                <Bounds x="297.0" y="91.0" width="169.0" height="148.0"/>
+                <Bounds x="297.0" y="91.0" width="152.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403541049985" id="_1403541049985_gui">
-                <Bounds x="674.0" y="239.0" width="160.0" height="148.0"/>
+                <Bounds x="674.0" y="239.0" width="146.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403556840589" id="_1403556840589_gui">
-                <Bounds x="251.0" y="343.0" width="177.0" height="148.0"/>
+                <Bounds x="251.0" y="343.0" width="161.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403582759903" id="_1403582759903_gui">
-                <Bounds x="485.0" y="252.0" width="161.0" height="268.0"/>
+                <Bounds x="496.0" y="62.0" width="149.0" height="281.0"/>
             </shape>
         </plane>
     </jpa:diagram>
