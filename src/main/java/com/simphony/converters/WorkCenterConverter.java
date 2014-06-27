@@ -24,7 +24,8 @@ public class WorkCenterConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0) {
             WorkCenterBox service = (WorkCenterBox) context.getExternalContext().getApplicationMap().get("boxWorkCenterService");
-            return service.getBox().get(Integer.parseInt(value));
+            Integer myValue = Integer.parseInt(value);
+            return service.getBox().get(myValue - 1);
         }
         else {
             return null;
@@ -33,11 +34,11 @@ public class WorkCenterConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if(value != null) {
+        if(value != null && value instanceof WorkCenter) {
             return String.valueOf(((WorkCenter) value).getId());
         }
         else {
-            return null;
+            return "";
         }
     }
     

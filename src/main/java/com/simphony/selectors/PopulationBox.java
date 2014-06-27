@@ -37,7 +37,21 @@ public class PopulationBox {
      */
     public PopulationBox() {
     }
-
+    
+    @PostConstruct
+    public void init(){
+        Iterable<Population> c = this.getPopulationService().getPopulationRepository().findAll();
+        Iterator<Population> cu = c.iterator();
+//        if(box.size() > 0){
+//            box.clear();
+//        }
+        
+        while (cu.hasNext()) {
+            Population population = cu.next();
+            box.add(population);
+        }
+    
+    }
 
     public PopulationService getPopulationService() {
         return populationService;
@@ -47,16 +61,17 @@ public class PopulationBox {
         this.populationService = populationService;
     }
 
-    public List<Population> getBox() {
-        
-        Iterable<Population> c = this.getPopulationService().getPopulationRepository().findAll();
-        Iterator<Population> cu = c.iterator();
-        while (cu.hasNext()) {
-            Population population = cu.next();
-            box.add(population);
-        }
-
+    public List<Population> getBox() {        
         return box;
+    }
+
+    public void fillBox() {
+//        Iterable<Population> c = this.getPopulationService().getPopulationRepository().findAll();
+//        Iterator<Population> cu = c.iterator();
+//        while (cu.hasNext()) {
+//            Population population = cu.next();
+//            box.add(population);
+//        }
     }
 
 }

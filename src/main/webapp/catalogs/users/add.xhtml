@@ -52,7 +52,8 @@
                                                  converter="populationConverter" 
                                                  style="width:160px">
                                     <f:selectItems value="#{boxPopulationService.box}" var="box" 
-                                                   itemLabel="#{box.description}" itemValue="#{box}" />
+                                                   itemLabel="#{box.description}" itemValue="#{box}" 
+                                                   itemLabelEscaped="true" rendered="true"/>
 
                                 </p:selectOneMenu>
 
@@ -75,11 +76,13 @@
                                 <p:outputLabel value="Centro de trabajo" />
                             </p:column>
                             <p:column>
+                                                                    
                                 <p:selectOneMenu id="advanced" value="#{userBean.user.workCenter}" 
                                                  converter="workCenterConverter" 
                                                  style="width:160px">
                                     <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
-                                                   itemLabel="#{boxwc.description}" itemValue="#{boxwc}" />
+                                                   itemLabel="#{boxwc.description}" itemValue="#{boxwc}" 
+                                                    itemLabelEscaped="true" rendered="true"/>
 
                                 </p:selectOneMenu>
 

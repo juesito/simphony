@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<jpa:entity-mappings theme="METRO" persistenceUnitName="simphony_pu" id="_14034759494911" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<jpa:entity-mappings theme="METRO" persistenceUnitName="simphony_pu" id="_14034759494911" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <jpa:description>Base de datos simphony</jpa:description>
     <jpa:package>com.simphony.entities</jpa:package>
     <jpa:schema>simphonybd</jpa:schema>
@@ -181,38 +181,38 @@
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
             <jpa:basic name="number" attribute-type="int" id="_140374722619770">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="createDate" attribute-type="java.util.Date" id="_140374731331671">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
             <jpa:basic name="createHour" attribute-type="java.util.Date" id="_140374731525072">
-                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1403475991747" id="_1403475991747_gui">
-                <Bounds x="17.0" y="32.0" width="128.0" height="273.0"/>
+                <Bounds x="17.0" y="32.0" width="129.0" height="261.0"/>
             </shape>
             <shape elementRef="_1403477405854" id="_1403477405854_gui">
-                <Bounds x="179.0" y="4.0" width="152.0" height="155.0"/>
+                <Bounds x="179.0" y="4.0" width="169.0" height="148.0"/>
             </shape>
             <shape elementRef="_1403541049985" id="_1403541049985_gui">
-                <Bounds x="17.0" y="336.0" width="146.0" height="155.0"/>
+                <Bounds x="17.0" y="336.0" width="160.0" height="148.0"/>
             </shape>
             <shape elementRef="_1403556840589" id="_1403556840589_gui">
-                <Bounds x="179.0" y="336.0" width="161.0" height="155.0"/>
+                <Bounds x="252.0" y="337.0" width="177.0" height="148.0"/>
             </shape>
             <shape elementRef="_1403582759903" id="_1403582759903_gui">
-                <Bounds x="574.0" y="32.0" width="149.0" height="281.0"/>
+                <Bounds x="574.0" y="32.0" width="161.0" height="268.0"/>
             </shape>
             <shape elementRef="_1403734331914" id="_1403734331914_gui">
-                <Bounds x="418.0" y="53.0" width="128.0" height="231.0"/>
+                <Bounds x="418.0" y="53.0" width="128.0" height="221.0"/>
             </shape>
             <shape elementRef="_1403747034247" id="_1403747034247_gui">
-                <Bounds x="530.0" y="357.0" width="128.0" height="134.0"/>
+                <Bounds x="530.0" y="357.0" width="128.0" height="128.0"/>
             </shape>
         </plane>
     </jpa:diagram>

@@ -25,7 +25,8 @@ public class PopulationConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0) {
             PopulationBox service = (PopulationBox) context.getExternalContext().getApplicationMap().get("boxPopulationService");
-            return service.getBox().get(Integer.parseInt(value));
+            Integer myValue = Integer.parseInt(value);
+            return service.getBox().get(myValue - 1);
         }
         else {
             return null;
@@ -34,11 +35,12 @@ public class PopulationConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if(value != null) {
+        if(value != null && value instanceof Population) {
+            
             return String.valueOf(((Population) value).getId());
         }
         else {
-            return null;
+            return "";
         }
     }
 
