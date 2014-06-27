@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -50,14 +51,6 @@ public class UserBean implements IConfigurable {
         this.current.setName(_BLANK);
         
         //Esta inicializacion sera temporal solo pruebas
-//        this.user.setNick("Jueser");
-//        this.user.setPassword("123");
-//        this.user.setName("Jesus");
-//        this.user.setStatus("A");
-//        this.user.setUserType("AD");
-//        this.user.setCreatedDate(cal.getTime());
-//        this.user.setCreateHour(cal.getTime());
-//        this.getUserService().getUserRepository().save(user);
 
     }
 
@@ -103,20 +96,36 @@ public class UserBean implements IConfigurable {
 
     public String addUser() {
         user = new User();
-        
+        this.current.setAction(_ADD);
         return "addUser";
+    }
+    
+    public String modifyUser(){
+        this.current.setAction(_MODIFY);
+        return "addUser";
+    }
+    
+    public String cancelUser() {
+        return "toUsers";
     }
 
     public String save() {
         
         Calendar cal = Calendar.getInstance();
         user.setCreatedDate(cal.getTime());
-        user.setCreateHour(cal.getTime());
+        user.setLastUpdate(cal.getTime());
         user.setStatus(_ENABLED);
         
         this.userService.getUserRepository().save(user);
         user = new User();
         return "";
+    }
+    
+    public void update(){
+        Calendar cal = Calendar.getInstance();
+        user.setLastUpdate(cal.getTime());
+        
+        this.userService.getUserRepository().save(selected);
     }
 
     /**
@@ -139,6 +148,13 @@ public class UserBean implements IConfigurable {
         if (current != null) {
         }
         return "toindex";
+    }
+    
+    public String logout(){
+        current = new User();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index.xhtml?faces-redirect=true";
+    
     }
 
     public Population getPopulation() {

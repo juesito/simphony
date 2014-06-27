@@ -13,7 +13,7 @@
                         <p:menubar>
                             <p:submenu label="Inicio" icon="ui-icon-home">
                                 <p:menuitem value="Inicio" action="toindex" />
-                                <p:menuitem value="Salir" url="#" />
+                                <p:menuitem value="Salir" action="#{userBean.logout()}" />
                             </p:submenu>
                             <p:submenu label="Ventas" icon="ui-icon-cart">
                                 <p:menuitem value="Venta diaria" url="#" icon="ui-icon-document"/>

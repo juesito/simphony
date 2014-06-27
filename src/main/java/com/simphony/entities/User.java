@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity(name="User")
 @Table(name="usuarios",schema="simphonybd")
@@ -33,9 +34,18 @@ public  class User implements Serializable {
     private String status;
 
 
+    @Column(name="horaCreacion")
+    @Basic
+    private Date lastUpdate;
+
+
     @Column(name="nombre",length=60)
     @Basic
     private String name;
+
+
+    @Transient
+    private String action;
 
 
     @ManyToOne(targetEntity=WorkCenter.class)
@@ -59,11 +69,6 @@ public  class User implements Serializable {
     @Column(name="tipoUsuario",length=2)
     @Basic
     private String userType;
-
-
-    @Column(name="horaCreacion")
-    @Basic
-    private Date createHour;
 
     public User(){
 
@@ -103,6 +108,17 @@ public  class User implements Serializable {
 
 
 
+   public Date getLastUpdate() {
+        return this.lastUpdate;
+    }
+
+
+  public void setLastUpdate (Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+
+
    public String getName() {
         return this.name;
     }
@@ -110,6 +126,17 @@ public  class User implements Serializable {
 
   public void setName (String name) {
         this.name = name;
+    }
+
+
+
+   public String getAction() {
+        return this.action;
+    }
+
+
+  public void setAction (String action) {
+        this.action = action;
     }
 
 
@@ -165,17 +192,6 @@ public  class User implements Serializable {
 
   public void setUserType (String userType) {
         this.userType = userType;
-    }
-
-
-
-   public Date getCreateHour() {
-        return this.createHour;
-    }
-
-
-  public void setCreateHour (Date createHour) {
-        this.createHour = createHour;
     }
 
 }

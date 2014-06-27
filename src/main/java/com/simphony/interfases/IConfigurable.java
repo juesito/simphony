@@ -21,6 +21,10 @@ public interface IConfigurable {
     //Tipos usuario
     public final String _USR_TYPE_ADMIN = "AD";
     public final String _USR_TYPE_VENDOR = "VD";
+    
+    //Acciones 
+    public final String _ADD = "A";
+    public final String _MODIFY = "M";
 
     //Areas usuario
     public final String _USR_AREA_IT = "IT";

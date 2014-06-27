@@ -12,7 +12,7 @@
             <ui:define name="content">
                 <h:form id="add">
                     <!-- Grid para agregar entidad -->
-                    <p:panelGrid>
+                    <p:panelGrid style="margin: 0 auto;">
                         <p:row>
                             <p:column>
                                 <p:outputLabel value="Descripción" />
@@ -23,7 +23,7 @@
                         </p:row>
                         <p:row>
                             <p:column>
-                                <p:commandButton value="Guardar" action="#{populationBean.save}"
+                                <p:commandButton value="Guardar" action="#{populationBean.save(userBean.current)}"
                                                  ajax="false" />
                             </p:column>
                             <p:column>

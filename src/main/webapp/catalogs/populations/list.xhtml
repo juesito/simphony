@@ -15,11 +15,20 @@
                     <h:form id="form">
                         <p:outputLabel value="Catalogo poblaciones" class="welcome-title" />
                         <p:dataTable value="#{populationBean.list}" var="population">
-                            <p:column headerText="Id" >
-                                <p:outputLabel value="#{population.id}" />
-                            </p:column>
+                            
                             <p:column headerText="Población" >
                                 <p:outputLabel value="#{population.description}" />
+                            </p:column>
+                            <p:column headerText="User">
+                                <p:selectOneMenu value="#{population.user.id}" 
+                                                 converter="userConverter"
+                                                 style="width:100px !important;" disabled="true">
+                                    <f:selectItems value="#{boxUserService.box}" 
+                                                   var="box" itemLabel="#{box.name}"
+                                                   itemValue="#{box.id}"  itemLabelEscaped="true" rendered="true"/>
+
+                                </p:selectOneMenu>
+
                             </p:column>
                             
                             

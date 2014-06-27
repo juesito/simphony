@@ -8,6 +8,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.PopulationService;
 import com.simphony.entities.Population;
+import com.simphony.entities.User;
 import com.simphony.interfases.IConfigurable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,14 +90,17 @@ public class PopulationBean {
     }
     
     
-    public void save(){
+    public void save(User currentUser){
         Calendar cal = Calendar.getInstance();
         this.current.setCreateDate(cal.getTime());
         this.current.setCreateHour(cal.getTime());
         this.current.setStatus(IConfigurable._ENABLED);
+        this.current.setUser(currentUser);
         this.getPopulationService().getPopulationRepository().save(this.current);
         this.current = new Population();
     }
+    
+    public void update(){}
     
     public String toPopulations(){
         list.clear();

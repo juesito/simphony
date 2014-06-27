@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Population")
@@ -35,6 +37,10 @@ public  class Population implements Serializable {
     @Column(name="fechaCreacion")
     @Basic
     private Date createDate;
+
+
+    @OneToOne(cascade={CascadeType.ALL},targetEntity=User.class)
+    private User user;
 
 
     @Column(name="horaCreacion")
@@ -86,6 +92,17 @@ public  class Population implements Serializable {
 
   public void setCreateDate (Date createDate) {
         this.createDate = createDate;
+    }
+
+
+
+   public User getUser() {
+        return this.user;
+    }
+
+
+  public void setUser (User user) {
+        this.user = user;
     }
 
 
