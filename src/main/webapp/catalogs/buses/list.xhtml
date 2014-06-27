@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+                        <p:outputLabel value="Catalogo Autobuses" class="welcome-title" />
+                        <p:dataTable value="#{busBean.list}" var="bus">
+                            <p:column headerText="Número económico" >
+                                <p:outputLabel value="#{bus.number}" />
+                            </p:column>
+                            
+                            
+                            <p:column style="width:4%;text-align: center">
+                                <p:commandButton update=":form:busDetail" 
+                                                 oncomplete="PF('busDialog').show()" icon="ui-icon-search" 
+                                                 title="View">
+                                    <f:setPropertyActionListener value="#{bus}" target="#{busBean.selected}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:commandButton value="Agregar" action="#{busBean.addBus()}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <!-- detalle autobuses -->
+                        <p:dialog header="Detalle autobuses" widgetVar="busDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="busDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty busBean.selected}" columnClasses="label,value">
+                                    
+
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{busBean.selected.id}" />
+
+                                    <h:outputText value="Descripción" />
+                                    <h:outputText value="#{busBean.selected.number}" />
+
+                                    
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

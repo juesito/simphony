@@ -143,22 +143,76 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
+    <jpa:entity name="Cost" class="Cost" minimized="false" id="_1403734331914">
+        <jpa:table name="Tarifa" schema="simphonybd"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" id="_140373453332048">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+                <jpa:generated-value/>
+            </jpa:id>
+            <jpa:basic name="cost" attribute-type="int" id="_140373497533751">
+                <jpa:column name="tarifa" unique="false" nullable="true" insertable="true" updatable="true" length="4" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="kms" attribute-type="int" id="_140373497727652">
+                <jpa:column name="kms" unique="false" nullable="true" insertable="true" updatable="true" length="4" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="routeTime" attribute-type="int" id="_140373502365353">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="createDate" attribute-type="java.util.Date" id="_140373570577354">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="createHour" attribute-type="java.util.Date" id="_140373570756655">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:many-to-one name="origin" target-entity="Population" optional="true" primaryKey="false" connected-entity-id="_1403477405854" id="_140373755105359">
+                <jpa:join-table/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="destiny" target-entity="Population" optional="true" primaryKey="false" connected-entity-id="_1403477405854" id="_140373959139562">
+                <jpa:join-table/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity name="Bus" class="Bus" minimized="false" id="_1403747034247">
+        <jpa:table name="Autobus" schema="simphonybd"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" id="_140374712711269">
+                <jpa:column name="Id" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+                <jpa:generated-value strategy="IDENTITY"/>
+            </jpa:id>
+            <jpa:basic name="number" attribute-type="int" id="_140374722619770">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="createDate" attribute-type="java.util.Date" id="_140374731331671">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:basic>
+            <jpa:basic name="createHour" attribute-type="java.util.Date" id="_140374731525072">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1403475991747" id="_1403475991747_gui">
-                <Bounds x="73.0" y="44.0" width="128.0" height="273.0"/>
+                <Bounds x="17.0" y="32.0" width="128.0" height="273.0"/>
             </shape>
             <shape elementRef="_1403477405854" id="_1403477405854_gui">
-                <Bounds x="297.0" y="91.0" width="152.0" height="155.0"/>
+                <Bounds x="179.0" y="4.0" width="152.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403541049985" id="_1403541049985_gui">
-                <Bounds x="674.0" y="239.0" width="146.0" height="155.0"/>
+                <Bounds x="17.0" y="336.0" width="146.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403556840589" id="_1403556840589_gui">
-                <Bounds x="251.0" y="343.0" width="161.0" height="155.0"/>
+                <Bounds x="179.0" y="336.0" width="161.0" height="155.0"/>
             </shape>
             <shape elementRef="_1403582759903" id="_1403582759903_gui">
-                <Bounds x="496.0" y="62.0" width="149.0" height="281.0"/>
+                <Bounds x="574.0" y="32.0" width="149.0" height="281.0"/>
+            </shape>
+            <shape elementRef="_1403734331914" id="_1403734331914_gui">
+                <Bounds x="418.0" y="53.0" width="128.0" height="231.0"/>
+            </shape>
+            <shape elementRef="_1403747034247" id="_1403747034247_gui">
+                <Bounds x="530.0" y="357.0" width="128.0" height="134.0"/>
             </shape>
         </plane>
     </jpa:diagram>

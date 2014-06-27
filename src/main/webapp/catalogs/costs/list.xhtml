@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+
+                        <p:outputLabel value="Catologo Tarifas" class="welcome-title" />
+
+                        <p:dataTable value="#{costBean.list}" var="cost">
+
+                            <p:column headerText="Origen">
+                                <p:selectOneMenu value="#{costBean.cost.origin.description}" 
+                                                 style="width:160px" disabled="true">
+                                    <f:selectItems value="#{boxPopulationService.box}"
+                                                   var="box" itemLabel="#{box.description}"/>
+
+                                </p:selectOneMenu>
+                            </p:column>
+                             <p:column headerText="Destino">
+                                 <p:selectOneMenu value="#{costBean.cost.destiny.description}" 
+                                                 style="width:160px" disabled="true">
+                                    <f:selectItems value="#{boxPopulationService.box}"
+                                                   var="box" itemLabel="#{box.description}"/>
+
+                                </p:selectOneMenu>
+                            </p:column>
+
+                    
+                            <p:column style="width:4%;text-align: center">
+                                <p:commandButton update=":form:carDetail" 
+                                                 oncomplete="PF('costDialog').show()" icon="ui-icon-search" 
+                                                 title="View">
+                                    <f:setPropertyActionListener value="#{cost}" target="#{costBean.selected}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:commandButton value="Agregar" action="#{costBean.addCost}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <!-- detalle tarifas -->
+                        <p:dialog header="Tarifas Info" widgetVar="costDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="carDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty userBean.selected}" columnClasses="label,value">
+
+
+                                    <h:outputText value="Origen:" />
+                                    <h:outputText value="#{costBean.selected.origin.description}" />
+
+                                    <h:outputText value="Destino" />
+                                    <h:outputText value="#{costBean.selected.destiny.description}" />
+
+                                    <h:outputText value="Tarifa" />
+                                    <h:outputText value="#{costBean.selected.cost}" />
+
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
