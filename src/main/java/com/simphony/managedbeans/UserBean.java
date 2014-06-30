@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -102,6 +104,11 @@ public class UserBean implements IConfigurable {
     
     public String modifyUser(){
         this.current.setAction(_MODIFY);
+        try {
+            this.user = (User) this.selected.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "addUser";
     }
     
@@ -121,11 +128,13 @@ public class UserBean implements IConfigurable {
         return "";
     }
     
-    public void update(){
+    public String update(){
         Calendar cal = Calendar.getInstance();
         user.setLastUpdate(cal.getTime());
         
-        this.userService.getUserRepository().save(selected);
+        this.userService.getUserRepository().save(user);
+        user = new User();
+        return "toUsers";
     }
 
     /**

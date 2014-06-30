@@ -39,33 +39,16 @@
                             </p:column>
 
                             <p:column headerText="Población">
-                                <p:selectOneMenu value="#{user.population.id}" 
-                                                 converter="populationConverter"
-                                                 style="width:100px !important;" disabled="true">
-                                    <f:selectItems value="#{boxPopulationService.box}" 
-                                                   var="box" itemLabel="#{box.description}"
-                                                   itemValue="#{box.id}"  itemLabelEscaped="true" rendered="true"/>
-
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{user.population.description}" />
 
                             </p:column>
 
                             <p:column headerText="Tipo" >                                
-                                <p:selectOneMenu value="#{user.userType}" disabled="true" >
-                                    <f:selectItem itemLabel="Administrador" itemValue="AD" />
-                                    <f:selectItem itemLabel="Vendedor" itemValue="VD" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{user.userType.description}" />
                             </p:column>
 
                             <p:column headerText="Centro de trabajo">
-                                <p:selectOneMenu value="#{user.workCenter.id}"   
-                                                 converter="workCenterConverter"
-                                                 style="width:100px" disabled="true">
-                                    <f:selectItems value="#{boxWorkCenterService.box}"
-                                                   var="boxwc" itemLabel="#{boxwc.description}"
-                                                   itemValue="#{boxwc.id}"  itemLabelEscaped="true" rendered="true"/>
-
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{user.workCenter.description}" />
                             </p:column>
                             
                             <p:column headerText="Fecha Creación" >
@@ -127,12 +110,12 @@
                                             <p:outputLabel value="Centro de trabajo:" />
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu value="#{userBean.selected.workCenter.id}"   
+                                            <p:selectOneMenu value="#{userBean.selected.workCenter}"   
                                                              converter="workCenterConverter"
                                                              style="width:100px" disabled="true">
                                                 <f:selectItems value="#{boxWorkCenterService.box}"
                                                                var="boxwc" itemLabel="#{boxwc.description}"
-                                                               itemValue="#{boxwc.id}"  itemLabelEscaped="true" 
+                                                               itemValue="#{boxwc}"  itemLabelEscaped="true" 
                                                                rendered="true"/>
 
                                             </p:selectOneMenu>
@@ -145,12 +128,11 @@
                                             <p:outputLabel value="Población:" />
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu value="#{userBean.selected.population.id}" 
+                                            <p:selectOneMenu value="#{userBean.selected.population}" 
                                                              converter="populationConverter"
                                                              style="width:100px !important;" disabled="true">
-                                                <f:selectItems value="#{boxPopulationService.box}" 
-                                                               var="box" itemLabel="#{box.description}"
-                                                               itemValue="#{box.id}"  itemLabelEscaped="true" rendered="true"/>
+                                                <f:selectItems value="#{boxPopulationService.populationList }"
+                                                               />
 
                                             </p:selectOneMenu>
                                         </p:column>

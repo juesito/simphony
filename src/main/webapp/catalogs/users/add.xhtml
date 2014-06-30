@@ -62,9 +62,8 @@
                                                      converter="populationConverter" 
                                                      style="width:160px" required="true" 
                                                      requiredMessage="Población Requerida">
-                                        <f:selectItems value="#{boxPopulationService.box}" var="box" 
-                                                       itemLabel="#{box.description}" itemValue="#{box}" 
-                                                       itemLabelEscaped="true" rendered="true"/>
+                                        <f:selectItems value="#{boxPopulationService.populationList}" 
+                                                      />
 
                                     </p:selectOneMenu>
 
@@ -75,10 +74,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu value="#{userBean.user.userType}" required="true" 
-                                                     requiredMessage="Tipo Requerido">
-                                        <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
-                                        <f:selectItem itemLabel="Administrador" itemValue="AD" />
-                                        <f:selectItem itemLabel="Vendedor" itemValue="VD" />
+                                                     requiredMessage="Tipo Requerido" converter="userTypesConverter">
+                                        <f:selectItems value="#{boxUserTypesService.userTypesList}" />
                                     </p:selectOneMenu>
 
                                 </p:column>
@@ -133,7 +130,7 @@
                                     <p:outputLabel value="Nombre" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{userBean.selected.name}" required="true" 
+                                    <p:inputText value="#{userBean.user.name}" required="true" 
                                                  requiredMessage="Nombre requerido"/>
 
                                 </p:column>
@@ -141,7 +138,7 @@
                                     <p:outputLabel value="Nick" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{userBean.selected.nick}" required="true" 
+                                    <p:inputText value="#{userBean.user.nick}" required="true" 
                                                  requiredMessage="Nick requerido"/>
                                 </p:column>
                             </p:row>
@@ -150,14 +147,14 @@
                                     <p:outputLabel value="Password" />
                                 </p:column>
                                 <p:column>
-                                    <p:password id="pwd1" value="#{userBean.selected.password}" match="pwd2" required="true" 
+                                    <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" required="true" 
                                                 requiredMessage="Password Requerido"/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Confirmar Password" />
                                 </p:column>
                                 <p:column>
-                                    <p:password id="pwd2" value="#{userBean.selected.password}" label="Password 2" 
+                                    <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" 
                                                 required="true" />
                                 </p:column>
 
@@ -167,12 +164,12 @@
                                     <p:outputLabel value="Población:" />
                                 </p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="population" value="#{userBean.selected.population}" 
+                                    <p:selectOneMenu id="population" value="#{userBean.user.population}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Población Requerida">
-                                        <f:selectItems value="#{boxPopulationService.box}" var="box" 
-                                                       itemLabel="#{box.description}" itemValue="#{box}" 
+                                                     style="width:160px" >
+                                        <f:selectItems value="#{boxPopulationService.populationList}" 
+                                                       var="box" itemLabel="#{box.description}"
+                                                       itemValue="#{box}"
                                                        itemLabelEscaped="true" rendered="true"/>
 
                                     </p:selectOneMenu>
@@ -183,11 +180,9 @@
                                     <p:outputLabel value="Tipo de usuario" />
                                 </p:column>
                                 <p:column>
-                                    <p:selectOneMenu value="#{userBean.selected.userType}" required="true" 
-                                                     requiredMessage="Tipo Requerido">
-                                        <f:selectItem itemLabel="Seleccione alguno" itemValue="" />
-                                        <f:selectItem itemLabel="Administrador" itemValue="AD" />
-                                        <f:selectItem itemLabel="Vendedor" itemValue="VD" />
+                                    <p:selectOneMenu value="#{userBean.user.userType}" required="true" 
+                                                     requiredMessage="Tipo Requerido" converter="userTypesConverter">
+                                        <f:selectItems value="#{boxUserTypesService.userTypesList}" />
                                     </p:selectOneMenu>
 
                                 </p:column>
@@ -199,7 +194,7 @@
                                 </p:column>
                                 <p:column>
 
-                                    <p:selectOneMenu id="advanced" value="#{userBean.selected.workCenter}" 
+                                    <p:selectOneMenu id="advanced" value="#{userBean.user.workCenter}" 
                                                      converter="workCenterConverter" 
                                                      style="width:160px" required="true" 
                                                      requiredMessage="Centro de trabajo Requerido">
@@ -216,7 +211,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{userBean.save}"
+                                    <p:commandButton value="Guardar" action="#{userBean.update()}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>

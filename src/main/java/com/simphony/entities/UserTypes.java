@@ -2,18 +2,15 @@ package com.simphony.entities;
 
 import java.io.Serializable;
 
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity(name="WorkCenter")
-@Table(name="estacionTrabajo",schema="simphonybd")
-public  class WorkCenter implements Serializable {
+@Entity
+public  class UserTypes implements Serializable {
 
 
     @Column(name="id")
@@ -22,26 +19,16 @@ public  class WorkCenter implements Serializable {
     private Long id;
 
 
-    @Column(name="estatus",length=1)
+    @Column(length=1)
     @Basic
     private String status;
 
 
-    @Column(name="descripcion",length=60)
+    @Column(name="descripcion")
     @Basic
     private String description;
 
-
-    @Column(name="fechaCreacion")
-    @Basic
-    private Date createDate;
-
-
-    @Column(name="horaCreacion")
-    @Basic
-    private Date createHour;
-
-    public WorkCenter(){
+    public UserTypes(){
 
     }
 
@@ -77,32 +64,10 @@ public  class WorkCenter implements Serializable {
         this.description = description;
     }
 
-
-
-   public Date getCreateDate() {
-        return this.createDate;
-    }
-
-
-  public void setCreateDate (Date createDate) {
-        this.createDate = createDate;
-    }
-
-
-
-   public Date getCreateHour() {
-        return this.createHour;
-    }
-
-
-  public void setCreateHour (Date createHour) {
-        this.createHour = createHour;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 11 * hash + (this.id != null ? this.id.hashCode() : 0);
+        int hash = 5;
+        hash = 41 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
 
@@ -114,7 +79,7 @@ public  class WorkCenter implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final WorkCenter other = (WorkCenter) obj;
+        final UserTypes other = (UserTypes) obj;
         if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
             return false;
         }

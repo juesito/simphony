@@ -6,10 +6,13 @@
 package com.simphony.converters;
 
 import com.simphony.beans.PopulationService;
+import com.simphony.beans.UserTypesService;
 import com.simphony.entities.Population;
+import com.simphony.entities.UserTypes;
 import com.simphony.managedbeans.PopulationBean;
 import com.simphony.pojos.ComboBox;
 import com.simphony.selectors.PopulationBox;
+import com.simphony.selectors.UserTypesBox;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -20,18 +23,18 @@ import javax.faces.convert.FacesConverter;
  *
  * @author root
  */
-@FacesConverter("populationConverter")
-public class PopulationConverter implements Converter {
+@FacesConverter("userTypesConverter")
+public class UserTypesConverter implements Converter {
 
-    @ManagedProperty(value = "#{populationService}")
-    PopulationService populationService;
+    @ManagedProperty(value = "#{userTypesService}")
+    UserTypesService userTypesService;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if (value != null && value.trim().length() > 0) {
-            PopulationBox service = (PopulationBox) context.getExternalContext().getApplicationMap().get("boxPopulationService");
-            Population population = service.getPopulationService().getPopulationRepository().findOne(Long.parseLong(value));
-            return population;
+            UserTypesBox service = (UserTypesBox) context.getExternalContext().getApplicationMap().get("boxUserTyesService");
+            UserTypes userType = service.getUserTypesService().getUserTypesRepository().findOne(Long.parseLong(value));
+            return userType;
         } else {
             return null;
         }
@@ -39,19 +42,21 @@ public class PopulationConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null && value instanceof Population) {
-            return String.valueOf(((Population) value).getId());
+        if (value != null && value instanceof UserTypes) {
+            return String.valueOf(((UserTypes) value).getId());
         } else {
             return "";
         }
     }
 
-    public PopulationService getPopulationService() {
-        return populationService;
+    public UserTypesService getUserTypesService() {
+        return userTypesService;
     }
 
-    public void setPopulationService(PopulationService populationService) {
-        this.populationService = populationService;
+    public void setUserTypesService(UserTypesService userTypesService) {
+        this.userTypesService = userTypesService;
     }
+
+    
 
 }

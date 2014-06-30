@@ -4,18 +4,20 @@ import java.io.Serializable;
 
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity(name="User")
 @Table(name="usuarios",schema="simphonybd")
-public  class User implements Serializable {
+public  class User implements Serializable, Cloneable {
 
 
     @Column(name="id")
@@ -62,13 +64,12 @@ public  class User implements Serializable {
     private String password;
 
 
+    @OneToOne(cascade={CascadeType.ALL},targetEntity=UserTypes.class)
+    private UserTypes userType;
+
+
     @ManyToOne(targetEntity=Population.class)
     private Population population;
-
-
-    @Column(name="tipoUsuario",length=2)
-    @Basic
-    private String userType;
 
     public User(){
 
@@ -174,6 +175,17 @@ public  class User implements Serializable {
 
 
 
+   public UserTypes getUserType() {
+        return this.userType;
+    }
+
+
+  public void setUserType (UserTypes userType) {
+        this.userType = userType;
+    }
+
+
+
    public Population getPopulation() {
         return this.population;
     }
@@ -183,16 +195,44 @@ public  class User implements Serializable {
         this.population = population;
     }
 
-
-
-   public String getUserType() {
-        return this.userType;
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
 
-
-  public void setUserType (String userType) {
-        this.userType = userType;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
+    
+    /**
+     *
+     * @return
+     * @throws CloneNotSupportedException
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        Object obj=null;
+        try{
+            obj=super.clone();
+        }catch(CloneNotSupportedException ex){
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }
+  
 
 }
 

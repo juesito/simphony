@@ -29,15 +29,18 @@
             <jpa:basic name="lastUpdate" attribute-type="java.util.Date" id="_140355676214211">
                 <jpa:column name="horaCreacion" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="userType" attribute-type="String" id="_140356161167022">
-                <jpa:column name="tipoUsuario" unique="false" nullable="true" insertable="true" updatable="true" length="2" precision="0" scale="0"/>
-            </jpa:basic>
             <jpa:many-to-one name="population" target-entity="Population" optional="true" primaryKey="false" connected-entity-id="_1403477405854" id="_140367670334812">
                 <jpa:join-table/>
             </jpa:many-to-one>
             <jpa:many-to-one name="workCenter" target-entity="WorkCenter" optional="true" primaryKey="false" connected-entity-id="_1403556840589" id="_140367861447213">
                 <jpa:join-table/>
             </jpa:many-to-one>
+            <jpa:one-to-one name="userType" target-entity="UserTypes" optional="true" primaryKey="false" connected-entity-id="_1404103133168" id="_140410327008420">
+                <jpa:join-table/>
+                <jpa:cascade>
+                    <jpa:cascade-all/>
+                </jpa:cascade>
+            </jpa:one-to-one>
             <jpa:transient name="action" attribute-type="String" id="_140389188540416"/>
         </jpa:attributes>
     </jpa:entity>
@@ -198,13 +201,27 @@
             </jpa:basic>
         </jpa:attributes>
     </jpa:entity>
+    <jpa:entity class="UserTypes" minimized="false" id="_1404103133168">
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="Long" id="_140410313886017">
+                <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+                <jpa:generated-value strategy="IDENTITY"/>
+            </jpa:id>
+            <jpa:basic name="description" attribute-type="String" id="_140410314034718">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="status" attribute-type="String" id="_140410314496319">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="1"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1403475991747" id="_1403475991747_gui">
-                <Bounds x="17.0" y="32.0" width="129.0" height="294.0"/>
+                <Bounds x="184.0" y="2.0" width="129.0" height="294.0"/>
             </shape>
             <shape elementRef="_1403477405854" id="_1403477405854_gui">
-                <Bounds x="209.0" y="-181.0" width="169.0" height="181.0"/>
+                <Bounds x="349.0" y="-153.0" width="169.0" height="181.0"/>
             </shape>
             <shape elementRef="_1403541049985" id="_1403541049985_gui">
                 <Bounds x="17.0" y="336.0" width="160.0" height="148.0"/>
@@ -216,10 +233,13 @@
                 <Bounds x="704.0" y="-154.0" width="161.0" height="268.0"/>
             </shape>
             <shape elementRef="_1403734331914" id="_1403734331914_gui">
-                <Bounds x="423.0" y="0.0" width="128.0" height="221.0"/>
+                <Bounds x="541.0" y="28.0" width="128.0" height="221.0"/>
             </shape>
             <shape elementRef="_1403747034247" id="_1403747034247_gui">
                 <Bounds x="530.0" y="357.0" width="128.0" height="128.0"/>
+            </shape>
+            <shape elementRef="_1404103133168" id="_1404103133168_gui">
+                <Bounds x="17.0" y="-134.0" width="167.0" height="108.0"/>
             </shape>
         </plane>
     </jpa:diagram>

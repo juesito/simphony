@@ -77,6 +77,14 @@
             <from-outcome>toBus</from-outcome>
             <to-view-id>/catalogs/buses/list.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>toUserTypes</from-outcome>
+            <to-view-id>/catalogs/userTypes/list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addUserTypes</from-outcome>
+            <to-view-id>/catalogs/userTypes/add.xhtml</to-view-id>
+        </navigation-case>
 
     </navigation-rule>
 </faces-config>
