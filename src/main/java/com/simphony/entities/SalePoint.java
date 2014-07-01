@@ -36,11 +36,6 @@ public  class SalePoint implements Serializable {
     @Basic
     private Date createDate;
 
-
-    @Column(name="horaCreacion")
-    @Basic
-    private Date createHour;
-
     public SalePoint(){
 
     }
@@ -86,17 +81,6 @@ public  class SalePoint implements Serializable {
 
   public void setCreateDate (Date createDate) {
         this.createDate = createDate;
-    }
-
-
-
-   public Date getCreateHour() {
-        return this.createHour;
-    }
-
-
-  public void setCreateHour (Date createHour) {
-        this.createHour = createHour;
     }
 
 }

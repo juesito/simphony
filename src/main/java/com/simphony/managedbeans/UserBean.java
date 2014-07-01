@@ -44,14 +44,16 @@ public class UserBean implements IConfigurable {
 
     @PostConstruct
     public void postInitialization() {
+
         
         Calendar cal = Calendar.getInstance();
         this.current.setCreateDate(cal.getTime());
         this.current.setStatus(_DISABLE);
         this.current.setName(_BLANK);
+        checkRootUser();
         
-        //Esta inicializacion sera temporal solo pruebas
 
+        //Esta inicializacion sera temporal solo pruebas
     }
 
     public User getUser() {
@@ -96,6 +98,7 @@ public class UserBean implements IConfigurable {
 
     /**
      * Controlador Agregamos usuario
+     *
      * @return
      */
     public String addUser() {
@@ -103,12 +106,13 @@ public class UserBean implements IConfigurable {
         this.current.setAction(_ADD);
         return "addUser";
     }
-    
+
     /**
      * Controlador para modificar usuario
+     *
      * @return
      */
-    public String modifyUser(){
+    public String modifyUser() {
         this.current.setAction(_MODIFY);
         try {
             this.user = (User) this.selected.clone();
@@ -117,7 +121,7 @@ public class UserBean implements IConfigurable {
         }
         return "addUser";
     }
-    
+
     /**
      * deshabilitamos usuario
      */
@@ -129,11 +133,11 @@ public class UserBean implements IConfigurable {
         this.fillUsers();
 
     }
-    
+
     /**
      * Llenamos lista de usuarios
      */
-    private void fillUsers(){
+    private void fillUsers() {
         list.clear();
         Iterable<User> c = this.getUserService().getUserRepository().findAll();
         Iterator<User> cu = c.iterator();
@@ -141,9 +145,10 @@ public class UserBean implements IConfigurable {
             list.add(cu.next());
         }
     }
-    
+
     /**
-     * boton de cancelar 
+     * boton de cancelar
+     *
      * @return
      */
     public String cancelUser() {
@@ -153,28 +158,33 @@ public class UserBean implements IConfigurable {
 
     /**
      * Guardamos usuario
+     *
      * @return
      */
     public String save() {
-        
-        Calendar cal = Calendar.getInstance();
-        user.setCreateDate(cal.getTime());
-        user.setLastUpdate(cal.getTime());
-        user.setStatus(_ENABLED);
-        
-        this.userService.getUserRepository().save(user);
-        user = new User();
+
+        if (!user.getName().equals("")) {
+
+            Calendar cal = Calendar.getInstance();
+            user.setCreateDate(cal.getTime());
+            user.setLastUpdate(cal.getTime());
+            user.setStatus(_ENABLED);
+
+            this.userService.getUserRepository().save(user);
+            user = new User();
+        }
         return "";
     }
-    
+
     /**
      * Actualizamos vendedor
+     *
      * @return
      */
-    public String update(){
+    public String update() {
         Calendar cal = Calendar.getInstance();
         user.setLastUpdate(cal.getTime());
-        
+
         this.userService.getUserRepository().save(user);
         user = new User();
         return toUsers();
@@ -192,6 +202,7 @@ public class UserBean implements IConfigurable {
 
     /**
      * Autentificamos usuario
+     *
      * @return
      */
     public String login() {
@@ -200,16 +211,37 @@ public class UserBean implements IConfigurable {
         }
         return "toindex";
     }
-    
+
     /**
      * Salida del usuario
+     *
      * @return
      */
-    public String logout(){
+    public String logout() {
         current = new User();
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml?faces-redirect=true";
-    
+
     }
 
+    /**
+     * validamos si existe usuario
+     */
+    private void checkRootUser(){
+        if(!this.userService.getUserRepository().exists(1L)){
+            Calendar cal = Calendar.getInstance();
+            User root = new User();
+            root.setName("Administrador");
+            root.setFirstLastName("Admon");
+            root.setSecondLastName("Admin");
+            root.setNick("root");
+            root.setPassword("123");
+            root.setStatus(_ENABLED);
+            root.setEmail("jues40@hotmail.com");
+            root.setCreateDate(cal.getTime());
+            root.setLastUpdate(cal.getTime());
+            this.userService.getUserRepository().save(root);
+        }
+    }
+    
 }

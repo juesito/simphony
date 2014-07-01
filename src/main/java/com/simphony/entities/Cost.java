@@ -6,12 +6,15 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Cost")
-@Table(name="Tarifa",schema="simphonybd")
+@Table(name="Tarifas",schema="simphonybd")
 public  class Cost implements Serializable {
 
 
@@ -19,7 +22,9 @@ public  class Cost implements Serializable {
     private int routeTime;
 
 
+    @Column(name="id")
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
 
@@ -40,13 +45,13 @@ public  class Cost implements Serializable {
     private Date createDate;
 
 
+    @OneToOne(targetEntity=User.class)
+    private User user;
+
+
     @Column(name="tarifa",length=4)
     @Basic
     private int cost;
-
-
-    @Basic
-    private Date createHour;
 
     public Cost(){
 
@@ -119,6 +124,17 @@ public  class Cost implements Serializable {
 
 
 
+   public User getUser() {
+        return this.user;
+    }
+
+
+  public void setUser (User user) {
+        this.user = user;
+    }
+
+
+
    public int getCost() {
         return this.cost;
     }
@@ -128,16 +144,28 @@ public  class Cost implements Serializable {
         this.cost = cost;
     }
 
-
-
-   public Date getCreateHour() {
-        return this.createHour;
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 61 * hash + this.routeTime;
+        return hash;
     }
 
-
-  public void setCreateHour (Date createHour) {
-        this.createHour = createHour;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cost other = (Cost) obj;
+        if (this.routeTime != other.routeTime) {
+            return false;
+        }
+        return true;
     }
+  
 
 }
 

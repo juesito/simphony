@@ -12,64 +12,63 @@
 
             <ui:define name="content">
                 <h:form id="add">
+                    <p:outputLabel value="Agregar tarifas" class="welcome-title" />
+                        <br/><br/>
                     <!-- Grid para agregar entidad -->
                     <p:panelGrid>
                         <p:row>
                             <p:column>
-                                <p:outputLabel value="Origen" />
+                                <p:outputLabel value="Origen:" />
                             </p:column>
                             <p:column>
-                               <p:selectOneMenu id="origen" value="#{costBean.cost.origin}" 
+                                <p:selectOneMenu id="origin" value="#{costBean.cost.origin}" 
                                                  converter="populationConverter" 
-                                                 style="width:160px">
-                                    <f:selectItems value="#{boxPopulationService.box}" var="box" 
-                                                   itemLabel="#{box.description}" itemValue="#{box}" />
-
-                                <
-                                /p:selectOneMenu>
-
-                            </p:column>
-                        </p:row>
-                        </p:row>
-                            <p:column>
-                                <p:outputLabel value="Destino" />
-                            </p:column>
-                           <p:column>
-                               <p:selectOneMenu id="destino" value="#{costBean.cost.destiny}" 
-                                                 converter="populationConverter" 
-                                                 style="width:160px">
-                                    <f:selectItems value="#{boxPopulationService.box}" var="box" 
-                                                   itemLabel="#{box.description}" itemValue="#{box}" />
-
+                                                 style="width:160px" required="true" 
+                                                 requiredMessage="Población Requerida">
+                                    <f:selectItems value="#{boxPopulationService.populationList}"/>
                                 </p:selectOneMenu>
 
                             </p:column>
+                            <p:column>
+                                <p:outputLabel value="Destino:" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu id="destiny" value="#{costBean.cost.destiny}" 
+                                                 converter="populationConverter" 
+                                                 style="width:160px" required="true" 
+                                                 requiredMessage="Población Requerida">
+                                    <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                </p:selectOneMenu>
+                            </p:column>
                         </p:row>
                         <p:row>
                             <p:column>
-                                <p:outputLabel value="Tarifa" />
+                                <p:outputLabel value="Tarifa:" />
                             </p:column>
                             <p:column>
-                                <p:password id="Tarifa" value="#{costBean.cost.cost}" />
+                                <p:inputText id="Tarifa" value="#{costBean.cost.cost}" maxlength="10"
+                                             size="5"/>
                             </p:column>
-                        </p:row>
-                        </p:row>
                             <p:column>
-                                <p:outputLabel value="Kilómetros" />
+                                <p:outputLabel value="Kilómetros:" />
                             </p:column>
-                           <p:column>
-                               <p:password id="pwd1" value="#{costBean.cost.kms}" />
+                            <p:column>
+                                <p:inputText id="pwd1" value="#{costBean.cost.kms}" maxlength="10" 
+                                             size="5"/>
                             </p:column>
 
                         </p:row>
 
                         <p:row>
+                            <p:column colspan="2">
+                                
+                            </p:column>
                             <p:column>
-                                <p:commandButton value="Guardar" action="#{userBean.save}"
+                                <p:commandButton value="Guardar" action="#{costBean.save}"
                                                  ajax="false" />
                             </p:column>
                             <p:column>
-                                <p:commandButton value="Cancelar" action="#{userBean.save}"
+                                <p:commandButton value="Cancelar" action="#{costBean.cancelCost()}"
                                                  />
                             </p:column>
                         </p:row>

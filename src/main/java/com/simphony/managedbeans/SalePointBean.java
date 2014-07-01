@@ -76,7 +76,6 @@ public class SalePointBean {
     public void save() {
         Calendar cal = Calendar.getInstance();
         this.current.setCreateDate(cal.getTime());
-        this.current.setCreateHour(cal.getTime());
         this.current.setStatus(IConfigurable._ENABLED);
         this.getSalePointService().getSalePointRepository().save(current);
         current = new SalePoint();

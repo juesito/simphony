@@ -94,30 +94,42 @@ public class CostBean implements IConfigurable {
         
         return "addCost";
     }
+    
+    /**
+     * boton de cancelar
+     *
+     * @return
+     */
+    public String cancelCost() {
+        this.fillCosts();
+        return "toCosts";
+    }
 
     public String save() {
         
         Calendar cal = Calendar.getInstance();
         cost.setCreateDate(cal.getTime());
-        cost.setCreateHour(cal.getTime());
          
         this.costService.getCostRepository().save(cost);
         cost = new Cost();
         return "";
     }
 
-    /**
-     * Controlador listar tarifas
-     *
-     * @return
-     */
-    public String toCosts() {
+    private void fillCosts(){
         list.clear();
         Iterable<Cost> c = this.getCostService().getCostRepository().findAll();
         Iterator<Cost> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
         }
+    }
+    /**
+     * Controlador listar tarifas
+     *
+     * @return
+     */
+    public String toCosts() {
+        fillCosts();
         return "toCosts";
     }
 
@@ -128,7 +140,4 @@ public class CostBean implements IConfigurable {
     public void setPopulation(Population population) {
         this.population = population;
     }
-    
-    
-
 }

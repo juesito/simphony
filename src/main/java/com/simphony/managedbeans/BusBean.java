@@ -85,7 +85,6 @@ public class BusBean {
     public void save(){
         Calendar cal = Calendar.getInstance();
         this.current.setCreateDate(cal.getTime());
-        this.current.setCreateHour(cal.getTime());
         this.getBusService().getBusRepository().save(this.current);
         this.current = new Bus();
     }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,11 +39,6 @@ public  class WorkCenter implements Serializable {
 
     @OneToOne(targetEntity=User.class)
     private User user;
-
-
-    @Column(name="horaCreacion")
-    @Basic
-    private Date createHour;
 
     public WorkCenter(){
 
@@ -103,41 +97,6 @@ public  class WorkCenter implements Serializable {
   public void setUser (User user) {
         this.user = user;
     }
-
-
-
-   public Date getCreateHour() {
-        return this.createHour;
-    }
-
-
-  public void setCreateHour (Date createHour) {
-        this.createHour = createHour;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final WorkCenter other = (WorkCenter) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-  
-  
 
 }
 

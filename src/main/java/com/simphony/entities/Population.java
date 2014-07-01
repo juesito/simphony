@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,11 +40,6 @@ public  class Population implements Serializable {
 
     @OneToOne(targetEntity=User.class)
     private User user;
-
-
-    @Column(name="horaCreacion")
-    @Basic
-    private Date createHour;
 
     public Population(){
 
@@ -105,21 +99,10 @@ public  class Population implements Serializable {
         this.user = user;
     }
 
-
-
-   public Date getCreateHour() {
-        return this.createHour;
-    }
-
-
-  public void setCreateHour (Date createHour) {
-        this.createHour = createHour;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 71 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
 
@@ -137,7 +120,6 @@ public  class Population implements Serializable {
         }
         return true;
     }
-  
   
 
 }

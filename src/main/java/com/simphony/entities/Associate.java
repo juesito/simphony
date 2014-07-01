@@ -5,34 +5,16 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Associate")
 @Table(name="Agremiado",schema="simphonybd")
-public  class Associate implements Serializable {
-
-
-    @Column(name="id")
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+public  class Associate extends Person implements Serializable {
 
 
     @Basic
     private String platform;
-
-
-    @Column(name="email",length=100)
-    @Basic
-    private String email;
-
-
-    @Column(name="Nombre",length=60)
-    @Basic
-    private String name;
 
 
     @Column(name="estado",length=50)
@@ -45,14 +27,8 @@ public  class Associate implements Serializable {
     private String phoneId;
 
 
-    @Column(name="apellidoMaterno",length=60)
-    @Basic
-    private String lastName2;
-
-
-    @Column(name="apellidoPaterno",length=60)
-    @Basic
-    private String lastName1;
+    @OneToOne(targetEntity=User.class)
+    private User user;
 
 
     @Column(name="seccion",length=15)
@@ -74,17 +50,6 @@ public  class Associate implements Serializable {
     }
 
 
-   public Long getId() {
-        return this.id;
-    }
-
-
-  public void setId (Long id) {
-        this.id = id;
-    }
-
-
-
    public String getPlatform() {
         return this.platform;
     }
@@ -92,28 +57,6 @@ public  class Associate implements Serializable {
 
   public void setPlatform (String platform) {
         this.platform = platform;
-    }
-
-
-
-   public String getEmail() {
-        return this.email;
-    }
-
-
-  public void setEmail (String email) {
-        this.email = email;
-    }
-
-
-
-   public String getName() {
-        return this.name;
-    }
-
-
-  public void setName (String name) {
-        this.name = name;
     }
 
 
@@ -140,24 +83,13 @@ public  class Associate implements Serializable {
 
 
 
-   public String getLastName2() {
-        return this.lastName2;
+   public User getUser() {
+        return this.user;
     }
 
 
-  public void setLastName2 (String lastName2) {
-        this.lastName2 = lastName2;
-    }
-
-
-
-   public String getLastName1() {
-        return this.lastName1;
-    }
-
-
-  public void setLastName1 (String lastName1) {
-        this.lastName1 = lastName1;
+  public void setUser (User user) {
+        this.user = user;
     }
 
 
@@ -192,6 +124,29 @@ public  class Associate implements Serializable {
   public void setCity (String city) {
         this.city = city;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 19 * hash + (this.platform != null ? this.platform.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Associate other = (Associate) obj;
+        if ((this.platform == null) ? (other.platform != null) : !this.platform.equals(other.platform)) {
+            return false;
+        }
+        return true;
+    }
+  
 
 }
 

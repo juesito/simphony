@@ -19,22 +19,17 @@
                         <p:dataTable value="#{costBean.list}" var="cost">
 
                             <p:column headerText="Origen">
-                                <p:selectOneMenu value="#{costBean.cost.origin.description}" 
-                                                 style="width:160px" disabled="true">
-                                    <f:selectItems value="#{boxPopulationService.box}"
-                                                   var="box" itemLabel="#{box.description}"/>
-
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{cost.origin.description}" />
                             </p:column>
                              <p:column headerText="Destino">
-                                 <p:selectOneMenu value="#{costBean.cost.destiny.description}" 
-                                                 style="width:160px" disabled="true">
-                                    <f:selectItems value="#{boxPopulationService.box}"
-                                                   var="box" itemLabel="#{box.description}"/>
-
-                                </p:selectOneMenu>
+                                 <p:outputLabel value="#{cost.destiny.description}" />
                             </p:column>
-
+                             <p:column headerText="Tarifa">
+                                 <p:outputLabel value="#{cost.cost}" />
+                            </p:column>
+                            <p:column headerText="Distancia">
+                                <p:outputLabel value="#{cost.kms}" />
+                            </p:column>
                     
                             <p:column style="width:4%;text-align: center">
                                 <p:commandButton update=":form:carDetail" 

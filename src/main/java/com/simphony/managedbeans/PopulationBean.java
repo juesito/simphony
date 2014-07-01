@@ -93,7 +93,6 @@ public class PopulationBean {
     public void save(User currentUser){
         Calendar cal = Calendar.getInstance();
         this.current.setCreateDate(cal.getTime());
-        this.current.setCreateHour(cal.getTime());
         this.current.setStatus(IConfigurable._ENABLED);
         this.current.setUser(currentUser);
         this.getPopulationService().getPopulationRepository().save(this.current);

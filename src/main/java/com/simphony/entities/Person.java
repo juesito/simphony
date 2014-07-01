@@ -21,9 +21,9 @@ public abstract class Person implements Serializable {
     private Long id;
 
 
-    @Column(name="nick",length=10)
+    @Column(length=200)
     @Basic
-    private String nick;
+    private String email;
 
 
     @Column(name="estatus",length=1)
@@ -45,14 +45,19 @@ public abstract class Person implements Serializable {
     private String action;
 
 
+    @Column(name="apellidoPaterno",length=40)
+    @Basic
+    private String secondLastName;
+
+
     @Column(name="fechaCreacion")
     @Basic
     private Date createDate;
 
 
-    @Column(name="contrasena",length=10)
+    @Column(name="apellidoMaterno",length=60)
     @Basic
-    private String password;
+    private String FirstLastName;
 
     public Person(){
 
@@ -70,13 +75,13 @@ public abstract class Person implements Serializable {
 
 
 
-   public String getNick() {
-        return this.nick;
+   public String getEmail() {
+        return this.email;
     }
 
 
-  public void setNick (String nick) {
-        this.nick = nick;
+  public void setEmail (String email) {
+        this.email = email;
     }
 
 
@@ -125,6 +130,17 @@ public abstract class Person implements Serializable {
 
 
 
+   public String getSecondLastName() {
+        return this.secondLastName;
+    }
+
+
+  public void setSecondLastName (String secondLastName) {
+        this.secondLastName = secondLastName;
+    }
+
+
+
    public Date getCreateDate() {
         return this.createDate;
     }
@@ -136,19 +152,19 @@ public abstract class Person implements Serializable {
 
 
 
-   public String getPassword() {
-        return this.password;
+   public String getFirstLastName() {
+        return this.FirstLastName;
     }
 
 
-  public void setPassword (String password) {
-        this.password = password;
+  public void setFirstLastName (String FirstLastName) {
+        this.FirstLastName = FirstLastName;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        int hash = 5;
+        hash = 47 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
 
@@ -166,8 +182,6 @@ public abstract class Person implements Serializable {
         }
         return true;
     }
-  
-  
 
 }
 
