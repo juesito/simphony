@@ -38,21 +38,8 @@
                                 </p:selectOneMenu>
                             </p:column>
 
-                            <p:column headerText="Población">
-                                <p:outputLabel value="#{user.population.description}" />
-
-                            </p:column>
-
-                            <p:column headerText="Tipo" >                                
-                                <p:outputLabel value="#{user.userType.description}" />
-                            </p:column>
-
-                            <p:column headerText="Centro de trabajo">
-                                <p:outputLabel value="#{user.workCenter.description}" />
-                            </p:column>
-                            
                             <p:column headerText="Fecha Creación" >
-                                <p:calendar value="#{user.createdDate}" pattern="yyy/MMM/dd"
+                                <p:calendar value="#{user.createDate}" pattern="yyy/MMM/dd"
                                             style="width: 50px !important;"/>
                             </p:column>
 
@@ -66,10 +53,17 @@
                                                  value="Modificar" action="#{userBean.modifyUser()}" />
                                 <p:commandButton process="userDT" 
                                                  update=":form:userDetail" icon="ui-icon-trash" 
-                                                 value="Borrar" oncomplete="PF('userDialog').show()" />
+                                                 value="Borrar" actionListener="#{vendorBean.disableVendor()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </f:facet>
                         </p:dataTable>
                         
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
 
                         <p:commandButton value="Agregar" action="#{userBean.addUser()}"
                                          styleClass="catalog-button" ajax="false"/>
@@ -106,46 +100,6 @@
                                             <p:outputLabel value="#{userBean.selected.nick}" />
                                         </p:column>
 
-                                        <p:column>
-                                            <p:outputLabel value="Centro de trabajo:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu value="#{userBean.selected.workCenter}"   
-                                                             converter="workCenterConverter"
-                                                             style="width:100px" disabled="true">
-                                                <f:selectItems value="#{boxWorkCenterService.box}"
-                                                               var="boxwc" itemLabel="#{boxwc.description}"
-                                                               itemValue="#{boxwc}"  itemLabelEscaped="true" 
-                                                               rendered="true"/>
-
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                    </p:row>
-
-                                    <!-- Población, Centro de trabajo -->
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Población:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu value="#{userBean.selected.population}" 
-                                                             converter="populationConverter"
-                                                             style="width:100px !important;" disabled="true">
-                                                <f:selectItems value="#{boxPopulationService.populationList }"
-                                                               />
-
-                                            </p:selectOneMenu>
-                                        </p:column>
-
-                                        <p:column>
-                                            <p:outputLabel value="Tipo:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu value="#{userBean.selected.userType}" disabled="true" >
-                                                <f:selectItem itemLabel="Administrador" itemValue="AD" />
-                                                <f:selectItem itemLabel="Vendedor" itemValue="VD" />
-                                            </p:selectOneMenu>
-                                        </p:column>
                                     </p:row>
 
                                     <!-- Estatus, fecha -->
@@ -164,7 +118,7 @@
                                             <p:outputLabel value="Fecha:" />
                                         </p:column>
                                         <p:column>
-                                            <p:calendar value="#{userBean.selected.createdDate}" pattern="yyy/MMM/dd"
+                                            <p:calendar value="#{userBean.selected.createDate}" pattern="yyy/MMM/dd"
                                                         style="width:30px !important;" disabled="true"/>
                                         </p:column>
                                     </p:row>

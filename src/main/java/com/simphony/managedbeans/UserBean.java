@@ -6,7 +6,6 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.UserService;
-import com.simphony.entities.Population;
 import com.simphony.entities.User;
 import com.simphony.interfases.IConfigurable;
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ public class UserBean implements IConfigurable {
     private User current = new User();
     private User selected = new User();
     private List<User> list = new ArrayList<User>();
-    private Population population = new Population();
 
     @ManagedProperty(value = "#{userService}")
     private UserService userService;
@@ -48,7 +46,7 @@ public class UserBean implements IConfigurable {
     public void postInitialization() {
         
         Calendar cal = Calendar.getInstance();
-        this.current.setCreatedDate(cal.getTime());
+        this.current.setCreateDate(cal.getTime());
         this.current.setStatus(_DISABLE);
         this.current.setName(_BLANK);
         
@@ -96,12 +94,20 @@ public class UserBean implements IConfigurable {
         this.current = current;
     }
 
+    /**
+     * Controlador Agregamos usuario
+     * @return
+     */
     public String addUser() {
         user = new User();
         this.current.setAction(_ADD);
         return "addUser";
     }
     
+    /**
+     * Controlador para modificar usuario
+     * @return
+     */
     public String modifyUser(){
         this.current.setAction(_MODIFY);
         try {
@@ -112,14 +118,47 @@ public class UserBean implements IConfigurable {
         return "addUser";
     }
     
+    /**
+     * deshabilitamos usuario
+     */
+    public void disableUser() {
+        Calendar cal = Calendar.getInstance();
+        this.selected.setLastUpdate(cal.getTime());
+        this.selected.setStatus(_DISABLE);
+        this.userService.getUserRepository().save(selected);
+        this.fillUsers();
+
+    }
+    
+    /**
+     * Llenamos lista de usuarios
+     */
+    private void fillUsers(){
+        list.clear();
+        Iterable<User> c = this.getUserService().getUserRepository().findAll();
+        Iterator<User> cu = c.iterator();
+        while (cu.hasNext()) {
+            list.add(cu.next());
+        }
+    }
+    
+    /**
+     * boton de cancelar 
+     * @return
+     */
     public String cancelUser() {
+        this.fillUsers();
         return "toUsers";
     }
 
+    /**
+     * Guardamos usuario
+     * @return
+     */
     public String save() {
         
         Calendar cal = Calendar.getInstance();
-        user.setCreatedDate(cal.getTime());
+        user.setCreateDate(cal.getTime());
         user.setLastUpdate(cal.getTime());
         user.setStatus(_ENABLED);
         
@@ -128,13 +167,17 @@ public class UserBean implements IConfigurable {
         return "";
     }
     
+    /**
+     * Actualizamos vendedor
+     * @return
+     */
     public String update(){
         Calendar cal = Calendar.getInstance();
         user.setLastUpdate(cal.getTime());
         
         this.userService.getUserRepository().save(user);
         user = new User();
-        return "toUsers";
+        return toUsers();
     }
 
     /**
@@ -143,15 +186,14 @@ public class UserBean implements IConfigurable {
      * @return
      */
     public String toUsers() {
-        list.clear();
-        Iterable<User> c = this.getUserService().getUserRepository().findAll();
-        Iterator<User> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
-        }
+        this.fillUsers();
         return "toUsers";
     }
 
+    /**
+     * Autentificamos usuario
+     * @return
+     */
     public String login() {
         current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
@@ -159,21 +201,15 @@ public class UserBean implements IConfigurable {
         return "toindex";
     }
     
+    /**
+     * Salida del usuario
+     * @return
+     */
     public String logout(){
         current = new User();
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml?faces-redirect=true";
     
     }
-
-    public Population getPopulation() {
-        return population;
-    }
-
-    public void setPopulation(Population population) {
-        this.population = population;
-    }
-    
-    
 
 }

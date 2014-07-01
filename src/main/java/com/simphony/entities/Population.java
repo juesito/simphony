@@ -39,7 +39,7 @@ public  class Population implements Serializable {
     private Date createDate;
 
 
-    @OneToOne(cascade={CascadeType.ALL},targetEntity=User.class)
+    @OneToOne(targetEntity=User.class)
     private User user;
 
 
@@ -119,7 +119,7 @@ public  class Population implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 61 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 79 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
 
@@ -137,7 +137,8 @@ public  class Population implements Serializable {
         }
         return true;
     }
-
   
+  
+
 }
 

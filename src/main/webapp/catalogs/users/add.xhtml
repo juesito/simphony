@@ -53,53 +53,6 @@
                                 </p:column>
 
                             </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="Población:" />
-                                </p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="population" value="#{userBean.user.population}" 
-                                                     converter="populationConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Población Requerida">
-                                        <f:selectItems value="#{boxPopulationService.populationList}" 
-                                                      />
-
-                                    </p:selectOneMenu>
-
-
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="Tipo de usuario" />
-                                </p:column>
-                                <p:column>
-                                    <p:selectOneMenu value="#{userBean.user.userType}" required="true" 
-                                                     requiredMessage="Tipo Requerido" converter="userTypesConverter">
-                                        <f:selectItems value="#{boxUserTypesService.userTypesList}" />
-                                    </p:selectOneMenu>
-
-                                </p:column>
-                            </p:row>
-                            <p:row>
-
-                                <p:column>
-                                    <p:outputLabel value="Centro de trabajo" />
-                                </p:column>
-                                <p:column>
-
-                                    <p:selectOneMenu id="advanced" value="#{userBean.user.workCenter}" 
-                                                     converter="workCenterConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Centro de trabajo Requerido">
-                                        <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
-                                                       itemLabel="#{boxwc.description}" itemValue="#{boxwc}" 
-                                                       itemLabelEscaped="true" rendered="true"/>
-
-                                    </p:selectOneMenu>
-
-
-                                </p:column>
-                            </p:row>
 
                             <p:row>
                                 <p:column colspan="2"></p:column>
@@ -159,55 +112,6 @@
                                 </p:column>
 
                             </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="Población:" />
-                                </p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="population" value="#{userBean.user.population}" 
-                                                     converter="populationConverter" 
-                                                     style="width:160px" >
-                                        <f:selectItems value="#{boxPopulationService.populationList}" 
-                                                       var="box" itemLabel="#{box.description}"
-                                                       itemValue="#{box}"
-                                                       itemLabelEscaped="true" rendered="true"/>
-
-                                    </p:selectOneMenu>
-
-
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="Tipo de usuario" />
-                                </p:column>
-                                <p:column>
-                                    <p:selectOneMenu value="#{userBean.user.userType}" required="true" 
-                                                     requiredMessage="Tipo Requerido" converter="userTypesConverter">
-                                        <f:selectItems value="#{boxUserTypesService.userTypesList}" />
-                                    </p:selectOneMenu>
-
-                                </p:column>
-                            </p:row>
-                            <p:row>
-
-                                <p:column>
-                                    <p:outputLabel value="Centro de trabajo" />
-                                </p:column>
-                                <p:column>
-
-                                    <p:selectOneMenu id="advanced" value="#{userBean.user.workCenter}" 
-                                                     converter="workCenterConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Centro de trabajo Requerido">
-                                        <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
-                                                       itemLabel="#{boxwc.description}" itemValue="#{boxwc}" 
-                                                       itemLabelEscaped="true" rendered="true"/>
-
-                                    </p:selectOneMenu>
-
-
-                                </p:column>
-                            </p:row>
-
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>

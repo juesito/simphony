@@ -10,8 +10,12 @@
                 <h:form>
                     <div id="marco-band2"> 
 
-                        <p:menubar>
-                            <p:submenu label="Inicio" icon="ui-icon-home">
+                        <p:menubar rendered="#{userBean.current.name ne '' or vendorBean.current.name ne ''}">
+                            <p:submenu label="#{vendorBean.current.name}" icon="ui-icon-home" rendered="#{vendorBean.current.name ne ''}">
+                                <p:menuitem value="Inicio" action="toindex" />
+                                <p:menuitem value="Salir" action="#{vendorBean.logout()}" />
+                            </p:submenu>
+                            <p:submenu label="#{userBean.current.name}" icon="ui-icon-home" rendered="#{userBean.current.name ne ''}">
                                 <p:menuitem value="Inicio" action="toindex" />
                                 <p:menuitem value="Salir" action="#{userBean.logout()}" />
                             </p:submenu>
@@ -42,10 +46,11 @@
                                 <p:menuitem value="Centros de trabajo" action="#{workCenterBean.toWorkCenter()}" ajax="false" /> 
                                 <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 
                                 <p:menuitem value="Tipos de usuario" action="#{userTypesBean.toUserTypes}" ajax="false" /> 
+                                <p:menuitem value="Vendedores" action="#{vendorBean.toVendors}" ajax="false" />
                                 <p:menuitem value="Usuarios" action="#{userBean.toUsers}" ajax="false"
                                             actionListener="#{boxPopulationService.fillBox()}"/>
-                                    
-                                
+
+
                             </p:submenu>
                         </p:menubar>
 

@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="WorkCenter")
@@ -16,7 +18,6 @@ import javax.persistence.Table;
 public  class WorkCenter implements Serializable {
 
 
-    @Column(name="id")
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -35,6 +36,10 @@ public  class WorkCenter implements Serializable {
     @Column(name="fechaCreacion")
     @Basic
     private Date createDate;
+
+
+    @OneToOne(targetEntity=User.class)
+    private User user;
 
 
     @Column(name="horaCreacion")
@@ -90,6 +95,17 @@ public  class WorkCenter implements Serializable {
 
 
 
+   public User getUser() {
+        return this.user;
+    }
+
+
+  public void setUser (User user) {
+        this.user = user;
+    }
+
+
+
    public Date getCreateHour() {
         return this.createHour;
     }
@@ -102,7 +118,7 @@ public  class WorkCenter implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 11 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
 
@@ -120,6 +136,7 @@ public  class WorkCenter implements Serializable {
         }
         return true;
     }
+  
   
 
 }

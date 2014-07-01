@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <!-- panel para agregar -->
+                <p:panel rendered="#{vendorBean.current.action eq 'A'}">
+                    <h:form id="add">
+                        <p:outputLabel value="Agregar vendedor" class="welcome-title" />
+                        <br/><br/>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Nombre" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="name" value="#{vendorBean.vendor.name}" required="true" 
+                                                 requiredMessage="Nombre requerido"/>
+                                    <p:message for="name" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Nick" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
+                                                 requiredMessage="Nick requerido"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Password" />
+                                </p:column>
+                                <p:column>
+                                    <p:password id="pwd1" value="#{vendorBean.vendor.password}" match="pwd2" required="true" 
+                                                requiredMessage="Password Requerido"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Confirmar Password" />
+                                </p:column>
+                                <p:column>
+                                    <p:password id="pwd2" value="#{vendorBean.vendor.password}" label="Password 2" 
+                                                required="true" />
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Población:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="population" value="#{vendorBean.vendor.population}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Población Requerida">
+                                        <f:selectItems value="#{boxPopulationService.populationList}" 
+                                                      />
+
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Centro de trabajo" />
+                                </p:column>
+                                <p:column>
+
+                                    <p:selectOneMenu id="advanced" value="#{vendorBean.vendor.workCenter}" 
+                                                     converter="workCenterConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Centro de trabajo Requerido">
+                                        <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
+                                                       itemLabel="#{boxwc.description}" itemValue="#{boxwc}" 
+                                                       itemLabelEscaped="true" rendered="true"/>
+
+                                    </p:selectOneMenu>
+
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="Guardar" action="#{vendorBean.save}"
+                                                     ajax="false" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Cancelar" action="#{vendorBean.cancelUser}"
+                                                     id="cancelAdd" process="@this"
+                                                     partialSubmit="true"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+                <!-- panel para modificar -->
+                <p:panel rendered="#{vendorBean.current.action eq 'M'}">
+                    <h:form id="modify">
+                        <p:outputLabel value="Modificar vendedor" class="welcome-title" />
+                        <br/><br/>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Nombre" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{vendorBean.vendor.name}" required="true" 
+                                                 requiredMessage="Nombre requerido"/>
+
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Nick" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
+                                                 requiredMessage="Nick requerido"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Password" />
+                                </p:column>
+                                <p:column>
+                                    <p:password id="pwd1" value="#{vendorBean.vendor.password}" match="pwd2" required="true" 
+                                                requiredMessage="Password Requerido"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Confirmar Password" />
+                                </p:column>
+                                <p:column>
+                                    <p:password id="pwd2" value="#{vendorBean.vendor.password}" label="Password 2" 
+                                                required="true" />
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Población:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="population" value="#{vendorBean.vendor.population}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" >
+                                        <f:selectItems value="#{boxPopulationService.populationList}" 
+                                                       var="box" itemLabel="#{box.description}"
+                                                       itemValue="#{box}"
+                                                       itemLabelEscaped="true" rendered="true"/>
+
+                                    </p:selectOneMenu>
+
+
+                                </p:column>                                
+                            </p:row>
+                            <p:row>
+
+                                <p:column>
+                                    <p:outputLabel value="Centro de trabajo" />
+                                </p:column>
+                                <p:column>
+
+                                    <p:selectOneMenu id="advanced" value="#{vendorBean.vendor.workCenter}" 
+                                                     converter="workCenterConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Centro de trabajo Requerido">
+                                        <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
+                                                       itemLabel="#{boxwc.description}" itemValue="#{boxwc}" 
+                                                       itemLabelEscaped="true" rendered="true"/>
+
+                                    </p:selectOneMenu>
+
+
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="Guardar" action="#{vendorBean.update()}"
+                                                     ajax="false" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Cancelar" action="#{vendorBean.cancelUser}"
+                                                     id="cancelAdd" process="@this"
+                                                     partialSubmit="true"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

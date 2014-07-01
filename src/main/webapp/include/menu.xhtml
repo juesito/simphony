@@ -10,7 +10,7 @@
                 <h:form id="sform">
                     <p:growl id="growl" showDetail="true" showSummary="true" />
 
-                    <p:panelGrid id="login" rendered="#{userBean.current.name eq ''}"  >
+                    <p:panelGrid id="vlogin" rendered="#{vendorBean.current.name eq '' and userBean.current.name eq ''}"  >
                         <p:row>
                             <p:column colspan="2">
                                 <p:outputLabel value="" styleClass="disable" 
@@ -19,34 +19,34 @@
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:outputLabel for="userId" value="Usuario:"/>
+                                <p:outputLabel for="vendorId" value="Vendedor:"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:inputText id="userId" value="#{userBean.current.nick}" style="font-size: 10px;"
+                                <p:inputText id="vendorId" value="#{vendorBean.current.nick}" style="font-size: 10px;"
                                              maxlength="15" required="true" size="16"
                                              immediate="true" tabindex="1" >
                                     <f:validateLength minimum="2" />
                                 </p:inputText>
-                                <p:watermark for="userId" value="Usuario" />
-                                <h:message for="userId"  showDetail="false"/>
+                                <p:watermark for="vendorId" value="Vendedor" />
+                                <h:message for="vendorId"  showDetail="false"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:password id="nick" value="#{userBean.current.password}" style="font-size: 10px;"
+                                <p:password id="vpassword" value="#{vendorBean.current.password}" style="font-size: 10px;"
                                             maxlength="15" size="16"  immediate="true"
                                             tabindex="2" feedback="false"
                                             required="true" />
-                                <p:watermark for="nick" value="Contraseña" />
-                                <h:message for="nick" showSummary="false"/>
+                                <p:watermark for="vpassword" value="Contraseña" />
+                                <h:message for="vpassword" showSummary="false"/>
                             </p:column>
 
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:commandButton update=":sform:growl" action="#{userBean.login()}"
+                                <p:commandButton update=":sform:growl" action="#{vendorBean.login()}"
                                                  tabindex="3" styleClass="catalog-button"
                                                  value="Entrar" ajax="false"    />  
                             </p:column>
@@ -58,9 +58,64 @@
                                                 process="@this"  style="font-size: 12px;color:red !important;" />
                             </p:column>
                         </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:commandLink  value="Administrar" 
+                                                process="@this"  style="font-size: 12px;color:red !important;" 
+                                                onclick="PF('dlg2').show();"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>                 
 
 
+                    
+                </h:form>
+                <h:form>
+                    <p:dialog header="Administrar" widgetVar="dlg2" modal="true" height="150" width="200">
+                        <p:panelGrid id="login" rendered="#{userBean.current.name eq ''}"  >
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel value="" styleClass="disable" 
+                                                   style="color:red !important;" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:outputLabel for="userId" value="Usuario:"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:inputText id="userId" value="#{userBean.current.nick}" style="font-size: 10px;"
+                                                 maxlength="15" required="true" size="16"
+                                                 immediate="true" tabindex="1" >
+                                        <f:validateLength minimum="2" />
+                                    </p:inputText>
+                                    <p:watermark for="userId" value="Usuario" />
+                                    <h:message for="userId"  showDetail="false"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:password id="nick" value="#{userBean.current.password}" style="font-size: 10px;"
+                                                maxlength="15" size="16"  immediate="true"
+                                                tabindex="2" feedback="false"
+                                                required="true" />
+                                    <p:watermark for="nick" value="Contraseña" />
+                                    <h:message for="nick" showSummary="false"/>
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:commandButton update=":sform:growl" action="#{userBean.login()}"
+                                                     tabindex="3" styleClass="catalog-button"
+                                                     value="Entrar" ajax="false" onclick="PF('dlg2').hide();"   />  
+                                </p:column>
+
+                            </p:row>
+                        </p:panelGrid>
+                    </p:dialog>   
                 </h:form>
             </ui:composition>
         </h:body>
