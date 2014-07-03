@@ -24,27 +24,21 @@
                                 <p:menuitem value="Cancelación" url="#" icon="ui-icon-closethick"/>
                             </p:submenu>
                             <p:submenu label="Operación" icon="ui-icon-document">
-                                <p:menuitem value="Corridas abiertas" url="#" icon="ui-icon-contact"/>
-                                <p:menuitem value="Nuevas corridas" url="#" />
-                                <p:menuitem value="Guías de autobus" url="#" />
+                                <p:menuitem value="Rutas" url="#" icon="ui-icon-contact"/>
+                                <p:menuitem value="Guías de viaje" url="#" />
                             </p:submenu>
                             <p:submenu label="Reportes" icon="ui-icon-pencil">
-                                <p:menuitem value="Por agremiado" url="#" icon="ui-icon-arrowreturnthick-1-w" />
-                                <p:menuitem value="Por punto de venta" url="#" icon="ui-icon-arrowreturnthick-1-e" />
-                                <p:menuitem value="Por usuario" url="#" icon="ui-icon-arrowreturnthick-1-e" />
-                                <p:menuitem value="Por corrida" url="#" icon="ui-icon-arrowreturnthick-1-e" />
-                                <p:menuitem value="Por destino" url="#" icon="ui-icon-arrowreturnthick-1-e" />
-                                <p:menuitem value="Por autobús" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+                                <p:menuitem value="Por definir" url="#" icon="ui-icon-arrowreturnthick-1-w" />
                             </p:submenu>
                             <p:submenu label="Catalogos" icon="ui-icon-pencil">
+                                <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 
+                                <p:menuitem value="Itinerarios" /> 
+                                <p:menuitem value="Tarifas" action="#{costBean.toCosts}" ajax="false" /> 
                                 <p:menuitem value="Autobuses" action="#{busBean.toBus()}" ajax="false" /> 
                                 <p:menuitem value="Operadores" /> 
-                                <p:menuitem value="Itinerarios" /> 
                                 <p:menuitem value="Agremiados" action="#{associateBean.toAssociates}" ajax="false" /> 
                                 <p:menuitem value="Puntos de venta" action="#{salePointBean.toSalePoint()}" ajax="false" /> 
-                                <p:menuitem value="Tarifas" action="#{costBean.toCosts}" ajax="false" /> 
-                                <p:menuitem value="Centros de trabajo" action="#{workCenterBean.toWorkCenter()}" ajax="false" /> 
-                                <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 
+                                <p:menuitem value="Estaciones de trabajo" action="#{workCenterBean.toWorkCenter()}" ajax="false" /> 
                                 <p:menuitem value="Vendedores" action="#{vendorBean.toVendors}" ajax="false" />
                                 <p:menuitem value="Usuarios" action="#{userBean.toUsers}" ajax="false"
                                             actionListener="#{boxPopulationService.fillBox()}"/>
