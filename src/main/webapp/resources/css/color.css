@@ -56,10 +56,13 @@ hr{color:red;}
     font-size: 12px;    
     text-align: right;
     background-color: rgba(55,74,153, 1);
+    color:white !important;
+    background-color: #0A3A6E;
 }
 
 #top {
-    background-color: rgba(237,237,237,0);
+    background-color: #0A3A6E;
+    
 }
 
 .msj-info-right{
@@ -122,7 +125,7 @@ label{
     background-color: transparent; 
     font-size: 30px;
     font-weight: bold; 
-    color:rgba(55,74,153, 1) !important;
+    color:#FFF !important;
 }
 
 #marco-izq-title{
@@ -130,46 +133,79 @@ label{
     background-color: transparent;
 }
 
-
-
- 
-.ui-menu .ui-menubar {
-    font-size: 10px;
+#user-band{
+    color: #FFF !important;
 }
 
-/*
+
 .ui-widget{
     list-style:none !important;
     font-size: 12px !important;
-    color: #fff !important;
-}
-.ui-menu .ui-menu-list{
+    color: #AA73AF !important;
+    border:none !important;
     list-style:none !important;
+    background-image: none !important;
+    list-style-image: none !important;
+}
+.ui-menu .ui-menubar {
+    font-size: 10px;
+    
+}
+
+.ui-menu .ui-menubar .ui-menu-parent .ui-icon-triangle-1-e,.ui-menu .ui-menu-parent .ui-icon-triangle-1-s,.ui-menubar .ui-menu-child .ui-icon-triangle-1-s,.ui-menubar .ui-menu-child .ui-icon-triangle-1-s{
+    list-style:none !important;
+    background-image: none !important;
+    list-style-image: none !important;
+}
+
+
+.ui-menu .ui-tieredmenu .ui-menubar {
+    background-color: rgb(255,199,38) !important; /*Amarillo*/
+    //border:2px solid rgb(170,115,175) !important;
+    border:none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style:none !important;
+}
+
+
+.ui-menubar .ui-menu-list {
+    background-color: rgb(10,58,115) !important;
+    list-style:none !important;
+    background-image: none !important;
+    list-style-image: none !important;
 }
 
 .ui-menu .ui-menuitem-link {
-    background-color: white !important;
-    color: #333 !important;
-    border:none !important;
+    //background-color: rgb(170,115,175) !important;
+    color: rgb(255,255,255) !important; /*Blanco*/
     list-style:none !important;
+    background-image: none !important;
+    list-style-image: none !important;
 }
 .ui-menu .ui-menuitem{
-    background-color: #333333 !important;
-    color: #fff !important;
+    //background-color: rgb(170,115,175) !important;
+    list-style:none !important;
+    background-image: none !important;
+    list-style-image: none !important;
+    color: #ffffff !important;
 }
 .ui-menu .ui-menuitem-link:hover {
-    color: #fff !important;
+    background-color:rgb(237,180,13) !important;
     list-style:none !important;
-    background-color: #333 !important;
+    list-style:none !important;
+    background-image: none !important;
+    list-style-image: none !important;
 }
 .ui-menu .ui-menu-parent .ui-menu-child {
+    background-color:rgb(255,199,38) !important;
     padding: 0 !important;
-    margin: 0 !important;
-    color:red !important;
+    margin: 0 !important;    
     list-style:none !important;
+    background-image: none !important;
+    list-style-image: none !important;
 
 }
- */
 .ui-helper-clearfix::after{
 
     color:#000 !important;
