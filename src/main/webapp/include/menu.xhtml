@@ -10,7 +10,8 @@
                 <h:form id="sform">
                     <p:growl id="growl" showDetail="true" showSummary="true" />
 
-                    <p:panelGrid id="vlogin" rendered="#{vendorBean.current.name eq '' and userBean.current.name eq ''}"  >
+                    <p:panelGrid id="vlogin" rendered="#{vendorBean.current.name eq '' and userBean.current.name eq ''}"
+                                 columnClasses="noborder">
                         <p:row>
                             <p:column colspan="2">
                                 <p:outputLabel value="" styleClass="disable" 

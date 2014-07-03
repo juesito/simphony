@@ -8,54 +8,6 @@ and open the template in the editor.
     Author     : root
 */
 
-.text-info{
-    text-wrap: none;
-    margin-bottom: 20px;
-    margin-left: 5px;
-    margin-top:0px;
-    width: 790px;
-    position: relative;
-    border: 1px solid blue;
-    float: left;
-    z-index: 1;
-}
-
-.msj-info-right{
-    text-align: center;
-    float: right; 
-    text-wrap: normal; 
-    width: 302px; 
-    border: 1px solid;  
-    margin-left: 5px;
-    border-left: 1px rgba(32,158,211, 1) solid;
-
-
-}
-
-.msj-info-left{
-    float: left; 
-    width: 350px;
-    border:none;
-    clear: left;
-    margin-left: 10px;
-    padding-top: 20px;
-    
-}
-.welcome-title{
-    color: rgba(55,74,153, 1) !important;
-    font-weight: bold;
-    font-size: 30px !important;
-    
-}
-.welcome-msg{
-    color: rgba(32,158,211, 1) !important;
-    margin-top: 20px !important;;
-    
-}
-.welcome-msg-gallery{
-    color: rgba(32,158,211, 1) !important;
-    
-}
 
 .catalog-table{
     margin: 0px auto;

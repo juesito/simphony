@@ -6,14 +6,11 @@
 
     <h:body>
         <ui:composition>
-            <h:form>
-
-                <div id="user-band">
-                    <p:outputLabel value="Fuera de linea" rendered="#{userBean.current.name eq '' and vendorBean.current.name eq ''}" style="color:#FFF;"/>
-                    <p:outputLabel value="En linea #{userBean.current.name}" rendered="#{userBean.current.name ne ''}" style="color:#FFF;"/>
-                    <p:outputLabel value="En linea #{vendorBean.current.name}" rendered="#{vendorBean.current.name ne ''}" style="color:#FFF;" />
-                </div>
-            </h:form>
+            <div id="user-band">
+                <p:outputLabel value="Fuera de linea" rendered="#{userBean.current.name eq '' and vendorBean.current.name eq ''}" style="color:#FFF;"/>
+                <p:outputLabel value="En linea #{userBean.current.name}" rendered="#{userBean.current.name ne ''}" style="color:#FFF;"/>
+                <p:outputLabel value="En linea #{vendorBean.current.name}" rendered="#{vendorBean.current.name ne ''}" style="color:#FFF;" />
+            </div>
         </ui:composition>
     </h:body>
 </html>

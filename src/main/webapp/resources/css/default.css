@@ -36,7 +36,6 @@ a:link:hover, a:visited:hover  {
     border:none;
 }
 #marco-band-sts{
-    margin-top: 5px;
     padding: 2px;
     width: 2%;
     margin-left: 0px;
@@ -46,41 +45,8 @@ a:link:hover, a:visited:hover  {
     border:none;
 }
 
-#marco-izq {
-    width: 42%;
-    margin-top: 0px;
-    margin-left: 0px;
-    padding-bottom: 0px;
-    height: 110px;
-    max-height:100px;
-    float: left;    
-    position: relative;
-    border: 1px solid #fff;
-}
-#marco-der {
-    width: 42%;
-    margin-top: 0px;
-    margin-left: 0px;
-    padding-bottom: 0px;
-    height: 110px;
-    max-height:100px;
-    float: left;    
-    position: relative;
-    border: 1px solid #fff;
-}
 
-#marco-izq-title{
-    margin-top: 2px;    
-    width: 380px;
-    position: relative;
-    padding-top: 0px;
-    max-height:100px;    
-    border-left: none;
-    border-right: 1px solid;
-    float: right;
-}
-#marco-right-title{
-    margin-top: 55px;
+#marco-right-title{    
     width: 500px;
     position: relative;
     max-height:100px;    
@@ -89,14 +55,9 @@ a:link:hover, a:visited:hover  {
     z-index: 2;
 }
 
-#marco-izq-img{
-    float: left;
-    width: 100px;
-    max-height:110px;
-    position: relative;
-    height: 100%;
-    clear: left;
-}
+
+
+
 
 /*Marcos para el footer*/
 #marco-bot-img{
@@ -113,16 +74,9 @@ a:link:hover, a:visited:hover  {
 }
 
 #topheader{
-
-    padding-top: 1px !important;
-    margin-top:20px;
-
     letter-spacing: 2px; 
     text-align: left !important;
 }
-
-
-
 
 .msj-info-right-expired{
 
@@ -131,13 +85,7 @@ a:link:hover, a:visited:hover  {
 
 }
 
-#logo{
-    margin-top: 2px;
-    margin-left: 2px;
-    border: 0px; 
-    width:160px; 
-    height:90px;
-}
+
 
 .helpdiv{
     border: 1px solid #AB74B2;
@@ -149,38 +97,6 @@ a:link:hover, a:visited:hover  {
 .svbolinputtext input{
     font-size: 10px !important;
 }
-/*
-.browser {
-    float:left;
-    margin:5px auto auto 50px;
-    border:none;
-    width:450px;
-    height:500px;
-    padding-left: 10px;   
-    border:1px solid;
-}
-.browser-gallery-main {
-    float: left;
-    border:1px solid;
-    width:300px;
-    height:400px;    
-    position: relative;
-    margin:1px 1px 1px 1px;
-}
-.browser-gallery {
-    float: left;
-    margin:40px auto auto 100px;
-    border:1px solid;
-    width:300px;        
-    height:290px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 10px;
-    background-color: #EFEEF6;
-}
-*/
-
-
 
 #user-status{
     margin-left: 5px;
@@ -207,22 +123,15 @@ a:link:hover, a:visited:hover  {
     margin-right: 2px
 }
 
-
-
-
 .login2{    
     width: 50px; 
     padding-left: .5px;
     padding-top: 1px;
-
     height: 100px; 
     border:none;
-
-
 }
-.column-grid{
-    border:none;
-}
+
+.column-grid{border:none;}
 .clear-both{clear: both}
 
 #gallery-validation{

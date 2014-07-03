@@ -13,10 +13,8 @@
 
 
 
-@import url(svbol.css);
-@import url(default.css);
 @import url(color.css);
-@import url(cssLayout.css);
-@import url(jsfcrud.css);
+@import url(layout.css);
+
 
 

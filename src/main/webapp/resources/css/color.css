@@ -1,337 +1,64 @@
-//HTML Componentes
 body{    
-    font-size: 12px;
     margin: 0px;
-    background-color: #C8C8C8 !important;
-}
-body, p, td, th, li {    
-    font-family:Arial,Helvetica,sans-serif !important;
-    color:rgba(32,158,211, 1) !important;
+    background-color: #FFFFFF !important;
+    font: 13px Helvetica, Arial, sans-serif;
 }
 
-#content { background-color: #ffffff; }
-#wrapper { background-color: #fff; }
-
-h1 {
-    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
-    border-bottom: solid 2px #ffffff; 
-    background-color: transparent; 
-    clear: both;
-    font-weight: bold; 
-    letter-spacing: -1px; 
-    color: blue;
+#header, #footer{
+    background-color: #0A3A6E !important;
 }
 
-hr{
-    color:red;
-    background-color: red;
-    height: 2px;
-    
-}
-
-h2 {
-    font-weight: normal; letter-spacing: -1px; color: rgba(32,158,211, 1);
-
-}
-
-a:link, a:visited {
-  color: #045491;
-  text-decoration: none;
-}
-
-a:link:hover, a:visited:hover  {
-  color: #045491;
-  font-weight : bold;
-}
-
-hr{color:red;}
-
-#text-info{     
-    font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important;
-    text-align: justify;    
-    font-size: 30px;
-}
-
-#top-band{
-    font-size: 12px;    
-    text-align: right;
-    background-color: rgba(55,74,153, 1);
-    color:white !important;
-    background-color: #0A3A6E;
-}
-
-#top {
-    background-color: #0A3A6E;
-    
-}
-
-.msj-info-right{
-    background-color: rgba(237,237,237,0);
-    color:#fff !important;
-    font-size: 20px;
-}
-
-#marco-band2 a{
-    font-size: 15px;
-    color:#333;
-    text-decoration:none;
-}
-#marco-band2 a:hover{
-    font-size: 15px;
-    padding: 2px;    
-    text-decoration: underline; 
-
-
-}
-
-#bottom {background-color: #fff; }
-
-// Hasta aqui los estilos son oficiales
-
-#slogan{
-    text-decoration: underline;
-    font-size: 30px;    
-    margin-left: 50px;;
-
-}
-
-
-#text-info p{
-    font-size: 20px; 
-    color: rgb(170,115,177);
-    text-align: justify;    
-}
-
-.login-msj{
-    color:#FFF; font-weight: bold; font-family: Arial; margin-left: 10px;
-}
-
-
-
-.login {
-    color:#333 !important;
-    background-color: transparent !important;
-}
-
-.disable{
-    color: red !important; 
-}
-label{
-    color:#333;
-    font-size:12px !important;
-}
-#topheader{
-
-    background-color: transparent; 
+.topheader{
     font-size: 30px;
     font-weight: bold; 
     color:#FFF !important;
 }
 
-#marco-izq-title{
-    border-left-color: rgba(55,74,153, 1) !important;
-    background-color: transparent;
+
+#top a:link, #top a:visited {
+    color: white;
 }
 
-#user-band{
-    color: #FFF !important;
-}
-
-
-.ui-widget{
-    list-style:none !important;
-    font-size: 12px !important;
-    color: #AA73AF !important;
+.vlogin{
     border:none !important;
-    list-style:none !important;
-    background-image: none !important;
-    list-style-image: none !important;
 }
-.ui-menu .ui-menubar {
-    font-size: 10px;
+
+
+.ui-panelgrid .ui-panelgrid-cell{
+    border:none !important;
+}
+
+p{color:#0A3A6E !important;}
+
+#marco-izq-title{
+    border-left-color: rgba(55,74,153, 1) !important; 
+}
+
+#top-band2{background-color: rgb(255,199,38);}
+
+#text-info{     
+    font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important;
+    font-size: 30px;
+}
+
+#msj-info-left{
+    color: rgb(10,58,110);
+}
+#welcome-msg{color: rgb(10,58,110);}
+
+.welcome-title{
+    color: rgba(55,74,153, 1) !important;
+    font-weight: bold;
+    font-size: 30px !important;
+    
+}
+.welcome-msg{
+    color: rgba(32,158,211, 1) !important;
+    margin-top: 20px !important;;
     
 }
 
-.ui-menu .ui-menubar .ui-menu-parent .ui-icon-triangle-1-e,.ui-menu .ui-menu-parent .ui-icon-triangle-1-s,.ui-menubar .ui-menu-child .ui-icon-triangle-1-s,.ui-menubar .ui-menu-child .ui-icon-triangle-1-s{
-    list-style:none !important;
-    background-image: none !important;
-    list-style-image: none !important;
-}
 
-
-.ui-menu .ui-tieredmenu .ui-menubar {
-    background-color: rgb(255,199,38) !important; /*Amarillo*/
-    //border:2px solid rgb(170,115,175) !important;
-    border:none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    list-style:none !important;
+.welcome-msg-gallery{
+    color: rgb(10,58,110);
 }
-
-
-.ui-menubar .ui-menu-list {
-    background-color: rgb(10,58,115) !important;
-    list-style:none !important;
-    background-image: none !important;
-    list-style-image: none !important;
-}
-
-.ui-menu .ui-menuitem-link {
-    //background-color: rgb(170,115,175) !important;
-    color: rgb(255,255,255) !important; /*Blanco*/
-    list-style:none !important;
-    background-image: none !important;
-    list-style-image: none !important;
-}
-.ui-menu .ui-menuitem{
-    //background-color: rgb(170,115,175) !important;
-    list-style:none !important;
-    background-image: none !important;
-    list-style-image: none !important;
-    color: #ffffff !important;
-}
-.ui-menu .ui-menuitem-link:hover {
-    background-color:rgb(237,180,13) !important;
-    list-style:none !important;
-    list-style:none !important;
-    background-image: none !important;
-    list-style-image: none !important;
-}
-.ui-menu .ui-menu-parent .ui-menu-child {
-    background-color:rgb(255,199,38) !important;
-    padding: 0 !important;
-    margin: 0 !important;    
-    list-style:none !important;
-    background-image: none !important;
-    list-style-image: none !important;
-
-}
-.ui-helper-clearfix::after{
-
-    color:#000 !important;
-
-}
-
-.headertitle {
-    color:#fff !important;
-    font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important; 
-    font-weight: normal !important;
-}
-
-.headertitle2 {
-    color:#fff !important;
-    font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important; 
-    font-weight: normal !important;
-}
-.headertitle3 {
-    color:#fff !important;
-    font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important; 
-    font-weight: normal !important;
-}
-.msj-info-left-expired p{
-    font-size: 12px !important;
-    border: 1px solid;
-}
-.msj-info-left-expired h2{
-    font-size: 25px !important;
-}
-.msj-info-left-expired img{
-    margin-left: 20px;
-    margin-top: 20px;
-}
-
-.msj-info-right-expired h2{
-    text-align: center;
-}
-
-#text-info-expired{     
-    width: 400px;
-    font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important;
-    color: rgb(170,115,177) ;
-    text-align: justify;    
-    text-wrap: normal;
-    margin-right: 10px;
-    padding-top: 30px !important;
-    border: none;
-    float: right; 
-}
-
-.helpdiv{
-    background-color: #EDDCEF;
-    color: #AA73AF;
-}
-
-.ui-fileupload-content{
-    color: #AA73AF !important;
-    border-color: #AA73AF !important;
-
-}
-.ui-fileupload-files td{
-    border-left: none !important;
-    border-right: none !important;
-}
-.ui-fileupload-files tr{
-    border-left: 1px solid !important;
-    border-right: 1px solid !important;
-}
-
-.ui-datatable-data{
-    font-size: 10px !important;
-}
-
-.ui-datatable-even{
-    background-color: #fff !important;
-    color: #AA73AF !important; 
-}
-.ui-datatable-odd{
-    font-weight: bold !important;
-    color: #AA73AF !important; 
-}
-.ui-datatable th{
-
-    color: rgba(55,74,153, 1) !important;
-}
-
-.ui-datatable tr .ui-state-disabled{
-    opacity: 100 !important;
-    background-color: transparent !important;
-    color: blue !important; 
-    font-weight: normal !important;
-
-}
-//Quitarle la decoracion al select deshabilidado
-.ui-selectonemenu .ui-state-disabled{
-    background: none !important;
-    color:red !important;
-    border: none !important;
-}
-.ui-selectonemenu .ui-state-disabled .ui-icon{
-    background-image: none !important;
-    border:none !important;
-}
-.ui-state-disabled .ui-selectonemenu-trigger{
-    background-image: none !important;
-    background-color: transparent !important;
-    border:none !important;
-    width: 0px !important;
-    height: 0px !important;
-}
-
-.ui-selectonemenu .ui-state-disabled .ui-corner-all{
-    border:none !important;
-}
-
-.notification-top{
-    background-color: #EDDCEF !important;
-}
-
-.notification-top tr{
-    background-color: #EDDCEF !important;
-}
-.dynaButton{    
-    margin-left: 10px;
-    margin-bottom: .5px;
-    color: #333 !important;
-}
-
-

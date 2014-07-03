@@ -1,0 +1,145 @@
+#top {
+    position: relative;
+    padding: 15px 0;
+    margin: 0px auto;
+    min-height: 100px;
+    min-width: 100% !important;
+}
+
+#header, footer{
+    float: left;    
+    min-width: 100%;
+    max-width: 100%;
+}
+
+#footer{
+    min-height: 100%;
+    max-height: 100%;
+    position: fixed;
+    width: 100%;
+}
+#wrapper{
+    margin: 0 auto;
+    width: 1000px;
+    min-height: 500px;
+    max-height: 600px;
+    padding-bottom: 40px;
+}
+
+.wrap {
+    position:relative;
+    margin:0 auto;
+    width:1000px;    
+    min-height: 150px;
+}
+
+#left {
+    float: left;
+    padding: 5px;
+    width: 170px;
+    min-height: 600px;
+    max-height: 650px; 
+    border-right: none;
+}
+
+.center_content {
+    position: relative;
+    padding: 5px;
+    min-height: 600px;
+    max-height: 650px;
+}
+
+.left_content {
+    padding: 5px;
+    margin-left: 170px;
+    min-height: 600px;
+    max-height: 650px;
+}
+
+div{
+    display:block;
+}
+
+
+// Configuracion para el header
+.marco-izq {    
+    max-height:100px;
+    float: left;    
+    position: relative;
+    border: 1px solid #fff !important;
+}
+
+#marco-izq-img{
+    float: left;
+    width: 17%;
+    max-height:110px;
+    position: relative;
+    clear: left;
+}
+
+#marco-der {
+    width: 50%;
+    margin-top: 0px;
+    margin-left: 0px;
+    padding-bottom: 0px;
+    height: 110px;
+    max-height:100px;
+    float: left;    
+    position: relative;    
+}
+
+#marco-izq-title{
+    min-width: 20%;
+    position: relative;
+    padding-top: 0px;
+    max-height:100px;        
+    float: left;
+}
+
+#logo{
+    margin-top: 2px;
+    margin-left: 2px;
+    border: 0px; 
+    width:160px; 
+    height:90px;
+}
+
+#top-band2{
+    position: relative;
+    height: 50px;    
+    min-width: 100% !important;
+}
+
+// Estilos para la hoja de content
+.text-info{
+    text-wrap: none;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-top:0px;
+    width: 500px;
+    position: absolute;
+    border: 1px solid blue;
+    float: left;
+}
+
+.msj-info-right{
+    margin-top: 15px;
+    text-align: center;
+    float: right; 
+    text-wrap: normal; 
+    width: 302px; 
+    border: none;  
+    margin-left: 5px;
+}
+
+#msj-info-left{
+    float: left; 
+    width: 350px;
+    border:1px solid;
+    //clear: left;
+    margin-left: 10px;
+    margin-top: 15px;
+    position: relative;
+    border: none;
+    
+}

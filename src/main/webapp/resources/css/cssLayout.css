@@ -1,67 +1,49 @@
 
 #wrapper{
-    margin: 2px auto;
-    border: 1px;
-    border-color: gray;
-    width: 80%;
-    border-style: dotted;
-}
-#top {
-    position: relative;
-    padding: 0px;
-    margin: 0px auto;
-    min-height: 100px;
-    width: 100% !important;
+    margin: 0 auto;
+    width: 900px;
 }
 
+
 #bottom {
-    position: relative;
+    float: left;
     background-color: #0A3A6E;
-    padding: 5px;
-    margin: 0px 0px 0px 0px;
-    width: 100% !important;
+    padding: 15px 0;
+    min-width: 100% !important;
     color: #FFF !important;
     min-height: 100px;
 }
 
+div{
+    display:block;
+}
+
 #left {
     float: left;
-    background-color: transparent;
     padding: 5px;
     width: 170px;
     min-height: 800px;
     border-right: 1px solid red;
 }
 
-#right {
-    float: right;
-    background-color: #ece3a5;
-    padding: 5px;
-    width: 150px;
-}
-
 .center_content {
     position: relative;
-    background-color: white;
     padding: 5px;
     
 }
 
 .left_content {
-    background-color: #dddddd;
     padding: 5px;
     margin-left: 170px;
     min-height: 400px;
 }
 
 .right_content {
-    background-color: #dddddd;
     padding: 5px;
     margin: 0px 170px 0px 170px;
 }
 
-#top a:link, #top a:visited {
-  color: white;
+#top a:link, #top a:visited {  
   font-weight : bold;
   text-decoration: none;
 }
@@ -74,12 +56,12 @@
 
 
 #top-band{
+    float: left; 
     height: 35px;
     margin: 0px;
     padding: 0px;
-    width: 100% !important;
+    min-width: 100% !important;
 }
-
 #top-band2{
     margin: 0px;
     height: 50px;    
@@ -89,7 +71,6 @@
 }
 
 .content-catalog {
-    background-color: #dddddd;
     min-height: 50%;
     width:  100%;
     min-height: 600px;
