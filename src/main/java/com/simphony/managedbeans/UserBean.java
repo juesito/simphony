@@ -45,13 +45,11 @@ public class UserBean implements IConfigurable {
     @PostConstruct
     public void postInitialization() {
 
-        
         Calendar cal = Calendar.getInstance();
         this.current.setCreateDate(cal.getTime());
         this.current.setStatus(_DISABLE);
         this.current.setName(_BLANK);
         checkRootUser();
-        
 
         //Esta inicializacion sera temporal solo pruebas
     }
@@ -208,8 +206,10 @@ public class UserBean implements IConfigurable {
     public String login() {
         current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
+            return "toindex";
+        } else {
+            return "toLogin";
         }
-        return "toindex";
     }
 
     /**
@@ -227,8 +227,8 @@ public class UserBean implements IConfigurable {
     /**
      * validamos si existe usuario
      */
-    private void checkRootUser(){
-        if(!this.userService.getUserRepository().exists(1L)){
+    private void checkRootUser() {
+        if (!this.userService.getUserRepository().exists(1L)) {
             Calendar cal = Calendar.getInstance();
             User root = new User();
             root.setName("Administrador");
@@ -243,5 +243,5 @@ public class UserBean implements IConfigurable {
             this.userService.getUserRepository().save(root);
         }
     }
-    
+
 }

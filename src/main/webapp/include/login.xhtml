@@ -1,0 +1,77 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <f:view contentType="text/html">
+        <h:body>
+            <ui:composition template="./../WEB-INF/templates/catalog.xhtml">
+
+                <ui:define name="content">
+                    <h:form>
+                        <div id="main-marquee" class="text-info"> 
+
+                            <div id="msj-info-left" class="msj-info-left">
+                                <p:panelGrid id="login" rendered="#{userBean.current.name eq ''}"  >
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:outputLabel value="" styleClass="disable" 
+                                                           style="color:red !important;" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:outputLabel for="userId" value="Usuario:"/>
+                                        </p:column>
+                                    </p:row>
+                                    
+                                    <p:row>
+                                        <p:column >
+                                            <p:inputText id="userId" value="#{userBean.current.nick}" 
+                                                         maxlength="15" required="true" size="16"
+                                                         immediate="true" tabindex="4" >
+                                                <f:validateLength minimum="2" />
+                                            </p:inputText>
+                                            <p:watermark for="userId" value="Usuario" />
+                                            <h:message for="userId"  showDetail="false"/>
+                                        </p:column>
+                                        <p:column >
+                                            <p:password id="nick" value="#{userBean.current.password}" 
+                                                        maxlength="15" size="16"  immediate="true"
+                                                        tabindex="5" feedback="false"
+                                                        required="true" />
+                                            <p:watermark for="nick" value="Contraseña" />
+                                            <h:message for="nick" showSummary="false"/>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:commandButton update=":sform:growl" action="#{userBean.login()}"
+                                                             tabindex="6" styleClass="catalog-button"
+                                                             value="Entrar" ajax="false" />  
+                                        </p:column>
+
+                                    </p:row>
+                                </p:panelGrid>
+                            </div>
+                            <div id="gallery-marquee" class="msj-info-right">
+                                <!-- Galleria -->
+                                <p:galleria id="contentGalleria" value="#{galleriaBean.images}" var="image" 
+                                            panelWidth="300" panelHeight="250" showFilmstrip="false" showCaption="false"
+                                            effect="fade" effectSpeed="600" transitionInterval="10000" >
+                                    <p:graphicImage value="/images/galleria/#{image}" 
+                                                    height="250" width="300" class="imageGallery"/>
+                                </p:galleria>
+
+                                <p:outputLabel value="#{msgs.info_altmsj02}" styleClass="welcome-msg-gallery" />
+                            </div>
+                        </div>
+                    </h:form>
+                </ui:define>
+            </ui:composition>
+        </h:body>
+    </f:view>
+</html>
