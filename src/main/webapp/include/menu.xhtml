@@ -11,7 +11,7 @@
                     <p:growl id="growl" showDetail="true" showSummary="true" />
 
                     <p:panelGrid id="vlogin" rendered="#{vendorBean.current.name eq '' and userBean.current.name eq ''}"
-                                 columnClasses="noborder">
+                                 columnClasses="noborder" styleClass="vlogin" style="border:none !important;">
                         <p:row>
                             <p:column colspan="2">
                                 <p:outputLabel value="" styleClass="disable" 
@@ -87,9 +87,9 @@
                             </p:row>
                             <p:row>
                                 <p:column colspan="2">
-                                    <p:inputText id="userId" value="#{userBean.current.nick}" style="font-size: 10px;"
+                                    <p:inputText id="userId" value="#{userBean.current.nick}" 
                                                  maxlength="15" required="true" size="16"
-                                                 immediate="true" tabindex="1" >
+                                                 immediate="true" tabindex="4" >
                                         <f:validateLength minimum="2" />
                                     </p:inputText>
                                     <p:watermark for="userId" value="Usuario" />
@@ -98,9 +98,9 @@
                             </p:row>
                             <p:row>
                                 <p:column colspan="2">
-                                    <p:password id="nick" value="#{userBean.current.password}" style="font-size: 10px;"
+                                    <p:password id="nick" value="#{userBean.current.password}" 
                                                 maxlength="15" size="16"  immediate="true"
-                                                tabindex="2" feedback="false"
+                                                tabindex="5" feedback="false"
                                                 required="true" />
                                     <p:watermark for="nick" value="Contraseña" />
                                     <h:message for="nick" showSummary="false"/>
@@ -110,7 +110,7 @@
                             <p:row>
                                 <p:column colspan="2">
                                     <p:commandButton update=":sform:growl" action="#{userBean.login()}"
-                                                     tabindex="3" styleClass="catalog-button"
+                                                     tabindex="6" styleClass="catalog-button"
                                                      value="Entrar" ajax="false" onclick="PF('dlg2').hide();"   />  
                                 </p:column>
 

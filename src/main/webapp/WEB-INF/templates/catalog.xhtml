@@ -15,19 +15,17 @@
         </f:facet>
         <link id="page_favicon" type="image/x-icon" rel="icon" href="#{facesContext.externalContext.requestContextPath}/images/company/favicon.ico" />
         <link href="#{facesContext.externalContext.requestContextPath}/resources/css/global.css" rel="stylesheet" type="text/css" />
-        <title>SVBOL Project</title>
+        <title>Symphony</title>
     </h:head>
 
     <h:body>
 
-        <div id="top-band" class="top-band">
-            <ui:insert name="top-band">
-                <ui:include src="./../../include/top-band.xhtml"></ui:include>
-            </ui:insert>
-        </div>
-        
-        <div id="wrapper" class="wrapper">
-            <div id="top" class="top">
+        <div id="header">
+            <div class="wrap">
+                <ui:insert name="top-band">
+                    <ui:include src="./../../include/top-band.xhtml"></ui:include>
+                </ui:insert>
+
                 <ui:insert name="top">
                     <ui:include src="./../../include/header.xhtml">
                     </ui:include>
@@ -38,10 +36,22 @@
                     <ui:include src="./../../include/top-band2.xhtml"></ui:include>
                 </ui:insert>
             </div>
+        </div>
+
+
+        <div id="wrapper" class="wrapper">
             <div>
                 <div id="content" class="content-catalog">
                     <ui:insert name="content">Content</ui:insert>
                 </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div id="wrap">
+                <ui:insert name="bottom"> 
+                    <ui:include src="./../../include/footer.xhtml"></ui:include>
+                </ui:insert>
             </div>
         </div>
     </h:body>

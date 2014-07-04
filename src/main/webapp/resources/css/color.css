@@ -4,10 +4,6 @@ body{
     font: 13px Helvetica, Arial, sans-serif;
 }
 
-#header, #footer{
-    background-color: #0A3A6E !important;
-}
-
 .topheader{
     font-size: 30px;
     font-weight: bold; 
@@ -15,50 +11,22 @@ body{
 }
 
 
-#top a:link, #top a:visited {
-    color: white;
-}
-
-.vlogin{
-    border:none !important;
-}
-
-
-.ui-panelgrid .ui-panelgrid-cell{
-    border:none !important;
-}
-
-p{color:#0A3A6E !important;}
-
-#marco-izq-title{
-    border-left-color: rgba(55,74,153, 1) !important; 
-}
-
-#top-band2{background-color: rgb(255,199,38);}
-
 #text-info{     
     font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important;
     font-size: 30px;
 }
 
-#msj-info-left{
-    color: rgb(10,58,110);
-}
-#welcome-msg{color: rgb(10,58,110);}
-
 .welcome-title{
     color: rgba(55,74,153, 1) !important;
     font-weight: bold;
     font-size: 30px !important;
-    
-}
-.welcome-msg{
-    color: rgba(32,158,211, 1) !important;
-    margin-top: 20px !important;;
-    
 }
 
-
-.welcome-msg-gallery{
-    color: rgb(10,58,110);
-}
+#header, #footer{ background-color: #0A3A6E !important; color: #fff; }
+#top a:link, #top a:visited { color: white; }
+#top-band2{background-color: rgb(255,199,38);}
+#msj-info-left{ color: rgb(10,58,110); }
+#marco-izq-title{ border-left-color: rgba(55,74,153, 1) !important; }
+.welcome-msg{ margin-top: 20px !important; }
+.welcome-msg-gallery{ color: rgb(10,58,110); }
+.ui-panelgrid .ui-panelgrid-cell{ border:none !important; }

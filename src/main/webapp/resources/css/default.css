@@ -55,23 +55,9 @@ a:link:hover, a:visited:hover  {
     z-index: 2;
 }
 
-
-
-
-
 /*Marcos para el footer*/
-#marco-bot-img{
-    float: left;
-    width: 75px;
-    height:55px;
-    margin: 10px 2px;
-}
-#marco-bot-title{            
-    margin: 0px auto;
-    padding-top: 0px;;
-    width: 760px;
-    z-index: -1;
-}
+
+
 
 #topheader{
     letter-spacing: 2px; 
@@ -79,13 +65,9 @@ a:link:hover, a:visited:hover  {
 }
 
 .msj-info-right-expired{
-
     width: 399px; 
     border: none;  
-
 }
-
-
 
 .helpdiv{
     border: 1px solid #AB74B2;
