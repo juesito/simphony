@@ -279,7 +279,7 @@
             </jpa:many-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity name="Itinerary" class="Itinerary" minimized="true" id="_1404250981916">
+    <jpa:entity name="Itinerary" class="Itinerary" minimized="false" id="_1404250981916">
         <jpa:table name="Itinerarios"/>
         <jpa:attributes>
             <jpa:id name="id" attribute-type="Long" id="_140425105835655">
@@ -291,6 +291,9 @@
             </jpa:basic>
             <jpa:basic name="createDate" attribute-type="java.util.Date" id="_140425147244660">
                 <jpa:column unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
+            </jpa:basic>
+            <jpa:basic name="timeLapsed" attribute-type="String" id="_1404258688821124">
+                <jpa:column unique="false" nullable="true" insertable="true" updatable="true"/>
             </jpa:basic>
             <jpa:one-to-one name="destiny" target-entity="Population" optional="true" primaryKey="true" connected-entity-id="_1403477405854" id="_140425137321957">
                 <jpa:join-table/>
@@ -346,6 +349,9 @@
             <jpa:transient name="action" attribute-type="String" id="_1404255987911121"/>
         </jpa:attributes>
     </jpa:entity>
+    <jpa:entity class="Seat" minimized="false" id="_1404256428383">
+        <jpa:attributes/>
+    </jpa:entity>
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1404189778321" id="_1404189778321_gui">
@@ -385,10 +391,13 @@
                 <Bounds x="553.0" y="186.0" width="167.0" height="23.0"/>
             </shape>
             <shape elementRef="_1404250981916" id="_1404250981916_gui">
-                <Bounds x="563.0" y="340.0" width="155.0" height="23.0"/>
+                <Bounds x="563.0" y="340.0" width="153.0" height="214.0"/>
             </shape>
             <shape elementRef="_1404250990388" id="_1404250990388_gui">
-                <Bounds x="333.0" y="363.0" width="136.0" height="23.0"/>
+                <Bounds x="346.0" y="209.0" width="136.0" height="23.0"/>
+            </shape>
+            <shape elementRef="_1404256428383" id="_1404256428383_gui">
+                <Bounds x="641.0" y="46.0" width="128.0" height="26.0"/>
             </shape>
         </plane>
     </jpa:diagram>

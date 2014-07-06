@@ -43,6 +43,9 @@ public abstract class Person implements Serializable {
 
     @Transient
     private String action;
+    
+    @Transient
+    private boolean looged;
 
 
     @Column(name="apellidoPaterno",length=40)
@@ -60,6 +63,7 @@ public abstract class Person implements Serializable {
     private String FirstLastName;
 
     public Person(){
+        this.looged = false;
 
     }
 
@@ -160,6 +164,16 @@ public abstract class Person implements Serializable {
   public void setFirstLastName (String FirstLastName) {
         this.FirstLastName = FirstLastName;
     }
+
+    public boolean isLooged() {
+        return looged;
+    }
+
+    public void setLooged(boolean looged) {
+        this.looged = looged;
+    }
+  
+  
 
     @Override
     public int hashCode() {

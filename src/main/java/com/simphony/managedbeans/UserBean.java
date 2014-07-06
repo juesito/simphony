@@ -206,8 +206,10 @@ public class UserBean implements IConfigurable {
     public String login() {
         current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
+            current.setLooged(true);
             return "toindex";
         } else {
+            current = new User();
             return "toLogin";
         }
     }

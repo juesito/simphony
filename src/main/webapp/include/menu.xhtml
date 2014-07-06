@@ -10,7 +10,7 @@
                 <h:form id="sform">
                     <p:growl id="growl" showDetail="true" showSummary="true" />
 
-                    <p:panelGrid id="vlogin" rendered="#{vendorBean.current.name eq '' and userBean.current.name eq ''}"
+                    <p:panelGrid id="vlogin" rendered="#{!userBean.current.looged}"
                                  columnClasses="noborder" styleClass="vlogin" style="border:none !important;">
                         <p:row>
                             <p:column colspan="2">
@@ -63,7 +63,7 @@
 
                 </h:form>           
                 <h:form>
-                    <p:commandLink  value="Administrar" 
+                    <p:commandLink  value="Administrar" rendered="#{!userBean.current.looged}"
                                     process="@this"  style="font-size: 12px;color:red !important;" 
                                     action="toLogin" ajax="false"/>
                 </h:form>
