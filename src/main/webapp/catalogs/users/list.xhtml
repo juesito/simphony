@@ -26,11 +26,19 @@
                                       filterMatchMode="contains">
                                 <p:outputLabel value="#{user.name}" />
                             </p:column>
+                            
+                            <p:column headerText="Apellido">
+                                <p:outputLabel value="#{user.firstLastName}" />
+                            </p:column>
 
                             <p:column headerText="Nick" >
                                 <p:outputLabel value="#{user.nick}" />
                             </p:column>
 
+                            <p:column headerText="Email">
+                                <p:outputLabel value="#{user.email}" />
+                            </p:column>
+                            
                             <p:column headerText="Estatus"  style="width: 50px;">
                                 <p:selectOneMenu value="#{user.status}" disabled="true" >
                                     <f:selectItem itemLabel="Alta" itemValue="A" />

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity(name="SalePoint")
-@Table(name="puntodeventa",schema="simphonybd")
+@Table(name="puntodeventa")
 public  class SalePoint implements Serializable {
 
 

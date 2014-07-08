@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity(name = "User")
-@Table(name = "usuarios", schema = "simphonybd")
+@Table(name = "usuarios")
 public class User extends Person implements Serializable, Cloneable {
 
     @Column(name = "nick", length = 10)
