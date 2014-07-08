@@ -67,6 +67,12 @@ public abstract class Person implements Serializable {
 
     }
 
+    public void update(Person personUpdated){
+        this.name = personUpdated.getName();
+        this.FirstLastName = personUpdated.getFirstLastName();
+        this.secondLastName = personUpdated.getSecondLastName();
+        this.email = personUpdated.getEmail();
+    }
 
    public Long getId() {
         return this.id;

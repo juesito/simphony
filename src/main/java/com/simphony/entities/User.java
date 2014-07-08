@@ -1,10 +1,11 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
-
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name = "User")
@@ -23,6 +24,21 @@ public class User extends Person implements Serializable, Cloneable {
 
     }
 
+    /**
+     * Actualizamos el usuario.
+     * @param userUpdated 
+     */
+    public void update(User userUpdated){
+        super.update(userUpdated);
+        this.nick = userUpdated.getNick();
+        this.password = userUpdated.getPassword();
+    }
+    
+    @PreUpdate
+    public void preUpdate(){
+        super.setLastUpdate(new Date());
+    }
+    
     public String getNick() {
         return this.nick;
     }
@@ -37,6 +53,11 @@ public class User extends Person implements Serializable, Cloneable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "nick=" + nick + ", password=" + password + '}';
     }
 
     @Override

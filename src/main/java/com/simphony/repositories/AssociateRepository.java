@@ -7,14 +7,13 @@
 package com.simphony.repositories;
 
 import com.simphony.entities.Associate;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Soporte IT
  */
-@Repository
-public interface AssociateRepository extends CrudRepository<Associate, Long> {
+public interface AssociateRepository extends JpaRepository<Associate, Long> {
     
 }
