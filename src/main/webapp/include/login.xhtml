@@ -14,7 +14,7 @@
                         <div id="main-marquee" class="text-info"> 
 
                             <div id="msj-info-left" class="msj-info-left">
-                                <p:panelGrid id="login" rendered="#{userBean.current.name eq ''}"  >
+                                <p:panelGrid id="login" rendered="#{!userBean.current.looged}"  >
                                     <p:row>
                                         <p:column colspan="2">
                                             <p:outputLabel value="" styleClass="disable" 

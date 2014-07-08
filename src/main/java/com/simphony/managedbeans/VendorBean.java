@@ -7,6 +7,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.VendorService;
 import com.simphony.entities.Vendor;
+import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -118,12 +119,18 @@ public class VendorBean implements IConfigurable {
 
     /**
      * deshabilitamos vendedor
+     * @throws com.simphony.exceptions.PersonException
      */
-    public void disableVendor() {
-        Calendar cal = Calendar.getInstance();
-        this.selected.setLastUpdate(cal.getTime());
+    public void disableVendor() throws PersonException {
         this.selected.setStatus(_DISABLE);
-        this.vendorService.getVendorRepository().save(selected);
+        Vendor vendorUpdated = this.vendorService.getVendorRepository().findOne(selected.getId());
+        
+        if(vendorUpdated == null){
+            throw new PersonException("Vendedor no existente"); 
+        }
+        
+        vendorUpdated.update(selected);
+        this.vendorService.getVendorRepository().save(vendorUpdated);
         this.fillVendors();
 
     }
@@ -156,12 +163,19 @@ public class VendorBean implements IConfigurable {
     /**
      * actualizamos vendedor
      * @return
+     * @throws com.simphony.exceptions.PersonException
      */
-    public String update() {
-        Calendar cal = Calendar.getInstance();
-        vendor.setLastUpdate(cal.getTime());
-
-        this.vendorService.getVendorRepository().save(vendor);
+    public String update() throws PersonException {
+        
+        Vendor vendorUpdated = this.vendorService.getVendorRepository().findOne(vendor.getId());
+        
+        if(vendorUpdated == null){
+            throw new PersonException("Vendedor no existente"); 
+        }
+        
+        vendorUpdated.update(vendor);
+        this.vendorService.getVendorRepository().save(vendorUpdated);
+        
         vendor = new Vendor();
         return toVendors();
     }

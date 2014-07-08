@@ -1,15 +1,16 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="ruta")
 public class Route implements Serializable {
 
     @Column(name = "id")

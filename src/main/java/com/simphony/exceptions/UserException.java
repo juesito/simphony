@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-package com.simphony.repositories;
-
-import com.simphony.entities.Bus;
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.simphony.exceptions;
 
 /**
  *
  * @author Soporte IT
  */
-public interface BusRepository extends JpaRepository<Bus, Long> {
+public class UserException extends Exception {
+    public UserException(String message) {
+        super(message);
+    }
     
 }

@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="WorkCenter")
-@Table(name="estacionTrabajo",schema="simphonybd")
+@Table(name="estacionesTrabajo")
 public  class WorkCenter implements Serializable {
 
 

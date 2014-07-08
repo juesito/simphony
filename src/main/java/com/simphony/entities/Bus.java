@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Bus")
-@Table(name="Autobus",schema="simphonybd")
+@Table(name="Autobus")
 public  class Bus implements Serializable {
 
 

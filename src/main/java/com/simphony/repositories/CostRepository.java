@@ -7,14 +7,12 @@
 package com.simphony.repositories;
 
 import com.simphony.entities.Cost;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author root
  */
-@Repository
-public interface CostRepository extends CrudRepository<Cost, Long>{
+public interface CostRepository extends JpaRepository<Cost, Long>{
     
 }

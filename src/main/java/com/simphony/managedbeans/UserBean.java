@@ -7,6 +7,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.UserService;
 import com.simphony.entities.User;
+import com.simphony.exceptions.UserException;
 import com.simphony.interfases.IConfigurable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -122,12 +123,20 @@ public class UserBean implements IConfigurable {
 
     /**
      * deshabilitamos usuario
+     * @throws com.simphony.exceptions.UserException
      */
-    public void disableUser() {
-        Calendar cal = Calendar.getInstance();
-        this.selected.setLastUpdate(cal.getTime());
+    public void disableUser() throws UserException {
         this.selected.setStatus(_DISABLE);
-        this.userService.getUserRepository().save(selected);
+        
+        User userUpdated = this.userService.getUserRepository().findOne(selected.getId());
+        
+        if(userUpdated == null){
+            throw new UserException("Usuario no existente"); 
+        }
+        
+        userUpdated.update(selected);
+        this.userService.getUserRepository().save(userUpdated);
+        
         this.fillUsers();
 
     }
@@ -175,15 +184,21 @@ public class UserBean implements IConfigurable {
     }
 
     /**
-     * Actualizamos vendedor
+     * Actualizamos el usuario
      *
      * @return
+     * @throws com.simphony.exceptions.UserException
      */
-    public String update() {
-        Calendar cal = Calendar.getInstance();
-        user.setLastUpdate(cal.getTime());
-
-        this.userService.getUserRepository().save(user);
+    public String update() throws UserException {
+        
+        User userUpdated = this.userService.getUserRepository().findOne(user.getId());
+        
+        if(userUpdated == null){
+            throw new UserException("Usuario no existente"); 
+        }
+        
+        userUpdated.update(user);
+        this.userService.getUserRepository().save(userUpdated);
         user = new User();
         return toUsers();
     }
@@ -206,8 +221,10 @@ public class UserBean implements IConfigurable {
     public String login() {
         current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
+            current.setLooged(true);
             return "toindex";
         } else {
+            current = new User();
             return "toLogin";
         }
     }
