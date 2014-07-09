@@ -11,11 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity(name="WorkCenter")
 @Table(name="estacionesTrabajo")
-public  class WorkCenter implements Serializable {
+public  class WorkCenter implements Serializable, Cloneable {
 
+    @Transient
+    private String action;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -96,6 +99,30 @@ public  class WorkCenter implements Serializable {
 
   public void setUser (User user) {
         this.user = user;
+    }
+
+  public String getAction() {
+        return this.action;
+    }
+
+
+  public void setAction (String action) {
+        this.action = action;
+    }
+ 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }
+
+        public void update(WorkCenter workCenterUpdated){
+        this.description = workCenterUpdated.getDescription();
     }
 
 }

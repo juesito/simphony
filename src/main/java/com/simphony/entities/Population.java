@@ -11,11 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity(name="Population")
 @Table(name="poblaciones")
-public  class Population implements Serializable {
+public  class Population implements Serializable, Cloneable {
 
+    @Transient
+    private String action;
 
     @Column(name="id")
     @Id
@@ -120,7 +123,29 @@ public  class Population implements Serializable {
         }
         return true;
     }
-  
+    public String getAction() {
+        return this.action;
+    }
+
+
+  public void setAction (String action) {
+        this.action = action;
+    }
+ 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }
+
+        public void update(Population populationUpdated){
+        this.description = populationUpdated.getDescription();
+    }
 
 }
 
