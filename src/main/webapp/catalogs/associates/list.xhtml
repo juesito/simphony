@@ -23,19 +23,19 @@
                                      rowKey="#{associate.keyId}" id="associateDT"
                                      >
                            
-                            <p:column headerText="Tirilla" >
+                            <p:column headerText="Tirilla:" >
                                 <p:outputLabel value="#{associate.keyId}" />
                             </p:column>
-                            <p:column headerText="Nombre" >
+                            <p:column headerText="Nombre:" >
                                 <p:outputLabel value="#{associate.name}" />
                             </p:column>
-                            <p:column headerText="Apellido paterno" >
+                            <p:column headerText="Apellido paterno:" >
                                 <p:outputLabel value="#{associate.firstLastName}" />
                             </p:column>
-                             <p:column headerText="Plataforma" >
+                             <p:column headerText="Plataforma:" >
                                 <p:outputLabel value="#{associate.platform}" />
                             </p:column>
-                            <p:column headerText="Estado" >
+                            <p:column headerText="Estado:" >
                                 <p:outputLabel value="#{associate.state}" />
                             </p:column>
                             
@@ -48,8 +48,13 @@
                                                  icon="ui-icon-search" ajax="false"
                                                  value="Modificar" action="#{associateBean.modifyAssociate()}" />
                                 <p:commandButton process="associateDT" 
+                                                 update=":form:associateDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{associateBean.enableAssociate()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="associateDT" 
                                                  update=":form:associateDetail" icon="ui-icon-trash" 
-                                                 value="Borrar" actionListener="#{associateBean.disableAssociate()}" >
+                                                 value="Desactivar" actionListener="#{associateBean.disableAssociate()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>

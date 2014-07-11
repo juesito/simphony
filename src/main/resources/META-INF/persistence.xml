@@ -17,6 +17,7 @@
     <class>com.simphony.entities.SaleDetail</class>
     <class>com.simphony.entities.Itinerary</class>
     <class>com.simphony.entities.Route</class>
+    <class>com.simphony.entities.Catalog</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>
@@ -26,7 +27,7 @@
       <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
       <property name="hibernate.show_sql" value="true"/>
-      <property name="javax.persistence.schema-generation.database.action" value="none"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>

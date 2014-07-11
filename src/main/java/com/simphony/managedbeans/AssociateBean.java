@@ -115,14 +115,25 @@ public class AssociateBean implements IConfigurable {
      *
      * @throws com.simphony.exceptions.PersonException
      */
-    public void disableAssociate() throws PersonException {
+    public void disableAssociate() {
         this.selected.setStatus(_DISABLE);
 
         Associate associateUpdated = this.associateService.getAssociateRepository().findOne(selected.getId());
 
-        if (associateUpdated == null) {
-            throw new PersonException("Agremiado no existente");
-        }
+        associateUpdated.update(selected);
+        this.associateService.getAssociateRepository().save(associateUpdated);
+
+        this.fillAssociates();
+
+    }
+
+     /**
+     * habilitamos agremiado
+     */
+    public void enableAssociate() {
+        this.selected.setStatus(_ENABLED);
+
+        Associate associateUpdated = this.associateService.getAssociateRepository().findOne(selected.getId());
 
         associateUpdated.update(selected);
         this.associateService.getAssociateRepository().save(associateUpdated);
