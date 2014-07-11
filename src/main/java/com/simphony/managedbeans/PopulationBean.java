@@ -114,17 +114,25 @@ public class PopulationBean implements IConfigurable {
 
     /**
      * deshabilitamos Population
-     *
-     * @throws com.simphony.exceptions.PersonException
-     */
-    public void disablePopulation() throws PersonException {
+    */
+    public void disablePopulation()  {
         this.selected.setStatus(_DISABLE);
 
         Population populationUpdated = this.populationService.getPopulationRepository().findOne(selected.getId());
 
-        if (populationUpdated == null) {
-            throw new PersonException("Población no existente");
-        }
+        populationUpdated.update(selected);
+        this.populationService.getPopulationRepository().save(populationUpdated);
+
+        this.fillPopulation();
+
+    }
+    /*
+         * habilitamos Population
+     */
+    public void enablePopulation() {
+        this.selected.setStatus(_ENABLED);
+
+        Population populationUpdated = this.populationService.getPopulationRepository().findOne(selected.getId());
 
         populationUpdated.update(selected);
         this.populationService.getPopulationRepository().save(populationUpdated);
