@@ -94,3 +94,83 @@
 
     </body>
 </html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+
+                        <p:outputLabel value="Catologo poblaciones" class="welcome-title" />
+                        <br />
+
+                        <!-- Data table de usuarios -->
+                        <p:dataTable value="#{populationBean.list}" var="population" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{populationBean.selected}" 
+                                     rowKey="#{population.id}" id="populationDT"
+                                     >
+                            <p:column headerText="Descripción" >
+                                <p:outputLabel value="#{population.description}" />
+                            </p:column>
+                            
+                            <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="populationDT" 
+                                                 update=":form:populationDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('populationDialog').show()" />
+                                <p:commandButton process="populationDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{populationBean.modifyPopulation()}" />
+                                <p:commandButton process="populationDT" 
+                                                 update=":form:populationDetail" icon="ui-icon-trash" 
+                                                 value="Borrar" actionListener="#{populationBean.disablePopulation()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+                        </p:dataTable>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+
+                        <p:commandButton value="Agregar" action="#{populationBean.addPopulation()}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <!-- detalle poblaciones-->
+                        <p:dialog header="Población Info" widgetVar="populationDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="populationDetail" style="text-align:center;">
+                                <p:panelGrid  rendered="#{not empty populationBean.selected}" >
+
+                                    <!-- Id, Nombre -->
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Descripción:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.description}" />
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
