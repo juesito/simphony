@@ -25,7 +25,7 @@
                                 </p:column>
                                  <p:column>
                                     <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" required="true" 
-                                                 requiredMessage="Tirilla requerida"/>
+                                                 tabindex="1" requiredMessage="Tirilla requerida"/>
                                     <p:message for="keyId" />
                                 </p:column>
                             </p:row>
@@ -35,7 +35,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{associateBean.associate.name}" required="true" 
-                                                 requiredMessage="Nombre requerido"/>
+                                                 tabindex="2" requiredMessage="Nombre requerido"/>
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
@@ -51,7 +51,8 @@
                                     <p:outputLabel value="Apellido Paterno" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="lastName" value="#{associateBean.associate.firstLastName}" required="true" 
+                                    <p:inputText id="lastName" value="#{associateBean.associate.firstLastName}" 
+                                                 required="true" tabindex="3"
                                                  requiredMessage="Apellido Requerido"/>
                                     <p:message for="lastName" />
                                 </p:column>

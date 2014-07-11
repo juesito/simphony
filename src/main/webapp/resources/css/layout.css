@@ -161,3 +161,9 @@
 
 
 div{ display:block; }
+
+#salePanel{
+    margin-top: 210px;
+    //float: left;
+    position: absolute;
+}

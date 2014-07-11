@@ -135,7 +135,7 @@ public class PopulationBean implements IConfigurable {
 
     public String cancelPopulation() {
         this.fillPopulation();
-        return "toPopulation";
+        return "toPopulations";
     }
 
     /**

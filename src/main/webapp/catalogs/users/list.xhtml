@@ -39,7 +39,7 @@
                                 <p:outputLabel value="#{user.email}" />
                             </p:column>
                             
-                            <p:column headerText="Estatus"  style="width: 50px;">
+                            <p:column headerText="Estatus"  style="width: 70px !important;">
                                 <p:selectOneMenu value="#{user.status}" disabled="true" >
                                     <f:selectItem itemLabel="Alta" itemValue="A" />
                                     <f:selectItem itemLabel="Baja" itemValue="B" />
@@ -48,7 +48,7 @@
 
                             <p:column headerText="Fecha Creación" >
                                 <p:calendar value="#{user.createDate}" pattern="yyy/MMM/dd"
-                                            style="width: 50px !important;"/>
+                                            style="width: 20px !important;" disabled="true"/>
                             </p:column>
 
                             <!-- Footer -->

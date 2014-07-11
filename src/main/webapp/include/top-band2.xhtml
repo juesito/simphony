@@ -7,6 +7,47 @@
     <f:view contentType="text/html">
         <h:body>
             <ui:composition>
+                <div id="marco-right-title">
+                    <h:form>
+                        <p:menubar styleClass="miMenu" rendered="#{userBean.current.looged}">
+                            <p:submenu label="#{vendorBean.current.name}" rendered="#{vendorBean.current.name ne ''}">
+                                <p:menuitem value="Inicio" action="toindex" style="color: #FFF !important;"/>
+                                <p:menuitem value="Salir" action="#{vendorBean.logout()}" styleClass="salirCSS" />
+                            </p:submenu>
+                            <p:submenu label="#{userBean.current.name}" rendered="#{userBean.current.name ne ''}">
+                                <p:menuitem value="Inicio" action="toindex" />
+                                <p:menuitem value="Salir" action="#{userBean.logout()}" />
+                            </p:submenu>
+                            <p:submenu label="Ventas" >
+                                <p:menuitem value="Venta diaria" action="toSale" icon="ui-icon-document" ajax="false"/>
+                                <p:menuitem value="Cancelación" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Operación" >
+                                <p:menuitem value="Rutas" url="#" />
+                                <p:menuitem value="Guías de viaje" url="#" />
+                            </p:submenu>
+                            <p:submenu label="Reportes" >  
+                                <p:menuitem value="Por definir" /> 
+                            </p:submenu>
+                            <p:submenu label="Catalogos" >
+                                <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 
+                                <p:menuitem value="Tarifas" action="#{costBean.toCosts}" ajax="false" /> 
+                                <p:menuitem value="Itinerarios" /> 
+                                <p:menuitem value="Agremiados" action="#{associateBean.toAssociates}" ajax="false" /> 
+                                <p:menuitem value="Operadores" /> 
+                                <p:menuitem value="Autobuses" action="#{busBean.toBus()}" ajax="false" /> 
+                                <p:menuitem value="Puntos de venta" action="#{salePointBean.toSalePoint()}" ajax="false" /> 
+                                <p:menuitem value="Estaciones de trabajo" action="#{workCenterBean.toWorkCenter()}" ajax="false" /> 
+                                 <p:menuitem value="Vendedores" action="#{vendorBean.toVendors}" ajax="false" />
+                                <p:menuitem value="Usuarios" action="#{userBean.toUsers}" ajax="false"
+                                            actionListener="#{boxPopulationService.fillBox()}"/>
+
+
+                            </p:submenu>
+                        </p:menubar>
+                    </h:form>
+                </div>
+                
                 <h:form>
                     <div id="marco-band-sts">
                         <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  

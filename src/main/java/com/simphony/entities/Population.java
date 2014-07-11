@@ -145,6 +145,7 @@ public  class Population implements Serializable, Cloneable {
 
         public void update(Population populationUpdated){
         this.description = populationUpdated.getDescription();
+        this.status = populationUpdated.getStatus();
     }
 
 }
