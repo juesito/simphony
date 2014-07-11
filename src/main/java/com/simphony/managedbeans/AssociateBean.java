@@ -7,7 +7,6 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.AssociateService;
 import com.simphony.entities.Associate;
-import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ENABLED;
@@ -106,13 +105,13 @@ public class AssociateBean implements IConfigurable {
         try {
             this.associate = (Associate) this.selected.clone();
         } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AssociateBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "addAssociate";
     }
 
     /**
-     * deshabilitamos usuario
+     * deshabilitamos agremiado
      *
      * @throws com.simphony.exceptions.PersonException
      */
@@ -122,7 +121,7 @@ public class AssociateBean implements IConfigurable {
         Associate associateUpdated = this.associateService.getAssociateRepository().findOne(selected.getId());
 
         if (associateUpdated == null) {
-            throw new PersonException("Usuario no existente");
+            throw new PersonException("Agremiado no existente");
         }
 
         associateUpdated.update(selected);

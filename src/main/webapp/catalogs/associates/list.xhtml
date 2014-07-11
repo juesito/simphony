@@ -16,8 +16,13 @@
                         
                         <p:outputLabel value="Catologo Agremiados" class="welcome-title" />
                         
-                        <p:dataTable value="#{associateBean.list}" var="associate">
-                            
+                         <br />
+                        <!-- Data table de usuarios -->
+                        <p:dataTable value="#{associateBean.list}" var="associate" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{associateBean.selected}" 
+                                     rowKey="#{associate.keyId}" id="associateDT"
+                                     >
+                           
                             <p:column headerText="Tirilla" >
                                 <p:outputLabel value="#{associate.keyId}" />
                             </p:column>
@@ -34,16 +39,27 @@
                                 <p:outputLabel value="#{associate.state}" />
                             </p:column>
                             
-                            <p:column style="width:4%;text-align: center">
-                                <p:commandButton update=":form:carDetail" 
-                                                 oncomplete="PF('associateDialog').show()" icon="ui-icon-search" 
-                                                 title="View">
-                                    <f:setPropertyActionListener value="#{associate}" target="#{associateBean.selected}" />
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="associateDT" 
+                                                 update=":form:associateDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('associateDialog').show()" />
+                                <p:commandButton process="associateDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{associateBean.modifyAssociate()}" />
+                                <p:commandButton process="associateDT" 
+                                                 update=":form:associateDetail" icon="ui-icon-trash" 
+                                                 value="Borrar" actionListener="#{associateBean.disableAssociate()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
                                 </p:commandButton>
-                            </p:column>
-                            
+                            </f:facet>
 
                         </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
 
                         <p:commandButton value="Agregar" action="#{associateBean.addAssociate}"
                                          styleClass="catalog-button" ajax="false"/>
@@ -51,34 +67,34 @@
                         <!-- detalle agremiados -->
                         <p:dialog header="Detalle agremiados" widgetVar="associateDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
-                            <p:outputPanel id="carDetail" style="text-align:center;">
+                            <p:outputPanel id="associateDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty associateBean.selected}" columnClasses="label,value">
                                     
                                     <h:outputText value="Tirilla:" />
                                     <h:outputText value="#{associateBean.selected.keyId}" />
 
-                                    <h:outputText value="Nombre" />
+                                    <h:outputText value="Nombre:" />
                                     <h:outputText value="#{associateBean.selected.name}" />
                                                                        
-                                    <h:outputText value="Apellido paterno" />
+                                    <h:outputText value="Apellido paterno:" />
                                     <h:outputText value="#{associateBean.selected.firstLastName}" />
                                                                        
-                                    <h:outputText value="Apellido Materno" />
+                                    <h:outputText value="Apellido Materno:" />
                                     <h:outputText value="#{associateBean.selected.secondLastName}" />
                                                                        
-                                    <h:outputText value="Plataforma" />
+                                    <h:outputText value="Plataforma:" />
                                     <h:outputText value="#{associateBean.selected.platform}" />
                                                                        
-                                    <h:outputText value="Estado" />
+                                    <h:outputText value="Estado:" />
                                     <h:outputText value="#{associateBean.selected.state}" />
                                                                        
-                                    <h:outputText value="Sección" />
+                                    <h:outputText value="Sección:" />
                                     <h:outputText value="#{associateBean.selected.section}" />
                                                                        
-                                    <h:outputText value="Teléfono" />
+                                    <h:outputText value="Teléfono:" />
                                     <h:outputText value="#{associateBean.selected.phoneId}" />
                                                                        
-                                    <h:outputText value="Email" />
+                                    <h:outputText value="Email:" />
                                     <h:outputText value="#{associateBean.selected.email}" />
                                                                        
                                 </p:panelGrid>
