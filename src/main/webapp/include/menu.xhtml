@@ -10,7 +10,7 @@
                 <h:form id="sform">
                     <p:growl id="growl" showDetail="true" showSummary="true" />
 
-                    <p:panelGrid id="vlogin" rendered="#{!userBean.current.looged}"
+                    <p:panelGrid id="vlogin" rendered="#{!userBean.current.looged and !vendorBean.current.looged}"
                                  columnClasses="noborder" styleClass="vlogin" style="border:none !important;">
                         <p:row>
                             <p:column colspan="2">

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface VendorRepository extends CrudRepository<Vendor, Long>{
-    @Query("SELECT p FROM User p "
+    @Query("SELECT p FROM Vendor p "
         + "WHERE LOWER(p.nick) = LOWER(:nick) AND contrasena = (:password)")
     public Vendor login(@Param("nick") String nick, @Param("password") String password);
 }

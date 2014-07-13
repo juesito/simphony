@@ -196,8 +196,12 @@ public class VendorBean implements IConfigurable {
     public String login() {
         current = this.vendorService.getVendorRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
+            current.setLooged(true);
+            return "toSale";
+        } else {
+            current = new Vendor();
+            return "toindex";
         }
-        return "toindex";
     }
 
     /**

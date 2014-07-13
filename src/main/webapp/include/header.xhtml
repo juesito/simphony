@@ -17,7 +17,7 @@
             <div id="marco-der">
                 <div id="marco-right-title">
                     <h:form>
-                        <p:menubar rendered="#{userBean.current.looged}">
+                        <p:menubar rendered="#{userBean.current.looged or vendorBean.current.looged}">
                             <p:submenu label="#{vendorBean.current.name}" icon="ui-icon-home" rendered="#{vendorBean.current.name ne ''}">
                                 <p:menuitem value="Inicio" action="toindex" />
                                 <p:menuitem value="Salir" action="#{vendorBean.logout()}" />
@@ -27,7 +27,7 @@
                                 <p:menuitem value="Salir" action="#{userBean.logout()}" />
                             </p:submenu>
                             <p:submenu label="Ventas" icon="ui-icon-cart">
-                                <p:menuitem value="Venta diaria" url="#" icon="ui-icon-document"/>
+                                <p:menuitem value="Venta diaria" action="toSale" ajax="false"/>
                                 <p:menuitem value="Cancelación" url="#" icon="ui-icon-closethick"/>
                             </p:submenu>
                             <p:submenu label="Operación" icon="ui-icon-document">

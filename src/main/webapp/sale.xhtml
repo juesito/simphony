@@ -8,11 +8,52 @@
 
     <f:view contentType="text/html">
         <h:body>
-            <ui:composition template="./WEB-INF/templates/main.xhtml">
+            <ui:composition template="./WEB-INF/templates/catalog.xhtml">
 
-                <ui:define name="content">                     
-                    <p:panel>
-                        <p:outputLabel value=""
+                <ui:define name="content">              
+                    <br />
+                    <p:panel >
+                        <p:panelGrid id="ventaPanel" styleClass="ventaPanel">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Saliendo de:" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                            <p:column>
+                                <p:selectOneMenu id="population" value="#{vendorBean.vendor.population}" 
+                                                 converter="populationConverter" 
+                                                 style="width:160px" required="true" 
+                                                 requiredMessage="Población Requerida">
+                                    <f:selectItems value="#{boxPopulationService.populationList}" 
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Destino:" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                            <p:column>
+                                <p:selectOneMenu id="desPopulation" value="#{vendorBean.vendor.population}" 
+                                                 converter="populationConverter" 
+                                                 style="width:160px" required="true" 
+                                                 requiredMessage="Población Requerida">
+                                    <f:selectItems value="#{boxPopulationService.populationList}" 
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:commandButton value="Buscar" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
                     </p:panel>
                 </ui:define>
 
