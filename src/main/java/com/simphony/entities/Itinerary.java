@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity(name="Itinerary")
 @Table(name="Itinerarios")
@@ -18,21 +19,34 @@ public  class Itinerary implements Serializable {
     @Id
     private Long id;
 
-
-    @Basic
-    private int secuence;
-
-
     @Id@OneToOne(targetEntity=User.class)
-    private User user1;
+    private User userId;
 
 
     @Id@OneToOne(targetEntity=Population.class)
     private Population destiny;
+    
+    @Id@OneToOne(targetEntity=Population.class)
+    private Population origin;
 
-
+    @Column(name="fechaCreacion")
     @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createDate;
+    
+    @Column(name="horaSalida")
+    @Basic
+    @Temporal(javax.persistence.TemporalType.TIME)
+    private Date departureTime;
+    
+    @Column(name="horaLlegada")
+    @Basic
+    @Temporal(javax.persistence.TemporalType.TIME)
+    private Date checkTime;
+    
+    @Column(name="estatus")
+    @Basic
+    private String status;
 
     public Itinerary(){
 
@@ -47,30 +61,6 @@ public  class Itinerary implements Serializable {
   public void setId (Long id) {
         this.id = id;
     }
-
-
-
-   public int getSecuence() {
-        return this.secuence;
-    }
-
-
-  public void setSecuence (int secuence) {
-        this.secuence = secuence;
-    }
-
-
-
-   public User getUser1() {
-        return this.user1;
-    }
-
-
-  public void setUser1 (User user1) {
-        this.user1 = user1;
-    }
-
-
 
    public Population getDestiny() {
         return this.destiny;
@@ -91,6 +81,40 @@ public  class Itinerary implements Serializable {
   public void setCreateDate (Date createDate) {
         this.createDate = createDate;
     }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public Population getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Population origin) {
+        this.origin = origin;
+    }
+
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public Date getCheckTime() {
+        return checkTime;
+    }
+
+    public void setCheckTime(Date checkTime) {
+        this.checkTime = checkTime;
+    }
+  
+  
 
     @Override
     public int hashCode() {
