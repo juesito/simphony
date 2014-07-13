@@ -162,13 +162,8 @@
 
 div{ display:block; }
 
-#ventaPanel{
-    margin-top: 5px;
-    z-index: -1;
-}
-#content-catalog {
-    width:  80%;
-    min-height: 400px;
-    margin-top: 180px !important;
+#salePanel{
+    margin-top: 210px;
+    //float: left;
     position: absolute;
 }

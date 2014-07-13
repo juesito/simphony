@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 @MappedSuperclass
@@ -33,6 +34,7 @@ public abstract class Person implements Serializable {
 
     @Column(name="ultimaModificacion")
     @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastUpdate;
 
 
@@ -55,6 +57,7 @@ public abstract class Person implements Serializable {
 
     @Column(name="fechaCreacion")
     @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createDate;
 
 
@@ -67,6 +70,13 @@ public abstract class Person implements Serializable {
 
     }
 
+    public void update(Person personUpdated){
+        this.name = personUpdated.getName();
+        this.FirstLastName = personUpdated.getFirstLastName();
+        this.secondLastName = personUpdated.getSecondLastName();
+        this.email = personUpdated.getEmail();
+        this.status = personUpdated.getStatus();
+    }
 
    public Long getId() {
         return this.id;

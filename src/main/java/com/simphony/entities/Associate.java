@@ -1,18 +1,20 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name="Associate")
-@Table(name="Agremiado",schema="simphonybd")
-public  class Associate extends Person implements Serializable {
+@Table(name="Agremiado")
+public  class Associate extends Person implements Serializable, Cloneable {
 
-
+    @Column(name="plataforma",length=10)
     @Basic
     private String platform;
 
@@ -49,6 +51,21 @@ public  class Associate extends Person implements Serializable {
 
     }
 
+    public void update(Associate associateUpdated){
+        super.update(associateUpdated);
+        this.platform = associateUpdated.getPlatform();
+        this.keyId = associateUpdated.getKeyId();
+        this.city = associateUpdated.getCity();
+        this.phoneId = associateUpdated.getPhoneId();
+        this.section = associateUpdated.getSection();
+        this.state = associateUpdated.getState();
+        this.user = associateUpdated.getUser();
+    }
+    
+    @PreUpdate
+    public void preUpdate(){
+        super.setLastUpdate(new Date());
+    }
 
    public String getPlatform() {
         return this.platform;
@@ -145,6 +162,17 @@ public  class Associate extends Person implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
     }
   
 

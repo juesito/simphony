@@ -1,81 +1,86 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
-
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
 @Entity
-public  class Vendor extends Person implements Serializable, Cloneable {
+@Table(name = "vendedores")
+public class Vendor extends Person implements Serializable, Cloneable {
 
-
-    @Column(name="nick",length=10)
+    @Column(name = "nick", length = 10)
     @Basic
     private String nick;
 
-
-    @ManyToOne(targetEntity=WorkCenter.class)
+    @ManyToOne(targetEntity = WorkCenter.class)
     private WorkCenter workCenter;
 
-
-    @Column(name="contrasena",length=10)
+    @Column(name = "contrasena", length = 10)
     @Basic
     private String password;
 
-
-    @ManyToOne(targetEntity=Population.class)
+    @ManyToOne(targetEntity = Population.class)
     private Population population;
 
-    public Vendor(){
+    public Vendor() {
 
     }
 
+    public void update(Vendor vendorUpdated) {
+        super.update(vendorUpdated);
+        this.nick = vendorUpdated.getNick();
+        this.password = vendorUpdated.getPassword();
+    }
 
-   public String getNick() {
+    @PreUpdate
+    public void preUpdate() {
+        super.setLastUpdate(new Date());
+    }
+
+    public String getNick() {
         return this.nick;
     }
 
-
-  public void setNick (String nick) {
+    public void setNick(String nick) {
         this.nick = nick;
     }
 
-
-
-   public WorkCenter getWorkCenter() {
+    public WorkCenter getWorkCenter() {
         return this.workCenter;
     }
 
-
-  public void setWorkCenter (WorkCenter workCenter) {
+    public void setWorkCenter(WorkCenter workCenter) {
         this.workCenter = workCenter;
     }
 
-
-
-   public String getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
-
-  public void setPassword (String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-
-
-   public Population getPopulation() {
+    public Population getPopulation() {
         return this.population;
     }
 
-
-  public void setPopulation (Population population) {
+    public void setPopulation(Population population) {
         this.population = population;
     }
-  
-  @Override
+
+    @Override
+    public String toString() {
+        return "Vendor{" + "nick=" + nick + ", workCenter=" + workCenter + ", password=" + password + ", population=" + population + '}';
+    }
+
+    
+    @Override
     public Object clone() throws CloneNotSupportedException {
         Object obj = null;
         try {
@@ -87,4 +92,3 @@ public  class Vendor extends Person implements Serializable, Cloneable {
     }
 
 }
-

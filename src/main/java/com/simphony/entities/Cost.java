@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Cost")
-@Table(name="Tarifas",schema="simphonybd")
+@Table(name="Tarifas")
 public  class Cost implements Serializable {
 
 

@@ -13,42 +13,66 @@
             <ui:define name="content">
                 <div class="catalog-table">
                     <h:form id="form">
-                        <p:outputLabel value="Catalogo centros de trabajo" class="welcome-title" />
-                        <p:dataTable value="#{workCenterBean.list}" var="workcenter">
-                            <p:column headerText="Id" >
-                                <p:outputLabel value="#{workcenter.id}" />
+                        
+                        <p:outputLabel value="Estaciones de trabajo" class="welcome-title" />
+                        
+                         <br />
+                        <!-- Data table -->
+                        <p:dataTable value="#{workCenterBean.list}" var="workCenter" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{workCenterBean.selected}" 
+                                     rowKey="#{workCenter.id}" id="workCenterDT"
+                                     >
+                           
+                            <p:column headerText="Descripción" >
+                                <p:outputLabel value="#{workCenter.description}" />
                             </p:column>
-                            <p:column headerText="Centro de trabajo" >
-                                <p:outputLabel value="#{workcenter.description}" />
+                            <p:column headerText="Status" >
+                                <p:outputLabel value="#{workCenter.status}" />
                             </p:column>
                             
-                            
-                            <p:column style="width:4%;text-align: center">
-                                <p:commandButton update=":form:workCenterDetail" 
-                                                 oncomplete="PF('workCenterDialog').show()" icon="ui-icon-search" 
-                                                 title="View">
-                                    <f:setPropertyActionListener value="#{workcenter}" target="#{workCenterBean.selected}" />
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="workCenterDT" 
+                                                 update=":form:workCenterDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('workCenterDialog').show()" />
+                                <p:commandButton process="workCenterDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{workCenterBean.modifyWorkCenter()}" />
+                                <p:commandButton process="workCenterDT" 
+                                                 update=":form:workCenterDetail" icon="ui-icon-trash" 
+                                                 value="Borrar" actionListener="#{workCenterBean.disableWorkCenter()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
                                 </p:commandButton>
-                            </p:column>
+                            </f:facet>
+
                         </p:dataTable>
 
-                        <p:commandButton value="Agregar" action="#{workCenterBean.addWorkCenter()}"
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton value="Agregar" action="#{workCenterBean.addWorkCenter}"
                                          styleClass="catalog-button" ajax="false"/>
 
-                        <!-- detalle usuarios -->
-                        <p:dialog header="Detalle centros de trabajo" widgetVar="workCenterDialog" modal="true" 
+                        <!-- detalle agremiados -->
+                        <p:dialog header="Detalle Estación de trabajo" widgetVar="workCenterDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="workCenterDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty workCenterBean.selected}" columnClasses="label,value">
                                     
-
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{workCenterBean.selected.id}" />
-
-                                    <h:outputText value="Descripción" />
+                                    <h:outputText value="Descripción:" />
                                     <h:outputText value="#{workCenterBean.selected.description}" />
 
-                                    
+                                    <h:outputText value="Status:" />
+                                    <h:outputText value="#{workCenterBean.selected.status}" />
+                                                                       
+                                    <h:outputText value="Fecha de creación:" />
+                                    <h:outputText value="#{workCenterBean.selected.createDate}" />
+                                                                       
+                                    <h:outputText value="Usuario de creación:" />
+                                    <h:outputText value="#{workCenterBean.selected.user}" />
+                                                                       
                                 </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>

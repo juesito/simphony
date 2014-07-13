@@ -13,51 +13,156 @@
             <ui:define name="content">
                 <div class="catalog-table">
                     <h:form id="form">
-                        <p:outputLabel value="Catalogo poblaciones" class="welcome-title" />
-                        <p:dataTable value="#{populationBean.list}" var="population">
-                            
-                            <p:column headerText="Población" >
+
+                        <p:outputLabel value="Poblaciones" class="welcome-title" />
+                        <br />
+
+                        <!-- Data table de usuarios -->
+                        <p:dataTable value="#{populationBean.list}" var="population" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{populationBean.selected}" 
+                                     rowKey="#{population.id}" id="populationDT"
+                                     >
+                            <p:column headerText="Descripción" >
                                 <p:outputLabel value="#{population.description}" />
                             </p:column>
-                            <p:column headerText="User">
-                                <p:selectOneMenu value="#{population.user.id}" 
-                                                 converter="userConverter"
-                                                 style="width:100px !important;" disabled="true">
-                                    <f:selectItems value="#{boxUserService.box}" 
-                                                   var="box" itemLabel="#{box.name}"
-                                                   itemValue="#{box.id}"  itemLabelEscaped="true" rendered="true"/>
-
-                                </p:selectOneMenu>
-
+                            <p:column headerText="Status" >
+                                <p:outputLabel value="#{population.status}" />
                             </p:column>
                             
-                            
-                            <p:column style="width:4%;text-align: center">
-                                <p:commandButton update=":form:populationDetail" 
-                                                 oncomplete="PF('populationDialog').show()" icon="ui-icon-search" 
-                                                 title="View">
-                                    <f:setPropertyActionListener value="#{population}" target="#{populationBean.selected}" />
+                            <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="populationDT" 
+                                                 update=":form:populationDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('populationDialog').show()" />
+                                <p:commandButton process="populationDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{populationBean.modifyPopulation()}" />
+                                <p:commandButton process="populationDT" 
+                                                 update=":form:populationDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{populationBean.enablePopulation()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
-                            </p:column>
+                                <p:commandButton process="populationDT" 
+                                                 update=":form:populationDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{populationBean.disablePopulation()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
                         </p:dataTable>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
 
                         <p:commandButton value="Agregar" action="#{populationBean.addPopulation()}"
                                          styleClass="catalog-button" ajax="false"/>
 
-                        <!-- detalle usuarios -->
-                        <p:dialog header="Detalle poblacion" widgetVar="populationDialog" modal="true" 
+                        <!-- detalle poblaciones-->
+                        <p:dialog header="Detalle Poblaciones" widgetVar="populationDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="populationDetail" style="text-align:center;">
-                                <p:panelGrid  columns="2" rendered="#{not empty populationBean.selected}" columnClasses="label,value">
-                                    
+                                <p:panelGrid  rendered="#{not empty populationBean.selected}" >
 
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{populationBean.selected.id}" />
+                                    <!-- Id, Nombre -->
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Descripción:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Status:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.status}" />
+                                        </p:column>
+                                    </p:row>
 
-                                    <h:outputText value="Descripción" />
-                                    <h:outputText value="#{populationBean.selected.description}" />
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
 
-                                    
+        </ui:composition>
+
+    </body>
+</html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+
+                        <p:outputLabel value="Catologo poblaciones" class="welcome-title" />
+                        <br />
+
+                        <!-- Data table de usuarios -->
+                        <p:dataTable value="#{populationBean.list}" var="population" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{populationBean.selected}" 
+                                     rowKey="#{population.id}" id="populationDT"
+                                     >
+                            <p:column headerText="Descripción" >
+                                <p:outputLabel value="#{population.description}" />
+                            </p:column>
+                            
+                            <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="populationDT" 
+                                                 update=":form:populationDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('populationDialog').show()" />
+                                <p:commandButton process="populationDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{populationBean.modifyPopulation()}" />
+                                <p:commandButton process="populationDT" 
+                                                 update=":form:populationDetail" icon="ui-icon-trash" 
+                                                 value="Borrar" actionListener="#{populationBean.disablePopulation()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+                        </p:dataTable>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+
+                        <p:commandButton value="Agregar" action="#{populationBean.addPopulation()}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <!-- detalle poblaciones-->
+                        <p:dialog header="Población Info" widgetVar="populationDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="populationDetail" style="text-align:center;">
+                                <p:panelGrid  rendered="#{not empty populationBean.selected}" >
+
+                                    <!-- Id, Nombre -->
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Descripción:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.description}" />
+                                        </p:column>
+                                    </p:row>
+
                                 </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>
