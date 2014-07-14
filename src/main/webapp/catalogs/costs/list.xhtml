@@ -13,52 +13,97 @@
             <ui:define name="content">
                 <div class="catalog-table">
                     <h:form id="form">
-
-                        <p:outputLabel value="Catologo Tarifas" class="welcome-title" />
-
-                        <p:dataTable value="#{costBean.list}" var="cost">
-
-                            <p:column headerText="Origen">
+                        
+                        <p:outputLabel value="Tarifas" class="welcome-title" />
+                        
+                         <br />
+                        <!-- Data table de usuarios -->
+                        <p:dataTable value="#{costBean.list}" var="cost" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{costBean.selected}" 
+                                     rowKey="#{cost.id}" id="costDT"
+                                     >
+                           
+                            <p:column headerText="Origen" >
                                 <p:outputLabel value="#{cost.origin.description}" />
                             </p:column>
-                             <p:column headerText="Destino">
-                                 <p:outputLabel value="#{cost.destiny.description}" />
+                            <p:column headerText="Destino" >
+                                <p:outputLabel value="#{cost.destiny.description}" />
                             </p:column>
-                             <p:column headerText="Tarifa">
-                                 <p:outputLabel value="#{cost.cost}" />
+                            <p:column headerText="Tarifa" >
+                                <p:outputLabel value="#{cost.cost}" />
                             </p:column>
-                            <p:column headerText="Distancia">
+                             <p:column headerText="Tiempo de recorrido" >
+                                 <p:outputLabel value="#{cost.routeTime}" />
+                            </p:column>
+                            <p:column headerText="Kms" >
                                 <p:outputLabel value="#{cost.kms}" />
                             </p:column>
-                    
-                            <p:column style="width:4%;text-align: center">
-                                <p:commandButton update=":form:carDetail" 
-                                                 oncomplete="PF('costDialog').show()" icon="ui-icon-search" 
-                                                 title="View">
-                                    <f:setPropertyActionListener value="#{cost}" target="#{costBean.selected}" />
-                                </p:commandButton>
+                            <p:column headerText="Status" >
+                                <p:outputLabel value="#{cost.status}" />
                             </p:column>
+                     
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="costDT" 
+                                                 update=":form:costDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('costDialog').show()" />
+                                <p:commandButton process="costDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{costBean.modifyCost()}" />
+                                <p:commandButton process="costDT" 
+                                                 update=":form:costDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{costBean.enableCost()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="costDT" 
+                                                 update=":form:costDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{costBean.disableCost()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+
                         </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
 
                         <p:commandButton value="Agregar" action="#{costBean.addCost}"
                                          styleClass="catalog-button" ajax="false"/>
 
-                        <!-- detalle tarifas -->
-                        <p:dialog header="Tarifas Info" widgetVar="costDialog" modal="true" 
+                        <!-- detalle agremiados -->
+                        <p:dialog header="Detalle agremiados" widgetVar="costDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
-                            <p:outputPanel id="carDetail" style="text-align:center;">
-                                <p:panelGrid  columns="2" rendered="#{not empty userBean.selected}" columnClasses="label,value">
-
-
+                            <p:outputPanel id="costDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty costBean.selected}" columnClasses="label,value">
+                                    
                                     <h:outputText value="Origen:" />
                                     <h:outputText value="#{costBean.selected.origin.description}" />
 
-                                    <h:outputText value="Destino" />
+                                    <h:outputText value="Destino:" />
                                     <h:outputText value="#{costBean.selected.destiny.description}" />
-
-                                    <h:outputText value="Tarifa" />
+                                                                       
+                                    <h:outputText value="Tarifa:" />
                                     <h:outputText value="#{costBean.selected.cost}" />
-
+                                                                       
+                                    <h:outputText value="Tiempo de recorrido:" />
+                                    <h:outputText value="#{costBean.selected.routeTime}" />
+                                                                       
+                                    <h:outputText value="Kms:" />
+                                    <h:outputText value="#{costBean.selected.kms}" />
+                                                                       
+                                    <h:outputText value="Status:" />
+                                    <h:outputText value="#{costBean.selected.status}" />
+                                                                       
+                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{costBean.selected.createDate}" />
+                                                                       
+                                     <h:outputText value="Modificado:" />
+                                     <h:outputText value="#{costBean.selected.lastUpdate}" />
+                                                                       
+                                   <h:outputText value="Usuario Adm:" />
+                                   <h:outputText value="#{costBean.selected.user.nick}" />
                                 </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>
