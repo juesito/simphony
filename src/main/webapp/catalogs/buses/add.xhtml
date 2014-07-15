@@ -24,7 +24,7 @@
                                     <p:outputLabel value="Núemro económico:" />
                                 </p:column>
                                  <p:column>
-                                     <p:inputText id="number" value="#{busBean.current.number}" maxlength="10" required="true" 
+                                     <p:inputText id="number" value="#{busBean.bus.number}" maxlength="10" required="true" 
                                                  requiredMessage="Número requerido"/>
                                     <p:message for="number" />
                                 </p:column>
@@ -34,7 +34,7 @@
                                     <p:outputLabel value="Tipo:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="tipo" value="#{busBean.current.type}" required="true" 
+                                    <p:inputText id="tipo" value="#{busBean.bus.type}" required="true" 
                                                  requiredMessage="Tipo requerido"/>
                                     <p:message for="tipo" />
                                 </p:column>
@@ -44,7 +44,7 @@
                                     <p:outputLabel value="Cupo:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="cupo" value="#{busBean.current.quota}" 
+                                    <p:inputText id="cupo" value="#{busBean.bus.quota}" 
                                                  required="true" 
                                                  requiredMessage="cupo requerido"/>
                                     <p:message for="cupo" />
@@ -85,7 +85,7 @@
                                     <p:outputLabel value="Número económico:" />
                                 </p:column>
                                  <p:column>
-                                     <p:inputText id="number" value="#{busBean.current.number}" maxlength="10" required="true" 
+                                     <p:inputText id="number" value="#{busBean.bus.number}" maxlength="10" required="true" 
                                                  requiredMessage="Número requerido"/>
                                     <p:message for="number" />
                                 </p:column>
@@ -95,7 +95,7 @@
                                     <p:outputLabel value="Tipo:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="tipo" value="#{busBean.current.type}" required="true" 
+                                    <p:inputText id="tipo" value="#{busBean.bus.type}" required="true" 
                                                  requiredMessage="Tipo requerido"/>
                                     <p:message for="tipo" />
                                 </p:column>
@@ -105,7 +105,7 @@
                                     <p:outputLabel value="Cupo:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="cupo" value="#{busBean.current.quota}" 
+                                    <p:inputText id="cupo" value="#{busBean.bus.quota}" 
                                                  required="true" 
                                                  requiredMessage="cupo requerido"/>
                                     <p:message for="cupo" />
@@ -118,7 +118,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{buseBean.update()}"
+                                    <p:commandButton value="Guardar" action="#{busBean.update()}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>

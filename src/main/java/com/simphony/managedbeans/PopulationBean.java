@@ -7,6 +7,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.PopulationService;
 import com.simphony.entities.Population;
+import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ADD;
@@ -36,9 +37,11 @@ public class PopulationBean implements IConfigurable {
     private Population current = new Population();
     private Population selected = new Population();
     private List<Population> list = new ArrayList<Population>();
-
+    private Calendar cal = Calendar.getInstance();
+        
     @ManagedProperty(value = "#{populationService}")
     private PopulationService populationService;
+    
 
     /**
      * Creates a new instance of Population
@@ -162,8 +165,8 @@ public class PopulationBean implements IConfigurable {
      * Guardamos el Population
      * @return
      */
-    public String save() {
-        Calendar cal = Calendar.getInstance();
+    public String save(User user) {
+        population.setUser(user);
         population.setCreateDate(cal.getTime());
         population.setStatus(_ENABLED);
             
@@ -178,14 +181,15 @@ public class PopulationBean implements IConfigurable {
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
-    public String update() throws PersonException {
+    public String update(User user) throws PersonException {
         
         Population populationUpdated = this.populationService.getPopulationRepository().findOne(this.population.getId());
         
         if(populationUpdated == null){
             throw new PersonException("Población no existente"); 
         }
-        
+        this.population.setUser(user);
+        this.population.setLastUpdate(cal.getTime());
         populationUpdated.update(this.population);
         this.populationService.getPopulationRepository().save(populationUpdated);
         population = new Population();

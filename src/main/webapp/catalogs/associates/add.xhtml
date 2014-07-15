@@ -107,7 +107,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{associateBean.save}"
+                                    <p:commandButton value="Guardar" action="#{associateBean.save(userBean.current)}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>
@@ -182,7 +182,7 @@
                                     <p:message for="secondName" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="TelÃ©fono:" />
+                                    <p:outputLabel value="Teléfono:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" />
@@ -213,7 +213,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{associateBean.update()}"
+                                    <p:commandButton value="Guardar" action="#{associateBean.update(userBean.current)}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>

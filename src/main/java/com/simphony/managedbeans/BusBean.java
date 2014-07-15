@@ -8,6 +8,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.BusService;
 import com.simphony.entities.Bus;
+import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ADD;
 import static com.simphony.interfases.IConfigurable._DISABLE;
 import static com.simphony.interfases.IConfigurable._ENABLED;
@@ -29,7 +30,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class BusBean {
+public class BusBean implements IConfigurable {
     
     private List<Bus> list = new ArrayList<Bus>();
     private Bus current = new Bus();
@@ -63,6 +64,14 @@ public class BusBean {
 
     public void setCurrent(Bus current) {
         this.current = current;
+    }
+
+    public Bus getBus() {
+        return bus;
+    }
+
+    public void setBus(Bus bus) {
+        this.bus = bus;
     }
 
     public Bus getSelected() {

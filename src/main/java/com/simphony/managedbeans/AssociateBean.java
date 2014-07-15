@@ -7,6 +7,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.AssociateService;
 import com.simphony.entities.Associate;
+import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ENABLED;
@@ -37,6 +38,7 @@ public class AssociateBean implements IConfigurable {
 
     @ManagedProperty(value = "#{associateService}")
     private AssociateService associateService;
+    private Calendar cal = Calendar.getInstance();
 
     /**
      * Creates a new instance of AssociateBean
@@ -163,11 +165,10 @@ public class AssociateBean implements IConfigurable {
      * Guardamos el agremiado
      * @return
      */
-    public String save() {
+    public String save(User user) {
         if (this.associate.getKeyId() != null && this.associate.getName() != null) {
-            Calendar cal = Calendar.getInstance();
+            associate.setUser(user);
             associate.setCreateDate(cal.getTime());
-            associate.setLastUpdate(cal.getTime());
             associate.setStatus(_ENABLED);
             
             this.associateService.getAssociateRepository().save(associate);
@@ -182,7 +183,7 @@ public class AssociateBean implements IConfigurable {
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
-    public String update() throws PersonException {
+    public String update(User user) throws PersonException {
         
         Associate associateUpdated = this.associateService.getAssociateRepository().findOne(this.associate.getId());
         
@@ -190,6 +191,8 @@ public class AssociateBean implements IConfigurable {
             throw new PersonException("Agremiado no existente"); 
         }
         
+        associate.setLastUpdate(cal.getTime());
+        associate.setUser(user);
         associateUpdated.update(this.associate);
         this.associateService.getAssociateRepository().save(associateUpdated);
         associate = new Associate();

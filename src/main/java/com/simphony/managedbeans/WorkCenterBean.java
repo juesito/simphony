@@ -6,6 +6,7 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.WorkCenterService;
+import com.simphony.entities.User;
 import com.simphony.entities.WorkCenter;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
@@ -39,6 +40,7 @@ public class WorkCenterBean implements IConfigurable {
 
     @ManagedProperty(value = "#{workCenterService}")
     private WorkCenterService workCenterService;
+    private Calendar cal = Calendar.getInstance();
 
     /**
      * Creates a new instance of WorkCenterBean
@@ -154,8 +156,8 @@ public class WorkCenterBean implements IConfigurable {
      * Guardamos el WorkCenter
      * @return
      */
-    public String save() {
-        Calendar cal = Calendar.getInstance();
+    public String save(User user) {
+        workCenter.setUser(user);
         workCenter.setCreateDate(cal.getTime());
         workCenter.setStatus(_ENABLED);
             
@@ -170,14 +172,15 @@ public class WorkCenterBean implements IConfigurable {
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
-    public String update() throws PersonException {
+    public String update(User user) throws PersonException {
         
         WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(this.workCenter.getId());
         
         if(workCenterUpdated == null){
             throw new PersonException("EstaciÃ³n de trabajo no existente"); 
         }
-        
+        workCenter.setUser(user);
+        workCenter.setLastUpdate(cal.getTime());
         workCenterUpdated.update(this.workCenter);
         this.workCenterService.getWorkCenterRepository().save(workCenterUpdated);
         workCenter = new WorkCenter();

@@ -38,6 +38,7 @@ public class CostBean implements IConfigurable {
     private Cost selected = new Cost();
     private List<Cost> list = new ArrayList<Cost>();
     private Population population = new Population();
+    private Calendar cal = Calendar.getInstance();
 
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
@@ -51,7 +52,6 @@ public class CostBean implements IConfigurable {
     @PostConstruct
     public void postInitialization() {
         
-        Calendar cal = Calendar.getInstance();
         this.cost.setCreateDate(cal.getTime());
        
     }
@@ -115,8 +115,6 @@ public class CostBean implements IConfigurable {
     public String save(User user) {
         
         cost.setUser(user);
-        Calendar cal = Calendar.getInstance();
-        cost.setLastUpdate(cal.getTime());
         cost.setCreateDate(cal.getTime());
         cost.setStatus(_ENABLED);
          
@@ -203,14 +201,16 @@ public class CostBean implements IConfigurable {
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
-    public String update() throws PersonException {
+    public String update(User user) throws PersonException {
         
         Cost costUpdated = this.costService.getCostRepository().findOne(this.cost.getId());
         
         if(costUpdated == null){
             throw new PersonException("Tarifa no existente"); 
         }
-        
+
+        cost.setLastUpdate(cal.getTime());
+        cost.setUser(user);
         costUpdated.update(this.cost);
         this.costService.getCostRepository().save(costUpdated);
         cost = new Cost();

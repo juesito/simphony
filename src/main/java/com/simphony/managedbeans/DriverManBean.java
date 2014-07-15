@@ -2,6 +2,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.DriverManService;
 import com.simphony.entities.DriverMan;
+import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ADD;
@@ -34,6 +35,7 @@ public class DriverManBean implements IConfigurable {
 
     @ManagedProperty(value = "#{driverManService}")
     private DriverManService driverManService;
+    private Calendar cal = Calendar.getInstance();
 
     /**
      * Creates a new instance of DriverManBean
@@ -158,10 +160,9 @@ public class DriverManBean implements IConfigurable {
      * Guardamos el DriverMan
      * @return
      */
-    public String save() {
-            Calendar cal = Calendar.getInstance();
+    public String save(User user) {
+            driverMan.setUser(user);
             driverMan.setCreateDate(cal.getTime());
-            driverMan.setLastUpdate(cal.getTime());
             driverMan.setStatus(_ENABLED);
             
             this.driverManService.getDriverManRepository().save(driverMan);
@@ -176,14 +177,15 @@ public class DriverManBean implements IConfigurable {
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
-    public String update() throws PersonException {
+    public String update(User user) throws PersonException {
         
         DriverMan driverManUpdated = this.driverManService.getDriverManRepository().findOne(this.driverMan.getId());
         
         if(driverManUpdated == null){
             throw new PersonException("Operador no existente"); 
         }
-        
+        driverMan.setUser(user);
+        driverMan.setLastUpdate(cal.getTime());
         driverManUpdated.update(this.driverMan);
         this.driverManService.getDriverManRepository().save(driverManUpdated);
         driverMan = new DriverMan();

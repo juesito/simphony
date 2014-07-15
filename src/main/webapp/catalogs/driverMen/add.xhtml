@@ -56,7 +56,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{driverManBean.save}"
+                                    <p:commandButton value="Guardar" action="#{driverManBean.save(userBean.current)}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>
@@ -113,7 +113,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{driverManBean.update()}"
+                                    <p:commandButton value="Guardar" action="#{driverManBean.update(userBean.current)}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>
