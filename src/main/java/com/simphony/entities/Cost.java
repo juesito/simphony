@@ -1,11 +1,13 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name = "Cost")
@@ -34,6 +36,19 @@ public class Cost extends Catalog implements Serializable, Cloneable {
 
     }
 
+    public void update(Cost costUpdated){
+        super.update(costUpdated);
+        this.cost = costUpdated.getCost();
+        this.kms = costUpdated.getKms();
+        this.routeTime = costUpdated.getRouteTime();
+     }
+    
+    @PreUpdate
+    public void preUpdate(){
+        super.setLastUpdate(new Date());
+    }
+
+    
     public float getRouteTime() {
         return this.routeTime;
     }
@@ -74,14 +89,4 @@ public class Cost extends Catalog implements Serializable, Cloneable {
         this.cost = cost;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        Object obj = null;
-        try {
-            obj = super.clone();
-        } catch (CloneNotSupportedException ex) {
-            System.out.println(" no se puede duplicar");
-        }
-        return obj;
-    }
 }
