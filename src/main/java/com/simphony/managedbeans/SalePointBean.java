@@ -7,11 +7,18 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.SalePointService;
 import com.simphony.entities.SalePoint;
+import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
+import static com.simphony.interfases.IConfigurable._ADD;
+import static com.simphony.interfases.IConfigurable._DISABLE;
+import static com.simphony.interfases.IConfigurable._ENABLED;
+import static com.simphony.interfases.IConfigurable._MODIFY;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -26,6 +33,7 @@ public class SalePointBean {
 
     private List<SalePoint> list = new ArrayList();
     private SalePoint current = new SalePoint();
+    private SalePoint salePoint = new SalePoint();
     private SalePoint selected = new SalePoint();
 
     @ManagedProperty(value = "#{salePointService}")
@@ -61,6 +69,14 @@ public class SalePointBean {
         this.selected = selected;
     }
 
+    public SalePoint getSalePoint() {
+        return salePoint;
+    }
+
+    public void setSalePoint(SalePoint salePoint) {
+        this.salePoint = salePoint;
+    }
+
     public SalePointService getSalePointService() {
         return salePointService;
     }
@@ -70,15 +86,18 @@ public class SalePointBean {
     }
 
     public String addSalePoint() {
+        salePoint = new SalePoint();
+        this.current.setAction(_ADD);
         return "addSalePoint";
     }
 
-    public void save() {
+    public String save() {
         Calendar cal = Calendar.getInstance();
-        this.current.setCreateDate(cal.getTime());
-        this.current.setStatus(IConfigurable._ENABLED);
-        this.getSalePointService().getSalePointRepository().save(current);
-        current = new SalePoint();
+        salePoint.setCreateDate(cal.getTime());
+        salePoint.setStatus(IConfigurable._ENABLED);
+        this.salePointService.getSalePointRepository().save(salePoint);
+        salePoint = new SalePoint();
+        return "";
     }
 
     public String toSalePoint() {
@@ -90,4 +109,93 @@ public class SalePointBean {
         }
         return "toSalePoint";
     }
+    
+       /**
+     * Controlador para modificar SalePoint
+     *
+     * @return
+     */
+    public String modifySalePoint() {
+        this.current.setAction(_MODIFY);
+        try {
+            this.salePoint = (SalePoint) this.selected.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(SalePointBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "addSalePoint";
+    }
+
+    /**
+     * deshabilitamos SalePoint
+     *
+     * @throws com.simphony.exceptions.PersonException
+     */
+    public void disableSalePoint() throws PersonException {
+        this.selected.setStatus(_DISABLE);
+
+        SalePoint salePointUpdated = this.salePointService.getSalePointRepository().findOne(selected.getId());
+
+        if (salePointUpdated == null) {
+            throw new PersonException("Punto de venta no existente");
+        }
+
+        salePointUpdated.update(selected);
+        this.salePointService.getSalePointRepository().save(salePointUpdated);
+
+        this.fillSalePoint();
+
+    }
+
+    public String cancelSalePoint() {
+        this.fillSalePoint();
+        return "toSalePoint";
+    }
+
+    /**
+     * Llenamos lista de agremiados
+     */
+    private void fillSalePoint() {
+        list.clear();
+        Iterable<SalePoint> c = this.salePointService.getSalePointRepository().findAll();
+        Iterator<SalePoint> cu = c.iterator();
+        while (cu.hasNext()) {
+            list.add(cu.next());
+        }
+    }
+    
+    /**
+     * Actualizamos el punto de venta
+     *
+     * @return
+     * @throws com.simphony.exceptions.PersonException
+     */
+    public String update() throws PersonException {
+        
+        SalePoint salePointUpdated = this.salePointService.getSalePointRepository().findOne(this.salePoint.getId());
+        
+        if(salePointUpdated == null){
+            throw new PersonException("Punto de venta no existente"); 
+        }
+        
+        salePointUpdated.update(this.salePoint);
+        this.salePointService.getSalePointRepository().save(salePointUpdated);
+        salePoint = new SalePoint();
+        return toSalePoint();
+    }
+
+      /**
+     * habilitamos SalePoint
+     */
+    public void enableSalePoint() {
+        this.selected.setStatus(_ENABLED);
+
+        SalePoint salePointUpdated = this.salePointService.getSalePointRepository().findOne(selected.getId());
+
+        salePointUpdated.update(selected);
+        this.salePointService.getSalePointRepository().save(salePointUpdated);
+
+        this.fillSalePoint();
+
+    }
+
 }

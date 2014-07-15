@@ -13,42 +13,80 @@
             <ui:define name="content">
                 <div class="catalog-table">
                     <h:form id="form">
-                        <p:outputLabel value="Catalogo Puntos de venta" class="welcome-title" />
-                        <p:dataTable value="#{salePointBean.list}" var="salePoint">
-                            <p:column headerText="Id" >
-                                <p:outputLabel value="#{salePoint.id}" />
-                            </p:column>
-                            <p:column headerText="punto de venta" >
+                        
+                        <p:outputLabel value="Puntos de venta" class="welcome-title" />
+                        
+                         <br />
+                        <!-- Data table -->
+                        <p:dataTable value="#{salePointBean.list}" var="salePoint" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{salePointBean.selected}" 
+                                     rowKey="#{salePoint.id}" id="salePointDT"
+                                     >
+                           
+                            <p:column headerText="Descripción" >
                                 <p:outputLabel value="#{salePoint.description}" />
                             </p:column>
-                            
-                            
-                            <p:column style="width:4%;text-align: center">
-                                <p:commandButton update=":form:carDetail" 
-                                                 oncomplete="PF('salePointDialog').show()" icon="ui-icon-search" 
-                                                 title="View">
-                                    <f:setPropertyActionListener value="#{salePoint}" target="#{salePointBean.selected}" />
-                                </p:commandButton>
+                            <p:column headerText="Domicilio" >
+                                <p:outputLabel value="#{salePoint.domicilio}" />
                             </p:column>
+                            <p:column headerText="Status" >
+                                <p:outputLabel value="#{salePoint.status}" />
+                            </p:column>
+                            
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="salePointDT" 
+                                                 update=":form:salePointDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('salePointDialog').show()" />
+                                <p:commandButton process="salePointDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{salePointBean.modifySalePoint()}" />
+                               <p:commandButton process="salePointDT" 
+                                                 update=":form:salePointDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{salePointBean.enableSalePoint()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="salePointDT" 
+                                                 update=":form:salePointDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{salePointBean.disableSalePoint()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+
                         </p:dataTable>
 
-                        <p:commandButton value="Agregar" action="#{salePointBean.addSalePoint()}"
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton value="Agregar" action="#{salePointBean.addSalePoint}"
                                          styleClass="catalog-button" ajax="false"/>
 
-                        <!-- detalle usuarios -->
-                        <p:dialog header="Detalle puntos de venta" widgetVar="salePointDialog" modal="true" 
+                        <!-- detalle -->
+                        <p:dialog header="Detalle Punto de Venta" widgetVar="salePointDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
-                            <p:outputPanel id="carDetail" style="text-align:center;">
+                            <p:outputPanel id="salePointDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty salePointBean.selected}" columnClasses="label,value">
                                     
-
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{salePointBean.selected.id}" />
-
-                                    <h:outputText value="Descripción" />
+                                    <h:outputText value="Descripción:" />
                                     <h:outputText value="#{salePointBean.selected.description}" />
 
-                                    
+                                    <h:outputText value="Domicilio:" />
+                                    <h:outputText value="#{salePointBean.selected.domicilio}" />
+
+                                   <h:outputText value="Status:" />
+                                    <h:outputText value="#{salePointBean.selected.status}" />
+                                                                       
+                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{salePointBean.selected.createDate}" />
+                                                                       
+                                     <h:outputText value="Modificado:" />
+                                     <h:outputText value="#{salePointBean.selected.lastUpdate}" />
+                                                                       
+                                   <h:outputText value="Usuario:" />
+                                    <h:outputText value="#{salePointBean.selected.user}" />
+                                                                       
                                 </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>

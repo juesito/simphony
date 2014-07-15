@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity(name="WorkCenter")
 @Table(name="estacionesTrabajo")
-public  class WorkCenter extends Catalog implements Serializable {
+public  class WorkCenter extends Catalog implements Serializable, Cloneable {
     public WorkCenter(){
 
     }

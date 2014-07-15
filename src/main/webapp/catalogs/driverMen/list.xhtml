@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+                        
+                        <p:outputLabel value="Operadores" class="welcome-title" />
+                        
+                         <br />
+                        <!-- Data table -->
+                        <p:dataTable value="#{driverManBean.list}" var="driverMan" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{driverManBean.selected}" 
+                                     rowKey="#{driverMan.id}" id="driverManDT"
+                                     >
+                           
+                            <p:column headerText="Nombre" >
+                                <p:outputLabel value="#{driverMan.name}" />
+                            </p:column>
+                            <p:column headerText="Apellido paterno" >
+                                <p:outputLabel value="#{driverMan.firstLastName}" />
+                            </p:column>
+                             <p:column headerText="Apellido materno" >
+                                <p:outputLabel value="#{driverMan.secondLastName}" />
+                            </p:column>
+                            <p:column headerText="Tipo" >
+                                <p:outputLabel value="#{driverMan.type}" />
+                            </p:column>
+                            <p:column headerText="Status" >
+                                <p:outputLabel value="#{driverMan.status}" />
+                            </p:column>
+                            
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="driverManDT" 
+                                                 update=":form:driverManDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('driverManDialog').show()" />
+                                <p:commandButton process="driverManDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{driverManBean.modifyDriverMan()}" />
+                                <p:commandButton process="driverManDT" 
+                                                 update=":form:driverManDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{driverManBean.enableDriverMan()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="driverManDT" 
+                                                 update=":form:driverManDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{driverManBean.disableDriverMan()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+
+                        </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton value="Agregar" action="#{driverManBean.addDriverMan}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <!-- detalle  -->
+                        <p:dialog header="Detalle Operadores" widgetVar="driverManDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="driverManDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty driverManBean.selected}" columnClasses="label,value" >
+                                    
+                                     <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{driverManBean.selected.name}" />
+                                                                       
+                                    <h:outputText value="Apellido Paterno:" />
+                                    <h:outputText value="#{driverManBean.selected.firstLastName}" />
+                                                                       
+                                    <h:outputText value="Apellido Materno:" />
+                                    <h:outputText value="#{driverManBean.selected.secondLastName}" />
+                                                                       
+                                     <h:outputText value="Status:" />
+                                    <h:outputText value="#{driverManBean.selected.status}" />
+                                    
+                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{driverManBean.selected.createDate}" />
+                                    
+                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{driverManBean.selected.lastUpdate}" />
+                                                                       
+                                     <h:outputText value="Usuario:" />
+                                     <h:outputText value="#{driverManBean.selected.user}" />
+                                                                       
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

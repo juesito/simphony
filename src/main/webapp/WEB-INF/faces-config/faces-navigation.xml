@@ -50,6 +50,16 @@
             <to-view-id>/catalogs/associates/add.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <description>de catalogo de operadores</description>
+            <from-outcome>toDriverMan</from-outcome>
+            <to-view-id>/catalogs/driverMen/list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>        
+            <from-outcome>addDriverMan</from-outcome>
+            <to-view-id>/catalogs/driverMen/add.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
 
         <navigation-case>
             <from-outcome>addWorkCenter</from-outcome>

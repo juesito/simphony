@@ -123,7 +123,7 @@ public class WorkCenterBean implements IConfigurable {
         WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(selected.getId());
 
         if (workCenterUpdated == null) {
-            throw new PersonException("Estación de trabajo no existente");
+            throw new PersonException("EstaciÃ³n de trabajo no existente");
         }
 
         workCenterUpdated.update(selected);
@@ -175,7 +175,7 @@ public class WorkCenterBean implements IConfigurable {
         WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(this.workCenter.getId());
         
         if(workCenterUpdated == null){
-            throw new PersonException("Estación de trabajo no existente"); 
+            throw new PersonException("EstaciÃ³n de trabajo no existente"); 
         }
         
         workCenterUpdated.update(this.workCenter);
@@ -197,6 +197,21 @@ public class WorkCenterBean implements IConfigurable {
             list.add(cu.next());
         }
         return "toWorkCenter";
+    }
+
+     /**
+     * habilitamos WorkCenter
+     */
+    public void enableWorkCenter() {
+        this.selected.setStatus(_ENABLED);
+
+        WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(selected.getId());
+
+        workCenterUpdated.update(selected);
+        this.workCenterService.getWorkCenterRepository().save(workCenterUpdated);
+
+        this.fillWorkCenter();
+
     }
 
 }

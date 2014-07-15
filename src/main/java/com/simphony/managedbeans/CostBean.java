@@ -34,6 +34,7 @@ import javax.faces.bean.SessionScoped;
 public class CostBean implements IConfigurable {
 
     private Cost cost = new Cost();
+    private Cost current = new Cost();
     private Cost selected = new Cost();
     private List<Cost> list = new ArrayList<Cost>();
     private Population population = new Population();
@@ -88,16 +89,16 @@ public class CostBean implements IConfigurable {
     }
 
     public Cost getCurrent() {
-        return cost;
+        return current;
     }
 
     public void setCurrent(Cost current) {
-        this.cost = current;
+        this.current = current;
     }
 
     public String addCost() {
         cost = new Cost();
-        this.cost.setAction(_ADD); 
+        this.current.setAction(_ADD); 
         return "addCost";
     }
     
@@ -115,8 +116,8 @@ public class CostBean implements IConfigurable {
         
         cost.setUser(user);
         Calendar cal = Calendar.getInstance();
-        cost.setCreateDate(cal.getTime());
         cost.setLastUpdate(cal.getTime());
+        cost.setCreateDate(cal.getTime());
         cost.setStatus(_ENABLED);
          
         this.costService.getCostRepository().save(cost);
@@ -156,7 +157,7 @@ public class CostBean implements IConfigurable {
      * @return
      */
     public String modifyCost() {
-        this.cost.setAction(_MODIFY);
+        this.current.setAction(_MODIFY);
         try {
             this.cost = (Cost) this.selected.clone();
         } catch (CloneNotSupportedException ex) {
