@@ -14,14 +14,14 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{associateBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar agremiado" class="welcome-title" />
+                        <p:outputLabel value="Agregar Agremiado" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tirilla" />
+                                    <p:outputLabel value="Tirilla:" />
                                 </p:column>
                                  <p:column>
                                     <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" required="true" 
@@ -31,7 +31,7 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre" />
+                                    <p:outputLabel value="Nombre:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{associateBean.associate.name}" required="true" 
@@ -39,16 +39,16 @@
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Estado" />
+                                    <p:outputLabel value="Estado:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.state}" maxlength="35" />
+                                    <p:inputText value="#{associateBean.associate.state}" maxlength="35" tabindex="5" />
                                 </p:column>
 
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Paterno" />
+                                    <p:outputLabel value="Apellido Paterno:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{associateBean.associate.firstLastName}" 
@@ -57,43 +57,43 @@
                                     <p:message for="lastName" />
                                 </p:column>
                                 <p:column>
-                                   <p:outputLabel value="Sección" />
+                                   <p:outputLabel value="Sección:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.section}" maxlength="15" />
+                                    <p:inputText value="#{associateBean.associate.section}" maxlength="15" tabindex="6" />
                                 </p:column>
 
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Materno" />
+                                    <p:outputLabel value="Apellido Materno:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="secondName" value="#{associateBean.associate.secondLastName}" required="true" 
-                                                 requiredMessage="Apellido Requerido"/>
+                                                 tabindex="3" requiredMessage="Apellido Requerido"/>
                                     <p:message for="secondName" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Teléfono" />
+                                    <p:outputLabel value="Teléfono:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" />
+                                    <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" tabindex="7" />
                                 </p:column>
 
                             </p:row>
 
                          <p:row>
                             <p:column>
-                                <p:outputLabel value="Plataforma" />
+                                <p:outputLabel value="Plataforma:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" />
+                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" tabindex="4" />
                             </p:column>
                             <p:column>
-                                 <p:outputLabel value="Email" />
+                                 <p:outputLabel value="Email:" />
                             </p:column>
                             <p:column>
-                                 <p:inputText id="email" value="#{associateBean.associate.email}" />
+                                 <p:inputText id="email" value="#{associateBean.associate.email}" maxlength="35" tabindex="8"/>
                                  <p:message for="email" />
                             </p:column>
 
@@ -123,14 +123,14 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{associateBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar agremiado" class="welcome-title" />
+                        <p:outputLabel value="Modificar Agremiado" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tirilla" />
+                                    <p:outputLabel value="Tirilla:" />
                                 </p:column>
                                  <p:column>
                                     <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" required="true" 
@@ -140,7 +140,7 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre" />
+                                    <p:outputLabel value="Nombre:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{associateBean.associate.name}" required="true" 
@@ -148,7 +148,7 @@
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Estado" />
+                                    <p:outputLabel value="Estado:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.state}" maxlength="35" />
@@ -157,7 +157,7 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Paterno" />
+                                    <p:outputLabel value="Apellido Paterno:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{associateBean.associate.firstLastName}" required="true" 
@@ -165,7 +165,7 @@
                                     <p:message for="lastName" />
                                 </p:column>
                                 <p:column>
-                                   <p:outputLabel value="Sección" />
+                                   <p:outputLabel value="SecciÃ³n:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.section}" maxlength="15" />
@@ -174,7 +174,7 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Materno" />
+                                    <p:outputLabel value="Apellido Materno:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="secondName" value="#{associateBean.associate.secondLastName}" required="true" 
@@ -182,7 +182,7 @@
                                     <p:message for="secondName" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Teléfono" />
+                                    <p:outputLabel value="TelÃ©fono:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" />
@@ -192,13 +192,13 @@
 
                          <p:row>
                             <p:column>
-                                <p:outputLabel value="Plataforma" />
+                                <p:outputLabel value="Plataforma:" />
                             </p:column>
                             <p:column>
                                 <p:inputText value="#{associateBean.associate.platform}" maxlength="35" />
                             </p:column>
                             <p:column>
-                                 <p:outputLabel value="Email" />
+                                 <p:outputLabel value="Email:" />
                             </p:column>
                             <p:column>
                                  <p:inputText id="email" value="#{associateBean.associate.email}" />

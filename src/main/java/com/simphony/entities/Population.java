@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity(name="Population")
 @Table(name="poblaciones")
-public  class Population extends Catalog implements Serializable {
+public  class Population extends Catalog implements Serializable, Cloneable {
 
     public Population(){
     }

@@ -23,20 +23,23 @@
                                      rowKey="#{associate.keyId}" id="associateDT"
                                      >
                            
-                            <p:column headerText="Tirilla:" >
+                            <p:column headerText="Tirilla" >
                                 <p:outputLabel value="#{associate.keyId}" />
                             </p:column>
-                            <p:column headerText="Nombre:" >
+                            <p:column headerText="Nombre" >
                                 <p:outputLabel value="#{associate.name}" />
                             </p:column>
-                            <p:column headerText="Apellido paterno:" >
+                            <p:column headerText="Apellido paterno" >
                                 <p:outputLabel value="#{associate.firstLastName}" />
                             </p:column>
-                             <p:column headerText="Plataforma:" >
+                             <p:column headerText="Plataforma" >
                                 <p:outputLabel value="#{associate.platform}" />
                             </p:column>
-                            <p:column headerText="Estado:" >
+                            <p:column headerText="Estado" >
                                 <p:outputLabel value="#{associate.state}" />
+                            </p:column>
+                            <p:column headerText="Status" >
+                                <p:outputLabel value="#{associate.status}" />
                             </p:column>
                             
                              <!-- Footer -->
@@ -50,12 +53,12 @@
                                 <p:commandButton process="associateDT" 
                                                  update=":form:associateDT" icon="ui-icon-trash" 
                                                  value="Activar" actionListener="#{associateBean.enableAssociate()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                    <p:confirm header="ConfirmaciÃ³n" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="associateDT" 
-                                                 update=":form:associateDetail" icon="ui-icon-trash" 
+                                                 update=":form:associateDT" icon="ui-icon-trash" 
                                                  value="Desactivar" actionListener="#{associateBean.disableAssociate()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
+                                    <p:confirm header="ConfirmaciÃ³n" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
 
@@ -73,7 +76,7 @@
                         <p:dialog header="Detalle agremiados" widgetVar="associateDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="associateDetail" style="text-align:center;">
-                                <p:panelGrid  columns="2" rendered="#{not empty associateBean.selected}" columnClasses="label,value">
+                                <p:panelGrid  columns="2" rendered="#{not empty associateBean.selected}" columnClasses="label,value" >
                                     
                                     <h:outputText value="Tirilla:" />
                                     <h:outputText value="#{associateBean.selected.keyId}" />
@@ -101,6 +104,18 @@
                                                                        
                                     <h:outputText value="Email:" />
                                     <h:outputText value="#{associateBean.selected.email}" />
+                                                                       
+                                    <h:outputText value="Status:" />
+                                    <h:outputText value="#{associateBean.selected.status}" />
+                                    
+                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{associateBean.selected.createDate}" />
+                                    
+                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{associateBean.selected.lastUpdate}" />
+                                                                       
+                                     <h:outputText value="Usuario:" />
+                                     <h:outputText value="#{associateBean.selected.user}" />
                                                                        
                                 </p:panelGrid>
                             </p:outputPanel>

@@ -8,10 +8,16 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.BusService;
 import com.simphony.entities.Bus;
+import static com.simphony.interfases.IConfigurable._ADD;
+import static com.simphony.interfases.IConfigurable._DISABLE;
+import static com.simphony.interfases.IConfigurable._ENABLED;
+import static com.simphony.interfases.IConfigurable._MODIFY;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,13 +31,13 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class BusBean {
     
-    private List<Bus> list = new ArrayList();
+    private List<Bus> list = new ArrayList<Bus>();
     private Bus current = new Bus();
     private Bus bus = new Bus();
     private Bus selected = new Bus();
     
     @ManagedProperty(value = "#{busService}")
-    BusService busService;
+    private BusService busService;
 
     /**
      * Creates a new instance of BusBean
@@ -69,7 +75,8 @@ public class BusBean {
     
     public String addBus(){
         current = new Bus();
-        
+        this.current.setAction(_ADD);
+                
         return "addBus";
     }
 
@@ -85,6 +92,8 @@ public class BusBean {
     public void save(){
         Calendar cal = Calendar.getInstance();
         this.current.setCreateDate(cal.getTime());
+        this.current.setLastUpdate(cal.getTime());
+        this.current.setStatus(_ENABLED);
         this.getBusService().getBusRepository().save(this.current);
         this.current = new Bus();
     }
@@ -98,5 +107,81 @@ public class BusBean {
         }
         return "toBus";
     }
-    
+   
+    /**
+     * Controlador para modificar Bus
+     *
+     * @return
+     */
+    public String modifyBus() {
+        this.current.setAction(_MODIFY);
+        try {
+            this.bus = (Bus) this.selected.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(PopulationBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "addBus";
+    }
+
+    /**
+     * deshabilitamos Bus
+    */
+    public void disableBus()  {
+        this.selected.setStatus(_DISABLE);
+
+        Bus busUpdated = this.busService.getBusRepository().findOne(selected.getId());
+
+        busUpdated.update(selected);
+        this.busService.getBusRepository().save(busUpdated);
+
+        this.fillBus();
+
+    }
+    /*
+         * habilitamos Bus
+     */
+    public void enableBus() {
+        this.selected.setStatus(_ENABLED);
+
+        Bus busUpdated = this.busService.getBusRepository().findOne(selected.getId());
+
+        busUpdated.update(selected);
+        this.busService.getBusRepository().save(busUpdated);
+
+        this.fillBus();
+
+    }
+
+    public String cancelBus() {
+        this.fillBus();
+        return "toBus";
+    }
+
+    /**
+     * Llenamos lista de agremiados
+     */
+    private void fillBus() {
+        list.clear();
+        Iterable<Bus> c = this.busService.getBusRepository().findAll();
+        Iterator<Bus> cu = c.iterator();
+        while (cu.hasNext()) {
+            list.add(cu.next());
+        }
+    }
+
+    /**
+     * Actualizamos el autobús
+     *
+     * @return
+      */
+    public String update() {
+        
+        Bus busUpdated = this.busService.getBusRepository().findOne(this.bus.getId());
+        
+        busUpdated.update(this.bus);
+        this.busService.getBusRepository().save(busUpdated);
+        bus = new Bus();
+        return toBus();
+    }
+
 }

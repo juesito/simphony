@@ -66,22 +66,48 @@
                                 <p:panelGrid  rendered="#{not empty populationBean.selected}" >
 
                                     <!-- Id, Nombre -->
-                                <p:outputLabel value="Descripción:" />
-                                <p:outputLabel value="#{populationBean.selected.description}" />
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Descripción:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Status:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.status}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Creado:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.createDate}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Modificado:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.lastUpdate}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Usuario:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.user}" />
+                                        </p:column>
+                                    </p:row>
 
-                                <p:outputLabel value="Status:" />
-                                <p:outputLabel value="#{populationBean.selected.status}" />
-
-                                <h:outputText value="Creado:" />
-                                <h:outputText value="#{populationBean.selected.createDate}" />
-                                                                      
-                                <h:outputText value="Modificado:" />
-                                <h:outputText value="#{populationBean.selected.lastUpdate}" />
-                                                                       
-                                <h:outputText value="Usuario Adm:" /> 
-                                <h:outputText value="#{populationBean.selected.user}" />
-                                                                       
-                               </p:panelGrid>
+                                </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>
                     </h:form>
