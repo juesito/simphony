@@ -185,7 +185,6 @@ public class DriverManBean implements IConfigurable {
             throw new PersonException("Operador no existente"); 
         }
         driverMan.setUser(user);
-        driverMan.setLastUpdate(cal.getTime());
         driverManUpdated.update(this.driverMan);
         this.driverManService.getDriverManRepository().save(driverManUpdated);
         driverMan = new DriverMan();

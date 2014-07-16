@@ -189,8 +189,7 @@ public class PopulationBean implements IConfigurable {
             throw new PersonException("Población no existente"); 
         }
 
-        population.setLastUpdate(cal.getTime());
-        population.setUser(user);
+        this.population.setUser(user);
         populationUpdated.update(this.population);
         this.populationService.getPopulationRepository().save(populationUpdated);
         population = new Population();

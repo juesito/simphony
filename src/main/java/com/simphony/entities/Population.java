@@ -19,4 +19,8 @@ public  class Population extends Catalog implements Serializable, Cloneable {
         super.setLastUpdate(new Date());
     }
 
+    public void update(Population populationUpdated){
+        super.update(populationUpdated);
+    }
+
 }

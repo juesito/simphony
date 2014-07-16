@@ -1,11 +1,13 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name = "DriverMan")
@@ -39,6 +41,16 @@ public class DriverMan extends Person implements Serializable, Cloneable {
         this.user = user;
     }
 
+    @PreUpdate
+    public void preUpdate(){
+        super.setLastUpdate(new Date());
+    }
+
+    public void update(DriverMan driverManUpdated){
+        super.update(driverManUpdated);
+        this.user = driverManUpdated.getUser();
+    }
+    
     @Override
     public Object clone() throws CloneNotSupportedException {
         Object obj = null;

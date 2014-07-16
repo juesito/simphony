@@ -7,6 +7,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.SalePointService;
 import com.simphony.entities.SalePoint;
+import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ADD;
@@ -91,8 +92,9 @@ public class SalePointBean {
         return "addSalePoint";
     }
 
-    public String save() {
+    public String save(User user) {
         Calendar cal = Calendar.getInstance();
+        salePoint.setUser(user);
         salePoint.setCreateDate(cal.getTime());
         salePoint.setStatus(IConfigurable._ENABLED);
         this.salePointService.getSalePointRepository().save(salePoint);
@@ -169,14 +171,14 @@ public class SalePointBean {
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
-    public String update() throws PersonException {
+    public String update(User user) throws PersonException {
         
         SalePoint salePointUpdated = this.salePointService.getSalePointRepository().findOne(this.salePoint.getId());
         
         if(salePointUpdated == null){
             throw new PersonException("Punto de venta no existente"); 
         }
-        
+        this.salePoint.setUser(user);
         salePointUpdated.update(this.salePoint);
         this.salePointService.getSalePointRepository().save(salePointUpdated);
         salePoint = new SalePoint();

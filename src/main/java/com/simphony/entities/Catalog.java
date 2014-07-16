@@ -145,7 +145,8 @@ public abstract class Catalog implements Serializable{
         return obj;
     }
 
-        public void update(Catalog catalogUpdated){
+    public void update(Catalog catalogUpdated){
+        this.user = catalogUpdated.getUser();
         this.description = catalogUpdated.getDescription();
         this.status = catalogUpdated.getStatus();
     }

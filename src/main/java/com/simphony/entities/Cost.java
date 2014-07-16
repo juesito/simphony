@@ -38,6 +38,8 @@ public class Cost extends Catalog implements Serializable, Cloneable {
 
     public void update(Cost costUpdated){
         super.update(costUpdated);
+        this.origin = costUpdated.getOrigin();
+        this.destiny = costUpdated.getDestiny();
         this.cost = costUpdated.getCost();
         this.kms = costUpdated.getKms();
         this.routeTime = costUpdated.getRouteTime();

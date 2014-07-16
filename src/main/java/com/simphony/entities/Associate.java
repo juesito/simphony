@@ -158,7 +158,7 @@ public  class Associate extends Person implements Serializable, Cloneable {
             return false;
         }
         final Associate other = (Associate) obj;
-        if ((this.platform == null) ? (other.platform != null) : !this.platform.equals(other.platform)) {
+        if ((this.keyId == null) ? (other.keyId != null) : !this.keyId.equals(other.keyId)) {
             return false;
         }
         return true;

@@ -41,7 +41,7 @@
                           <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{salePointBean.save()}"
+                                    <p:commandButton value="Guardar" action="#{salePointBean.save(userBean.current)}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>
@@ -84,7 +84,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{salePointBean.update()}"
+                                    <p:commandButton value="Guardar" action="#{salePointBean.update(userBean.current)}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>

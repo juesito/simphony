@@ -1,9 +1,11 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name="Bus")
@@ -27,6 +29,18 @@ public  class Bus extends Catalog implements Serializable, Cloneable {
     
     public Bus(){
 
+    }
+
+    public void update(Bus busUpdated){
+        super.update(busUpdated);
+        this.number = busUpdated.getNumber();
+        this.quota = busUpdated.getQuota();
+        this.type = busUpdated.getType();
+     }
+ 
+    @PreUpdate
+    public void preUpdate(){
+        super.setLastUpdate(new Date());
     }
 
 
