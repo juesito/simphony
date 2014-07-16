@@ -1,10 +1,8 @@
 package com.simphony.repositories;
 
 import com.simphony.entities.DriverMan;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface DriverManRepository extends CrudRepository<DriverMan, Long> {
+public interface DriverManRepository extends JpaRepository<DriverMan, Long> {
     
 }

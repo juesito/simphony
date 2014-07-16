@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -103,12 +104,7 @@ public class SalePointBean {
     }
 
     public String toSalePoint() {
-        list.clear();
-        Iterable<SalePoint> c = this.getSalePointService().getSalePointRepository().findAll();
-        Iterator<SalePoint> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
-        }
+        this.fillSalePoint();
         return "toSalePoint";
     }
     
@@ -118,13 +114,16 @@ public class SalePointBean {
      * @return
      */
     public String modifySalePoint() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.salePoint = (SalePoint) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(SalePointBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addSalePoint";
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.salePoint = (SalePoint) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(SalePointBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addSalePoint";
+        }else
+            return "toSalePoint";
     }
 
     /**
@@ -158,7 +157,7 @@ public class SalePointBean {
      */
     private void fillSalePoint() {
         list.clear();
-        Iterable<SalePoint> c = this.salePointService.getSalePointRepository().findAll();
+        Iterable<SalePoint> c = this.salePointService.getSalePointRepository().findAll(sortByDescription());
         Iterator<SalePoint> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
@@ -198,6 +197,10 @@ public class SalePointBean {
 
         this.fillSalePoint();
 
+    }
+
+        private Sort sortByDescription(){
+        return new Sort(Sort.Direction.ASC, "description");
     }
 
 }

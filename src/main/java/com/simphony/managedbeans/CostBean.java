@@ -24,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -125,7 +126,7 @@ public class CostBean implements IConfigurable {
 
     private void fillCosts(){
         list.clear();
-        Iterable<Cost> c = this.getCostService().getCostRepository().findAll();
+        Iterable<Cost> c = this.getCostService().getCostRepository().findAll(sortByOrigin());
         Iterator<Cost> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
@@ -155,13 +156,16 @@ public class CostBean implements IConfigurable {
      * @return
      */
     public String modifyCost() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.cost = (Cost) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(CostBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addCost";
+        if (this.selected != null ) {
+             this.current.setAction(_MODIFY);
+            try {
+                this.cost = (Cost) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(CostBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addCost";
+        }else
+            return "toCosts";
     }
 
     /**
@@ -217,5 +221,8 @@ public class CostBean implements IConfigurable {
         return toCosts();
     }
 
+    private Sort sortByOrigin(){
+        return new Sort(Sort.Direction.ASC, "origin.description");
+    }
 
 }

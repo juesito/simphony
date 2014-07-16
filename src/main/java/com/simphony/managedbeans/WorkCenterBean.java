@@ -105,13 +105,16 @@ public class WorkCenterBean implements IConfigurable {
      * @return
      */
     public String modifyWorkCenter() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.workCenter = (WorkCenter) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(WorkCenterBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addWorkCenter";
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.workCenter = (WorkCenter) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(WorkCenterBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addWorkCenter";
+        }else
+            return "toWorkCenter";
     }
 
     /**

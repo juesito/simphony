@@ -24,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -106,13 +107,16 @@ public class PopulationBean implements IConfigurable {
      * @return
      */
     public String modifyPopulation() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.population = (Population) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(PopulationBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addPopulation";
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.population = (Population) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(PopulationBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addPopulation";
+        }else
+            return "toPopulations";
     }
 
     /**
@@ -154,7 +158,7 @@ public class PopulationBean implements IConfigurable {
      */
     private void fillPopulation() {
         list.clear();
-        Iterable<Population> c = this.populationService.getPopulationRepository().findAll();
+        Iterable<Population> c = this.populationService.getPopulationRepository().findAll(sortByDescription());
         Iterator<Population> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
@@ -202,13 +206,12 @@ public class PopulationBean implements IConfigurable {
      * @return
      */
     public String toPopulations() {
-        list.clear();
-        Iterable<Population> c = this.getPopulationService().getPopulationRepository().findAll();
-        Iterator<Population> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
-        }
+        this.fillPopulation();
         return "toPopulations";
+    }
+
+    private Sort sortByDescription(){
+        return new Sort(Sort.Direction.ASC, "Description");
     }
 
 }

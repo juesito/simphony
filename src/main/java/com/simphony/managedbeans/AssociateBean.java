@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -103,13 +104,16 @@ public class AssociateBean implements IConfigurable {
      * @return
      */
     public String modifyAssociate() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.associate = (Associate) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(AssociateBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addAssociate";
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.associate = (Associate) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(AssociateBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addAssociate";
+        }else
+            return "toAssociates";
     }
 
     /**
@@ -154,7 +158,7 @@ public class AssociateBean implements IConfigurable {
      */
     private void fillAssociates() {
         list.clear();
-        Iterable<Associate> c = this.associateService.getAssociateRepository().findAll();
+        Iterable<Associate> c = this.associateService.getAssociateRepository().findAll(sortByKeyId());
         Iterator<Associate> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
@@ -205,13 +209,11 @@ public class AssociateBean implements IConfigurable {
      * @return
      */
     public String toAssociates() {
-        list.clear();
-        Iterable<Associate> c = this.getAssociateService().getAssociateRepository().findAll();
-        Iterator<Associate> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
-        }
+        this.fillAssociates();
         return "toAssociates";
     }
 
+    private Sort sortByKeyId(){
+        return new Sort(Sort.Direction.ASC, "keyId");
+    }
 }

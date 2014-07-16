@@ -112,13 +112,16 @@ public class UserBean implements IConfigurable {
      * @return
      */
     public String modifyUser() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.user = (User) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addUser";
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.user = (User) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addUser";
+        }else
+            return "toUsers";
     }
 
     /**

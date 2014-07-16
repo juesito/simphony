@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -100,13 +101,16 @@ public class DriverManBean implements IConfigurable {
      * @return
      */
     public String modifyDriverMan() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.driverMan = (DriverMan) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(DriverManBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addDriverMan";
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.driverMan = (DriverMan) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(DriverManBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addDriverMan";
+        }else
+            return "toDriverMan";
     }
 
     /**
@@ -149,7 +153,8 @@ public class DriverManBean implements IConfigurable {
      */
     private void fillDriverMan() {
         list.clear();
-        Iterable<DriverMan> c = this.driverManService.getDriverManRepository().findAll();
+        Iterable<DriverMan> c;
+        c = this.driverManService.getDriverManRepository().findAll(sortByName());
         Iterator<DriverMan> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
@@ -197,13 +202,12 @@ public class DriverManBean implements IConfigurable {
      * @return
      */
     public String toDriverMan() {
-        list.clear();
-        Iterable<DriverMan> c = this.getDriverManService().getDriverManRepository().findAll();
-        Iterator<DriverMan> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
-        }
+        this.fillDriverMan();    
         return "toDriverMan";
+    }
+    
+    private Sort sortByName(){
+        return new Sort(Sort.Direction.ASC, "Name");
     }
 
 }

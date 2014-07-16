@@ -34,9 +34,10 @@
                                     <p:outputLabel value="Tipo:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="tipo" value="#{busBean.bus.type}" required="true" 
-                                                 requiredMessage="Tipo requerido"/>
-                                    <p:message for="tipo" />
+                                    <p:selectOneMenu  id="type" effect="blind" value="#{busBean.bus.type}" style="width: 100px;" >
+                                        <f:selectItem itemLabel="Interno" itemValue="I" />
+                                        <f:selectItem itemLabel="Externo" itemValue="E" />                                        
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -95,9 +96,10 @@
                                     <p:outputLabel value="Tipo:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="tipo" value="#{busBean.bus.type}" required="true" 
-                                                 requiredMessage="Tipo requerido"/>
-                                    <p:message for="tipo" />
+                                    <p:selectOneMenu  id="type" effect="blind" value="#{busBean.bus.type}" style="width: 100px;" >
+                                        <f:selectItem itemLabel="Interno" itemValue="I" />
+                                        <f:selectItem itemLabel="Externo" itemValue="E" />                                        
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>

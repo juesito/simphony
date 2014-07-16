@@ -24,16 +24,13 @@
                                      >
                            
                             <p:column headerText="Nombre" >
-                                <p:outputLabel value="#{driverMan.name}" />
+                                <p:outputLabel value="#{driverMan.name}"  />
                             </p:column>
                             <p:column headerText="Apellido paterno" >
                                 <p:outputLabel value="#{driverMan.firstLastName}" />
                             </p:column>
                              <p:column headerText="Apellido materno" >
                                 <p:outputLabel value="#{driverMan.secondLastName}" />
-                            </p:column>
-                            <p:column headerText="Tipo" >
-                                <p:outputLabel value="#{driverMan.type}" />
                             </p:column>
                             <p:column headerText="Status" >
                                 <p:outputLabel value="#{driverMan.status}" />
@@ -71,7 +68,7 @@
 
                         <!-- detalle  -->
                         <p:dialog header="Detalle Operadores" widgetVar="driverManDialog" modal="true" 
-                                  showEffect="fade" hideEffect="fade" resizable="false">
+                                  showEffect="fade" hideEffect="fade" resizable="false" >
                             <p:outputPanel id="driverManDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty driverManBean.selected}" columnClasses="label,value" >
                                     

@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -98,12 +99,7 @@ public class BusBean {
     }
 
     public String toBus() {
-        list.clear();
-        Iterable<Bus> c = this.getBusService().getBusRepository().findAll();
-        Iterator<Bus> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
-        }
+        this.fillBus();
         return "toBus";
     }
     
@@ -113,13 +109,16 @@ public class BusBean {
      * @return
      */
     public String modifyBus() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.bus = (Bus) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(BusBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addBus";
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.bus = (Bus) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(BusBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addBus";
+        }else
+            return "toBus";
     }
 
     /**
@@ -153,7 +152,7 @@ public class BusBean {
      */
     private void fillBus() {
         list.clear();
-        Iterable<Bus> c = this.busService.getBusRepository().findAll();
+        Iterable<Bus> c = this.busService.getBusRepository().findAll(sortByNumber());
         Iterator<Bus> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
@@ -193,6 +192,10 @@ public class BusBean {
 
         this.fillBus();
 
+    }
+
+        private Sort sortByNumber(){
+        return new Sort(Sort.Direction.ASC, "number");
     }
 
 }

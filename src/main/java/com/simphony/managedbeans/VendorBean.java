@@ -108,13 +108,16 @@ public class VendorBean implements IConfigurable {
      * @return
      */
     public String modifyVendor() {
-        this.current.setAction(_MODIFY);
-        try {
-            this.vendor = (Vendor) this.selected.clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "addVendor";
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.vendor = (Vendor) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "addVendor";
+        }else
+            return "toVendors";
     }
 
     /**

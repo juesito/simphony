@@ -27,7 +27,10 @@
                                 <p:outputLabel value="#{bus.number}" />
                             </p:column>
                             <p:column headerText="Tipo" >
-                                <p:outputLabel value="#{bus.type}" />
+                                    <p:selectOneMenu  value="#{bus.type}" disabled="true" >
+                                        <f:selectItem itemLabel="Interno" itemValue="I" />
+                                        <f:selectItem itemLabel="Externo" itemValue="E" />                                        
+                                    </p:selectOneMenu>
                             </p:column>
                             <p:column headerText="Cupo" >
                                 <p:outputLabel value="#{bus.quota}" />
@@ -47,7 +50,7 @@
                                 <p:commandButton process="busDT" 
                                                  update=":form:busDT" icon="ui-icon-trash" 
                                                  value="Activar" actionListener="#{busBean.enableBus()}" >
-                                    <p:confirm header="ConfirmaciÃ³n" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="busDT" 
                                                  update=":form:busDT" icon="ui-icon-trash" 
@@ -67,7 +70,7 @@
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle  -->
-                        <p:dialog header="Detalle AutobÃºs" widgetVar="busDialog" modal="true" 
+                        <p:dialog header="Detalle Autobús" widgetVar="busDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="busDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty busBean.selected}" columnClasses="label,value" >
