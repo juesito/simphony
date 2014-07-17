@@ -35,8 +35,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu  id="type" effect="blind" value="#{busBean.bus.type}" style="width: 100px;" >
-                                        <f:selectItem itemLabel="Interno" itemValue="I" />
-                                        <f:selectItem itemLabel="Externo" itemValue="E" />                                        
+                                        <f:selectItem itemLabel="Interno" itemValue="Interno" />
+                                        <f:selectItem itemLabel="Externo" itemValue="Externo" />                                        
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -45,9 +45,8 @@
                                     <p:outputLabel value="Cupo:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="cupo" value="#{busBean.bus.quota}" 
-                                                 required="true" 
-                                                 requiredMessage="cupo requerido"/>
+                                    <p:inputText id="cupo" value="#{busBean.bus.quota}" maxlength="2" 
+                                                 required="true" requiredMessage="cupo requerido"/>
                                     <p:message for="cupo" />
                                 </p:column>
                             </p:row>
@@ -97,8 +96,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu  id="type" effect="blind" value="#{busBean.bus.type}" style="width: 100px;" >
-                                        <f:selectItem itemLabel="Interno" itemValue="I" />
-                                        <f:selectItem itemLabel="Externo" itemValue="E" />                                        
+                                        <f:selectItem itemLabel="Interno" itemValue="Interno" />
+                                        <f:selectItem itemLabel="Externo" itemValue="Externo" />                                        
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -107,9 +106,8 @@
                                     <p:outputLabel value="Cupo:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="cupo" value="#{busBean.bus.quota}" 
-                                                 required="true" 
-                                                 requiredMessage="cupo requerido"/>
+                                    <p:inputText id="cupo" value="#{busBean.bus.quota}" maxlength="2" 
+                                                 required="true" requiredMessage="cupo requerido"/>
                                     <p:message for="cupo" />
                                 </p:column>
                             </p:row>

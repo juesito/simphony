@@ -27,10 +27,7 @@
                                 <p:outputLabel value="#{bus.number}" />
                             </p:column>
                             <p:column headerText="Tipo" >
-                                    <p:selectOneMenu  value="#{bus.type}" disabled="true" >
-                                        <f:selectItem itemLabel="Interno" itemValue="I" />
-                                        <f:selectItem itemLabel="Externo" itemValue="E" />                                        
-                                    </p:selectOneMenu>
+                                <p:outputLabel value="#{bus.type}" />
                             </p:column>
                             <p:column headerText="Cupo" >
                                 <p:outputLabel value="#{bus.quota}" />

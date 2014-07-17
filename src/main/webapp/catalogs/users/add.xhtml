@@ -25,7 +25,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{userBean.user.name}" required="true" 
-                                                 requiredMessage="Nombre requerido"/>
+                                                 requiredMessage="Nombre requerido" maxlength="25" />
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
@@ -33,7 +33,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{userBean.user.firstLastName}" required="true" 
-                                                 requiredMessage="Apellido Requerido"/>
+                                                 requiredMessage="Apellido Requerido" maxlength="25" />
                                     <p:message for="lastName" />
                                 </p:column>
                             </p:row>
@@ -44,13 +44,13 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{userBean.user.nick}" required="true" 
-                                                 requiredMessage="Nick requerido"/>
+                                                 requiredMessage="Nick requerido" maxlength="25" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Email" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="email" value="#{userBean.user.email}" />
+                                    <p:inputText id="email" value="#{userBean.user.email}" maxlength="50" />
                                     <p:message for="email" />
                                 </p:column>
                             </p:row>
@@ -60,14 +60,14 @@
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" required="true" 
-                                                requiredMessage="Password Requerido"/>
+                                                requiredMessage="Password Requerido" maxlength="25" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Confirmar Password" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" 
-                                                required="true" />
+                                                required="true" maxlength="25" />
                                 </p:column>
 
                             </p:row>
@@ -103,7 +103,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{userBean.user.name}" required="true" 
-                                                 requiredMessage="Nombre requerido"/>
+                                                 requiredMessage="Nombre requerido" maxlength="25" />
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
@@ -111,7 +111,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{userBean.user.firstLastName}" required="true" 
-                                                 requiredMessage="Apellido Requerido"/>
+                                                 requiredMessage="Apellido Requerido" maxlength="25" />
                                     <p:message for="lastName" />
                                 </p:column>
                             </p:row>
@@ -122,13 +122,13 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{userBean.user.nick}" required="true" 
-                                                 requiredMessage="Nick requerido"/>
+                                                 requiredMessage="Nick requerido" maxlength="25" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Email" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="email" value="#{userBean.user.email}" />
+                                    <p:inputText id="email" value="#{userBean.user.email}" maxlength="50"  />
                                     <p:message for="email" />
                                 </p:column>
                             </p:row>
@@ -138,14 +138,14 @@
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" required="true" 
-                                                requiredMessage="Password Requerido"/>
+                                                requiredMessage="Password Requerido" maxlength="25" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Confirmar Password" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" 
-                                                required="true" />
+                                                required="true" maxlength="25" />
                                 </p:column>
 
                             </p:row>

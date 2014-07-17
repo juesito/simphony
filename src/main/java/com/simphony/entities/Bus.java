@@ -22,7 +22,7 @@ public  class Bus extends Catalog implements Serializable, Cloneable {
     private String number;
 
 
-    @Column(name="tipo",length=2)
+    @Column(name="tipo",length=7)
     @Basic
     private String type;
 
