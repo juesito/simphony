@@ -7,6 +7,9 @@
     <f:view contentType="text/html">
         <h:body>
             <ui:composition>
+                <h:form id="main-form">
+                    <p:growl id="growl-pop"  />
+                </h:form>
                 <div id="marco-right-title">
                     <h:form>
                         <p:menubar styleClass="miMenu" rendered="#{userBean.current.looged}">
