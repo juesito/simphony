@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+
+                        <p:outputLabel value="Itinerarios" class="welcome-title" />
+                        <br />
+
+                        <!-- Data table de itinetarios -->
+                        <p:dataTable value="#{itineraryBean.list}" var="itinerary" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{itineraryBean.selected}" 
+                                     rowKey="#{itinerary.id}" id="itineraryDT"
+                                     >
+                            <p:column headerText="Descripción" >
+                                <p:outputLabel value="#{itinerary.description}" />
+                            </p:column>
+                            <p:column headerText="Status" >
+                                <p:outputLabel value="#{itinerary.status}" />
+                            </p:column>
+                            
+                            <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="itineraryDT" 
+                                                 update=":form:itineraryDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('itineraryDialog').show()" />
+                                <p:commandButton process="itineraryDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{itineraryBean.modifyItinerary()}" />
+                                <p:commandButton process="itineraryDT" 
+                                                 update=":form:itineraryDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{itineraryBean.enableItinerary()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="itineraryDT" 
+                                                 update=":form:itineraryDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{itineraryBean.disableItinerary()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+                        </p:dataTable>
+                        
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+
+                        <p:commandButton value="Agregar" action="#{itineraryBean.addItinerary()}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <!-- detalle poblaciones-->
+                        <p:dialog header="Detalle Poblaciones" widgetVar="itineraryDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="itineraryDetail" style="text-align:center;">
+                                <p:panelGrid  rendered="#{not empty itineraryBean.selected}" >
+
+                                    <!-- Id, Nombre -->
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Descripción:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryBean.selected.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Status:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryBean.selected.status}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Creado:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryBean.selected.createDate}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Modificado:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryBean.selected.checkTime}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Salida:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryBean.selected.departureTime}" />
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -21,9 +21,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.print.attribute.standard.Severity;
 import org.springframework.data.domain.Sort;
 
 /**
@@ -187,6 +190,10 @@ public class PopulationBean implements IConfigurable {
      */
     public String update(User user) throws PersonException {
         
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        String mgs = "";
+        
         Population populationUpdated = this.populationService.getPopulationRepository().findOne(this.population.getId());
         
         if(populationUpdated == null){
@@ -196,6 +203,9 @@ public class PopulationBean implements IConfigurable {
         this.population.setUser(user);
         populationUpdated.update(this.population);
         this.populationService.getPopulationRepository().save(populationUpdated);
+        
+        context.addMessage(null, new FacesMessage("Su poblacion se ha modificado", "Descripcion: " + this.population.getDescription()));
+        
         population = new Population();
         return toPopulations();
     }

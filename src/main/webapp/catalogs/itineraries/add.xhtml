@@ -11,7 +11,6 @@
         <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
 
             <ui:define name="content">
-                
                 <!-- panel para agregar -->
                 <p:panel rendered="#{populationBean.current.action eq 'A'}">
                     <h:form id="add">
@@ -26,7 +25,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="descripcion" value="#{populationBean.population.description}" required="true" 
-                                                 requiredMessage="Descripción requerida" maxlength="25" />
+                                                 requiredMessage="Descripción requerida"/>
                                     <p:message for="descripcion" />
                                 </p:column>
                             </p:row>
@@ -60,7 +59,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="descripcion" value="#{populationBean.population.description}" required="true" 
-                                                 requiredMessage="Descripción requerida" maxlength="25" />
+                                                 requiredMessage="Descripción requerida"/>
                                     <p:message for="descripcion" />
                                 </p:column>
 
@@ -69,11 +68,11 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="Guardar" action="#{populationBean.update(userBean.current)}"
-                                                     ajax="false" update="main-form:growl-pop"/>
+                                                     ajax="false" />
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Cancelar" action="#{populationBean.cancelPopulation()}"
-                                                     id="cancelAdd" process="@this" 
+                                                     id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
                             </p:row>

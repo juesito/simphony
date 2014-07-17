@@ -106,6 +106,14 @@
             <to-view-id>/catalogs/userTypes/add.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>addItineraries</from-outcome>
+            <to-view-id>/catalogs/itineraries/add.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>toItineraries</from-outcome>
+            <to-view-id>/catalogs/itineraries/list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>toLogin</from-outcome>
             <to-view-id>/include/login.xhtml</to-view-id>
         </navigation-case>

@@ -10,10 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 @Entity(name="Itinerary")
 @Table(name="Itinerarios")
-public  class Itinerary implements Serializable {
+public  class Itinerary implements Serializable, Cloneable {
 
     @Column(name="id")
     @Id
@@ -47,11 +48,16 @@ public  class Itinerary implements Serializable {
     @Column(name="estatus")
     @Basic
     private String status;
+    
+    @Transient
+    private String action;
 
     public Itinerary(){
 
     }
 
+    public void update(Itinerary itineraryUpdated){
+    }
 
    public Long getId() {
         return this.id;
@@ -113,8 +119,33 @@ public  class Itinerary implements Serializable {
     public void setCheckTime(Date checkTime) {
         this.checkTime = checkTime;
     }
-  
-  
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }  
 
     @Override
     public int hashCode() {
