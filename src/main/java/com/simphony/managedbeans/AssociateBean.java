@@ -13,7 +13,6 @@ import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
 import com.simphony.tools.MessageProvider;
-import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -21,12 +20,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.print.attribute.standard.Severity;
 import org.springframework.data.domain.Sort;
 
 /**
