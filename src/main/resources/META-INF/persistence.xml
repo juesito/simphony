@@ -20,7 +20,7 @@
     <class>com.simphony.entities.Catalog</class>
     <class>com.simphony.entities.ItineraryDetail</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <!--
+    
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="jeargaqu"/>
@@ -31,7 +31,7 @@
       <property name="hibernate.show_sql" value="true"/>
       <property name="javax.persistence.schema-generation.database.action" value="none"/>
     </properties>
-    -->
+    <!--
     <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://172.16.36.252:1433;databaseName=simphonybd"/>
       <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="javax.persistence.jdbc.password" value="jeargaqu"/>
@@ -40,5 +40,6 @@
       <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      -->
   </persistence-unit>
 </persistence>
