@@ -12,6 +12,8 @@ import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.tools.MessageProvider;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -19,9 +21,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.print.attribute.standard.Severity;
 import org.springframework.data.domain.Sort;
 
 /**
@@ -32,19 +37,21 @@ import org.springframework.data.domain.Sort;
 @SessionScoped
 public class AssociateBean implements IConfigurable {
 
+    private final MessageProvider mp;
     private Associate associate = new Associate();
     private Associate current = new Associate();
     private Associate selected = new Associate();
     private List<Associate> list = new ArrayList<Associate>();
 
     @ManagedProperty(value = "#{associateService}")
-    private AssociateService associateService;
+    private AssociateService service;
     private Calendar cal = Calendar.getInstance();
 
     /**
      * Creates a new instance of AssociateBean
      */
     public AssociateBean() {
+        mp = new MessageProvider();
     }
 
     @PostConstruct
@@ -60,12 +67,12 @@ public class AssociateBean implements IConfigurable {
         this.associate = associate;
     }
 
-    public AssociateService getAssociateService() {
-        return associateService;
+    public AssociateService getService() {
+        return service;
     }
 
-    public void setAssociateService(AssociateService associateService) {
-        this.associateService = associateService;
+    public void setService(AssociateService service) {
+        this.service = service;
     }
 
     public List<Associate> getList() {
@@ -104,7 +111,7 @@ public class AssociateBean implements IConfigurable {
      * @return
      */
     public String modifyAssociate() {
-        if (this.selected != null ) {
+        if (this.selected != null) {
             this.current.setAction(_MODIFY);
             try {
                 this.associate = (Associate) this.selected.clone();
@@ -112,8 +119,9 @@ public class AssociateBean implements IConfigurable {
                 Logger.getLogger(AssociateBean.class.getName()).log(Level.SEVERE, null, ex);
             }
             return "addAssociate";
-        }else
+        } else {
             return "toAssociates";
+        }
     }
 
     /**
@@ -124,25 +132,25 @@ public class AssociateBean implements IConfigurable {
     public void disableAssociate() {
         this.selected.setStatus(_DISABLE);
 
-        Associate associateUpdated = this.associateService.getAssociateRepository().findOne(selected.getId());
+        Associate associateUpdated = this.service.getRepository().findOne(selected.getId());
 
         associateUpdated.update(selected);
-        this.associateService.getAssociateRepository().save(associateUpdated);
+        this.service.getRepository().save(associateUpdated);
 
         this.fillAssociates();
 
     }
 
-     /**
+    /**
      * habilitamos agremiado
      */
     public void enableAssociate() {
         this.selected.setStatus(_ENABLED);
 
-        Associate associateUpdated = this.associateService.getAssociateRepository().findOne(selected.getId());
+        Associate associateUpdated = this.service.getRepository().findOne(selected.getId());
 
         associateUpdated.update(selected);
-        this.associateService.getAssociateRepository().save(associateUpdated);
+        this.service.getRepository().save(associateUpdated);
 
         this.fillAssociates();
 
@@ -158,7 +166,7 @@ public class AssociateBean implements IConfigurable {
      */
     private void fillAssociates() {
         list.clear();
-        Iterable<Associate> c = this.associateService.getAssociateRepository().findAll(sortByKeyId());
+        Iterable<Associate> c = this.service.getRepository().findAll(sortByKeyId());
         Iterator<Associate> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
@@ -167,20 +175,39 @@ public class AssociateBean implements IConfigurable {
 
     /**
      * Guardamos el agremiado
+     *
+     * @param user
      * @return
      */
     public String save(User user) {
-        if (this.associate.getKeyId() != null && this.associate.getName() != null) {
-            associate.setUser(user);
-            associate.setCreateDate(cal.getTime());
-            associate.setStatus(_ENABLED);
-            
-            this.associateService.getAssociateRepository().save(associate);
-            associate = new Associate();
-        }
+         Boolean exist = true;
+
+//        try {
+//            Associate associateTmp = this.service.getRepository().findByKey(this.associate.getKeyId().trim());
+//        } catch (Exception ex) {
+//            System.out.println("Error");
+//            exist = false;
+//
+//        }
+//
+//        if (!exist) {
+            if (this.associate.getKeyId() != null && this.associate.getName() != null) {
+                associate.setUser(user);
+                associate.setCreateDate(cal.getTime());
+                associate.setStatus(_ENABLED);
+
+                this.service.getRepository().save(associate);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.associate.getKeyId());
+                associate = new Associate();
+
+            }
+//        } else {
+//            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), mp.getValue("error_keyId_Detail") + this.associate.getKeyId());
+//        }
+
         return "";
     }
-    
+
     /**
      * Actualizamos el usuario
      *
@@ -188,17 +215,17 @@ public class AssociateBean implements IConfigurable {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws PersonException {
-        
-        Associate associateUpdated = this.associateService.getAssociateRepository().findOne(this.associate.getId());
-        
-        if(associateUpdated == null){
-            throw new PersonException("Agremiado no existente"); 
+
+        Associate associateUpdated = this.service.getRepository().findOne(this.associate.getId());
+
+        if (associateUpdated == null) {
+            throw new PersonException("Agremiado no existente");
         }
-        
+
         associate.setLastUpdate(cal.getTime());
         associate.setUser(user);
         associateUpdated.update(this.associate);
-        this.associateService.getAssociateRepository().save(associateUpdated);
+        this.service.getRepository().save(associateUpdated);
         associate = new Associate();
         return toAssociates();
     }
@@ -213,7 +240,7 @@ public class AssociateBean implements IConfigurable {
         return "toAssociates";
     }
 
-    private Sort sortByKeyId(){
+    private Sort sortByKeyId() {
         return new Sort(Sort.Direction.ASC, "keyId");
     }
 }

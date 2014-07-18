@@ -18,7 +18,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 /**
@@ -45,14 +47,11 @@ public class PopulationBox {
 
     @PostConstruct
     public void init() {
-        Iterable<Population> c = this.getPopulationService().getPopulationRepository().findAll();
-        Iterator<Population> cu = c.iterator();
-//        if(box.size() > 0){
-//            box.clear();
-//        }
+         
+        //Llena solo poblaciones activas
+        List<Population> optionList = this.getPopulationService().getPopulationRepository().findAllEnabled();
 
-        while (cu.hasNext()) {
-            Population population = cu.next();
+        for (Population population : optionList) {
             ComboBox cmb = new ComboBox(population.getId().toString(), population.getDescription().trim());
             box.put(cmb, cmb.getKey());
             reverseComboBoxes.put(cmb.getKey(), cmb);
@@ -86,18 +85,13 @@ public class PopulationBox {
         this.box = box;
     }
 
-   public ComboBox getBox(String key) {
+    public ComboBox getBox(String key) {
         return reverseComboBoxes.get(key);
     }
-   
-   
+
     public void fillBox() {
-//        Iterable<Population> c = this.getPopulationService().getPopulationRepository().findAll();
-//        Iterator<Population> cu = c.iterator();
-//        while (cu.hasNext()) {
-//            Population population = cu.next();
-//            box.add(population);
-//        }
+        populationList.clear();
+        init();
     }
 
     public List<Population> getList() {
@@ -107,7 +101,5 @@ public class PopulationBox {
     public void setList(List<Population> list) {
         this.list = list;
     }
-    
-    
 
 }

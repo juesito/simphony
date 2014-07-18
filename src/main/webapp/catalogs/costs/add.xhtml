@@ -19,32 +19,36 @@
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" >
+                            <!-- Primer renglón -->
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="Origen:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{costBean.cost.origin}" 
-                                                 converter="populationConverter" 
-                                                 style="width:160px" required="true" 
-                                                 requiredMessage="Origen Requerido" tabindex="1" >
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Origen Requerido" tabindex="1" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
-                                 <p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
                                     <p:outputLabel value="Destino:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{costBean.cost.destiny}" 
-                                                 converter="populationConverter" 
-                                                 style="width:160px" required="true" 
-                                                 requiredMessage="Destino Requerido" tabindex="2" >
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Destino Requerido" tabindex="2" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
-                           </p:row>
+                            </p:row>
+
                             <p:row>
-                                <p:column>
+                                <p:column >
                                     <p:outputLabel value="Tarifa:" />
                                 </p:column>
                                 <p:column>
@@ -58,7 +62,7 @@
                                     <p:outputLabel value="Tiempo de recorrido:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="routeTime" value="#{costBean.cost.routeTime}" tabindex="4"  />
+                                    <p:inputText id="routeTime" value="#{costBean.cost.routeTime}" tabindex="4" required="true"/>
                                     <p:message for="routeTime" />
                                 </p:column>
                             </p:row>
@@ -67,16 +71,15 @@
                                     <p:outputLabel value="Kilómetros:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="kms" value="#{costBean.cost.kms}" tabindex="5" maxlength="4" />
+                                    <p:inputText  id="kms" value="#{costBean.cost.kms}" tabindex="5" maxlength="4" />
                                     <p:message for="kms" />
                                 </p:column>
                             </p:row>
 
-                      <p:row>
-                      </p:row>
-                               
-                           <p:row>
-                                <p:column colspan="2"></p:column>
+                            <p:row>
+                            </p:row>
+
+                            <p:row>
                                 <p:column>
                                     <p:commandButton value="Guardar" action="#{costBean.save(userBean.current)}"
                                                      ajax="false" />
@@ -105,24 +108,24 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{costBean.cost.origin}" 
-                                                 converter="populationConverter" 
-                                                 style="width:160px" required="true" 
-                                                 requiredMessage="Origen Requerido" tabindex="1" >
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Origen Requerido" tabindex="1" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
-                                 <p:column>
+                                <p:column>
                                     <p:outputLabel value="Destino:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{costBean.cost.destiny}" 
-                                                 converter="populationConverter" 
-                                                 style="width:160px" required="true" 
-                                                 requiredMessage="Destino Requerido" tabindex="2" >
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Destino Requerido" tabindex="2" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
-                           </p:row>
+                            </p:row>
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="Tarifa:" />
@@ -152,8 +155,8 @@
                                     <p:message for="kms" />
                                 </p:column>
                             </p:row>
-                       <p:row>
-                         </p:row>
+                            <p:row>
+                            </p:row>
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>

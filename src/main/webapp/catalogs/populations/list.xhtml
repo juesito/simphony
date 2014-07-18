@@ -20,15 +20,23 @@
                         <!-- Data table de usuarios -->
                         <p:dataTable value="#{populationBean.list}" var="population" style="font-size: 12px;"
                                      selectionMode="single" selection="#{populationBean.selected}" 
-                                     rowKey="#{population.id}" id="populationDT"
+                                     rowKey="#{population.id}" id="populationDT" 
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
                                      >
-                            <p:column headerText="Descripción" >
+
+                            <p:column headerText="#{msgs.cat_description}" >
                                 <p:outputLabel value="#{population.description}" />
                             </p:column>
-                            <p:column headerText="Status" >
-                                <p:outputLabel value="#{population.status}" />
+                            <p:column headerText="#{msgs.cat_status}" >                                
+                                <p:selectOneMenu value="#{population.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                </p:selectOneMenu>
                             </p:column>
-                            
+
                             <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton process="populationDT" 
@@ -49,7 +57,7 @@
                                 </p:commandButton>
                             </f:facet>
                         </p:dataTable>
-                        
+
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                             <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -67,7 +75,7 @@
 
                                     <!-- Id, Nombre -->
                                     <p:row>
-                                         <p:column>
+                                        <p:column>
                                             <p:outputLabel value="Descripción:" />
                                         </p:column>
                                         <p:column>
@@ -75,7 +83,7 @@
                                         </p:column>
                                     </p:row>
                                     <p:row>
-                                         <p:column>
+                                        <p:column>
                                             <p:outputLabel value="Status:" />
                                         </p:column>
                                         <p:column>
@@ -83,7 +91,7 @@
                                         </p:column>
                                     </p:row>
                                     <p:row>
-                                         <p:column>
+                                        <p:column>
                                             <p:outputLabel value="Creado:" />
                                         </p:column>
                                         <p:column>
@@ -91,7 +99,7 @@
                                         </p:column>
                                     </p:row>
                                     <p:row>
-                                         <p:column>
+                                        <p:column>
                                             <p:outputLabel value="Modificado:" />
                                         </p:column>
                                         <p:column>
@@ -99,7 +107,7 @@
                                         </p:column>
                                     </p:row>
                                     <p:row>
-                                         <p:column>
+                                        <p:column>
                                             <p:outputLabel value="Usuario:" />
                                         </p:column>
                                         <p:column>

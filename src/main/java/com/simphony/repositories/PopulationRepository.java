@@ -7,14 +7,17 @@
 package com.simphony.repositories;
 
 import com.simphony.entities.Population;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
  * @author Soporte IT
  */
-@Repository
 public interface PopulationRepository extends JpaRepository<Population, Long> {
     
+    @Query("SELECT p FROM Population p "
+        + "WHERE UPPER(p.status) = UPPER('A')")
+    public List<Population> findAllEnabled();
 }

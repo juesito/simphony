@@ -8,7 +8,7 @@
         <h:body>
             <ui:composition>
                 <h:form id="main-form">
-                    <p:growl id="growl-pop"  />
+                    <p:growl id="growl"   />
                 </h:form>
                 <div id="marco-right-title">
                     <h:form>
@@ -33,8 +33,13 @@
                                 <p:menuitem value="Por definir" /> 
                             </p:submenu>
                             <p:submenu label="Catalogos" >
-                                <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 
-                                <p:menuitem value="Tarifas" action="#{costBean.toCosts}" ajax="false" /> 
+                                <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false"
+                                            /> 
+                                
+                                <p:menuitem value="Tarifas" action="#{costBean.toCosts}" ajax="false"> 
+                                    <f:actionListener  binding="#{boxPopulationService.fillBox()}"/> 
+                                </p:menuitem>
+                                
                                 <p:menuitem value="Itinerarios" /> 
                                 <p:menuitem value="Agremiados" action="#{associateBean.toAssociates}" ajax="false" /> 
                                 <p:menuitem value="Operadores" action="#{driverManBean.toDriverMan()}" ajax="false" /> 
