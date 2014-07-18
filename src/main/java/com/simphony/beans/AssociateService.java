@@ -18,14 +18,14 @@ import org.springframework.stereotype.Component;
 public class AssociateService {
     
     @Autowired
-    private AssociateRepository associateRepository;
+    private AssociateRepository repository;
 
-    public AssociateRepository getAssociateRepository() {
-        return associateRepository;
+    public AssociateRepository getRepository() {
+        return repository;
     }
 
-    public void setAssociateRepository(AssociateRepository associateRepository) {
-        this.associateRepository = associateRepository;
+    public void setRepository(AssociateRepository repository) {
+        this.repository = repository;
     }
         
 }
