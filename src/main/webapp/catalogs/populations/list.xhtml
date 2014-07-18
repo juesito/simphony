@@ -20,8 +20,7 @@
                         <!-- Data table de usuarios -->
                         <p:dataTable value="#{populationBean.list}" var="population" style="font-size: 12px;"
                                      selectionMode="single" selection="#{populationBean.selected}" 
-                                     rowKey="#{population.id}" id="populationDT"
-                                     >
+                                     rowKey="#{population.id}" id="populationDT"   >
                             <p:column headerText="Descripción" >
                                 <p:outputLabel value="#{population.description}" />
                             </p:column>
