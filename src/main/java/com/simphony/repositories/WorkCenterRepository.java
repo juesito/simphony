@@ -1,20 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.simphony.repositories;
 
 import com.simphony.entities.WorkCenter;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 /**
  *
  * @author root
  */
-@Repository
-public interface WorkCenterRepository extends CrudRepository<WorkCenter, Long>{
+public interface WorkCenterRepository extends JpaRepository<WorkCenter, Long> {
     
+    @Query("SELECT w FROM WorkCenter w "
+        + "WHERE UPPER(w.status) = UPPER('A')")
+    public List<WorkCenter> findAllEnabled();
 }
