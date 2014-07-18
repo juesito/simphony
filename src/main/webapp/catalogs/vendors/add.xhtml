@@ -25,7 +25,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{vendorBean.vendor.name}" required="true" 
-                                                 requiredMessage="Nombre requerido"/>
+                                                 requiredMessage="Nombre requerido" maxlength="25" />
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
@@ -33,7 +33,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
-                                                 requiredMessage="Nick requerido"/>
+                                                 requiredMessage="Nick requerido" maxlength="25" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -42,14 +42,14 @@
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd1" value="#{vendorBean.vendor.password}" match="pwd2" required="true" 
-                                                requiredMessage="Password Requerido"/>
+                                                requiredMessage="Password Requerido" maxlength="25" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Confirmar Password" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{vendorBean.vendor.password}" label="Password 2" 
-                                                required="true" />
+                                                required="true" maxlength="25"  />
                                 </p:column>
 
                             </p:row>
@@ -115,7 +115,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{vendorBean.vendor.name}" required="true" 
-                                                 requiredMessage="Nombre requerido"/>
+                                                 requiredMessage="Nombre requerido" maxlength="25" />
 
                                 </p:column>
                                 <p:column>
@@ -123,7 +123,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
-                                                 requiredMessage="Nick requerido"/>
+                                                 requiredMessage="Nick requerido" maxlength="25" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -132,14 +132,14 @@
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd1" value="#{vendorBean.vendor.password}" match="pwd2" required="true" 
-                                                requiredMessage="Password Requerido"/>
+                                                requiredMessage="Password Requerido" maxlength="25" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Confirmar Password" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{vendorBean.vendor.password}" label="Password 2" 
-                                                required="true" />
+                                                required="true" maxlength="25" />
                                 </p:column>
 
                             </p:row>
