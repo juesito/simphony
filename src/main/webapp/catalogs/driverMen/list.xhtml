@@ -20,19 +20,23 @@
                         <!-- Data table -->
                         <p:dataTable value="#{driverManBean.list}" var="driverMan" style="font-size: 12px;"
                                      selectionMode="single" selection="#{driverManBean.selected}" 
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
                                      rowKey="#{driverMan.id}" id="driverManDT"
                                      >
                            
-                            <p:column headerText="Nombre" >
+                            <p:column headerText="#{msgs.cat_name}" >
                                 <p:outputLabel value="#{driverMan.name}"  />
                             </p:column>
-                            <p:column headerText="Apellido paterno" >
+                            <p:column headerText="#{msgs.cat_firstLastName}" >
                                 <p:outputLabel value="#{driverMan.firstLastName}" />
                             </p:column>
-                             <p:column headerText="Apellido materno" >
+                             <p:column headerText="#{msgs.cat_secondLastName}" >
                                 <p:outputLabel value="#{driverMan.secondLastName}" />
                             </p:column>
-                            <p:column headerText="Status" >
+                            <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{driverMan.status}" />
                             </p:column>
                             

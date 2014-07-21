@@ -21,18 +21,22 @@
                         <p:dataTable value="#{busBean.list}" var="bus" style="font-size: 12px;"
                                      selectionMode="single" selection="#{busBean.selected}" 
                                      rowKey="#{bus.id}" id="busDT"
-                                     >
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                    >
                            
-                            <p:column headerText="Número económico" >
+                            <p:column headerText="#{msgs.cat_number}" >
                                 <p:outputLabel value="#{bus.number}" />
                             </p:column>
-                            <p:column headerText="Tipo" >
+                            <p:column headerText="#{msgs.cat_type}" >
                                 <p:outputLabel value="#{bus.type}" />
                             </p:column>
-                            <p:column headerText="Cupo" >
+                            <p:column headerText="#{msgs.cat_quota}" >
                                 <p:outputLabel value="#{bus.quota}" />
                             </p:column>
-                            <p:column headerText="Status" >
+                            <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{bus.status}" />
                             </p:column>
                             

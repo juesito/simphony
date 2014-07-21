@@ -21,11 +21,15 @@
                         <p:dataTable value="#{itineraryBean.list}" var="itinerary" style="font-size: 12px;"
                                      selectionMode="single" selection="#{itineraryBean.selected}" 
                                      rowKey="#{itinerary.id}" id="itineraryDT"
-                                     >
-                            <p:column headerText="Descripción" >
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                    >
+                            <p:column headerText="#{msgs.cat_description}" >
                                 <p:outputLabel value="#{itinerary.description}" />
                             </p:column>
-                            <p:column headerText="Status" >
+                            <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{itinerary.status}" />
                             </p:column>
                             

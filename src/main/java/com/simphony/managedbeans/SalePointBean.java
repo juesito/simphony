@@ -14,6 +14,7 @@ import static com.simphony.interfases.IConfigurable._ADD;
 import static com.simphony.interfases.IConfigurable._DISABLE;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -33,6 +34,7 @@ import org.springframework.data.domain.Sort;
 @SessionScoped
 public class SalePointBean {
 
+    private final MessageProvider mp;
     private List<SalePoint> list = new ArrayList();
     private SalePoint current = new SalePoint();
     private SalePoint salePoint = new SalePoint();
@@ -45,6 +47,7 @@ public class SalePointBean {
      * Creates a new instance of SalePointBean
      */
     public SalePointBean() {
+       mp = new MessageProvider();
     }
 
     public List<SalePoint> getList() {
@@ -99,6 +102,7 @@ public class SalePointBean {
         salePoint.setCreateDate(cal.getTime());
         salePoint.setStatus(IConfigurable._ENABLED);
         this.salePointService.getSalePointRepository().save(salePoint);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.salePoint.getId());
         salePoint = new SalePoint();
         return "";
     }
@@ -180,6 +184,7 @@ public class SalePointBean {
         this.salePoint.setUser(user);
         salePointUpdated.update(this.salePoint);
         this.salePointService.getSalePointRepository().save(salePointUpdated);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.salePoint.getId());
         salePoint = new SalePoint();
         return toSalePoint();
     }

@@ -14,6 +14,7 @@ import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._DISABLE;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -34,6 +35,7 @@ import org.springframework.data.domain.Sort;
 @SessionScoped
 public class CostBean implements IConfigurable {
 
+    private final MessageProvider mp;
     private Cost cost = new Cost();
     private Cost current = new Cost();
     private Cost selected = new Cost();
@@ -48,6 +50,7 @@ public class CostBean implements IConfigurable {
      * Creates a new instance of CostBean
      */
     public CostBean() {
+       mp = new MessageProvider();
     }
 
     @PostConstruct
@@ -120,6 +123,7 @@ public class CostBean implements IConfigurable {
         cost.setStatus(_ENABLED);
          
         this.costService.getCostRepository().save(cost);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.cost.getId());
         cost = new Cost();
         return "";
     }
@@ -217,6 +221,7 @@ public class CostBean implements IConfigurable {
         cost.setUser(user);
         costUpdated.update(this.cost);
         this.costService.getCostRepository().save(costUpdated);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.cost.getId());
         cost = new Cost();
         return toCosts();
     }

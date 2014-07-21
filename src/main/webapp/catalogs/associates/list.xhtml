@@ -21,24 +21,28 @@
                         <p:dataTable value="#{associateBean.list}" var="associate" style="font-size: 12px;"
                                      selectionMode="single" selection="#{associateBean.selected}" 
                                      rowKey="#{associate.keyId}" id="associateDT"
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
                                      >
                            
-                            <p:column headerText="Tirilla" >
+                            <p:column headerText="#{msgs.cat_keyId}" >
                                 <p:outputLabel value="#{associate.keyId}" />
                             </p:column>
-                            <p:column headerText="Nombre" >
+                            <p:column headerText="#{msgs.cat_name}" >
                                 <p:outputLabel value="#{associate.name}" />
                             </p:column>
-                            <p:column headerText="Apellido paterno" >
+                            <p:column headerText="#{msgs.cat_firstLastName}" >
                                 <p:outputLabel value="#{associate.firstLastName}" />
                             </p:column>
-                             <p:column headerText="Plataforma" >
+                             <p:column headerText="#{msgs.cat_platform}" >
                                 <p:outputLabel value="#{associate.platform}" />
                             </p:column>
-                            <p:column headerText="Estado" >
+                            <p:column headerText="#{msgs.cat_state}" >
                                 <p:outputLabel value="#{associate.state}" />
                             </p:column>
-                            <p:column headerText="Status" >
+                            <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{associate.status}" />
                             </p:column>
                             

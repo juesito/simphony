@@ -14,6 +14,7 @@ import static com.simphony.interfases.IConfigurable._ADD;
 import static com.simphony.interfases.IConfigurable._DISABLE;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -33,6 +34,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class WorkCenterBean implements IConfigurable {
 
+    private final MessageProvider mp;
     private WorkCenter workCenter = new WorkCenter();
     private WorkCenter current = new WorkCenter();
     private WorkCenter selected = new WorkCenter();
@@ -46,6 +48,7 @@ public class WorkCenterBean implements IConfigurable {
      * Creates a new instance of WorkCenterBean
      */
     public WorkCenterBean() {
+        mp = new MessageProvider();
     }
 
     @PostConstruct
@@ -128,7 +131,7 @@ public class WorkCenterBean implements IConfigurable {
         WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(selected.getId());
 
         if (workCenterUpdated == null) {
-            throw new PersonException("EstaciÃ³n de trabajo no existente");
+            throw new PersonException("Estación de trabajo no existente");
         }
 
         workCenterUpdated.update(selected);
@@ -165,6 +168,7 @@ public class WorkCenterBean implements IConfigurable {
         workCenter.setStatus(_ENABLED);
             
         this.workCenterService.getWorkCenterRepository().save(workCenter);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.workCenter.getId());
         workCenter = new WorkCenter();
         return "";
     }
@@ -180,12 +184,13 @@ public class WorkCenterBean implements IConfigurable {
         WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(this.workCenter.getId());
         
         if(workCenterUpdated == null){
-            throw new PersonException("EstaciÃ³n de trabajo no existente"); 
+            throw new PersonException("Estación de trabajo no existente"); 
         }
         workCenter.setUser(user);
         workCenter.setLastUpdate(cal.getTime());
         workCenterUpdated.update(this.workCenter);
         this.workCenterService.getWorkCenterRepository().save(workCenterUpdated);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.workCenter.getId());
         workCenter = new WorkCenter();
         return toWorkCenter();
     }

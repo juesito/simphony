@@ -21,13 +21,17 @@
                         <p:dataTable value="#{userBean.list}" var="user" style="font-size: 12px;"
                                      selectionMode="single" selection="#{userBean.selected}" 
                                      rowKey="#{user.id}" id="userDT"
-                                     >
-                            <p:column headerText="Nombre" filterBy="#{user.name}"
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                    >
+                            <p:column headerText="#{msgs.cat_name}" filterBy="#{user.name}"
                                       filterMatchMode="contains">
                                 <p:outputLabel value="#{user.name}" />
                             </p:column>
                             
-                            <p:column headerText="Apellido">
+                            <p:column headerText="#{msgs.cat_firstLastName}">
                                 <p:outputLabel value="#{user.firstLastName}" />
                             </p:column>
 
@@ -39,14 +43,14 @@
                                 <p:outputLabel value="#{user.email}" />
                             </p:column>
                             
-                            <p:column headerText="Estatus"  style="width: 70px !important;">
+                            <p:column headerText="#{msgs.cat_status}"  style="width: 70px !important;">
                                 <p:selectOneMenu value="#{user.status}" disabled="true" >
                                     <f:selectItem itemLabel="Alta" itemValue="A" />
                                     <f:selectItem itemLabel="Baja" itemValue="B" />
                                 </p:selectOneMenu>
                             </p:column>
 
-                            <p:column headerText="Fecha Creación" >
+                            <p:column headerText="#{msgs.cat_createDate}" >
                                 <p:calendar value="#{user.createDate}" pattern="yyy/MMM/dd"
                                             style="width: 20px !important;" disabled="true"/>
                             </p:column>
