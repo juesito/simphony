@@ -21,9 +21,18 @@
                         <p:dataTable value="#{itineraryBean.list}" var="itinerary" style="font-size: 12px;"
                                      selectionMode="single" selection="#{itineraryBean.selected}" 
                                      rowKey="#{itinerary.id}" id="itineraryDT"
-                                     >
-                            <p:column headerText="Descripción" >
-                                <p:outputLabel value="#{itinerary.description}" />
+                                     emptyMessage="#{msgs.no_records_found}">
+                            <p:column headerText="Origen" >
+                                <p:outputLabel value="#{itinerary.origin.description}" />
+                            </p:column>
+                            <p:column headerText="Destino" >
+                                <p:outputLabel value="#{itinerary.destiny.description}" />
+                            </p:column>
+                            <p:column headerText="Hora Salida" >
+                                <p:calendar value="#{itinerary.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm a" />
+                            </p:column>
+                            <p:column headerText="Hora llegada" >
+                                <p:calendar value="#{itinerary.checkTime}" timeOnly="true" disabled="true" pattern="HH:mm a" />
                             </p:column>
                             <p:column headerText="Status" >
                                 <p:outputLabel value="#{itinerary.status}" />
@@ -61,17 +70,25 @@
 
                         <!-- detalle poblaciones-->
                         <p:dialog header="Detalle Poblaciones" widgetVar="itineraryDialog" modal="true" 
-                                  showEffect="fade" hideEffect="fade" resizable="false">
+                                  showEffect="fade" hideEffect="fade" resizable="false" >
                             <p:outputPanel id="itineraryDetail" style="text-align:center;">
                                 <p:panelGrid  rendered="#{not empty itineraryBean.selected}" >
 
                                     <!-- Id, Nombre -->
                                     <p:row>
                                          <p:column>
-                                            <p:outputLabel value="Descripción:" />
+                                            <p:outputLabel value="Origen:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{itineraryBean.selected.description}" />
+                                            <p:outputLabel value="#{itineraryBean.selected.origin.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Destino:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryBean.selected.destiny.description}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>

@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name="Sale")
-@Table(name="ventas")
+@Table(name="Ventas")
 public  class Sale implements Serializable {
 
 

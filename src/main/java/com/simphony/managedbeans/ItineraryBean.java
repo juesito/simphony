@@ -50,6 +50,16 @@ public class ItineraryBean implements IConfigurable{
 
     }
 
+    public void setItineraryService(ItineraryService itineraryService) {
+        this.itineraryService = itineraryService;
+    }
+
+    public ItineraryService getItineraryService() {
+        return itineraryService;
+    }
+    
+    
+
     public Itinerary getItinerary() {
         return itinerary;
     }
@@ -110,7 +120,7 @@ public class ItineraryBean implements IConfigurable{
         itineraryUpdated.update(selected);
         this.itineraryService.getItineraryRepository().save(itineraryUpdated);
 
-        this.fillItinerarys();
+        this.fillItineraries();
 
     }
 
@@ -125,19 +135,19 @@ public class ItineraryBean implements IConfigurable{
         itineraryUpdated.update(selected);
         this.itineraryService.getItineraryRepository().save(itineraryUpdated);
 
-        this.fillItinerarys();
+        this.fillItineraries();
 
     }
 
     public String cancelItinerary() {
-        this.fillItinerarys();
+        this.fillItineraries();
         return "toItineraries";
     }
 
     /**
      * Llenamos lista de itinerarios
      */
-    private void fillItinerarys() {
+    private void fillItineraries() {
         list.clear();
         Iterable<Itinerary> c = this.itineraryService.getItineraryRepository().findAll(sortByKeyId());
         Iterator<Itinerary> cu = c.iterator();
@@ -170,7 +180,7 @@ public class ItineraryBean implements IConfigurable{
      * @return
      */
     public String toItineraries() {
-        this.fillItinerarys();
+        this.fillItineraries();
         return "toItineraries";
     }
 

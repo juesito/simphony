@@ -167,3 +167,7 @@ div{ display:block; }
     //float: left;
     position: absolute;
 }
+
+.borderPanelGrid tr, .borderPanelGrid td{
+    border: none;
+}

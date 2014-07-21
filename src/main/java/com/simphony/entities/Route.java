@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ruta")
+@Table(name="rutas")
 public class Route implements Serializable {
 
     @Column(name = "id")
