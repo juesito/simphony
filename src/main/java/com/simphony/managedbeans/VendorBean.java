@@ -141,6 +141,24 @@ public class VendorBean implements IConfigurable {
 
     }
 
+        /**
+     * habilitamos vendedor
+     * @throws com.simphony.exceptions.PersonException
+     */
+    public void enabledVendor() throws PersonException {
+        this.selected.setStatus(_ENABLED);
+        Vendor vendorUpdated = this.vendorService.getVendorRepository().findOne(selected.getId());
+        
+        if(vendorUpdated == null){
+            throw new PersonException("Vendedor no existente"); 
+        }
+        
+        vendorUpdated.update(selected);
+        this.vendorService.getVendorRepository().save(vendorUpdated);
+        this.fillVendors();
+
+    }
+
     /**
      * boton de cancelar 
      * @return

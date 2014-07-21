@@ -30,7 +30,10 @@
                                 <p:outputLabel value="#{itinerary.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:outputLabel value="#{itinerary.status}" />
+                                <p:selectOneMenu value="#{itinerary.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                </p:selectOneMenu>
                             </p:column>
                             
                             <!-- Footer -->
@@ -43,7 +46,7 @@
                                                  value="Modificar" action="#{itineraryBean.modifyItinerary()}" />
                                 <p:commandButton process="itineraryDT" 
                                                  update=":form:itineraryDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{itineraryBean.enableItinerary()}" >
+                                                 value="Activar" actionListener="#{itineraryBean.enabledItinerary()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="itineraryDT" 
@@ -83,7 +86,10 @@
                                             <p:outputLabel value="Status:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{itineraryBean.selected.status}" />
+                                            <p:selectOneMenu value="#{itinerary.status}" disabled="true">                                    
+                                                <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                                <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                            </p:selectOneMenu>
                                         </p:column>
                                     </p:row>
                                     <p:row>

@@ -191,7 +191,7 @@ public class CostBean implements IConfigurable {
      /**
      * habilitamos tarifas
      */
-    public void enableCost() {
+    public void enabledCost() {
         this.selected.setStatus(_ENABLED);
 
         Cost costUpdated = this.costService.getCostRepository().findOne(selected.getId());

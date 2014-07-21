@@ -31,7 +31,10 @@
                                 <p:outputLabel value="#{workCenter.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:outputLabel value="#{workCenter.status}" />
+                                <p:selectOneMenu value="#{workVenter.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                </p:selectOneMenu>
                             </p:column>
                             
                              <!-- Footer -->
@@ -44,7 +47,7 @@
                                                  value="Modificar" action="#{workCenterBean.modifyWorkCenter()}" />
                                <p:commandButton process="workCenterDT" 
                                                  update=":form:workCenterDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{workCenterBean.enableWorkCenter()}" >
+                                                 value="Activar" actionListener="#{workCenterBean.enabledWorkCenter()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="workCenterDT" 
@@ -74,7 +77,10 @@
                                     <h:outputText value="#{workCenterBean.selected.description}" />
 
                                     <h:outputText value="Status:" />
-                                    <h:outputText value="#{workCenterBean.selected.status}" />
+                                        <p:selectOneMenu value="#{workCenter.status}" disabled="true">                                    
+                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                        </p:selectOneMenu>
                                                                        
                                     <h:outputText value="Creado:" />
                                     <h:outputText value="#{workCenterBean.selected.createDate}" />

@@ -213,7 +213,7 @@ public class WorkCenterBean implements IConfigurable {
      /**
      * habilitamos WorkCenter
      */
-    public void enableWorkCenter() {
+    public void enabledWorkCenter() {
         this.selected.setStatus(_ENABLED);
 
         WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(selected.getId());

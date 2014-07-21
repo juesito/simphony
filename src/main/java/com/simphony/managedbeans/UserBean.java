@@ -146,6 +146,25 @@ public class UserBean implements IConfigurable {
         this.fillUsers();
 
     }
+    /**
+     * habilitamos usuario
+     * @throws com.simphony.exceptions.UserException
+     */
+    public void enabledUser() throws UserException {
+        this.selected.setStatus(_ENABLED);
+        
+        User userUpdated = this.userService.getUserRepository().findOne(selected.getId());
+        
+        if(userUpdated == null){
+            throw new UserException("Usuario no existente"); 
+        }
+        
+        userUpdated.update(selected);
+        this.userService.getUserRepository().save(userUpdated);
+        
+        this.fillUsers();
+
+    }
 
     /**
      * Llenamos lista de usuarios

@@ -192,7 +192,7 @@ public class SalePointBean {
       /**
      * habilitamos SalePoint
      */
-    public void enableSalePoint() {
+    public void enabledSalePoint() {
         this.selected.setStatus(_ENABLED);
 
         SalePoint salePointUpdated = this.salePointService.getSalePointRepository().findOne(selected.getId());

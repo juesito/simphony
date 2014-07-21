@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
 
-                        <p:outputLabel value="Catologo usuarios" class="welcome-title" />
+                        <p:outputLabel value="Vendedores" class="welcome-title" />
                         <br />
 
                         <!-- Data table de usuarios -->
@@ -46,13 +46,13 @@
 
                             <p:column headerText="#{msgs.cat_createDate}" >
                                 <p:calendar value="#{vendor.createDate}" pattern="yyy/MMM/dd"
-                                            style="width: 50px !important;"/>
+                                            style="width: 20px !important;" disabled="true"/>
                             </p:column>
 
                             <p:column headerText="#{msgs.cat_status}"  style="width: 50px;">
-                                <p:selectOneMenu value="#{vendor.status}" disabled="true" >
-                                    <f:selectItem itemLabel="Alta" itemValue="A" />
-                                    <f:selectItem itemLabel="Baja" itemValue="B" />
+                                <p:selectOneMenu value="#{vendor.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                 </p:selectOneMenu>
                             </p:column>
 
@@ -66,8 +66,13 @@
                                                  value="Modificar" action="#{vendorBean.modifyVendor()}" />
                                 <p:commandButton process="vendorDT" 
                                                  update=":form:vendorDT" icon="ui-icon-trash" 
-                                                 value="Borrar" actionListener="#{vendorBean.disableVendor()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
+                                                 value="Activar" actionListener="#{vendorBean.enabledVendor()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="vendorDT" 
+                                                 update=":form:vendorDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{vendorBean.disableVendor()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
                         </p:dataTable>
@@ -83,86 +88,34 @@
                         <p:dialog header="Usuario Info" widgetVar="vendorDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="vendorDetail" style="text-align:center;">
-                                <p:panelGrid  rendered="#{not empty vendorBean.selected}" >
+                                <p:panelGrid  columns="2" rendered="#{not empty vendorBean.selected}" columnClasses="label,value" >
 
-                                    <!-- Id, Nombre -->
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Id:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{vendorBean.selected.id}" />
-                                        </p:column>
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{vendorBean.selected.id}" />
 
-                                        <p:column>
-                                            <p:outputLabel value="Nombre:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{vendorBean.selected.name}" />
-                                        </p:column>
-                                    </p:row>
+                                    <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{vendorBean.selected.name}" />
 
-                                    <!-- Nick, Centro trabajo -->
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Nick:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{vendorBean.selected.nick}" />
-                                        </p:column>
+                                    <h:outputText value="Nick:" />
+                                    <h:outputText value="#{vendorBean.selected.nick}" />
 
-                                        <p:column>
-                                            <p:outputLabel value="Centro de trabajo:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu value="#{vendorBean.selected.workCenter}"   
-                                                             converter="workCenterConverter"
-                                                             style="width:100px" disabled="true">
-                                                <f:selectItems value="#{boxWorkCenterService.box}"
-                                                               var="boxwc" itemLabel="#{boxwc.description}"
-                                                               itemValue="#{boxwc}"  itemLabelEscaped="true" 
-                                                               rendered="true"/>
+                                    <h:outputText value="Población:" />
+                                    <h:outputText value="#{vendorBean.selected.population.description}" />
 
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                    </p:row>
+                                    <h:outputText value="Centro de trabajo;" />
+                                    <h:outputText value="#{vendorBean.selected.workCenter.description}" />  
 
-                                    <!-- Población, Centro de trabajo -->
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Población:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu value="#{vendorBean.selected.population}" 
-                                                             converter="populationConverter"
-                                                             style="width:100px !important;" disabled="true">
-                                                <f:selectItems value="#{boxPopulationService.populationList }"
-                                                               />
+                                    <h:outputText value="Status" />
+                                    <p:selectOneMenu value="#{vendor.status}" disabled="true">                                    
+                                       <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                       <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                    </p:selectOneMenu>
 
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                    </p:row>
+                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{vendorBean.selected.createDate}" />
 
-                                    <!-- Estatus, fecha -->
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Estatus:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu value="#{vendorBean.selected.status}" disabled="true" >
-                                                <f:selectItem itemLabel="Alta" itemValue="A" />
-                                                <f:selectItem itemLabel="Baja" itemValue="B" />
-                                            </p:selectOneMenu>
-                                        </p:column>
-
-                                        <p:column>
-                                            <p:outputLabel value="Fecha:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:calendar value="#{vendorBean.selected.createDate}" pattern="yyy/MMM/dd"
-                                                        style="width:30px !important;" disabled="true"/>
-                                        </p:column>
-                                    </p:row>
+                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{vendorBean.selected.lastUpdate}" />
 
                                 </p:panelGrid>
                             </p:outputPanel>

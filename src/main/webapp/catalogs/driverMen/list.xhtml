@@ -37,7 +37,10 @@
                                 <p:outputLabel value="#{driverMan.secondLastName}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:outputLabel value="#{driverMan.status}" />
+                                <p:selectOneMenu value="#{driverMan.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                </p:selectOneMenu>
                             </p:column>
                             
                              <!-- Footer -->
@@ -50,7 +53,7 @@
                                                  value="Modificar" action="#{driverManBean.modifyDriverMan()}" />
                                 <p:commandButton process="driverManDT" 
                                                  update=":form:driverManDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{driverManBean.enableDriverMan()}" >
+                                                 value="Activar" actionListener="#{driverManBean.enabledDriverMan()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="driverManDT" 
@@ -86,7 +89,10 @@
                                     <h:outputText value="#{driverManBean.selected.secondLastName}" />
                                                                        
                                      <h:outputText value="Status:" />
-                                    <h:outputText value="#{driverManBean.selected.status}" />
+                                        <p:selectOneMenu value="#{driverMan.status}" disabled="true">                                    
+                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                        </p:selectOneMenu>
                                     
                                     <h:outputText value="Creado:" />
                                     <h:outputText value="#{driverManBean.selected.createDate}" />

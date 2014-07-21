@@ -117,7 +117,7 @@ public class ItineraryBean implements IConfigurable{
      /**
      * habilitamos agremiado
      */
-    public void enableItinerary() {
+    public void enabledItinerary() {
         this.selected.setStatus(_ENABLED);
 
         Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(selected.getId());
