@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name="Agremiado")
 public  class Associate extends Person implements Serializable, Cloneable {
 
-    @Column(name="plataforma",length=10)
+    @Column(name="plataforma",length=25)
     @Basic
     private String platform;
 

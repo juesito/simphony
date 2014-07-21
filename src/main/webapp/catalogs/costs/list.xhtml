@@ -21,24 +21,28 @@
                         <p:dataTable value="#{costBean.list}" var="cost" style="font-size: 12px;"
                                      selectionMode="single" selection="#{costBean.selected}" 
                                      rowKey="#{cost.id}" id="costDT"
-                                     >
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                    >
                            
-                            <p:column headerText="Origen" >
+                            <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{cost.origin.description}" />
                             </p:column>
-                            <p:column headerText="Destino" >
+                            <p:column headerText="#{msgs.cat_destiny}" >
                                 <p:outputLabel value="#{cost.destiny.description}" />
                             </p:column>
-                            <p:column headerText="Tarifa" >
+                            <p:column headerText="#{msgs.cat_cost}" >
                                 <p:outputLabel value="#{cost.cost}" />
                             </p:column>
-                             <p:column headerText="Tiempo de recorrido" >
+                             <p:column headerText="#{msgs.cat_routeTime}" >
                                  <p:outputLabel value="#{cost.routeTime}" />
                             </p:column>
                             <p:column headerText="Kms" >
                                 <p:outputLabel value="#{cost.kms}" />
                             </p:column>
-                            <p:column headerText="Status" >
+                            <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{cost.status}" />
                             </p:column>
                      

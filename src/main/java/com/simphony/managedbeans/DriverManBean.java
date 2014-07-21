@@ -9,6 +9,7 @@ import static com.simphony.interfases.IConfigurable._ADD;
 import static com.simphony.interfases.IConfigurable._DISABLE;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -29,6 +30,7 @@ import org.springframework.data.domain.Sort;
 @SessionScoped
 public class DriverManBean implements IConfigurable {
 
+    private final MessageProvider mp;
     private DriverMan driverMan = new DriverMan();
     private DriverMan current = new DriverMan();
     private DriverMan selected = new DriverMan();
@@ -42,6 +44,7 @@ public class DriverManBean implements IConfigurable {
      * Creates a new instance of DriverManBean
      */
     public DriverManBean() {
+       mp = new MessageProvider();
     }
 
     @PostConstruct
@@ -171,6 +174,7 @@ public class DriverManBean implements IConfigurable {
             driverMan.setStatus(_ENABLED);
             
             this.driverManService.getDriverManRepository().save(driverMan);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.driverMan.getId());
             driverMan = new DriverMan();
 
             return "";
@@ -192,6 +196,7 @@ public class DriverManBean implements IConfigurable {
         driverMan.setUser(user);
         driverManUpdated.update(this.driverMan);
         this.driverManService.getDriverManRepository().save(driverManUpdated);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.driverMan.getId());
         driverMan = new DriverMan();
         return toDriverMan();
     }

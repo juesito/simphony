@@ -9,6 +9,7 @@ import static com.simphony.interfases.IConfigurable._ADD;
 import static com.simphony.interfases.IConfigurable._DISABLE;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -28,6 +29,7 @@ import org.springframework.data.domain.Sort;
 @SessionScoped
 public class BusBean {
 
+    private final MessageProvider mp;
     private List<Bus> list = new ArrayList();
     private Bus current = new Bus();
     private Bus bus = new Bus();
@@ -40,6 +42,7 @@ public class BusBean {
      * Creates a new instance of Bus
      */
     public BusBean() {
+       mp = new MessageProvider();
     }
 
     public List<Bus> getList() {
@@ -94,6 +97,7 @@ public class BusBean {
         bus.setCreateDate(cal.getTime());
         bus.setStatus(IConfigurable._ENABLED);
         this.busService.getBusRepository().save(bus);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.bus.getId());
         bus = new Bus();
         return "";
     }
@@ -175,6 +179,7 @@ public class BusBean {
         this.bus.setUser(user);
         busUpdated.update(this.bus);
         this.busService.getBusRepository().save(busUpdated);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.bus.getId());
         bus = new Bus();
         return toBus();
     }

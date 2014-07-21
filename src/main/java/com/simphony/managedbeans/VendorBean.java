@@ -9,6 +9,7 @@ import com.simphony.beans.VendorService;
 import com.simphony.entities.Vendor;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
+import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -29,6 +30,7 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class VendorBean implements IConfigurable {
 
+    private final MessageProvider mp;
     private Vendor vendor = new Vendor();
     private Vendor current = new Vendor();
     private Vendor selected = new Vendor();
@@ -41,6 +43,7 @@ public class VendorBean implements IConfigurable {
      * Creates a new instance of VendorBean
      */
     public VendorBean() {
+        mp = new MessageProvider();
     }
 
     @PostConstruct
@@ -159,6 +162,7 @@ public class VendorBean implements IConfigurable {
         vendor.setStatus(_ENABLED);
 
         this.vendorService.getVendorRepository().save(vendor);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.vendor.getId());
         vendor = new Vendor();
         return "";
     }
@@ -178,7 +182,8 @@ public class VendorBean implements IConfigurable {
         
         vendorUpdated.update(vendor);
         this.vendorService.getVendorRepository().save(vendorUpdated);
-        
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.vendor.getId());
+  
         vendor = new Vendor();
         return toVendors();
     }

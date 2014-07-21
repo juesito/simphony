@@ -21,8 +21,12 @@
                         <p:dataTable value="#{vendorBean.list}" var="vendor" style="font-size: 12px;"
                                      selectionMode="single" selection="#{vendorBean.selected}" 
                                      rowKey="#{vendor.id}" id="vendorDT"
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
                                      >
-                            <p:column headerText="Nombre" filterBy="#{vendor.name}"
+                            <p:column headerText="#{msgs.cat_name}" filterBy="#{vendor.name}"
                                       filterMatchMode="contains">
                                 <p:outputLabel value="#{vendor.name}" />
                             </p:column>
@@ -31,7 +35,7 @@
                                 <p:outputLabel value="#{vendor.nick}" />
                             </p:column>
 
-                            <p:column headerText="Población">
+                            <p:column headerText="#{msgs.cat_population}">
                                 <p:outputLabel value="#{vendor.population.description}" />
 
                             </p:column>
@@ -40,12 +44,12 @@
                                 <p:outputLabel value="#{vendor.workCenter.description}" />
                             </p:column>
 
-                            <p:column headerText="Fecha Creación" >
+                            <p:column headerText="#{msgs.cat_createDate}" >
                                 <p:calendar value="#{vendor.createDate}" pattern="yyy/MMM/dd"
                                             style="width: 50px !important;"/>
                             </p:column>
 
-                            <p:column headerText="Estatus"  style="width: 50px;">
+                            <p:column headerText="#{msgs.cat_status}"  style="width: 50px;">
                                 <p:selectOneMenu value="#{vendor.status}" disabled="true" >
                                     <f:selectItem itemLabel="Alta" itemValue="A" />
                                     <f:selectItem itemLabel="Baja" itemValue="B" />

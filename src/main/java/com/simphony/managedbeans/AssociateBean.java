@@ -222,6 +222,7 @@ public class AssociateBean implements IConfigurable {
         associate.setUser(user);
         associateUpdated.update(this.associate);
         this.service.getRepository().save(associateUpdated);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.associate.getKeyId());
         associate = new Associate();
         return toAssociates();
     }

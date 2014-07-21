@@ -82,7 +82,7 @@
                             <p:row>
                                 <p:column>
                                     <p:commandButton value="Guardar" action="#{costBean.save(userBean.current)}"
-                                                     ajax="false" />
+                                                     ajax="false" update="main-form:growl" />
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Cancelar" action="#{costBean.cancelCost()}"
@@ -161,7 +161,7 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="Guardar" action="#{costBean.update(userBean.current)}"
-                                                     ajax="false" />
+                                                     ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Cancelar" action="#{costBean.cancelCost()}"

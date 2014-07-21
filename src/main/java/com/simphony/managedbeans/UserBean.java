@@ -9,6 +9,7 @@ import com.simphony.beans.UserService;
 import com.simphony.entities.User;
 import com.simphony.exceptions.UserException;
 import com.simphony.interfases.IConfigurable;
+import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -29,6 +30,7 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class UserBean implements IConfigurable {
 
+    private final MessageProvider mp;
     private User user = new User();
     private User current = new User();
     private User selected = new User();
@@ -41,6 +43,7 @@ public class UserBean implements IConfigurable {
      * Creates a new instance of UserBean
      */
     public UserBean() {
+       mp = new MessageProvider();
     }
 
     @PostConstruct
@@ -181,6 +184,7 @@ public class UserBean implements IConfigurable {
             user.setStatus(_ENABLED);
 
             this.userService.getUserRepository().save(user);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.user.getId());
             user = new User();
         }
         return "";
@@ -202,6 +206,7 @@ public class UserBean implements IConfigurable {
         
         userUpdated.update(user);
         this.userService.getUserRepository().save(userUpdated);
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.user.getId());
         user = new User();
         return toUsers();
     }
