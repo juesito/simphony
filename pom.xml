@@ -61,7 +61,15 @@
             <version>5.0</version>
         </dependency>
         
-       <!-- Spring Configuration -->
+        <!--
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>4.0</version>
+        </dependency>
+        -->
+        
+        <!-- Spring Configuration -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>

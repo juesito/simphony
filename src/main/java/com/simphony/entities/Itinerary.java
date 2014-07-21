@@ -6,85 +6,85 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
-@Entity(name="Itinerary")
-@Table(name="Itinerarios")
-public  class Itinerary implements Serializable, Cloneable {
+@Entity(name = "Itinerary")
+@Table(name = "Itinerarios")
+public class Itinerary implements Serializable, Cloneable {
 
-    @Column(name="id")
+    @Column(name = "id")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
 
-    @Id@OneToOne(targetEntity=User.class)
+    @Id
+    @OneToOne(targetEntity = User.class)
     private User userId;
 
-
-    @Id@OneToOne(targetEntity=Population.class)
+    @Id
+    @OneToOne(targetEntity = Population.class)
     private Population destiny;
-    
-    @Id@OneToOne(targetEntity=Population.class)
+
+    @Id
+    @OneToOne(targetEntity = Population.class)
     private Population origin;
 
-    @Column(name="fechaCreacion")
+    @Column(name = "fechaCreacion")
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createDate;
-    
-    @Column(name="horaSalida")
+
+    @Column(name = "horaSalida")
     @Basic
     @Temporal(javax.persistence.TemporalType.TIME)
     private Date departureTime;
-    
-    @Column(name="horaLlegada")
+
+    @Column(name = "horaLlegada")
     @Basic
     @Temporal(javax.persistence.TemporalType.TIME)
     private Date checkTime;
-    
-    @Column(name="estatus")
+
+    @Column(name = "estatus")
     @Basic
     private String status;
-    
+
     @Transient
     private String action;
 
-    public Itinerary(){
+    public Itinerary() {
 
     }
 
-    public void update(Itinerary itineraryUpdated){
+    public void update(Itinerary itineraryUpdated) {
     }
 
-   public Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-
-  public void setId (Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-   public Population getDestiny() {
+    public Population getDestiny() {
         return this.destiny;
     }
 
-
-  public void setDestiny (Population destiny) {
+    public void setDestiny(Population destiny) {
         this.destiny = destiny;
     }
 
-
-
-   public Date getCreateDate() {
+    public Date getCreateDate() {
         return this.createDate;
     }
 
-
-  public void setCreateDate (Date createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -135,7 +135,7 @@ public  class Itinerary implements Serializable, Cloneable {
     public void setAction(String action) {
         this.action = action;
     }
-    
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         Object obj = null;
@@ -145,7 +145,7 @@ public  class Itinerary implements Serializable, Cloneable {
             System.out.println(" no se puede duplicar");
         }
         return obj;
-    }  
+    }
 
     @Override
     public int hashCode() {
@@ -169,6 +169,4 @@ public  class Itinerary implements Serializable, Cloneable {
         return true;
     }
 
-  
 }
-

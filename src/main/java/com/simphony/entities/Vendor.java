@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "vendedores")
+@Entity(name = "Vendor")
+@Table(name = "Vendedores")
 public class Vendor extends Person implements Serializable, Cloneable {
 
     @Column(name = "nick", length = 10)

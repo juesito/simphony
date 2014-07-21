@@ -106,7 +106,7 @@
             <to-view-id>/catalogs/userTypes/add.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>addItineraries</from-outcome>
+            <from-outcome>addItinerary</from-outcome>
             <to-view-id>/catalogs/itineraries/add.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>

@@ -40,7 +40,9 @@
                                     <f:actionListener  binding="#{boxPopulationService.fillBox()}"/> 
                                 </p:menuitem>
                                 
-                                <p:menuitem value="Itinerarios" /> 
+                                <p:menuitem value="Itinerarios" action="#{itineraryBean.toItineraries()}" ajax="false">
+                                    <f:actionListener  binding="#{boxPopulationService.fillBox()}"/>
+                                </p:menuitem>
                                 <p:menuitem value="Agremiados" action="#{associateBean.toAssociates}" ajax="false" /> 
                                 <p:menuitem value="Operadores" action="#{driverManBean.toDriverMan()}" ajax="false" /> 
                                 <p:menuitem value="Autobuses" action="#{busBean.toBus()}" ajax="false" /> 

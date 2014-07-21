@@ -9,7 +9,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name = "User")
-@Table(name = "usuarios")
+@Table(name = "Usuarios")
 public class User extends Person implements Serializable, Cloneable {
 
     @Column(name = "nick", length = 10)
