@@ -1,7 +1,6 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -23,15 +23,12 @@ public class Itinerary implements Serializable, Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
-
     
     @OneToOne(targetEntity = User.class)
     private User user;
-
     
     @ManyToOne(targetEntity = Population.class)
     private Population destiny;
-
     
     @ManyToOne(targetEntity = Population.class)
     private Population origin;
@@ -43,17 +40,21 @@ public class Itinerary implements Serializable, Cloneable {
 
     @Column(name = "horaSalida")
     @Basic
-    @Temporal(javax.persistence.TemporalType.TIME)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date departureTime;
 
     @Column(name = "horaLlegada")
     @Basic
-    @Temporal(javax.persistence.TemporalType.TIME)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date checkTime;
 
     @Column(name = "estatus")
     @Basic
     private String status;
+    
+    @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date lastUpdated;
 
     @Transient
     private String action;
@@ -61,8 +62,20 @@ public class Itinerary implements Serializable, Cloneable {
     public Itinerary() {
 
     }
+    
+    @PreUpdate
+    public void preUpdate(){
+        setLastUpdated(new Date());
+    }
 
     public void update(Itinerary itineraryUpdated) {
+        this.checkTime = itineraryUpdated.checkTime;
+        this.departureTime = itineraryUpdated.departureTime;
+        this.destiny = itineraryUpdated.destiny;
+        this.origin = itineraryUpdated.origin;
+        this.user = itineraryUpdated.user;
+        this.status = itineraryUpdated.status;
+        this.createDate = itineraryUpdated.createDate;
     }
 
     public Long getId() {
@@ -95,9 +108,7 @@ public class Itinerary implements Serializable, Cloneable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-   
+    }   
 
     public Population getOrigin() {
         return origin;
@@ -138,6 +149,14 @@ public class Itinerary implements Serializable, Cloneable {
     public void setAction(String action) {
         this.action = action;
     }
+    
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -149,7 +168,7 @@ public class Itinerary implements Serializable, Cloneable {
         }
         return obj;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;

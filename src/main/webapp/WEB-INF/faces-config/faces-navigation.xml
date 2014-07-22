@@ -123,4 +123,13 @@
         </navigation-case>
 
     </navigation-rule>
+    <navigation-rule>
+        <description>Al detalle de itinerarios</description>
+        <from-view-id>/catalogs/itineraries/list.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toItineraryDetail</from-outcome>
+            <to-view-id>/catalogs/itineraries/detailList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

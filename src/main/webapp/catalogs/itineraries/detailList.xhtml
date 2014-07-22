@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <!-- panel para agregar -->
+                <h:form id="add">
+                    <p:outputLabel value="Detalle Itinerario" class="welcome-title" />
+                    <br/><br/>
+
+                    <!-- div header detail -->
+                    <div id="itinerary-header-detail">
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Origen:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel id="origin" value="#{itineraryBean.itinerary.origin.description}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Destino:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel id="destiny" value="#{itineraryBean.itinerary.destiny.description}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Hora salida" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar value="#{itineraryBean.itinerary.departureTime}"  disabled="true"
+                                                pattern="HH:mm a" timeOnly="true" size="8"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Hora llegada" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar value="#{itineraryBean.itinerary.checkTime}" disabled="true"
+                                                pattern="HH:mm a" timeOnly="true" size="8" />
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>
+                    </div>
+
+                    <div id="itinerary-detail-detail">
+                        <!-- Data table de itinetarios -->
+                        <p:dataTable value="#{itineraryDetailBean.list}" var="itineraryDetail" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{itineraryDetailBean.selected}" 
+                                     rowKey="#{itineraryDetail.id}" id="itineraryDetailDT"
+                                     emptyMessage="#{msgs.no_records_found}" rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15">
+                            
+                            <p:column headerText="Itinerario" >
+                                <p:outputLabel value="#{itineraryDetail.itinerary.id}" />
+                            </p:column>
+                            <p:column headerText="Origen" >
+                                <p:outputLabel value="#{itineraryDetail.origin.description}" />
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

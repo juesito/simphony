@@ -40,7 +40,10 @@
                             </p:column>
                             
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:outputLabel value="#{itinerary.status}" />
+                                <p:selectOneMenu value="#{itinerary.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                </p:selectOneMenu>
                             </p:column>
                             
                             <!-- Footer -->
@@ -60,6 +63,10 @@
                                                  update=":form:itineraryDT" icon="ui-icon-trash" 
                                                  value="Desactivar" actionListener="#{itineraryBean.disableItinerary()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-script"
+                                                 value="#{msgs.cat_detail}" action="#{itineraryBean.toItineraryDetail()}" 
+                                                 actionListener="#{itineraryDetailBean.fillItineraries(itineraryBean.selected.id)}">
                                 </p:commandButton>
                             </f:facet>
                         </p:dataTable>

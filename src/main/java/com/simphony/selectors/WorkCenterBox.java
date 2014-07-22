@@ -47,13 +47,15 @@ public class WorkCenterBox {
         }
     }
 
-    public List<SelectItem> getPopulationList() {
+    public List<SelectItem> getWorkCenterList() {
         return workCenterList;
     }
 
     public void setWorkCenterList(List<SelectItem> workCenterList) {
         this.workCenterList = workCenterList;
     }
+
+    
 
     public WorkCenterService getWorkCenterService() {
         return workCenterService;

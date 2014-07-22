@@ -62,8 +62,7 @@
                                                      converter="populationConverter" 
                                                      style="width:160px" required="true" 
                                                      requiredMessage="Población Requerida">
-                                        <f:selectItems value="#{boxPopulationService.populationList}" 
-                                                      />
+                                        <f:selectItems value="#{boxPopulationService.populationList}" />
 
                                     </p:selectOneMenu>
                                 </p:column>
@@ -76,9 +75,7 @@
                                                      converter="workCenterConverter" 
                                                      style="width:160px" required="true" 
                                                      requiredMessage="Centro de trabajo Requerido">
-                                        <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
-                                                       itemLabel="#{boxwc.description}" itemValue="#{boxwc}" 
-                                                       itemLabelEscaped="true" rendered="true"/>
+                                        <f:selectItems value="#{boxWorkCenterService.workCenterList}" />
 
                                     </p:selectOneMenu>
 

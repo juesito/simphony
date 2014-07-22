@@ -24,8 +24,8 @@ public class WorkCenterConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0) {
             WorkCenterBox service = (WorkCenterBox) context.getExternalContext().getApplicationMap().get("boxWorkCenterService");
-            Integer myValue = Integer.parseInt(value);
-            return service.getBox().get(myValue - 1);
+            WorkCenter workCenter = service.getWorkCenterService().getWorkCenterRepository().findOne(Long.parseLong(value));
+            return workCenter;
         }
         else {
             return null;

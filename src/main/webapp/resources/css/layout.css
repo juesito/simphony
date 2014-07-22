@@ -26,6 +26,15 @@
     padding-bottom: 40px;
 }
 
+#wrapper-cat{
+    margin: 0 auto;
+    width: 1000px;
+    min-height: 580px;
+    max-height: 600px;
+    padding-bottom: 40px;
+    font-size: 10px;
+}
+
 .wrap {
     position:relative;
     margin:0 auto;
@@ -47,6 +56,10 @@
     padding: 5px;
     min-height: 550px;
     max-height: 600px;
+}
+.content-catalog{
+    min-height: 800px;
+    height: 800px;
 }
 
 .left_content {
@@ -170,4 +183,12 @@ div{ display:block; }
 
 .borderPanelGrid tr, .borderPanelGrid td{
     border: none;
+}
+
+#itinerary-header-detail{
+    float: left;    
+}
+
+#itinerary-detail-detail{
+    float: right;    
 }

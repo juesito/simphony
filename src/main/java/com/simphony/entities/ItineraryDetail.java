@@ -33,7 +33,7 @@ public class ItineraryDetail implements Serializable {
 
     
     @ManyToOne(targetEntity = Itinerary.class)
-    private Itinerary itineraryId;
+    private Itinerary itinerary;
 
     @ManyToOne(targetEntity = Population.class)
     private Population destiny;
@@ -70,13 +70,7 @@ public class ItineraryDetail implements Serializable {
         this.id = id;
     }
 
-    public Itinerary getItineraryId() {
-        return itineraryId;
-    }
-
-    public void setItineraryId(Itinerary itineraryId) {
-        this.itineraryId = itineraryId;
-    }
+    
 
     public Population getDestiny() {
         return destiny;
@@ -126,11 +120,19 @@ public class ItineraryDetail implements Serializable {
         this.status = status;
     }
 
+    public Itinerary getItinerary() {
+        return itinerary;
+    }
+
+    public void setItinerary(Itinerary itinerary) {
+        this.itinerary = itinerary;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 37 * hash + (this.itineraryId != null ? this.itineraryId.hashCode() : 0);
+        hash = 67 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 67 * hash + (this.itinerary != null ? this.itinerary.hashCode() : 0);
         return hash;
     }
 
@@ -146,7 +148,7 @@ public class ItineraryDetail implements Serializable {
         if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
             return false;
         }
-        if (this.itineraryId != other.itineraryId && (this.itineraryId == null || !this.itineraryId.equals(other.itineraryId))) {
+        if (this.itinerary != other.itinerary && (this.itinerary == null || !this.itinerary.equals(other.itinerary))) {
             return false;
         }
         return true;
@@ -154,8 +156,10 @@ public class ItineraryDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "ItineraryDetail{" + "id=" + id + ", itineraryId=" + itineraryId + ", destiny=" + destiny + ", origin=" + origin + ", typeOfRoute=" + typeOfRoute + ", hoursFromOrigin=" + hoursFromOrigin + ", hoursToDestiny=" + hoursToDestiny + ", status=" + status + '}';
+        return "ItineraryDetail{" + "id=" + id + ", itinerary=" + itinerary + ", destiny=" + destiny + ", origin=" + origin + ", typeOfRoute=" + typeOfRoute + ", hoursFromOrigin=" + hoursFromOrigin + ", hoursToDestiny=" + hoursToDestiny + ", status=" + status + '}';
     }
+
+    
     
     
 

@@ -202,7 +202,7 @@ public class AssociateBean implements IConfigurable {
 
             }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), mp.getValue("error_keyId_Detail") + this.associate.getKeyId());
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.associate.getKeyId());
         }
 
         return "";
