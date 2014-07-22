@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,16 +24,16 @@ public class Itinerary implements Serializable, Cloneable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
 
-    @Id
+    
     @OneToOne(targetEntity = User.class)
-    private User userId;
+    private User user;
 
-    @Id
-    @OneToOne(targetEntity = Population.class)
+    
+    @ManyToOne(targetEntity = Population.class)
     private Population destiny;
 
-    @Id
-    @OneToOne(targetEntity = Population.class)
+    
+    @ManyToOne(targetEntity = Population.class)
     private Population origin;
 
     @Column(name = "fechaCreacion")
@@ -88,13 +89,15 @@ public class Itinerary implements Serializable, Cloneable {
         this.createDate = createDate;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
+
+   
 
     public Population getOrigin() {
         return origin;

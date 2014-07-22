@@ -163,7 +163,7 @@ public class ItineraryBean implements IConfigurable{
      */
     public String save(User user) {
         if (this.itinerary.getOrigin() != null && this.itinerary.getDestiny()!= null) {
-            itinerary.setUserId(user);
+            itinerary.setUser(user);
             itinerary.setCreateDate(cal.getTime());
             itinerary.setStatus(_ENABLED);
             

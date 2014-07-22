@@ -177,16 +177,20 @@ public class AssociateBean implements IConfigurable {
      */
     public String save(User user) {
          Boolean exist = true;
+         Associate associateTmp;
 
-//        try {
-//            Associate associateTmp = this.service.getRepository().findByKey(this.associate.getKeyId().trim());
-//        } catch (Exception ex) {
-//            System.out.println("Error");
-//            exist = false;
-//
-//        }
-//
-//        if (!exist) {
+        try {
+            associateTmp = this.service.getRepository().findByKey(this.associate.getKeyId().trim());
+            if(associateTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
+
+        }
+
+        if (!exist) {
             if (this.associate.getKeyId() != null && this.associate.getName() != null) {
                 associate.setUser(user);
                 associate.setCreateDate(cal.getTime());
@@ -197,9 +201,9 @@ public class AssociateBean implements IConfigurable {
                 associate = new Associate();
 
             }
-//        } else {
-//            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), mp.getValue("error_keyId_Detail") + this.associate.getKeyId());
-//        }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), mp.getValue("error_keyId_Detail") + this.associate.getKeyId());
+        }
 
         return "";
     }
