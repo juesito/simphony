@@ -53,7 +53,7 @@
                                                  value="Modificar" action="#{itineraryBean.modifyItinerary()}" />
                                 <p:commandButton process="itineraryDT" 
                                                  update=":form:itineraryDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{itineraryBean.enableItinerary()}" >
+                                                 value="Activar" actionListener="#{itineraryBean.enabledItinerary()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="itineraryDT" 

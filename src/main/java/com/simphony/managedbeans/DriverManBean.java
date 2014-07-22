@@ -134,7 +134,7 @@ public class DriverManBean implements IConfigurable {
      /**
      * habilitamos DriverMan
      */
-    public void enableDriverMan() {
+    public void enabledDriverMan() {
         this.selected.setStatus(_ENABLED);
 
         DriverMan driverManUpdated = this.driverManService.getDriverManRepository().findOne(selected.getId());

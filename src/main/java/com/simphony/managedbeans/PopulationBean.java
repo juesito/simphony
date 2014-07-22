@@ -139,7 +139,7 @@ public class PopulationBean implements IConfigurable {
     /*
          * habilitamos Population
      */
-    public void enablePopulation() {
+    public void enabledPopulation() {
         this.selected.setStatus(_ENABLED);
 
         Population populationUpdated = this.populationService.getPopulationRepository().findOne(selected.getId());

@@ -187,7 +187,7 @@ public class BusBean {
       /**
      * habilitamos Bus
      */
-    public void enableBus() {
+    public void enabledBus() {
         this.selected.setStatus(_ENABLED);
 
         Bus busUpdated = this.busService.getBusRepository().findOne(selected.getId());

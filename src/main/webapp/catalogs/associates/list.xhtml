@@ -43,7 +43,10 @@
                                 <p:outputLabel value="#{associate.state}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:outputLabel value="#{associate.status}" />
+                                <p:selectOneMenu value="#{associate.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                </p:selectOneMenu>
                             </p:column>
                             
                              <!-- Footer -->
@@ -56,7 +59,7 @@
                                                  value="Modificar" action="#{associateBean.modifyAssociate()}" />
                                 <p:commandButton process="associateDT" 
                                                  update=":form:associateDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{associateBean.enableAssociate()}" >
+                                                 value="Activar" actionListener="#{associateBean.enabledAssociate()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="associateDT" 
@@ -110,7 +113,10 @@
                                     <h:outputText value="#{associateBean.selected.email}" />
                                                                        
                                     <h:outputText value="Status:" />
-                                    <h:outputText value="#{associateBean.selected.status}" />
+                                        <p:selectOneMenu value="#{associate.status}" disabled="true">                                    
+                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                        </p:selectOneMenu>
                                     
                                     <h:outputText value="Creado:" />
                                     <h:outputText value="#{associateBean.selected.createDate}" />

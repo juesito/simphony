@@ -47,7 +47,7 @@
                                                  value="Modificar" action="#{populationBean.modifyPopulation()}" />
                                 <p:commandButton process="populationDT" 
                                                  update=":form:populationDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{populationBean.enablePopulation()}" >
+                                                 value="Activar" actionListener="#{populationBean.enabledPopulation()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="populationDT" 
@@ -87,7 +87,10 @@
                                             <p:outputLabel value="Status:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{populationBean.selected.status}" />
+                                            <p:selectOneMenu value="#{population.status}" disabled="true">                                    
+                                                <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                                <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                            </p:selectOneMenu>
                                         </p:column>
                                     </p:row>
                                     <p:row>

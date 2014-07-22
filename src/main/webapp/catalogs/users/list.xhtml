@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
 
-                        <p:outputLabel value="Catologo usuarios" class="welcome-title" />
+                        <p:outputLabel value="Usuarios" class="welcome-title" />
                         <br />
 
                         <!-- Data table de usuarios -->
@@ -44,9 +44,9 @@
                             </p:column>
                             
                             <p:column headerText="#{msgs.cat_status}"  style="width: 70px !important;">
-                                <p:selectOneMenu value="#{user.status}" disabled="true" >
-                                    <f:selectItem itemLabel="Alta" itemValue="A" />
-                                    <f:selectItem itemLabel="Baja" itemValue="B" />
+                                <p:selectOneMenu value="#{user.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                 </p:selectOneMenu>
                             </p:column>
 
@@ -64,9 +64,14 @@
                                                  icon="ui-icon-search" ajax="false"
                                                  value="Modificar" action="#{userBean.modifyUser()}" />
                                 <p:commandButton process="userDT" 
-                                                 update=":form:userDetail" icon="ui-icon-trash" 
-                                                 value="Borrar" actionListener="#{vendorBean.disableVendor()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de borrar?" icon="ui-icon-alert" />
+                                                 update=":form:userDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{userBean.enabledUser()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="userDT" 
+                                                 update=":form:userDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{userBean.disableUser()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
                         </p:dataTable>
@@ -84,58 +89,36 @@
                         <p:dialog header="Usuario Info" widgetVar="userDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="userDetail" style="text-align:center;">
-                                <p:panelGrid  rendered="#{not empty userBean.selected}" >
+                                 <p:panelGrid  columns="2" rendered="#{not empty userBean.selected}" columnClasses="label,value" >
 
-                                    <!-- Id, Nombre -->
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Id:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{userBean.selected.id}" />
-                                        </p:column>
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{userBean.selected.id}" />
 
-                                        <p:column>
-                                            <p:outputLabel value="Nombre:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{userBean.selected.name}" />
-                                        </p:column>
-                                    </p:row>
+                                    <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{userBean.selected.name}" />
 
-                                    <!-- Nick, Centro trabajo -->
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Nick:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{userBean.selected.nick}" />
-                                        </p:column>
+                                    <h:outputText value="Apellido:" />
+                                    <h:outputText value="#{userBean.selected.firstLastName}" />
 
-                                    </p:row>
+                                    <h:outputText value="Nick:" />
+                                    <h:outputText value="#{userBean.selected.nick}" />
 
-                                    <!-- Estatus, fecha -->
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Estatus:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:selectOneMenu value="#{userBean.selected.status}" disabled="true" >
-                                                <f:selectItem itemLabel="Alta" itemValue="A" />
-                                                <f:selectItem itemLabel="Baja" itemValue="B" />
-                                            </p:selectOneMenu>
-                                        </p:column>
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{userBean.selected.email}" />
 
-                                        <p:column>
-                                            <p:outputLabel value="Fecha:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:calendar value="#{userBean.selected.createDate}" pattern="yyy/MMM/dd"
-                                                        style="width:30px !important;" disabled="true"/>
-                                        </p:column>
-                                    </p:row>
+                                    <h:outputText value="Status" />
+                                    <p:selectOneMenu value="#{user.status}" disabled="true">                                    
+                                       <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                       <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                    </p:selectOneMenu>
 
-                                </p:panelGrid>
+                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{userBean.selected.createDate}" />
+
+                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{userBean.selected.lastUpdate}" />
+                                                                       
+                                 </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>
                     </h:form>
