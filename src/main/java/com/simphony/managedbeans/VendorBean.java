@@ -35,7 +35,8 @@ public class VendorBean implements IConfigurable {
     private Vendor current = new Vendor();
     private Vendor selected = new Vendor();
     private List<Vendor> list = new ArrayList<Vendor>();
-
+    Calendar cal = Calendar.getInstance();
+   
     @ManagedProperty(value = "#{vendorService}")
     private VendorService vendorService;
 
@@ -173,16 +174,34 @@ public class VendorBean implements IConfigurable {
      * @return
      */
     public String save() {
+         Boolean exist = true;
+         Vendor vendorTmp;
 
-        Calendar cal = Calendar.getInstance();
-        vendor.setCreateDate(cal.getTime());
-        vendor.setLastUpdate(cal.getTime());
-        vendor.setStatus(_ENABLED);
+        try {
+            vendorTmp = this.vendorService.getVendorRepository().findByNick(this.vendor.getNick().trim());
+            if(vendorTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
 
-        this.vendorService.getVendorRepository().save(vendor);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.vendor.getId());
-        vendor = new Vendor();
-        return "";
+        }
+
+        if (!exist) {
+            if (this.vendor.getNick() != null ) {
+                vendor.setCreateDate(cal.getTime());
+                vendor.setStatus(_ENABLED);
+
+                this.vendorService.getVendorRepository().save(vendor);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.vendor.getId());
+                vendor = new Vendor();
+            }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.vendor.getNick());
+        }
+
+         return "";
     }
 
     /**

@@ -194,18 +194,36 @@ public class UserBean implements IConfigurable {
      * @return
      */
     public String save() {
+         Boolean exist = true;
+         User userTmp;
 
-        if (!user.getName().equals("")) {
+        try {
+            userTmp = this.userService.getUserRepository().findByNick(this.user.getNick().trim());
+            if(userTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
 
-            Calendar cal = Calendar.getInstance();
-            user.setCreateDate(cal.getTime());
-            user.setLastUpdate(cal.getTime());
-            user.setStatus(_ENABLED);
-
-            this.userService.getUserRepository().save(user);
-            GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.user.getId());
-            user = new User();
         }
+
+        if (!exist) {
+             if (!user.getName().equals("")) {
+
+                Calendar cal = Calendar.getInstance();
+                user.setCreateDate(cal.getTime());
+                user.setLastUpdate(cal.getTime());
+                user.setStatus(_ENABLED);
+
+                this.userService.getUserRepository().save(user);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.user.getId());
+                user = new User();
+        }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.user.getNick());
+        }
+
         return "";
     }
 

@@ -8,11 +8,16 @@ package com.simphony.repositories;
 
 import com.simphony.entities.Bus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author Soporte IT
  */
 public interface BusRepository extends JpaRepository<Bus, Long> {
-    
+   
+      @Query("SELECT b FROM Bus b WHERE b.number = (:number)")
+    public Bus findByNum(@Param("number") String number);
+
 }

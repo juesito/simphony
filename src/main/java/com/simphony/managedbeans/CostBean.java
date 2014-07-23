@@ -117,14 +117,36 @@ public class CostBean implements IConfigurable {
     }
 
     public String save(User user) {
-        
-        cost.setUser(user);
-        cost.setCreateDate(cal.getTime());
-        cost.setStatus(_ENABLED);
-         
-        this.costService.getCostRepository().save(cost);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.cost.getId());
-        cost = new Cost();
+ 
+         Boolean exist = true;
+         Cost costTmp;
+
+        try {
+            costTmp = this.costService.getCostRepository().findByOriDes(this.cost.getOrigin().getId(), this.cost.getDestiny().getId());
+            if(costTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
+
+        }
+
+        if (!exist) {
+            if (this.cost.getOrigin() != null ) {
+                cost.setUser(user);
+                cost.setCreateDate(cal.getTime());
+                cost.setStatus(_ENABLED);
+
+                this.costService.getCostRepository().save(cost);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.cost.getId());
+                cost = new Cost();
+
+            }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.cost.getOrigin());
+        }
+
         return "";
     }
 
