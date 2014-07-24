@@ -9,6 +9,7 @@ import com.simphony.beans.ItineraryDetailService;
 import com.simphony.entities.Itinerary;
 import com.simphony.entities.ItineraryDetail;
 import com.simphony.entities.User;
+import com.simphony.exceptions.ItineraryException;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
@@ -124,5 +125,63 @@ public class ItineraryDetailBean implements IConfigurable {
             GrowlBean.simplyFatalMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itineraryDetail.getOrigin().getDescription());
         }
     }
+    
+    /**
+     * deshabilitamos itinerario
+     *
+     */
+    public void disableItineraryDetail() {
+        this.selected.setStatus(_DISABLE);
+        
+        ItineraryDetail itineraryUpdated = this.itineraryDetailService.getItineraryDetailRepository().findOne(selected.getId());
+        
+        itineraryUpdated.update(selected);
+        this.itineraryDetailService.getItineraryDetailRepository().save(itineraryUpdated);
+        
+        this.fillItineraries(this.selected.getItinerary().getId());
+        
+    }
 
+    /**
+     * habilitamos agremiado
+     */
+    public void enabledItineraryDetail() {
+        this.selected.setStatus(_ENABLED);
+        
+        ItineraryDetail itineraryUpdated = this.itineraryDetailService.getItineraryDetailRepository().findOne(selected.getId());
+        
+        itineraryUpdated.update(selected);
+        this.itineraryDetailService.getItineraryDetailRepository().save(itineraryUpdated);
+        
+        this.fillItineraries(this.selected.getItinerary().getId());
+        
+    }
+    
+    /**
+     * Actualizamos el detalle de itinerarios
+     *
+     * @return
+     * @throws com.simphony.exceptions.PersonException
+     */
+    public String update() throws ItineraryException {
+        
+        ItineraryDetail itineraryDetailUpdated = this.itineraryDetailService.getItineraryDetailRepository().findOne(this.itineraryDetail.getId());
+        
+        if (itineraryDetailUpdated == null) {
+            throw new ItineraryException(mp.getValue("cat_itinerary") + " " + mp.getValue("not_founded"));
+        }
+        
+        itineraryDetailUpdated.update(itineraryDetailUpdated);
+        this.itineraryDetailService.getItineraryDetailRepository().save(itineraryDetailUpdated);
+        
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_modified"), mp.getValue("msj_record_modified") + itineraryDetailUpdated.getOrigin().getDescription());
+        
+        itineraryDetail = new ItineraryDetail();
+        fillItineraries(itineraryDetailUpdated.getItinerary().getId());
+        return "toItineraryDetail";
+    }
+
+    public String cancelItineraryDetail() {
+        return "toItineraryDetail";
+    }
 }

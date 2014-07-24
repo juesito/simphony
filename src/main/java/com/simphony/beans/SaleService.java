@@ -6,7 +6,7 @@
 
 package com.simphony.beans;
 
-import com.simphony.repositories.PopulationRepository;
+import com.simphony.repositories.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,19 +15,18 @@ import org.springframework.stereotype.Component;
  * @author Jueser
  */
 @Component
-public class PopulationService {
+public class SaleService {
     
     @Autowired
-    PopulationRepository populationRepository;
+    SaleRepository saleRepository;
 
-    public PopulationRepository getPopulationRepository() {
-        return populationRepository;
+    public SaleRepository getSaleRepository() {
+        return saleRepository;
     }
 
-    public void setPopulationRepository(PopulationRepository populationRepository) {
-        this.populationRepository = populationRepository;
+    public void setSaleRepository(SaleRepository saleRepository) {
+        this.saleRepository = saleRepository;
     }
-    
     
     
 }

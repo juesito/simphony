@@ -140,6 +140,16 @@ public class ItineraryDetail implements Serializable, Cloneable {
         this.action = action;
     }
     
+    public void update(ItineraryDetail itineraryDetailUpdated) {
+        this.hoursFromOrigin = itineraryDetailUpdated.hoursFromOrigin;
+        this.hoursToDestiny = itineraryDetailUpdated.hoursToDestiny;
+        this.destiny = itineraryDetailUpdated.destiny;
+        this.origin = itineraryDetailUpdated.origin;
+        this.status = itineraryDetailUpdated.status;
+        this.typeOfRoute = itineraryDetailUpdated.typeOfRoute;
+        this.itinerary = itineraryDetailUpdated.itinerary;
+    }
+    
     
 
     @Override

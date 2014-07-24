@@ -20,6 +20,8 @@ public interface CostRepository extends JpaRepository<Cost, Long>{
     @Query("SELECT c FROM Cost c "
          + "WHERE c.origin.id = (:originId) AND c.destiny.id = (:destinyId)")
     public Cost findByOriDes(@Param("originId") Long originId, @Param("destinyId") Long destinyId);
+    
+    
 
 
 }

@@ -22,6 +22,14 @@
                         <p:panelGrid  styleClass="itinerary-header">
                             <p:row>
                                 <p:column>
+                                    <p:outputLabel value="Itinerario" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel id="itinerary" value="#{itineraryBean.itinerary.id}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
                                     <p:outputLabel value="Origen:" />
                                 </p:column>
                                 <p:column>
@@ -63,14 +71,11 @@
                         <p:dataTable value="#{itineraryDetailBean.list}" var="itineraryDetail" style="font-size: 12px;"
                                      selectionMode="single" selection="#{itineraryDetailBean.selected}" 
                                      rowKey="#{itineraryDetail.id}" id="itineraryDetailDT"
-                                     emptyMessage="#{msgs.no_records_found}" rows="4"
+                                     emptyMessage="#{msgs.no_records_found}" rows="5"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15">
 
-                            <p:column headerText="Itinerario" >
-                                <p:outputLabel value="#{itineraryDetail.itinerary.id}" />
-                            </p:column>
                             <p:column headerText="Origen" >
                                 <p:outputLabel value="#{itineraryDetail.origin.description}" />
                             </p:column>
@@ -91,6 +96,9 @@
                             <p:column headerText="Hora Origen" >
                                 <p:outputLabel value="#{itineraryDetail.hoursFromOrigin}" />
                             </p:column>
+                            <p:column headerText="Estatus" >
+                                <p:outputLabel value="#{itineraryDetail.status}" />
+                            </p:column>
 
                             <!-- Footer -->
                             <f:facet name="footer">
@@ -102,18 +110,14 @@
                                                  value="Modificar" action="#{itineraryDetailBean.modifyItinerary()}" />
                                 <p:commandButton process="itineraryDetailDT" 
                                                  update="itineraryDetailDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{itineraryBean.enabledItinerary()}" >
+                                                 value="Activar" actionListener="#{itineraryDetailBean.enabledItineraryDetail()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="itineraryDetailDT" 
                                                  update="itineraryDetailDT" icon="ui-icon-trash" 
-                                                 value="Desactivar" actionListener="#{itineraryBean.disableItinerary()}" >
+                                                 value="Desactivar" actionListener="#{itineraryDetailBean.disableItineraryDetail()}" >
                                     <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-script"
-                                                 value="#{msgs.cat_detail}" action="#{itineraryBean.toItineraryDetail()}" 
-                                                 actionListener="#{itineraryDetailBean.fillItineraries(itineraryBean.selected.id)}">
-                                </p:commandButton>
+                                </p:commandButton>                                
                             </f:facet>
                         </p:dataTable>
 
