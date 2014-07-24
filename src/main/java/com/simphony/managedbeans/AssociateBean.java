@@ -197,12 +197,12 @@ public class AssociateBean implements IConfigurable {
                 associate.setStatus(_ENABLED);
 
                 this.service.getRepository().save(associate);
-                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.associate.getKeyId());
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.associate.getName()+ " "+mp.getValue("msj_record_save") );
                 associate = new Associate();
 
             }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.associate.getKeyId());
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.associate.getKeyId() + " " + mp.getValue("error_keyId_Detail"));
         }
 
         return "";
@@ -226,7 +226,7 @@ public class AssociateBean implements IConfigurable {
         associate.setUser(user);
         associateUpdated.update(this.associate);
         this.service.getRepository().save(associateUpdated);
-       GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.associate.getKeyId());
+       GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.associate.getName() + " " + mp.getValue("msj_record_update"));
         associate = new Associate();
         return toAssociates();
     }

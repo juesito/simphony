@@ -194,11 +194,11 @@ public class VendorBean implements IConfigurable {
                 vendor.setStatus(_ENABLED);
 
                 this.vendorService.getVendorRepository().save(vendor);
-                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.vendor.getId());
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.vendor.getNick()+" "+mp.getValue("msj_record_save"));
                 vendor = new Vendor();
             }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.vendor.getNick());
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.vendor.getNick()+" "+mp.getValue("error_keyId_Detail"));
         }
 
          return "";
@@ -219,7 +219,7 @@ public class VendorBean implements IConfigurable {
         
         vendorUpdated.update(vendor);
         this.vendorService.getVendorRepository().save(vendorUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.vendor.getId());
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"),  this.vendor.getNick()+" "+mp.getValue("msj_record_update"));
   
         vendor = new Vendor();
         return toVendors();

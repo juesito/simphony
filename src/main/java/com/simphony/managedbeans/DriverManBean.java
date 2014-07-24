@@ -174,7 +174,7 @@ public class DriverManBean implements IConfigurable {
             driverMan.setStatus(_ENABLED);
             
             this.driverManService.getDriverManRepository().save(driverMan);
-            GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.driverMan.getId());
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.driverMan.getName()+" "+mp.getValue("msj_record_save"));
             driverMan = new DriverMan();
 
             return "";
@@ -196,7 +196,7 @@ public class DriverManBean implements IConfigurable {
         driverMan.setUser(user);
         driverManUpdated.update(this.driverMan);
         this.driverManService.getDriverManRepository().save(driverManUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.driverMan.getId());
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.driverMan.getName()+" "+ mp.getValue("msj_record_update") );
         driverMan = new DriverMan();
         return toDriverMan();
     }

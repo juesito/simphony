@@ -184,11 +184,11 @@ public class WorkCenterBean implements IConfigurable {
                 workCenter.setStatus(_ENABLED);
 
                 this.workCenterService.getWorkCenterRepository().save(workCenter);
-                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.workCenter.getId());
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.workCenter.getDescription()+" "+mp.getValue("msj_record_save"));
                 workCenter = new WorkCenter();
             }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.workCenter.getDescription());
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.workCenter.getDescription()+" "+mp.getValue("error_keyId_Detail"));
         }
 
         return "";
@@ -211,7 +211,7 @@ public class WorkCenterBean implements IConfigurable {
         workCenter.setLastUpdate(cal.getTime());
         workCenterUpdated.update(this.workCenter);
         this.workCenterService.getWorkCenterRepository().save(workCenterUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.workCenter.getId());
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.workCenter.getDescription()+" "+mp.getValue("msj_record_update"));
         workCenter = new WorkCenter();
         return toWorkCenter();
     }
