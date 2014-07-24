@@ -34,6 +34,7 @@ public class BusBean {
     private Bus current = new Bus();
     private Bus bus = new Bus();
     private Bus selected = new Bus();
+    private Calendar cal = Calendar.getInstance();
 
     @ManagedProperty(value = "#{busService}")
     BusService busService;
@@ -92,15 +93,36 @@ public class BusBean {
     }
 
     public String save(User user) {
-        Calendar cal = Calendar.getInstance();
-        bus.setUser(user);
-        bus.setCreateDate(cal.getTime());
-        bus.setStatus(IConfigurable._ENABLED);
-        this.busService.getBusRepository().save(bus);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.bus.getId());
-        bus = new Bus();
+         Boolean exist = true;
+         Bus busTmp;
+
+        try {
+            busTmp = this.busService.getBusRepository().findByNum(this.bus.getNumber().trim());
+            if(busTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
+
+        }
+
+        if (!exist) {
+            if (this.bus.getNumber() != null) {
+            bus.setUser(user);
+            bus.setCreateDate(cal.getTime());
+            bus.setStatus(IConfigurable._ENABLED);
+            this.busService.getBusRepository().save(bus);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.bus.getId());
+            bus = new Bus();
+
+            }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.bus.getNumber());
+        }
+
         return "";
-    }
+      }
 
     public String toBus() {
         this.fillBus();

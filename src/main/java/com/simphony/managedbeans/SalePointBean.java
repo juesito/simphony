@@ -39,6 +39,7 @@ public class SalePointBean {
     private SalePoint current = new SalePoint();
     private SalePoint salePoint = new SalePoint();
     private SalePoint selected = new SalePoint();
+    private Calendar cal = Calendar.getInstance();
 
     @ManagedProperty(value = "#{salePointService}")
     SalePointService salePointService;
@@ -97,13 +98,32 @@ public class SalePointBean {
     }
 
     public String save(User user) {
-        Calendar cal = Calendar.getInstance();
-        salePoint.setUser(user);
-        salePoint.setCreateDate(cal.getTime());
-        salePoint.setStatus(IConfigurable._ENABLED);
-        this.salePointService.getSalePointRepository().save(salePoint);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.salePoint.getId());
-        salePoint = new SalePoint();
+         Boolean exist = true;
+         SalePoint salePointTmp;
+
+        try {
+            salePointTmp = this.salePointService.getSalePointRepository().findByDesc(this.salePoint.getDescription().trim());
+            if(salePointTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
+
+        }
+
+        if (!exist) {
+            if (this.salePoint.getDescription() != null ) {
+                salePoint.setUser(user);
+                salePoint.setCreateDate(cal.getTime());
+                salePoint.setStatus(IConfigurable._ENABLED);
+                this.salePointService.getSalePointRepository().save(salePoint);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.salePoint.getId());
+                salePoint = new SalePoint();
+            }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.salePoint.getDescription());
+        }
         return "";
     }
 

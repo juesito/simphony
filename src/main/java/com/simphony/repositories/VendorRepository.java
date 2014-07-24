@@ -21,4 +21,9 @@ public interface VendorRepository extends CrudRepository<Vendor, Long>{
     @Query("SELECT p FROM Vendor p "
         + "WHERE LOWER(p.nick) = LOWER(:nick) AND contrasena = (:password)")
     public Vendor login(@Param("nick") String nick, @Param("password") String password);
+    
+    @Query("SELECT p FROM Vendor p "
+        + "WHERE LOWER(p.nick) = LOWER(:nick) ")
+    public Vendor findByNick(@Param("nick") String nick);
+
 }

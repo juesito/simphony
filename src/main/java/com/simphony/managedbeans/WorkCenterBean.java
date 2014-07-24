@@ -163,13 +163,34 @@ public class WorkCenterBean implements IConfigurable {
      * @return
      */
     public String save(User user) {
-        workCenter.setUser(user);
-        workCenter.setCreateDate(cal.getTime());
-        workCenter.setStatus(_ENABLED);
-            
-        this.workCenterService.getWorkCenterRepository().save(workCenter);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.workCenter.getId());
-        workCenter = new WorkCenter();
+        Boolean exist = true;
+        WorkCenter workCenterTmp;
+
+        try {
+            workCenterTmp = this.workCenterService.getWorkCenterRepository().findByDesc(this.workCenter.getDescription().trim());
+            if(workCenterTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
+
+        }
+
+        if (!exist) {
+            if (this.workCenter.getDescription() != null ) {
+                workCenter.setUser(user);
+                workCenter.setCreateDate(cal.getTime());
+                workCenter.setStatus(_ENABLED);
+
+                this.workCenterService.getWorkCenterRepository().save(workCenter);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.workCenter.getId());
+                workCenter = new WorkCenter();
+            }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.workCenter.getDescription());
+        }
+
         return "";
     }
     

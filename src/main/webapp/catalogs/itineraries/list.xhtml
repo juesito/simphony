@@ -80,8 +80,8 @@
                         <p:commandButton value="Agregar" action="#{itineraryBean.addItinerary()}"
                                          styleClass="catalog-button" ajax="false"/>
 
-                        <!-- detalle poblaciones-->
-                        <p:dialog header="Detalle Poblaciones" widgetVar="itineraryDialog" modal="true" 
+                        <!-- detalle itinerarios-->
+                        <p:dialog header="Detalle Itinerarios" widgetVar="itineraryDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false" >
                             <p:outputPanel id="itineraryDetail" style="text-align:center;">
                                 <p:panelGrid  rendered="#{not empty itineraryBean.selected}" >

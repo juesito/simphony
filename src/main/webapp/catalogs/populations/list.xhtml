@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
 
-                        <p:outputLabel value="Poblaciones" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_populations}" class="welcome-title" />
                         <br />
 
                         <!-- Data table de usuarios -->
@@ -41,34 +41,34 @@
                             <f:facet name="footer">
                                 <p:commandButton process="populationDT" 
                                                  update=":form:populationDetail" icon="ui-icon-search" 
-                                                 value="Visualizar" oncomplete="PF('populationDialog').show()" />
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('populationDialog').show()" />
                                 <p:commandButton process="populationDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Modificar" action="#{populationBean.modifyPopulation()}" />
+                                                 value="#{msgs.but_modify}" action="#{populationBean.modifyPopulation()}" />
                                 <p:commandButton process="populationDT" 
                                                  update=":form:populationDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{populationBean.enabledPopulation()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_enable}" actionListener="#{populationBean.enabledPopulation()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="populationDT" 
                                                  update=":form:populationDT" icon="ui-icon-trash" 
-                                                 value="Desactivar" actionListener="#{populationBean.disablePopulation()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_disable}" actionListener="#{populationBean.disablePopulation()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
                         </p:dataTable>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  />
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
 
-                        <p:commandButton value="Agregar" action="#{populationBean.addPopulation()}"
+                        <p:commandButton value="#{msgs.but_add}" action="#{populationBean.addPopulation()}"
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle poblaciones-->
-                        <p:dialog header="Detalle Poblaciones" widgetVar="populationDialog" modal="true" 
+                        <p:dialog header="#{msgs.cat_detail}" widgetVar="populationDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="populationDetail" style="text-align:center;">
                                 <p:panelGrid  rendered="#{not empty populationBean.selected}" >
