@@ -132,4 +132,13 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <description>Nos dirigimos a agregar un detalle Itinerario</description>
+        <from-view-id>/catalogs/itineraries/detailList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addItineraryDetail</from-outcome>
+            <to-view-id>/catalogs/itineraries/addDetail.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
