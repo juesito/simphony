@@ -8,4 +8,7 @@
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>
     </application>
+    <factory>        
+        <exception-handler-factory>com.simphony.tools.ViewExpiredExceptionExceptionHandlerFactory</exception-handler-factory>
+    </factory>
 </faces-config>

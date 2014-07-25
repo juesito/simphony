@@ -120,35 +120,63 @@
 
 // Estilos para la hoja de content
 .text-info{
+    display: inline-block;
     text-wrap: none;
     margin-bottom: 20px;
-    margin-left: 5px;
-    margin-top:0px;
-    width: 500px;
-    position: absolute;
+    margin-left: 10px;
+    min-width: 500px;
+    max-width: 500px;
+    min-height: 200px;
+    max-height: 200px;
+    position: relative;
     border: 1px solid blue;
-    float: left;
 }
 
 .msj-info-right{
-    margin-top: 15px;
-    text-align: center;
-    float: right; 
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 30px;
+    margin-left: 15px;
+    text-align: center;    
     text-wrap: normal; 
-    width: 302px; 
+    min-width: 352px; 
+    max-width: 355px; 
+    min-height: 360px;
+    max-height: 361px;
     border: none;  
-    margin-left: 5px;
+    
 }
 
-#msj-info-left{
-    float: left; 
-    width: 350px;
-    border:1px solid;
-    margin-left: 10px;
+.msj-info-left{
+    display: inline-block;
+    vertical-align: top;
+    max-width: 401px;
+    min-width: 400px;
+    max-height: 400px;
+    min-height: 400px;
+    margin-left: 12px;
     margin-top: 15px;
+    padding: 10px;    
     position: relative;
-    border: none;    
+    border: dotted 1px #0A3A6E;    
+    border-radius: 20px;
 }
+
+.msj-login-box{
+    display: inline-block;
+    vertical-align: top;
+    max-width: 160px;
+    min-width: 159px;
+    max-height: 200px;
+    min-height: 200px;
+    margin-left: 12px;
+    margin-top: 15px;
+    padding: 10px;    
+    position: relative;
+    border: dotted 1px #0A3A6E;    
+    border-radius: 20px;
+}
+
 
 #marco-bot-title{            
     text-align: right;
@@ -165,12 +193,9 @@
     margin: 10px 150px;
 }
 
-#contentGalleria{ border: none; }
-.imageGallery{ min-width: 220px !important; }
+#contentGallery{ border: none !important; }
 .welcome-msg-gallery{margin-top: 20px;}
 .vlogin{ border:none !important; }
-.noborder{ border:none !important; }
-
 
 
 div{ display:block; }
@@ -212,6 +237,16 @@ div{ display:block; }
 .sale-schedule-panel tr, .sale-schedule-panel td{
     border: none;
 }
+.box-content-sale{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+    border: 2px solid #0A3A6E;
+    padding: 10px 40px;     
+    width: 300px;
+    border-radius: 25px;
+}
+
 
 .box-content{
     display: inline-block;
@@ -229,4 +264,33 @@ div{ display:block; }
     border-radius: 25px !important;   
     max-width: 90px;
     max-height: 40px;
+}
+
+
+.msj-info-left-expired p{
+    font-size: 12px !important;
+    border: 1px solid;
+}
+.msj-info-left-expired h2{
+    font-size: 25px !important;
+}
+.msj-info-left-expired img{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.msj-info-right-expired h2{
+    text-align: center;
+}
+
+#text-info-expired{     
+    width: 400px;
+    font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important;
+    color: rgb(170,115,177) ;
+    text-align: justify;    
+    text-wrap: normal;
+    margin-right: 10px;
+    padding-top: 30px !important;
+    border: none;
+    float: right; 
 }
