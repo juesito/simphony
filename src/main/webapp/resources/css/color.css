@@ -156,3 +156,35 @@ body{
 
 
 /*.ui-widget-header .ui-widget-content*/
+
+
+.box-content{
+    font-size: 12px !important;    
+    height: 200px;
+    background: -webkit-linear-gradient(white, #2593CC); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #2593CC); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #2593CC); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #2593CC); /* Standard syntax (must be last) */
+    
+    /*#2593CC - #479E9F*/
+}
+
+.sale-schedule-panel label{
+    color:#121E31 !important;
+}
+
+.box-content p{
+    color:#121E31 !important;
+}
+.box-content table, .box-content tr{
+    background: transparent;
+}
+.sale-schedule-panel input:hover{
+    background: #0A3A6E !important;
+    color: #FFF !important;
+}
+
+.sale-schedule-panel input{
+    background: white !important;
+    color: #121E31 !important;
+}

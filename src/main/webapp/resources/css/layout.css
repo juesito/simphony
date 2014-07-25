@@ -213,3 +213,20 @@ div{ display:block; }
     border: none;
 }
 
+.box-content{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+    border: 2px solid #0A3A6E;
+    padding: 10px 40px;     
+    width: 300px;
+    border-radius: 25px;
+}
+
+.button-rounded{
+    border: 2px solid #0A3A6E !important;    
+    padding: 1px 2px !important;       
+    border-radius: 25px !important;   
+    max-width: 90px;
+    max-height: 40px;
+}
