@@ -213,7 +213,7 @@
             </jpa:many-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity name="Sale" class="Sale" minimized="true" id="_1404237753087">
+    <jpa:entity name="Sale" class="Sale" minimized="false" id="_1404237753087">
         <jpa:table name="ventas"/>
         <jpa:attributes>
             <jpa:id name="id" attribute-type="Long" id="_140423788469225">
@@ -261,7 +261,7 @@
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity name="SaleDetail" class="SaleDetail" minimized="true" id="_1404247953313">
+    <jpa:entity name="SaleDetail" class="SaleDetail" minimized="false" id="_1404247953313">
         <jpa:table name="detalleVenta"/>
         <jpa:attributes>
             <jpa:id name="id" attribute-type="Long" id="_140424799822046">
@@ -355,22 +355,22 @@
     <jpa:diagram id="_14034759494922">
         <plane elementRef="_14034759494911" id="_14034759494923_p">
             <shape elementRef="_1404189778321" id="_1404189778321_gui">
-                <Bounds x="-137.0" y="-138.0" width="160.0" height="23.0"/>
+                <Bounds x="-137.0" y="-138.0" width="142.0" height="23.0"/>
             </shape>
             <shape elementRef="_1403475991747" id="_1403475991747_gui">
                 <Bounds x="75.0" y="-92.0" width="130.0" height="23.0"/>
             </shape>
             <shape elementRef="_1403477405854" id="_1403477405854_gui">
-                <Bounds x="205.0" y="35.0" width="171.0" height="23.0"/>
+                <Bounds x="205.0" y="35.0" width="169.0" height="23.0"/>
             </shape>
             <shape elementRef="_1403541049985" id="_1403541049985_gui">
-                <Bounds x="594.0" y="-51.0" width="162.0" height="23.0"/>
+                <Bounds x="594.0" y="-51.0" width="160.0" height="23.0"/>
             </shape>
             <shape elementRef="_1403556840589" id="_1403556840589_gui">
-                <Bounds x="129.0" y="340.0" width="179.0" height="23.0"/>
+                <Bounds x="129.0" y="340.0" width="177.0" height="23.0"/>
             </shape>
             <shape elementRef="_1403582759903" id="_1403582759903_gui">
-                <Bounds x="-52.0" y="317.0" width="163.0" height="23.0"/>
+                <Bounds x="-52.0" y="317.0" width="161.0" height="23.0"/>
             </shape>
             <shape elementRef="_1403734331914" id="_1403734331914_gui">
                 <Bounds x="450.0" y="-161.0" width="130.0" height="23.0"/>
@@ -379,22 +379,22 @@
                 <Bounds x="609.0" y="-138.0" width="130.0" height="23.0"/>
             </shape>
             <shape elementRef="_1404189858636" id="_1404189858636_gui">
-                <Bounds x="231.0" y="-115.0" width="145.0" height="23.0"/>
+                <Bounds x="231.0" y="-115.0" width="143.0" height="23.0"/>
             </shape>
             <shape elementRef="_1404237753087" id="_1404237753087_gui">
-                <Bounds x="420.0" y="35.0" width="145.0" height="23.0"/>
+                <Bounds x="420.0" y="35.0" width="143.0" height="294.0"/>
             </shape>
             <shape elementRef="_1404245086510" id="_1404245086510_gui">
-                <Bounds x="-167.0" y="138.0" width="166.0" height="23.0"/>
+                <Bounds x="-167.0" y="138.0" width="164.0" height="23.0"/>
             </shape>
             <shape elementRef="_1404247953313" id="_1404247953313_gui">
-                <Bounds x="553.0" y="186.0" width="167.0" height="23.0"/>
+                <Bounds x="589.0" y="150.0" width="165.0" height="141.0"/>
             </shape>
             <shape elementRef="_1404250981916" id="_1404250981916_gui">
-                <Bounds x="563.0" y="340.0" width="153.0" height="214.0"/>
+                <Bounds x="-78.0" y="405.0" width="153.0" height="214.0"/>
             </shape>
             <shape elementRef="_1404250990388" id="_1404250990388_gui">
-                <Bounds x="346.0" y="209.0" width="136.0" height="23.0"/>
+                <Bounds x="-152.0" y="209.0" width="134.0" height="23.0"/>
             </shape>
             <shape elementRef="_1404256428383" id="_1404256428383_gui">
                 <Bounds x="641.0" y="46.0" width="128.0" height="26.0"/>

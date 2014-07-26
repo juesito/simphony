@@ -60,6 +60,10 @@ public class ItineraryDetail implements Serializable, Cloneable {
     @Basic
     private String status;
     
+    @Column(name = "secuencia")
+    @Basic
+    private Integer sequence;
+    
     @Transient
     private String action;
 
@@ -139,6 +143,16 @@ public class ItineraryDetail implements Serializable, Cloneable {
     public void setAction(String action) {
         this.action = action;
     }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+    
+    
     
     public void update(ItineraryDetail itineraryDetailUpdated) {
         this.hoursFromOrigin = itineraryDetailUpdated.hoursFromOrigin;
