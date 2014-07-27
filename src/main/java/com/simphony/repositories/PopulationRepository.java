@@ -10,6 +10,7 @@ import com.simphony.entities.Population;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -20,4 +21,8 @@ public interface PopulationRepository extends JpaRepository<Population, Long> {
     @Query("SELECT p FROM Population p "
         + "WHERE UPPER(p.status) = UPPER('A')")
     public List<Population> findAllEnabled();
+    
+        @Query("SELECT p FROM Population p WHERE p.description = (:description)")
+    public Population findByDesc(@Param("description") String description);
+
 }

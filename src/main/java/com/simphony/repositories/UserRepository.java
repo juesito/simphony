@@ -25,5 +25,10 @@ public interface UserRepository extends JpaRepository<User, Long>{
         @Query("SELECT u FROM User u "
         + "WHERE UPPER(u.status) = UPPER('A')")
     public List<User> findAllEnabled();
+    
+        @Query("SELECT u FROM User u "
+        + "WHERE LOWER(u.nick) = LOWER(:nick) ")
+    public User findByNick(@Param("nick") String nick);
+
 
 }

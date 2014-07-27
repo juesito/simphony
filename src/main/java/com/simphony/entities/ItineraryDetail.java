@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -24,7 +25,7 @@ import javax.persistence.Temporal;
  */
 @Entity(name = "ItineraryDetail")
 @Table(name = "detalleItinerarios")
-public class ItineraryDetail implements Serializable {
+public class ItineraryDetail implements Serializable, Cloneable {
 
     @Column(name = "id")
     @Id
@@ -58,6 +59,9 @@ public class ItineraryDetail implements Serializable {
     @Column(name = "estatus")
     @Basic
     private String status;
+    
+    @Transient
+    private String action;
 
     public ItineraryDetail() {
     }
@@ -128,6 +132,26 @@ public class ItineraryDetail implements Serializable {
         this.itinerary = itinerary;
     }
 
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+    
+    public void update(ItineraryDetail itineraryDetailUpdated) {
+        this.hoursFromOrigin = itineraryDetailUpdated.hoursFromOrigin;
+        this.hoursToDestiny = itineraryDetailUpdated.hoursToDestiny;
+        this.destiny = itineraryDetailUpdated.destiny;
+        this.origin = itineraryDetailUpdated.origin;
+        this.status = itineraryDetailUpdated.status;
+        this.typeOfRoute = itineraryDetailUpdated.typeOfRoute;
+        this.itinerary = itineraryDetailUpdated.itinerary;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -159,8 +183,15 @@ public class ItineraryDetail implements Serializable {
         return "ItineraryDetail{" + "id=" + id + ", itinerary=" + itinerary + ", destiny=" + destiny + ", origin=" + origin + ", typeOfRoute=" + typeOfRoute + ", hoursFromOrigin=" + hoursFromOrigin + ", hoursToDestiny=" + hoursToDestiny + ", status=" + status + '}';
     }
 
-    
-    
-    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }
 
 }

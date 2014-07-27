@@ -10,59 +10,69 @@
         <h:body>
             <ui:composition template="./WEB-INF/templates/catalog.xhtml">
 
-                <ui:define name="content">                     
-                    <p:panel id="salePanel">
-                        <p:panelGrid>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="Saliendo de:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="Fecha de salida:" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:selectOneMenu id="origin" value="#{vendorBean.vendor.population}" 
-                                                     converter="populationConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Población Requerida">
-                                        <f:selectItems value="#{boxPopulationService.populationList}" />
-                                    </p:selectOneMenu>
-                                </p:column>
-                                <p:column>
-                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="10"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="Destino:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="Pasajeros:" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:selectOneMenu id="destiny" value="#{vendorBean.vendor.population}" 
-                                                     converter="populationConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Población Requerida">
-                                        <f:selectItems value="#{boxPopulationService.populationList}" />
-                                    </p:selectOneMenu>
-                                </p:column>
-                                <p:column>
-                                    <p:spinner size="5" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column />
-                                <p:column>
-                                    <p:commandButton value="buscar viaje" />
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>
-                    </p:panel>
+                <ui:define name="content"> 
+                    <h:form id="saleForm">
+                        <p:panel id="salePanel" styleClass="sale-schedule-panel">
+                            <p:panelGrid>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Saliendo de:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Fecha de salida:" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
+                                                         converter="populationConverter" 
+                                                         style="width:160px" required="true" 
+                                                         requiredMessage="Población Requerida">
+                                            <f:selectItems value="#{boxPopulationService.populationList}" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="10"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Destino:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Pasajeros:" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
+                                                         converter="populationConverter" 
+                                                         style="width:160px" required="true" 
+                                                         requiredMessage="Población Requerida">
+                                            <f:selectItems value="#{boxPopulationService.populationList}" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column>
+                                        <p:spinner size="5" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column />
+                                    <p:column>
+                                        <p:commandButton value="buscar viaje" action="#{saleBean.findItinearies()}" 
+                                                         ajax="true"    />
+                                    </p:column>
+                                </p:row>                            
+                            </p:panelGrid>
+                            <p:panelGrid>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="#{saleBean.cost.cost}" />
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:panel>
+                    </h:form>
                 </ui:define>
 
             </ui:composition>

@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <!-- panel para agregar -->
+                <p:panel rendered="#{itineraryDetailBean.itineraryDetail.action eq 'A'}">
+                    <h:form id="add">
+                        <p:outputLabel value="Agregar Detalle Itinerario" class="welcome-title" />
+                        <br/><br/>
+                        <!-- div header detail -->
+                        <div id="itinerary-header-detail" class="itinerary-header-detail">
+                            <!-- Grid para mostrar header -->                    
+                            <p:panelGrid  styleClass="itinerary-header">
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Origen:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel id="horigin" value="#{itineraryBean.itinerary.origin.description}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Destino:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel id="hdestiny" value="#{itineraryBean.itinerary.destiny.description}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Hora salida" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar value="#{itineraryBean.itinerary.departureTime}"  disabled="true"
+                                                    pattern="HH:mm a" timeOnly="true" size="8"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Hora llegada" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar value="#{itineraryBean.itinerary.checkTime}" disabled="true"
+                                                    pattern="HH:mm a" timeOnly="true" size="8" />
+                                    </p:column>
+                                </p:row>
+
+                            </p:panelGrid>
+                        </div>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <div id="itinerary-detail-detail" class="itinerary-detail-detail">
+                            <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Origen:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="origin" value="#{itineraryDetailBean.itineraryDetail.origin}" 
+                                                         converter="populationConverter" 
+                                                         style="width:160px" required="true" 
+                                                         requiredMessage="Origen Requerido" tabindex="1" >
+                                            <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                        </p:selectOneMenu>                                    
+                                        <p:message for="origin" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Destino:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="destiny" value="#{itineraryDetailBean.itineraryDetail.destiny}" 
+                                                         converter="populationConverter" 
+                                                         style="width:160px" required="true" 
+                                                         requiredMessage="Destino Requerido" tabindex="2" >
+                                            <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                        </p:selectOneMenu>                                    
+                                        <p:message for="destiny" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Horas desde Origen" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar value="#{itineraryDetailBean.itineraryDetail.hoursFromOrigin}" 
+                                                    pattern="HH:mm a" timeOnly="true" tabindex="3"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Horas al Destino" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar value="#{itineraryDetailBean.itineraryDetail.hoursToDestiny}" 
+                                                    pattern="HH:mm a" timeOnly="true" tabindex="4" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Tipo de ruta:" />
+                                    </p:column>
+                                    <p:column headerText="#{msgs.cat_status}" >
+                                        <p:selectOneMenu value="#{itineraryDetailBean.itineraryDetail.typeOfRoute}" tabindex="5" required="true">                                    
+                                            <f:selectItem itemValue="L" itemLabel="Local" />
+                                            <f:selectItem itemValue="P" itemLabel="Parcial" />
+                                            <f:selectItem itemValue="F" itemLabel="Final" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="2"></p:column>
+                                    <p:column>
+                                        <p:commandButton value="Guardar" action="#{itineraryDetailBean.save(itineraryBean.itinerary)}"
+                                                         ajax="false"  update="main-form:growl" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandButton value="Cancelar" action="#{itineraryBean.cancelItinerary()}"
+                                                         id="cancelAdd" process="@this" immediate="true"
+                                                         partialSubmit="true" tabindex="6"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+
+                        </div>
+                    </h:form>
+                </p:panel>
+                <!-- panel para modificar -->
+                <p:panel rendered="#{itineraryDetailBean.itineraryDetail.action eq 'M'}">
+                    <h:form id="modify">
+                        <p:outputLabel value="Modificar Detalle Itinerario" class="welcome-title" />
+                        <br/><br/>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Origen" for="morigin" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="morigin" value="#{itineraryDetailBean.itineraryDetail.origin.description}" required="true" 
+                                                 requiredMessage="Origen requerido"/>
+                                    <p:message for="morigin" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Destino" for="mdestiny" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="mdestiny" value="#{itineraryDetailBean.itineraryDetail.destiny}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Destino Requerido" tabindex="2" >
+                                        <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                    </p:selectOneMenu>                                    
+                                    <p:message for="mdestiny" />
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Horas desde Origen" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar value="#{itineraryDetailBean.itineraryDetail.hoursFromOrigin}" 
+                                                pattern="HH:mm a" timeOnly="true" tabindex="3"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Horas al Destino" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar value="#{itineraryDetailBean.itineraryDetail.hoursToDestiny}" 
+                                                pattern="HH:mm a" timeOnly="true" tabindex="4" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Tipo de ruta:" />
+                                </p:column>
+                                <p:column headerText="#{msgs.cat_status}" >
+                                    <p:selectOneMenu value="#{itineraryDetailBean.itineraryDetail.typeOfRoute}" tabindex="5" required="true">                                    
+                                        <f:selectItem itemValue="L" itemLabel="Local" />
+                                        <f:selectItem itemValue="P" itemLabel="Parcial" />
+                                        <f:selectItem itemValue="F" itemLabel="Final" />
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="Guardar" action="#{itineraryDetailBean.update()}"
+                                                     ajax="false"  update="main-form:growl" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Cancelar" action="#{itineraryDetailBean.cancelItineraryDetail()}"
+                                                     id="cancelAdd" process="@this"
+                                                     partialSubmit="true"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

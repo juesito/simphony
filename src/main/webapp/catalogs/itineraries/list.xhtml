@@ -33,10 +33,10 @@
                                 <p:outputLabel value="#{itinerary.destiny.description}" />
                             </p:column>
                             <p:column headerText="Hora Salida" >
-                                <p:calendar value="#{itinerary.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm a" />
+                                <p:calendar value="#{itinerary.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
                             </p:column>
                             <p:column headerText="Hora llegada" >
-                                <p:calendar value="#{itinerary.checkTime}" timeOnly="true" disabled="true" pattern="HH:mm a" />
+                                <p:calendar value="#{itinerary.checkTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
                             </p:column>
                             
                             <p:column headerText="#{msgs.cat_status}" >
@@ -80,8 +80,8 @@
                         <p:commandButton value="Agregar" action="#{itineraryBean.addItinerary()}"
                                          styleClass="catalog-button" ajax="false"/>
 
-                        <!-- detalle poblaciones-->
-                        <p:dialog header="Detalle Poblaciones" widgetVar="itineraryDialog" modal="true" 
+                        <!-- detalle itinerarios-->
+                        <p:dialog header="Detalle Itinerarios" widgetVar="itineraryDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false" >
                             <p:outputPanel id="itineraryDetail" style="text-align:center;">
                                 <p:panelGrid  rendered="#{not empty itineraryBean.selected}" >
@@ -103,6 +103,23 @@
                                             <p:outputLabel value="#{itineraryBean.selected.destiny.description}" />
                                         </p:column>
                                     </p:row>
+                                                                        <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Salida:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar value="#{itineraryBean.selected.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                         <p:column>
+                                            <p:outputLabel value="Llegada:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar value="#{itineraryBean.selected.checkTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                       </p:column>
+                                    </p:row>
+
                                     <p:row>
                                          <p:column>
                                             <p:outputLabel value="Status:" />
@@ -125,14 +142,6 @@
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{itineraryBean.selected.checkTime}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                         <p:column>
-                                            <p:outputLabel value="Salida:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{itineraryBean.selected.departureTime}" />
                                         </p:column>
                                     </p:row>
 

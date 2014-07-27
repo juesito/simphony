@@ -14,24 +14,24 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{busBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar Autobús" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_bus}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Núemro económico:" />
+                                    <p:outputLabel value="#{msgs.cat_number}:" />
                                 </p:column>
                                  <p:column>
                                      <p:inputText id="number" value="#{busBean.bus.number}" maxlength="10" required="true" 
-                                                  requiredMessage="Número requerido" size="11"/>
+                                                  requiredMessage="#{msgs.req_number}" size="11"/>
                                     <p:message for="number" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tipo:" />
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu  id="type" effect="blind" value="#{busBean.bus.type}" 
@@ -43,11 +43,11 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Cupo:" />
+                                    <p:outputLabel value="#{msgs.cat_quota}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="cupo" value="#{busBean.bus.quota}" maxlength="2" size="3" 
-                                                 required="true" requiredMessage="cupo requerido"/>
+                                                 required="true" requiredMessage="#{msgs.req_quota}"/>
                                     <p:message for="cupo" />
                                 </p:column>
                             </p:row>
@@ -60,11 +60,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{busBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{busBean.save(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{busBean.cancelBus()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{busBean.cancelBus()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -76,24 +76,24 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{busBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar Autobús" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_bus}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Número económico:" />
+                                    <p:outputLabel value="#{msgs.cat_number}:" />
                                 </p:column>
                                  <p:column>
                                      <p:inputText id="number" value="#{busBean.bus.number}" maxlength="10" required="true" 
-                                                 requiredMessage="Número requerido"/>
+                                                 requiredMessage="#{msgs.req_number}"/>
                                     <p:message for="number" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tipo:" />
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu  id="type" effect="blind" value="#{busBean.bus.type}" style="width: 100px;" >
@@ -104,11 +104,11 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Cupo:" />
+                                    <p:outputLabel value="#{msgs.cat_quota}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="cupo" value="#{busBean.bus.quota}" maxlength="2" 
-                                                 required="true" requiredMessage="cupo requerido"/>
+                                                 required="true" requiredMessage="#{msgs.req_quota}"/>
                                     <p:message for="cupo" />
                                 </p:column>
                             </p:row>
@@ -119,11 +119,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{busBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{busBean.update(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{busBean.cancelBus()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{busBean.cancelBus()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>

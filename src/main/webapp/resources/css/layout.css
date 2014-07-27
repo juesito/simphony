@@ -185,10 +185,31 @@ div{ display:block; }
     border: none;
 }
 
-#itinerary-header-detail{
+.itinerary-header-detail{
     float: left;    
 }
 
 #itinerary-detail-detail{
     float: right;    
 }
+
+.itinerary-header-detail{
+    display: inline-block;
+    vertical-align: top;
+}
+.itinerary-header-detail td, itinerary-header-detail tr{
+    border: none;  
+    
+}
+
+.itinerary-detail-detail{
+    min-width: 80%;
+    max-width: 81%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.sale-schedule-panel tr, .sale-schedule-panel td{
+    border: none;
+}
+

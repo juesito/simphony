@@ -12,14 +12,22 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
-                <h:form id="add">
+                <h:form id="form">
                     <p:outputLabel value="Detalle Itinerario" class="welcome-title" />
                     <br/><br/>
 
                     <!-- div header detail -->
-                    <div id="itinerary-header-detail">
+                    <div id="itinerary-header-detail" class="itinerary-header-detail">
                         <!-- Grid para agregar entidad -->                    
-                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                        <p:panelGrid  styleClass="itinerary-header">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Itinerario" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel id="itinerary" value="#{itineraryBean.itinerary.id}" />
+                                </p:column>
+                            </p:row>
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="Origen:" />
@@ -42,7 +50,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar value="#{itineraryBean.itinerary.departureTime}"  disabled="true"
-                                                pattern="HH:mm a" timeOnly="true" size="8"/>
+                                                pattern="HH:mm" timeOnly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -51,30 +59,137 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar value="#{itineraryBean.itinerary.checkTime}" disabled="true"
-                                                pattern="HH:mm a" timeOnly="true" size="8" />
+                                                pattern="HH:mm" timeOnly="true"  />
                                 </p:column>
                             </p:row>
 
                         </p:panelGrid>
                     </div>
 
-                    <div id="itinerary-detail-detail">
+                    <div id="itinerary-detail-detail" class="itinerary-detail-detail">
                         <!-- Data table de itinetarios -->
                         <p:dataTable value="#{itineraryDetailBean.list}" var="itineraryDetail" style="font-size: 12px;"
                                      selectionMode="single" selection="#{itineraryDetailBean.selected}" 
                                      rowKey="#{itineraryDetail.id}" id="itineraryDetailDT"
-                                     emptyMessage="#{msgs.no_records_found}" rows="4"
+                                     emptyMessage="#{msgs.no_records_found}" rows="5"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15">
-                            
-                            <p:column headerText="Itinerario" >
-                                <p:outputLabel value="#{itineraryDetail.itinerary.id}" />
-                            </p:column>
+
                             <p:column headerText="Origen" >
                                 <p:outputLabel value="#{itineraryDetail.origin.description}" />
                             </p:column>
+                            <p:column headerText="Destino" >
+                                <p:outputLabel value="#{itineraryDetail.destiny.description}" />
+                            </p:column>
+                            <p:column headerText="Tipo de ruta" >
+                                <p:selectOneMenu value="#{itineraryDetail.typeOfRoute}" 
+                                                 disabled="true">                                    
+                                    <f:selectItem itemValue="L" itemLabel="Local" />
+                                    <f:selectItem itemValue="P" itemLabel="Parcial" />
+                                    <f:selectItem itemValue="F" itemLabel="Final" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="Hora salida" >
+                                <p:calendar value="#{itineraryDetail.hoursToDestiny}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                            </p:column>
+                            <p:column headerText="Hora Origen" >
+                                <p:calendar value="#{itineraryDetail.hoursFromOrigin}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                           </p:column>
+                            <p:column headerText="Estatus" >
+                                <p:outputLabel value="#{itineraryDetail.status}" />
+                            </p:column>
+
+                            <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="itineraryDetailDT" 
+                                                 update=":form:itineraryDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('itineraryDetailDialog').show()" />
+                                <p:commandButton process="itineraryDetailDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{itineraryDetailBean.modifyItinerary()}" />
+                                <p:commandButton process="itineraryDetailDT" 
+                                                 update="itineraryDetailDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{itineraryDetailBean.enabledItineraryDetail()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="itineraryDetailDT" 
+                                                 update="itineraryDetailDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{itineraryDetailBean.disableItineraryDetail()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                </p:commandButton>                                
+                            </f:facet>
                         </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+
+                        <p:commandButton value="Agregar" action="#{itineraryDetailBean.addItineraryDetail()}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <p:dialog header="Detalle Itinerarios" widgetVar="itineraryDetailDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false" >
+                            <p:outputPanel id="itineraryDetail" style="text-align:center;">
+                                <p:panelGrid  rendered="#{not empty itineraryBean.selected}" >
+
+                                    <!-- Id, Nombre -->
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Origen:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryDetailBean.selected.origin.description}" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Destino:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryDetailBean.selected.destiny.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Horas de Origen:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar value="#{itineraryDetailBean.selected.hoursFromOrigin}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Horas a destino:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar value="#{itineraryDetailBean.selected.hoursToDestiny}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Tipo de Ruta:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:selectOneMenu value="#{itineraryDetailBean.selected.typeOfRoute}" 
+                                                             disabled="true">                                    
+                                                <f:selectItem itemValue="L" itemLabel="Local" />
+                                                <f:selectItem itemValue="P" itemLabel="Parcial" />
+                                                <f:selectItem itemValue="F" itemLabel="Final" />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Status:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{itineraryDetailBean.selected.status}" />
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+
                     </div>
                 </h:form>
             </ui:define>

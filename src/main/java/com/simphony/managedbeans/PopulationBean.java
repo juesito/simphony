@@ -14,6 +14,7 @@ import static com.simphony.interfases.IConfigurable._ADD;
 import static com.simphony.interfases.IConfigurable._DISABLE;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -26,7 +27,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.print.attribute.standard.Severity;
 import org.springframework.data.domain.Sort;
 
 /**
@@ -37,6 +37,7 @@ import org.springframework.data.domain.Sort;
 @SessionScoped
 public class PopulationBean implements IConfigurable {
 
+    private final MessageProvider mp;
     private Population population = new Population();
     private Population current = new Population();
     private Population selected = new Population();
@@ -51,7 +52,8 @@ public class PopulationBean implements IConfigurable {
      * Creates a new instance of Population
      */
     public PopulationBean() {
-    }
+        mp = new MessageProvider();
+     }
 
     @PostConstruct
     public void postInitialization() {
@@ -173,12 +175,35 @@ public class PopulationBean implements IConfigurable {
      * @return
      */
     public String save(User user) {
-        population.setUser(user);
-        population.setCreateDate(cal.getTime());
-        population.setStatus(_ENABLED);
-            
-        this.populationService.getPopulationRepository().save(population);
-        population = new Population();
+         Boolean exist = true;
+         Population populationTmp;
+
+        try {
+            populationTmp = this.populationService.getPopulationRepository().findByDesc(this.population.getDescription().trim());
+            if(populationTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
+
+        }
+
+        if (!exist) {
+            if (this.population.getDescription() != null ) {
+                population.setUser(user);
+                population.setCreateDate(cal.getTime());
+                population.setStatus(_ENABLED);
+
+                this.populationService.getPopulationRepository().save(population);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.population.getDescription());
+                population = new Population();
+
+            }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.population.getDescription());
+        }
+
         return "";
     }
     
