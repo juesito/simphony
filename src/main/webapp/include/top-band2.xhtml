@@ -23,7 +23,9 @@
                                 <p:menuitem value="Salir" action="#{userBean.logout()}" />
                             </p:submenu>
                             <p:submenu label="Ventas" >
-                                <p:menuitem value="Venta diaria" action="toSale" icon="ui-icon-document" ajax="false"/>
+                                <p:menuitem value="Venta diaria" action="toSale" icon="ui-icon-document" ajax="false">
+                                    <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
+                                </p:menuitem>
                                 <p:menuitem value="Cancelación" url="#" />
                             </p:submenu>
                             <p:submenu label="Operación" rendered="#{userBean.current.looged}" >

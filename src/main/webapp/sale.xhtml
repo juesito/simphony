@@ -12,8 +12,8 @@
 
                 <ui:define name="content"> 
                     <h:form id="saleForm">
-                        <p:panel id="salePanel" styleClass="sale-schedule-panel">
-                            <p:panelGrid>
+                        <div class="box-content-sale" >
+                            <p:panelGrid styleClass="sale-schedule-panel">
                                 <p:row>
                                     <p:column>
                                         <p:outputLabel value="Saliendo de:" />
@@ -22,11 +22,12 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
+
                                         <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
                                                          converter="populationConverter" 
                                                          style="width:160px" required="true" 
-                                                         requiredMessage="Población Requerida">
-                                            <f:selectItems value="#{boxPopulationService.populationList}" />
+                                                         requiredMessage="Origen Requerido">
+                                            <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
                                         </p:selectOneMenu>
                                     </p:column>
                                     
@@ -65,13 +66,30 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:spinner size="5" />
+                                        <p:outputLabel value="Fecha de salida:" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:commandButton value="buscar viaje" action="#{saleBean.findItinearies()}" 
-                                                         ajax="true"    />
+                                        <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="10" 
+                                                    pages="3" showOn="button"/>
+                                    </p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Pasajeros:" />
+                                    </p:column>                                    
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:inputText size="5" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton value="buscar" action="#{saleBean.findItinearies()}" 
+                                                         ajax="true" styleClass="button-rounded"   />
                                     </p:column>
                                 </p:row>                            
                             </p:panelGrid>
@@ -82,7 +100,7 @@
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
-                        </p:panel>
+                        </div>
                     </h:form>
                 </ui:define>
 

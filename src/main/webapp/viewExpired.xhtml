@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <f:view contentType="text/html">
+        <body>
+
+            <ui:composition template="./WEB-INF/templates/main.xhtml">
+
+                <ui:define name="content">
+                    <div id="text-info-expired" class="text-info-expired">
+                        <div id="msj-info-right-expired" class="msj-info-right-expired">
+
+                            <h2><h:outputText value="#{msgs.session_expired_header}" /></h2><br />
+                            <p><h:outputText value="#{msgs.session_expired_msg}" /></p>
+
+                            <p><h:outputText value="#{msgs.session_expired_footer} #{currentViewId}" /></p>
+
+                        </div>
+                    </div>
+
+                    <div id="msj-info-left-expired" class="msj-info-left-expired">
+                        <h:form>
+                            <h:outputLink value="toindex" >
+                                <img src="#{facesContext.externalContext.requestContextPath}/images/company/logo.png" 
+                                     alt="#{facesContext.externalContext.requestContextPath}/images/company/logo.png"
+                                     width="300" height="200" border="none"
+                                     id="image-expired" />
+
+                            </h:outputLink>
+                        </h:form>
+                    </div>
+                </ui:define>
+
+            </ui:composition>
+
+        </body>
+    </f:view>
+</html>

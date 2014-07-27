@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="./WEB-INF/templates/m_template.xhtml">
+
+            <ui:define name="content">
+                <h:outputText value="#{msgs.sytemerror}" />
+            </ui:define>
+
+            <ui:define name="content">
+                <p:panel>
+                    <h3>Ha ocurrido un error desconocido</h3><br />
+                    <h4>Favor de notificarlo a sistemas 8703</h4>
+
+                    Message: #{ExceptionHandler.message} <br/>
+                    StackTrace: <h:outputText value="#{ExceptionHandler.formattedStackTrace}" escape="false" /> <br />
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
