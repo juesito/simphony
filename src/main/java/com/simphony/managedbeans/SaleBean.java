@@ -63,7 +63,7 @@ public class SaleBean {
     }
     
     public void findItinearies(){
-        cost = costService.getCostRepository().findByOriDes(sale.getOrigin().getId(), sale.getDestiny().getId());
+        //cost = costService.getCostRepository().findByOriDes(sale.getOrigin().getId(), sale.getDestiny().getId());
     }
 
     public Cost getCost() {

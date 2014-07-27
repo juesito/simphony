@@ -24,5 +24,11 @@ public interface PopulationRepository extends JpaRepository<Population, Long> {
     
         @Query("SELECT p FROM Population p WHERE p.description = (:description)")
     public Population findByDesc(@Param("description") String description);
+    
+    @Query("SELECT DISTINCT p FROM Itinerary a, ItineraryDetail d, Population p " +
+            " WHERE (a.origin.id = p.id OR " +
+            "       d.origin.id = p.id) " +
+            "   AND p.status = 'A'")
+    public List<Population> findAllOriginsForSale();
 
 }

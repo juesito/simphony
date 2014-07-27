@@ -18,9 +18,7 @@
                                     <p:column>
                                         <p:outputLabel value="Saliendo de:" />
                                     </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="Fecha de salida:" />
-                                    </p:column>
+                                    
                                 </p:row>
                                 <p:row>
                                     <p:column>
@@ -31,17 +29,13 @@
                                             <f:selectItems value="#{boxPopulationService.populationList}" />
                                         </p:selectOneMenu>
                                     </p:column>
-                                    <p:column>
-                                        <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="10"/>
-                                    </p:column>
+                                    
                                 </p:row>
                                 <p:row>
                                     <p:column>
                                         <p:outputLabel value="Destino:" />
                                     </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="Pasajeros:" />
-                                    </p:column>
+                                    
                                 </p:row>
                                 <p:row>
                                     <p:column>
@@ -52,12 +46,29 @@
                                             <f:selectItems value="#{boxPopulationService.populationList}" />
                                         </p:selectOneMenu>
                                     </p:column>
+                                    
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Fecha de salida:" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="10"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Pasajeros:" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
                                     <p:column>
                                         <p:spinner size="5" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:column />
                                     <p:column>
                                         <p:commandButton value="buscar viaje" action="#{saleBean.findItinearies()}" 
                                                          ajax="true"    />
