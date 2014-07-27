@@ -50,7 +50,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar value="#{itineraryBean.itinerary.departureTime}"  disabled="true"
-                                                pattern="HH:mm a" timeOnly="true" size="8"/>
+                                                pattern="HH:mm" timeOnly="true" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -59,7 +59,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar value="#{itineraryBean.itinerary.checkTime}" disabled="true"
-                                                pattern="HH:mm a" timeOnly="true" size="8" />
+                                                pattern="HH:mm" timeOnly="true"  />
                                 </p:column>
                             </p:row>
 
@@ -91,11 +91,11 @@
                                 </p:selectOneMenu>
                             </p:column>
                             <p:column headerText="Hora salida" >
-                                <p:outputLabel value="#{itineraryDetail.hoursToDestiny}" />
+                                <p:calendar value="#{itineraryDetail.hoursToDestiny}" timeOnly="true" disabled="true" pattern="HH:mm" />
                             </p:column>
                             <p:column headerText="Hora Origen" >
-                                <p:outputLabel value="#{itineraryDetail.hoursFromOrigin}" />
-                            </p:column>
+                                <p:calendar value="#{itineraryDetail.hoursFromOrigin}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                           </p:column>
                             <p:column headerText="Estatus" >
                                 <p:outputLabel value="#{itineraryDetail.status}" />
                             </p:column>
@@ -156,13 +156,13 @@
                                             <p:outputLabel value="Horas de Origen:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{itineraryDetailBean.selected.hoursFromOrigin}" />
+                                            <p:calendar value="#{itineraryDetailBean.selected.hoursFromOrigin}" timeOnly="true" disabled="true" pattern="HH:mm" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="Horas a destino:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{itineraryDetailBean.selected.hoursToDestiny}" />
+                                            <p:calendar value="#{itineraryDetailBean.selected.hoursToDestiny}" timeOnly="true" disabled="true" pattern="HH:mm" />
                                         </p:column>
                                     </p:row>
 

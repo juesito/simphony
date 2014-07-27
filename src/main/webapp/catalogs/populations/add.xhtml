@@ -15,29 +15,29 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{populationBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar Población" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_population}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Población:" />
+                                    <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="descripcion" value="#{populationBean.population.description}" required="true" 
-                                                 requiredMessage="Descripción requerida" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_description}" maxlength="25" />
                                     <p:message for="descripcion" />
                                 </p:column>
                             </p:row>
                            <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{populationBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{populationBean.save(userBean.current)}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{populationBean.cancelPopulation()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{populationBean.cancelPopulation()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -49,18 +49,18 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{populationBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar Población" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_population}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Descripción:" />
+                                    <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="descripcion" value="#{populationBean.population.description}" required="true" 
-                                                 requiredMessage="Descripción requerida" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_description}" maxlength="25" />
                                     <p:message for="descripcion" />
                                 </p:column>
 
@@ -68,11 +68,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{populationBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{populationBean.update(userBean.current)}"
                                                      ajax="false" update="main-form:growl"/>
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{populationBean.cancelPopulation()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{populationBean.cancelPopulation()}"
                                                      id="cancelAdd" process="@this" 
                                                      partialSubmit="true"/>
                                 </p:column>

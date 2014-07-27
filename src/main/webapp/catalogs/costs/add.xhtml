@@ -14,7 +14,7 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{costBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar Tarifa" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_cost}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
@@ -22,26 +22,26 @@
                             <!-- Primer renglón -->
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Origen:" />
+                                    <p:outputLabel value="#{msgs.cat_origin}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{costBean.cost.origin}" 
                                                      converter="populationConverter" 
                                                      style="width:160px" required="true" 
-                                                     requiredMessage="Origen Requerido" tabindex="1" >
+                                                     tabindex="1" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Destino:" />
+                                    <p:outputLabel value="#{msgs.cat_destiny}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{costBean.cost.destiny}" 
                                                      converter="populationConverter" 
                                                      style="width:160px" required="true" 
-                                                     requiredMessage="Destino Requerido" tabindex="2" >
+                                                     tabindex="2" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
@@ -49,26 +49,26 @@
 
                             <p:row>
                                 <p:column >
-                                    <p:outputLabel value="Tarifa:" />
+                                    <p:outputLabel value="#{msgs.cat_cost}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="cost" value="#{costBean.cost.cost}" maxlength="4" required="true" 
-                                                 tabindex="3" requiredMessage="Tarifa requerida"/>
+                                                 tabindex="3" requiredMessage="#{msgs.req_cost}"/>
                                     <p:message for="cost" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tiempo de recorrido:" />
+                                    <p:outputLabel value="#{msgs.cat_routeTime}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="routeTime" value="#{costBean.cost.routeTime}" tabindex="4" required="true"/>
-                                    <p:message for="routeTime" />
+                                    <p:calendar value="#{costBean.cost.routeTime}" 
+                                                pattern="HH:mm" timeOnly="true" tabindex="4"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Kilómetros:" />
+                                    <p:outputLabel value="Kms:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText  id="kms" value="#{costBean.cost.kms}" tabindex="5" maxlength="4" />
@@ -81,11 +81,11 @@
 
                             <p:row>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{costBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{costBean.save(userBean.current)}"
                                                      ajax="false" update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{costBean.cancelCost()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{costBean.cancelCost()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -97,58 +97,58 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{costBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar Tarifa" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_cost}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Origen:" />
+                                    <p:outputLabel value="#{msgs.cat_origin}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{costBean.cost.origin}" 
                                                      converter="populationConverter" 
                                                      style="width:160px" required="true" 
-                                                     requiredMessage="Origen Requerido" tabindex="1" >
+                                                     tabindex="1" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Destino:" />
+                                    <p:outputLabel value="#{msgs.cat_destiny}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{costBean.cost.destiny}" 
                                                      converter="populationConverter" 
                                                      style="width:160px" required="true" 
-                                                     requiredMessage="Destino Requerido" tabindex="2" >
+                                                     tabindex="2" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tarifa:" />
+                                    <p:outputLabel value="#{msgs.cat_cost}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="cost" value="#{costBean.cost.cost}" required="true" maxlength="4"
-                                                 tabindex="3" requiredMessage="Tarifa requerida"  />
+                                                 tabindex="3" requiredMessage="#{msgs.req_cost}"  />
                                     <p:message for="cost" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tiempo de recorrido:" />
+                                    <p:outputLabel value="#{msgs.cat_routeTime}:" for="routeTime"/>
                                 </p:column>
                                 <p:column>
-                                    <p:inputMask id="routeTime" value="#{costBean.cost.routeTime}" mask="99:99"
-                                                 tabindex="4"  />
+                                    <p:calendar id="routeTime" value="#{costBean.cost.routeTime}" 
+                                                pattern="HH:mm" timeOnly="true" tabindex="4"/>
                                     <p:message for="routeTime" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Kilómetros:" />
+                                    <p:outputLabel value="Kms:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="kms" value="#{costBean.cost.kms}" maxlength="4" tabindex="5" />
@@ -160,11 +160,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{costBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{costBean.update(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{costBean.cancelCost()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{costBean.cancelCost()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>

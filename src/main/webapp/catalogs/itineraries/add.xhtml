@@ -91,9 +91,12 @@
                                     <p:outputLabel value="Origen" for="morigin" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="morigin" value="#{itineraryBean.itinerary.origin.description}" required="true" 
-                                                 requiredMessage="Origen requerido"/>
-                                    <p:message for="morigin" />
+                                <p:selectOneMenu id="morigin" value="#{itineraryBean.itinerary.origin}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" 
+                                                     requiredMessage="Origen Requerido" tabindex="2" >
+                                    <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                </p:selectOneMenu>                                    
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Destino" for="mdestiny" />

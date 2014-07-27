@@ -14,34 +14,34 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{driverManBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar Operador" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_driverMan}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre:" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{driverManBean.driverMan.name}" required="true" 
-                                                  requiredMessage="Nombre requerido" maxlength="25" />
+                                                  requiredMessage="#{msgs.req_name}" maxlength="25" />
                                     <p:message for="name" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Paterno:" />
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{driverManBean.driverMan.firstLastName}" 
-                                                 required="true" requiredMessage="Apellido Requerido" maxlength="25" />
+                                                 required="true" requiredMessage="#{msgs.req_lastName}" maxlength="25" />
                                     <p:message for="lastName" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Materno:" />
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="secondName" value="#{driverManBean.driverMan.secondLastName}"  maxlength="25" />
@@ -56,11 +56,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{driverManBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{driverManBean.save(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{driverManBean.cancelDriverMan()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{driverManBean.cancelDriverMan()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -72,34 +72,34 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{driverManBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar Operador" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_driverMan}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre:" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{driverManBean.driverMan.name}" required="true" 
-                                                  requiredMessage="Nombre requerido" maxlength="25" />
+                                                  requiredMessage="#{msgs.req_name}" maxlength="25" />
                                     <p:message for="name" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Paterno:" />
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{driverManBean.driverMan.firstLastName}" 
-                                                 required="true" requiredMessage="Apellido Requerido" maxlength="25" />
+                                                 required="true" requiredMessage="#{msgs.req_lastName}" maxlength="25" />
                                     <p:message for="lastName" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Materno:" />
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="secondName" value="#{driverManBean.driverMan.secondLastName}" maxlength="25"  />
@@ -113,11 +113,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{driverManBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{driverManBean.update(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{driverManBean.cancelDriverMan()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{driverManBean.cancelDriverMan()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
