@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity(name = "Cost")
 @Table(name = "Tarifas")
@@ -16,7 +17,8 @@ public class Cost extends Catalog implements Serializable, Cloneable {
 
     @Column(name = "routeTime")
     @Basic
-    private float routeTime;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date routeTime;
 
     @Column(name = "kms", length = 4)
     @Basic
@@ -51,11 +53,11 @@ public class Cost extends Catalog implements Serializable, Cloneable {
     }
 
     
-    public float getRouteTime() {
+    public Date getRouteTime() {
         return this.routeTime;
     }
 
-    public void setRouteTime(float routeTime) {
+    public void setRouteTime(Date routeTime) {
         this.routeTime = routeTime;
     }
 

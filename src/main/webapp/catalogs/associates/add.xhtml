@@ -14,32 +14,32 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{associateBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar Agremiado" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_associate}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tirilla:" />
+                                    <p:outputLabel value="#{msgs.cat_keyId}:" />
                                 </p:column>
                                  <p:column>
                                     <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" required="true" 
-                                                 tabindex="1" requiredMessage="Tirilla requerida"/>
+                                                 tabindex="1" requiredMessage="#{msgs.req_keyId}"/>
                                     <p:message for="keyId" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre:" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{associateBean.associate.name}" required="true" maxlength="25" 
-                                                 tabindex="2" requiredMessage="Nombre requerido"/>
+                                                 tabindex="2" requiredMessage="#{msgs.req_name}"/>
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Estado:" />
+                                    <p:outputLabel value="#{msgs.cat_state}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.state}" maxlength="35" tabindex="5" />
@@ -48,16 +48,16 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Paterno:" />
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{associateBean.associate.firstLastName}" 
                                                  required="true" tabindex="3" maxlength="25" 
-                                                 requiredMessage="Apellido Requerido"/>
+                                                 requiredMessage="#{msgs.req_lastName}:"/>
                                     <p:message for="lastName" />
                                 </p:column>
                                 <p:column>
-                                   <p:outputLabel value="Sección:" />
+                                   <p:outputLabel value="#{msgs.cat_section}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.section}" maxlength="15" tabindex="6" />
@@ -66,15 +66,15 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Materno:" />
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="secondName" value="#{associateBean.associate.secondLastName}" required="true" 
-                                                 tabindex="3" requiredMessage="Apellido Requerido" maxlength="25" />
+                                                 tabindex="3" requiredMessage="#{msgs.req_lastName}" maxlength="25" />
                                     <p:message for="secondName" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Teléfono:" />
+                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" tabindex="7" />
@@ -84,7 +84,7 @@
 
                          <p:row>
                             <p:column>
-                                <p:outputLabel value="Plataforma:" />
+                                <p:outputLabel value="#{msgs.cat_platform}:" />
                             </p:column>
                             <p:column>
                                 <p:inputText value="#{associateBean.associate.platform}" maxlength="35" tabindex="4" />
@@ -107,11 +107,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{associateBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{associateBean.save(userBean.current)}"
                                                      ajax="false" update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{associateBean.cancelAssociate()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{associateBean.cancelAssociate()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -123,32 +123,32 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{associateBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar Agremiado" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_modify} #{msgs.cat_associate}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Tirilla:" />
+                                    <p:outputLabel value="#{msgs.cat_keyId}:" />
                                 </p:column>
                                  <p:column>
                                     <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" required="true" 
-                                                 requiredMessage="Tirilla requerida"/>
+                                                 requiredMessage="#{msgs.req_keyId}"/>
                                     <p:message for="keyId" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre:" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{associateBean.associate.name}" required="true" maxlength="25" 
-                                                 requiredMessage="Nombre requerido"/>
+                                                 requiredMessage="#{msgs.req_name}"/>
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Estado:" />
+                                    <p:outputLabel value="#{msgs.cat_state}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.state}" maxlength="35" />
@@ -157,15 +157,15 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Paterno:" />
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{associateBean.associate.firstLastName}" required="true" 
-                                                 requiredMessage="Apellido Requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_lastname}" maxlength="25" />
                                     <p:message for="lastName" />
                                 </p:column>
                                 <p:column>
-                                   <p:outputLabel value="Sección:" />
+                                   <p:outputLabel value="#{msgs.cat_section}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.section}" maxlength="15" />
@@ -174,15 +174,15 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Apellido Materno:" />
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="secondName" value="#{associateBean.associate.secondLastName}" required="true" 
-                                                 requiredMessage="Apellido Requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_lastname}" maxlength="25" />
                                     <p:message for="secondName" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Teléfono:" />
+                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" />
@@ -192,7 +192,7 @@
 
                          <p:row>
                             <p:column>
-                                <p:outputLabel value="Plataforma:" />
+                                <p:outputLabel value="#{msgs.cat_platform}:" />
                             </p:column>
                             <p:column>
                                 <p:inputText value="#{associateBean.associate.platform}" maxlength="35" />
@@ -213,11 +213,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{associateBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{associateBean.update(userBean.current)}"
                                                      ajax="false" update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{associateBean.cancelAssociate()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{associateBean.cancelAssociate()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
