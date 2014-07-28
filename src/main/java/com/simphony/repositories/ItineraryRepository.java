@@ -17,6 +17,8 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ItineraryRepository extends JpaRepository<Itinerary, Long>{
     
-    @Query("SELECT a FROM Itinerary a WHERE a.origin.id = (:originId) AND a.destiny.id = (:destinyId) ")
+    @Query("SELECT a FROM Itinerary a " +
+            " WHERE a.origin.id = (:originId) " +
+            "   AND a.destiny.id = (:destinyId) ")
     public Itinerary findByOriginAndDestiny(@Param("originId") Long originId, @Param("destinyId") Long destinyId);
 }

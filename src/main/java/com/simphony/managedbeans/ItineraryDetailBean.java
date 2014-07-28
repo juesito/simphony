@@ -8,7 +8,6 @@ package com.simphony.managedbeans;
 import com.simphony.beans.ItineraryDetailService;
 import com.simphony.entities.Itinerary;
 import com.simphony.entities.ItineraryDetail;
-import com.simphony.entities.User;
 import com.simphony.exceptions.ItineraryException;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.tools.MessageProvider;

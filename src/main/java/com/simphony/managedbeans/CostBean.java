@@ -139,12 +139,12 @@ public class CostBean implements IConfigurable {
                 cost.setStatus(_ENABLED);
 
                 this.costService.getCostRepository().save(cost);
-                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.cost.getOrigin().getDescription()+"+"+this.cost.getDestiny().getDescription()+" "+mp.getValue("msj_record_save") );
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.cost.getOrigin().getDescription()+"-"+this.cost.getDestiny().getDescription()+" "+mp.getValue("msj_record_save") );
                 cost = new Cost();
 
             }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.cost.getOrigin().getDescription()+"+"+this.cost.getDestiny().getDescription()+" "+mp.getValue("error_keyId_Detail"));
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.cost.getOrigin().getDescription()+"-"+this.cost.getDestiny().getDescription()+" "+mp.getValue("error_keyId_Detail"));
         }
 
         return "";
@@ -243,7 +243,7 @@ public class CostBean implements IConfigurable {
         cost.setUser(user);
         costUpdated.update(this.cost);
         this.costService.getCostRepository().save(costUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.cost.getOrigin().getDescription()+"+"+this.cost.getDestiny().getDescription()+" "+mp.getValue("msj_record_update"));
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.cost.getOrigin().getDescription()+"-"+this.cost.getDestiny().getDescription()+" "+mp.getValue("msj_record_update"));
         cost = new Cost();
         return toCosts();
     }

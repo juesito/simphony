@@ -25,9 +25,9 @@
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:inputText id="vendorId" value="#{vendorBean.current.nick}" style="font-size: 10px;"
-                                             maxlength="15" required="true" size="16"
-                                             immediate="true" tabindex="1" >
+                                <p:inputText id="vendorId" value="#{vendorBean.current.nick}" 
+                                             maxlength="15" required="true" size="20"
+                                             tabindex="1" >
                                     <f:validateLength minimum="2" />
                                 </p:inputText>
                                 <p:watermark for="vendorId" value="Vendedor" />
@@ -36,8 +36,8 @@
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:password id="vpassword" value="#{vendorBean.current.password}" style="font-size: 10px;"
-                                            maxlength="15" size="16"  immediate="true"
+                                <p:password id="vpassword" value="#{vendorBean.current.password}" 
+                                            maxlength="15" size="20"  immediate="true"
                                             tabindex="2" feedback="false"
                                             required="true" />
                                 <p:watermark for="vpassword" value="Contraseña" />
@@ -48,24 +48,28 @@
                         <p:row>
                             <p:column colspan="2">
                                 <p:commandButton update=":sform:growl" action="#{vendorBean.login()}"
-                                                 tabindex="3" 
-                                                 value="Entrar" ajax="false"    />  
+                                                 tabindex="3" styleClass="button-rounded"
+                                                 value="Entrar" ajax="false">
+                                    <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
+                                </p:commandButton>
                             </p:column>
 
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
                                 <p:commandLink  value="Olvido su contraseña" 
-                                                process="@this"  style="font-size: 12px;color:red !important;" />
+                                                process="@this"  style="color:red !important;" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:commandLink  value="Administrar" rendered="#{!userBean.current.looged}"
+                                                style="color:red !important;" immediate="true"
+                                                action="toLogin" />
                             </p:column>
                         </p:row>
                     </p:panelGrid>                 
 
-                </h:form>           
-                <h:form>
-                    <p:commandLink  value="Administrar" rendered="#{!userBean.current.looged}"
-                                    process="@this"  style="font-size: 12px;color:red !important;" 
-                                    action="toLogin" ajax="false"/>
                 </h:form>
             </ui:composition>
         </h:body>

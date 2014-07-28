@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
 
-                        <p:outputLabel value="Vendedores" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_vendors}" class="welcome-title" />
                         <br />
 
                         <!-- Data table de usuarios -->
@@ -31,7 +31,7 @@
                                 <p:outputLabel value="#{vendor.name}" />
                             </p:column>
 
-                            <p:column headerText="Nick" >
+                            <p:column headerText="#{msgs.cat_nick}" >
                                 <p:outputLabel value="#{vendor.nick}" />
                             </p:column>
 
@@ -40,7 +40,7 @@
 
                             </p:column>
 
-                            <p:column headerText="Centro de trabajo">
+                            <p:column headerText="#{msgs.cat_workCenter}">
                                 <p:outputLabel value="#{vendor.workCenter.description}" />
                             </p:column>
 
@@ -60,61 +60,58 @@
                             <f:facet name="footer">
                                 <p:commandButton process="vendorDT" 
                                                  update=":form:vendorDetail" icon="ui-icon-search" 
-                                                 value="Visualizar" oncomplete="PF('vendorDialog').show()" />
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('vendorDialog').show()" />
                                 <p:commandButton process="vendorDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Modificar" action="#{vendorBean.modifyVendor()}" />
+                                                 value="#{msgs.but_modify}" action="#{vendorBean.modifyVendor()}" />
                                 <p:commandButton process="vendorDT" 
                                                  update=":form:vendorDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{vendorBean.enabledVendor()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_enable}" actionListener="#{vendorBean.enabledVendor()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="vendorDT" 
                                                  update=":form:vendorDT" icon="ui-icon-trash" 
-                                                 value="Desactivar" actionListener="#{vendorBean.disableVendor()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_disable}" actionListener="#{vendorBean.disableVendor()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
                         </p:dataTable>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
-                        <p:commandButton value="Agregar" action="#{vendorBean.addVendor()}"
+                        <p:commandButton value="#{msgs.but_add}" action="#{vendorBean.addVendor()}"
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle usuarios userDialog-->
-                        <p:dialog header="Usuario Info" widgetVar="vendorDialog" modal="true" 
+                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_user}" widgetVar="vendorDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="vendorDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty vendorBean.selected}" columnClasses="label,value" >
 
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{vendorBean.selected.id}" />
-
-                                    <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{msgs.cat_name}:" />
                                     <h:outputText value="#{vendorBean.selected.name}" />
 
-                                    <h:outputText value="Nick:" />
+                                    <h:outputText value="#{msgs.cat_nick}:" />
                                     <h:outputText value="#{vendorBean.selected.nick}" />
 
-                                    <h:outputText value="Población:" />
+                                    <h:outputText value="#{msgs.cat_population}:" />
                                     <h:outputText value="#{vendorBean.selected.population.description}" />
 
-                                    <h:outputText value="Centro de trabajo;" />
+                                    <h:outputText value="#{msgs.cat_workCenter}:" />
                                     <h:outputText value="#{vendorBean.selected.workCenter.description}" />  
 
-                                    <h:outputText value="Status" />
+                                    <h:outputText value="#{msgs.cat_status}:" />
                                     <p:selectOneMenu value="#{vendor.status}" disabled="true">                                    
                                        <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
                                        <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                     </p:selectOneMenu>
 
-                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{vendorBean.selected.createDate}" />
 
-                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{msgs.cat_updateDate}:" />
                                     <h:outputText value="#{vendorBean.selected.lastUpdate}" />
 
                                 </p:panelGrid>

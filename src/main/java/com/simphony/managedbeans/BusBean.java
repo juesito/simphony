@@ -197,7 +197,7 @@ public class BusBean {
         
         if(busUpdated == null){
             throw new PersonException("Autobús no existente"); 
-        }
+        } 
         this.bus.setUser(user);
         busUpdated.update(this.bus);
         this.busService.getBusRepository().save(busUpdated);

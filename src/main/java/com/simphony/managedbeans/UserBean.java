@@ -248,7 +248,7 @@ public class UserBean implements IConfigurable {
         return toUsers();
     }
 
-    /**
+     /**
      * Controlador listar usuarios
      *
      * @return

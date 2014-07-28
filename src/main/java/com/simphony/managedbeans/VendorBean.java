@@ -216,7 +216,7 @@ public class VendorBean implements IConfigurable {
         if(vendorUpdated == null){
             throw new PersonException("Vendedor no existente"); 
         }
-        
+         
         vendorUpdated.update(vendor);
         this.vendorService.getVendorRepository().save(vendorUpdated);
         GrowlBean.simplyInfoMessage(mp.getValue("msj_success"),  this.vendor.getNick()+" "+mp.getValue("msj_record_update"));

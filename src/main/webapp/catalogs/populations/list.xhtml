@@ -76,7 +76,7 @@
                                     <!-- Id, Nombre -->
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Descripción:" />
+                                            <p:outputLabel value="#{msgs.cat_description}:" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{populationBean.selected.description}" />
@@ -84,7 +84,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Status:" />
+                                            <p:outputLabel value="#{msgs.cat_status}:" />
                                         </p:column>
                                         <p:column>
                                             <p:selectOneMenu value="#{population.status}" disabled="true">                                    
@@ -95,7 +95,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Creado:" />
+                                            <p:outputLabel value="#{msgs.cat_createDate}:" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{populationBean.selected.createDate}" />
@@ -103,7 +103,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Modificado:" />
+                                            <p:outputLabel value="#{msgs.cat_updateDate}:" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{populationBean.selected.lastUpdate}" />
@@ -111,7 +111,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Usuario:" />
+                                            <p:outputLabel value="#{msgs.cat_user}:" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{populationBean.selected.user.name}" />

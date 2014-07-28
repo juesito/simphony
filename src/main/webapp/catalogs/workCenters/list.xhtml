@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
                         
-                        <p:outputLabel value="Estaciones de trabajo" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_workCenters}" class="welcome-title" />
                         
                          <br />
                         <!-- Data table -->
@@ -41,39 +41,39 @@
                             <f:facet name="footer">
                                 <p:commandButton process="workCenterDT" 
                                                  update=":form:workCenterDetail" icon="ui-icon-search" 
-                                                 value="Visualizar" oncomplete="PF('workCenterDialog').show()" />
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('workCenterDialog').show()" />
                                 <p:commandButton process="workCenterDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Modificar" action="#{workCenterBean.modifyWorkCenter()}" />
+                                                 value="#{msgs.but_modify}" action="#{workCenterBean.modifyWorkCenter()}" />
                                <p:commandButton process="workCenterDT" 
                                                  update=":form:workCenterDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{workCenterBean.enabledWorkCenter()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_enable}" actionListener="#{workCenterBean.enabledWorkCenter()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="workCenterDT" 
                                                  update=":form:workCenterDT" icon="ui-icon-trash" 
-                                                 value="Desactivar" actionListener="#{workCenterBean.disableWorkCenter()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_disable}" actionListener="#{workCenterBean.disableWorkCenter()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
 
                         </p:dataTable>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
-                        <p:commandButton value="Agregar" action="#{workCenterBean.addWorkCenter}"
+                        <p:commandButton value="#{msgs.but_add}" action="#{workCenterBean.addWorkCenter}"
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle -->
-                        <p:dialog header="Detalle Estación de trabajo" widgetVar="workCenterDialog" modal="true" 
+                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_workCenter}" widgetVar="workCenterDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="workCenterDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty workCenterBean.selected}" columnClasses="label,value">
                                     
-                                    <h:outputText value="Descripción:" />
+                                    <h:outputText value="#{msgs.cat_description}:" />
                                     <h:outputText value="#{workCenterBean.selected.description}" />
 
                                     <h:outputText value="Status:" />
@@ -82,13 +82,13 @@
                                             <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                         </p:selectOneMenu>
                                                                        
-                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{workCenterBean.selected.createDate}" />
                                                                        
-                                     <h:outputText value="Modificado:" />
+                                     <h:outputText value="#{msgs.cat_updateDate}:" />
                                      <h:outputText value="#{workCenterBean.selected.lastUpdate}" />
                                                                        
-                                   <h:outputText value="Usuario:" />
+                                   <h:outputText value="#{msgs.cat_user}:" />
                                    <h:outputText value="#{workCenterBean.selected.user.name}" />
                                                                        
                                 </p:panelGrid>

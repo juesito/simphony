@@ -187,7 +187,7 @@ public class AssociateBean implements IConfigurable {
         } catch (Exception ex) {
             System.out.println("Error");
             exist = false;
-
+ 
         }
 
         if (!exist) {

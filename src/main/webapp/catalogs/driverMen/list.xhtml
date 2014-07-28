@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
                         
-                        <p:outputLabel value="Operadores" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_driverMen}" class="welcome-title" />
                         
                          <br />
                         <!-- Data table -->
@@ -47,60 +47,60 @@
                             <f:facet name="footer">
                                 <p:commandButton process="driverManDT" 
                                                  update=":form:driverManDetail" icon="ui-icon-search" 
-                                                 value="Visualizar" oncomplete="PF('driverManDialog').show()" />
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('driverManDialog').show()" />
                                 <p:commandButton process="driverManDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Modificar" action="#{driverManBean.modifyDriverMan()}" />
+                                                 value="#{msgs.but_modify}" action="#{driverManBean.modifyDriverMan()}" />
                                 <p:commandButton process="driverManDT" 
                                                  update=":form:driverManDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{driverManBean.enabledDriverMan()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_enable}" actionListener="#{driverManBean.enabledDriverMan()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="driverManDT" 
                                                  update=":form:driverManDT" icon="ui-icon-trash" 
-                                                 value="Desactivar" actionListener="#{driverManBean.disableDriverMan()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_disable}" actionListener="#{driverManBean.disableDriverMan()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
 
                         </p:dataTable>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
-                        <p:commandButton value="Agregar" action="#{driverManBean.addDriverMan}"
+                        <p:commandButton value="#{msgs.but_add}" action="#{driverManBean.addDriverMan}"
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle  -->
-                        <p:dialog header="Detalle Operadores" widgetVar="driverManDialog" modal="true" 
+                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_driverMan}" widgetVar="driverManDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false" >
                             <p:outputPanel id="driverManDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty driverManBean.selected}" columnClasses="label,value" >
                                     
-                                     <h:outputText value="Nombre:" />
+                                     <h:outputText value="#{msgs.cat_name}:" />
                                     <h:outputText value="#{driverManBean.selected.name}" />
                                                                        
-                                    <h:outputText value="Apellido Paterno:" />
+                                    <h:outputText value="#{msgs.cat_firstLastName}:" />
                                     <h:outputText value="#{driverManBean.selected.firstLastName}" />
                                                                        
-                                    <h:outputText value="Apellido Materno:" />
+                                    <h:outputText value="#{msgs.cat_secondLastName}:" />
                                     <h:outputText value="#{driverManBean.selected.secondLastName}" />
                                                                        
-                                     <h:outputText value="Status:" />
+                                     <h:outputText value="#{msgs.cat_status}:" />
                                         <p:selectOneMenu value="#{driverMan.status}" disabled="true">                                    
                                             <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
                                             <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                         </p:selectOneMenu>
                                     
-                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{driverManBean.selected.createDate}" />
                                     
-                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{msgs.cat_updateDate}:" />
                                     <h:outputText value="#{driverManBean.selected.lastUpdate}" />
                                                                        
-                                     <h:outputText value="Usuario:" />
+                                     <h:outputText value="#{msgs.cat_user}:" />
                                      <h:outputText value="#{driverManBean.selected.user.name}" />
                                                                        
                                 </p:panelGrid>

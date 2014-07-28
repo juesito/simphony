@@ -215,7 +215,7 @@ public class WorkCenterBean implements IConfigurable {
         workCenter = new WorkCenter();
         return toWorkCenter();
     }
-
+ 
     /**
      * Controlador listar WorkCenter
      *

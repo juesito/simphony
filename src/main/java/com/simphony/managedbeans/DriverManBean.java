@@ -172,7 +172,7 @@ public class DriverManBean implements IConfigurable {
             driverMan.setUser(user);
             driverMan.setCreateDate(cal.getTime());
             driverMan.setStatus(_ENABLED);
-            
+             
             this.driverManService.getDriverManRepository().save(driverMan);
             GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.driverMan.getName()+" "+mp.getValue("msj_record_save"));
             driverMan = new DriverMan();

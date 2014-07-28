@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
                         
-                        <p:outputLabel value="Autobuses" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_buses}" class="welcome-title" />
                         
                          <br />
                         <!-- Data table -->
@@ -47,60 +47,60 @@
                             <f:facet name="footer">
                                 <p:commandButton process="busDT" 
                                                  update=":form:busDetail" icon="ui-icon-search" 
-                                                 value="Visualizar" oncomplete="PF('busDialog').show()" />
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('busDialog').show()" />
                                 <p:commandButton process="busDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Modificar" action="#{busBean.modifyBus()}" />
+                                                 value="#{msgs.but_modify}" action="#{busBean.modifyBus()}" />
                                 <p:commandButton process="busDT" 
                                                  update=":form:busDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{busBean.enabledBus()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_enable}" actionListener="#{busBean.enabledBus()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="busDT" 
                                                  update=":form:busDT" icon="ui-icon-trash" 
-                                                 value="Desactivar" actionListener="#{busBean.disableBus()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_disable}" actionListener="#{busBean.disableBus()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
 
                         </p:dataTable>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
-                        <p:commandButton value="Agregar" action="#{busBean.addBus}"
+                        <p:commandButton value="#{msgs.but_add}" action="#{busBean.addBus}"
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle  -->
-                        <p:dialog header="Detalle Autobús" widgetVar="busDialog" modal="true" 
+                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_bus}" widgetVar="busDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="busDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty busBean.selected}" columnClasses="label,value" >
                                     
-                                    <h:outputText value="Número económico:" />
+                                    <h:outputText value="#{msgs.cat_number}:" />
                                     <h:outputText value="#{busBean.selected.number}" />
 
-                                    <h:outputText value="Tipo:" />
+                                    <h:outputText value="#{msgs.cat_type}:" />
                                     <h:outputText value="#{busBean.selected.type}" />
                                                                        
-                                    <h:outputText value="Cupo:" />
+                                    <h:outputText value="#{msgs.cat_quota}:" />
                                     <h:outputText value="#{busBean.selected.quota}" />
                                                                        
-                                    <h:outputText value="Status:" />
+                                    <h:outputText value="#{msgs.cat_status}:" />
                                         <p:selectOneMenu value="#{bus.status}" disabled="true">                                    
                                             <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
                                             <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                         </p:selectOneMenu>
                                     
-                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{busBean.selected.createDate}" />
                                     
-                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{msgs.cat_updateDate}:" />
                                     <h:outputText value="#{busBean.selected.lastUpdate}" />
                                                                        
-                                     <h:outputText value="Usuario:" />
+                                     <h:outputText value="#{msgs.cat_user}:" />
                                      <h:outputText value="#{busBean.selected.user.name}" />
                                                                        
                                 </p:panelGrid>

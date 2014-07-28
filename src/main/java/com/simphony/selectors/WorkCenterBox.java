@@ -25,9 +25,6 @@ public class WorkCenterBox {
     @ManagedProperty(value = "#{workCenterService}")
     private WorkCenterService workCenterService;
 
-    private Map<ComboBox, String> box = new TreeMap<ComboBox, String>(new ComboBoxComparator());
-    private final Map<String, ComboBox> reverseComboBoxes = new HashMap<String, ComboBox>();
-    private List<WorkCenter> list = new ArrayList<WorkCenter>();
     private List<SelectItem> workCenterList = new ArrayList<SelectItem>();
 
     public WorkCenterBox() {
@@ -39,10 +36,6 @@ public class WorkCenterBox {
         List<WorkCenter> optionList = this.getWorkCenterService().getWorkCenterRepository().findAllEnabled();
 
         for (WorkCenter workCenter : optionList) {
-            ComboBox cmb = new ComboBox(workCenter.getId().toString(), workCenter.getDescription().trim());
-            box.put(cmb, cmb.getKey());
-            reverseComboBoxes.put(cmb.getKey(), cmb);
-            list.add(workCenter);
             workCenterList.add(new SelectItem(workCenter, workCenter.getDescription()));
         }
     }
@@ -55,8 +48,6 @@ public class WorkCenterBox {
         this.workCenterList = workCenterList;
     }
 
-    
-
     public WorkCenterService getWorkCenterService() {
         return workCenterService;
     }
@@ -65,28 +56,10 @@ public class WorkCenterBox {
         this.workCenterService = workCenterService;
     }
 
-    public Map<ComboBox, String> getBox() {
-        return box;
-    }
-
-    public void setBox(Map<ComboBox, String> box) {
-        this.box = box;
-    }
-
-    public ComboBox getBox(String key) {
-        return reverseComboBoxes.get(key);
-    }
-
     public void fillBox() {
         workCenterList.clear();
         init();
     }
 
-    public List<WorkCenter> getList() {
-        return list;
-    }
 
-    public void setList(List<WorkCenter> list) {
-        this.list = list;
-    }
 }

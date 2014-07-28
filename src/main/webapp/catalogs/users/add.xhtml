@@ -14,14 +14,14 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{userBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar usuario" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_user}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{userBean.user.name}" required="true" 
@@ -29,7 +29,7 @@
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Apellido" />
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{userBean.user.firstLastName}" required="true" 
@@ -40,11 +40,11 @@
                             <p:row>
                                 
                                 <p:column>
-                                    <p:outputLabel value="Nick" />
+                                    <p:outputLabel value="#{msgs.cat_nick}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{userBean.user.nick}" required="true" 
-                                                 requiredMessage="Nick requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.cat_req_nick}" maxlength="25" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Email" />
@@ -56,14 +56,14 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Password" />
+                                    <p:outputLabel value="#{msgs.cat_password}:" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" required="true" 
-                                                requiredMessage="Password Requerido" maxlength="25" />
+                                                requiredMessage="#{msgs.req_password}" maxlength="25" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Confirmar Password" />
+                                    <p:outputLabel value="#{msgs.cat_confirmPass}:" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" 
@@ -76,11 +76,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{userBean.save}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{userBean.save}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{userBean.cancelUser}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{userBean.cancelUser}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -92,22 +92,22 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{userBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar usuario" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_user}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{userBean.user.name}" required="true" 
-                                                 requiredMessage="Nombre requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Apellido" />
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{userBean.user.firstLastName}" required="true" 
@@ -118,11 +118,11 @@
                             <p:row>
                                 
                                 <p:column>
-                                    <p:outputLabel value="Nick" />
+                                    <p:outputLabel value="#{msgs.cat_nick}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{userBean.user.nick}" required="true" 
-                                                 requiredMessage="Nick requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_alias}" maxlength="25" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="Email" />
@@ -134,14 +134,14 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Password" />
+                                    <p:outputLabel value="#{msgs.cat_password}:" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" required="true" 
-                                                requiredMessage="Password Requerido" maxlength="25" />
+                                                requiredMessage="#{msgs.req_password}" maxlength="25" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Confirmar Password" />
+                                    <p:outputLabel value="#{msgs.cat_confirmPass}:" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" 
@@ -152,11 +152,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{userBean.update()}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{userBean.update()}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{userBean.cancelUser}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{userBean.cancelUser}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>

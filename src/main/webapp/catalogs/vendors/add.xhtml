@@ -14,38 +14,38 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{vendorBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar vendedor" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_vendor}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{vendorBean.vendor.name}" required="true" 
-                                                 requiredMessage="Nombre requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Nick" />
+                                    <p:outputLabel value="#{msgs.cat_nick}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
-                                                 requiredMessage="Nick requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_nick}" maxlength="25" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Password" />
+                                    <p:outputLabel value="#{msgs.cat_password}:" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd1" value="#{vendorBean.vendor.password}" match="pwd2" required="true" 
-                                                requiredMessage="Password Requerido" maxlength="25" />
+                                                requiredMessage="#{msgs.req_password}" maxlength="25" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Confirmar Password" />
+                                    <p:outputLabel value="#{msgs.cat_confirmPass}:" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{vendorBean.vendor.password}" label="Password 2" 
@@ -55,26 +55,23 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Población:" />
+                                    <p:outputLabel value="#{msgs.cat_population}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="population" value="#{vendorBean.vendor.population}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Población Requerida">
+                                                     style="width:160px" >
                                         <f:selectItems value="#{boxPopulationService.populationList}" />
 
                                     </p:selectOneMenu>
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Centro de trabajo" />
+                                    <p:outputLabel value="#{msgs.cat_workCenter}:" />
                                 </p:column>
                                 <p:column>
-
                                     <p:selectOneMenu id="advanced" value="#{vendorBean.vendor.workCenter}" 
                                                      converter="workCenterConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Centro de trabajo Requerido">
+                                                     style="width:160px" >
                                         <f:selectItems value="#{boxWorkCenterService.workCenterList}" />
 
                                     </p:selectOneMenu>
@@ -85,11 +82,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{vendorBean.save}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{vendorBean.save}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{vendorBean.cancelVendor()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{vendorBean.cancelVendor()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -101,38 +98,38 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{vendorBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar vendedor" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_vendor}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Nombre" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{vendorBean.vendor.name}" required="true" 
-                                                 requiredMessage="Nombre requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
 
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Nick" />
+                                    <p:outputLabel value="#{msgs.cat_nick}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
-                                                 requiredMessage="Nick requerido" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_nick}" maxlength="25" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Password" />
+                                    <p:outputLabel value="#{msgs.cat_password}:" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd1" value="#{vendorBean.vendor.password}" match="pwd2" required="true" 
-                                                requiredMessage="Password Requerido" maxlength="25" />
+                                                requiredMessage="#{msgs.req_password}" maxlength="25" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Confirmar Password" />
+                                    <p:outputLabel value="#{msgs.cat_confirmPass}" />
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{vendorBean.vendor.password}" label="Password 2" 
@@ -142,51 +139,39 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Población:" />
+                                    <p:outputLabel value="#{msgs.cat_population}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="population" value="#{vendorBean.vendor.population}" 
                                                      converter="populationConverter" 
                                                      style="width:160px" >
-                                        <f:selectItems value="#{boxPopulationService.populationList}" 
-                                                       var="box" itemLabel="#{box.description}"
-                                                       itemValue="#{box}"
-                                                       itemLabelEscaped="true" rendered="true"/>
-
+                                        <f:selectItems value="#{boxPopulationService.populationList}" />
                                     </p:selectOneMenu>
-
-
-                                </p:column>                                
+                                </p:column>
                             </p:row>
                             <p:row>
 
                                 <p:column>
-                                    <p:outputLabel value="Centro de trabajo" />
+                                    <p:outputLabel value="#{msgs.cat_workCenter}:" />
                                 </p:column>
-                                <p:column>
-
+                                 <p:column>
                                     <p:selectOneMenu id="advanced" value="#{vendorBean.vendor.workCenter}" 
                                                      converter="workCenterConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Centro de trabajo Requerido">
-                                        <f:selectItems value="#{boxWorkCenterService.box}" var="boxwc" 
-                                                       itemLabel="#{boxwc.description}" itemValue="#{boxwc}" 
-                                                       itemLabelEscaped="true" rendered="true"/>
+                                                     style="width:160px" >
+                                        <f:selectItems value="#{boxWorkCenterService.workCenterList}" />
 
                                     </p:selectOneMenu>
-
-
                                 </p:column>
                             </p:row>
 
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{vendorBean.update()}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{vendorBean.update()}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{vendorBean.cancelVendor()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{vendorBean.cancelVendor()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>

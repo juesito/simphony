@@ -24,8 +24,8 @@ public class UserConverter implements Converter{
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0) {
             UserBox service = (UserBox) context.getExternalContext().getApplicationMap().get("boxPopulationService");
-            Integer myValue = Integer.parseInt(value);
-            return service.getBox().get(myValue - 1);
+            User user = service.getUserService().getUserRepository().findOne(Long.parseLong(value));
+            return user;
         }
         else {
             return null;

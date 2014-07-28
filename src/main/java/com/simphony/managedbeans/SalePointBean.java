@@ -200,7 +200,7 @@ public class SalePointBean {
         
         if(salePointUpdated == null){
             throw new PersonException("Punto de venta no existente"); 
-        }
+        } 
         this.salePoint.setUser(user);
         salePointUpdated.update(this.salePoint);
         this.salePointService.getSalePointRepository().save(salePointUpdated);

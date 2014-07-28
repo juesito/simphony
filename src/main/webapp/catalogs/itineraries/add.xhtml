@@ -15,32 +15,30 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{itineraryBean.itinerary.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar Itinerario" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_itinerary}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Origen:" />
+                                    <p:outputLabel value="#{msgs.cat_origin}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{itineraryBean.itinerary.origin}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Origen Requerido" tabindex="1" >
+                                                     style="width:160px" tabindex="1" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="origin" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Destino:" />
+                                    <p:outputLabel value="#{msgs.cat_destiny}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{itineraryBean.itinerary.destiny}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Destino Requerido" tabindex="2" >
+                                                     style="width:160px"  tabindex="2" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="origin" />
@@ -48,14 +46,14 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Hora salida" />
+                                    <p:outputLabel value="#{msgs.cat_departureTime}:" />
                                 </p:column>
                                 <p:column>
                                     <p:calendar value="#{itineraryBean.itinerary.departureTime}" 
                                                 pattern="HH:mm a" timeOnly="true" tabindex="3"/>
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Hora llegada" />
+                                    <p:outputLabel value="#{msgs.cat_checkTime}:" />
                                 </p:column>
                                 <p:column>
                                     <p:calendar value="#{itineraryBean.itinerary.checkTime}" 
@@ -65,11 +63,11 @@
                            <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{itineraryBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{itineraryBean.save(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{itineraryBean.cancelItinerary()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{itineraryBean.cancelItinerary()}"
                                                      id="cancelAdd" process="@this" immediate="true"
                                                      partialSubmit="true" tabindex="6"/>
                                 </p:column>
@@ -81,28 +79,29 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{itineraryBean.itinerary.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar Itinerario" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_itinerary}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Origen" for="morigin" />
+                                    <p:outputLabel value="#{msgs.cat_origin}:" for="morigin" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="morigin" value="#{itineraryBean.itinerary.origin.description}" required="true" 
-                                                 requiredMessage="Origen requerido"/>
-                                    <p:message for="morigin" />
+                                <p:selectOneMenu id="morigin" value="#{itineraryBean.itinerary.origin}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" tabindex="2" >
+                                    <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                </p:selectOneMenu>                                    
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Destino" for="mdestiny" />
+                                    <p:outputLabel value="#{msgs.cat_destiny}:" for="mdestiny" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="mdestiny" value="#{itineraryBean.itinerary.destiny}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
-                                                     requiredMessage="Destino Requerido" tabindex="2" >
+                                                     style="width:160px" tabindex="2" >
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="mdestiny" />
@@ -111,7 +110,7 @@
                             
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Hora salida" for="mdeparturetime"/>
+                                    <p:outputLabel value="#{msgs.cat_departureTime}" for="mdeparturetime"/>
                                 </p:column>
                                 <p:column>
                                     <p:calendar id="mdeparturetime" value="#{itineraryBean.itinerary.departureTime}" 
@@ -119,7 +118,7 @@
                                     <p:message for="mdeparturetime" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Hora llegada" for="mchecktime" />
+                                    <p:outputLabel value="#{msgs.cat_checkTime}:" for="mchecktime" />
                                 </p:column>
                                 <p:column>
                                     <p:calendar id="mchecktime" value="#{itineraryBean.itinerary.checkTime}" 
@@ -131,11 +130,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{itineraryBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{itineraryBean.update(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{itineraryBean.cancelItinerary()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{itineraryBean.cancelItinerary()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
