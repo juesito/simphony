@@ -14,14 +14,14 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{salePointBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar Punto de Venta" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_salePoint}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Descripción:" />
+                                    <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="descripcion" value="#{salePointBean.salePoint.description}" required="true" 
@@ -31,7 +31,7 @@
                             </p:row>
                              <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Domicilio:" />
+                                    <p:outputLabel value="#{msgs.cat_address}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="domicilio" value="#{salePointBean.salePoint.domicilio}" maxlength="50"  />
@@ -41,11 +41,11 @@
                           <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{salePointBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{salePointBean.save(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{salePointBean.cancelSalePoint()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{salePointBean.cancelSalePoint()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -57,14 +57,14 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{salePointBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar Punto de venta" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_salePoint}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                            <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Descripción:" />
+                                    <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="descripcion" value="#{salePointBean.salePoint.description}" required="true" 
@@ -74,7 +74,7 @@
                             </p:row>
                              <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Domicilio:" />
+                                    <p:outputLabel value="#{msgs.cat_address}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="domicilio" value="#{salePointBean.salePoint.domicilio}" maxlength="50"  />
@@ -84,11 +84,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{salePointBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{salePointBean.update(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{salePointBean.cancelSalePoint()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{salePointBean.cancelSalePoint()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>

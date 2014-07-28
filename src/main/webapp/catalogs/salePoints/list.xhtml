@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
                         
-                        <p:outputLabel value="Puntos de venta" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_salePoints}" class="welcome-title" />
                         
                          <br />
                         <!-- Data table -->
@@ -44,57 +44,57 @@
                             <f:facet name="footer">
                                 <p:commandButton process="salePointDT" 
                                                  update=":form:salePointDetail" icon="ui-icon-search" 
-                                                 value="Visualizar" oncomplete="PF('salePointDialog').show()" />
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('salePointDialog').show()" />
                                 <p:commandButton process="salePointDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Modificar" action="#{salePointBean.modifySalePoint()}" />
+                                                 value="#{msgs.but_modify}" action="#{salePointBean.modifySalePoint()}" />
                                <p:commandButton process="salePointDT" 
                                                  update=":form:salePointDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{salePointBean.enabledSalePoint()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_enable}" actionListener="#{salePointBean.enabledSalePoint()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="salePointDT" 
                                                  update=":form:salePointDT" icon="ui-icon-trash" 
-                                                 value="Desactivar" actionListener="#{salePointBean.disableSalePoint()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_disable}" actionListener="#{salePointBean.disableSalePoint()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
 
                         </p:dataTable>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
-                        <p:commandButton value="Agregar" action="#{salePointBean.addSalePoint}"
+                        <p:commandButton value="#{msgs.but_add}" action="#{salePointBean.addSalePoint}"
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle -->
-                        <p:dialog header="Detalle Punto de Venta" widgetVar="salePointDialog" modal="true" 
+                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_salePoint}" widgetVar="salePointDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="salePointDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty salePointBean.selected}" columnClasses="label,value">
                                     
-                                    <h:outputText value="Descripción:" />
+                                    <h:outputText value="#{msgs.cat_description}:" />
                                     <h:outputText value="#{salePointBean.selected.description}" />
 
-                                    <h:outputText value="Domicilio:" />
+                                    <h:outputText value="#{msgs.cat_address}:" />
                                     <h:outputText value="#{salePointBean.selected.domicilio}" />
 
-                                   <h:outputText value="Status:" />
+                                   <h:outputText value="#{msgs.cat_status}:" />
                                         <p:selectOneMenu value="#{salePoint.status}" disabled="true">                                    
                                             <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
                                             <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                         </p:selectOneMenu>
                                                                        
-                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{salePointBean.selected.createDate}" />
                                                                        
-                                     <h:outputText value="Modificado:" />
+                                     <h:outputText value="#{msgs.cat_updateDate}:" />
                                      <h:outputText value="#{salePointBean.selected.lastUpdate}" />
                                                                        
-                                   <h:outputText value="Usuario:" />
+                                   <h:outputText value="#{msgs.cat_user}:" />
                                    <h:outputText value="#{salePointBean.selected.user.name}" />
                                                                        
                                 </p:panelGrid>
