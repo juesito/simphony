@@ -7,8 +7,6 @@ package com.simphony.converters;
 
 import com.simphony.beans.PopulationService;
 import com.simphony.entities.Population;
-import com.simphony.managedbeans.PopulationBean;
-import com.simphony.pojos.ComboBox;
 import com.simphony.selectors.PopulationBox;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;

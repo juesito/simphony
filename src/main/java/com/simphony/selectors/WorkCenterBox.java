@@ -2,12 +2,8 @@ package com.simphony.selectors;
 
 import com.simphony.beans.WorkCenterService;
 import com.simphony.entities.WorkCenter;
-import com.simphony.pojos.ComboBox;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
