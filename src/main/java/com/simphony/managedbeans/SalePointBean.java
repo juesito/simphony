@@ -118,11 +118,11 @@ public class SalePointBean {
                 salePoint.setCreateDate(cal.getTime());
                 salePoint.setStatus(IConfigurable._ENABLED);
                 this.salePointService.getSalePointRepository().save(salePoint);
-                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.salePoint.getId());
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.salePoint.getDescription()+" "+mp.getValue("msj_record_save") );
                 salePoint = new SalePoint();
             }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.salePoint.getDescription());
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.salePoint.getDescription()+" "+mp.getValue("error_keyId_Detail"));
         }
         return "";
     }
@@ -200,11 +200,11 @@ public class SalePointBean {
         
         if(salePointUpdated == null){
             throw new PersonException("Punto de venta no existente"); 
-        }
+        } 
         this.salePoint.setUser(user);
         salePointUpdated.update(this.salePoint);
         this.salePointService.getSalePointRepository().save(salePointUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.salePoint.getId());
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.salePoint.getDescription()+" "+mp.getValue("msj_record_update"));
         salePoint = new SalePoint();
         return toSalePoint();
     }

@@ -164,8 +164,6 @@ public class ItineraryDetail implements Serializable, Cloneable {
         this.itinerary = itineraryDetailUpdated.itinerary;
     }
     
-    
-
     @Override
     public int hashCode() {
         int hash = 7;

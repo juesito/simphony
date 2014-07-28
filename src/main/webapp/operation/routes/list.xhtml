@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+                        
+                        <p:outputLabel value="Guias generadas" class="welcome-title" />
+                        
+                         <br />
+                        <!-- Data table -->
+                        <p:dataTable value="#{routeBean.list}" var="route" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{associateBean.selected}" 
+                                     rowKey="#{associate.keyId}" id="associateDT"
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     >
+                           
+                            <p:column headerText="#{msgs.cat_keyId}" >
+                                <p:outputLabel value="#{associate.keyId}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_name}" >
+                                <p:outputLabel value="#{associate.name}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_firstLastName}" >
+                                <p:outputLabel value="#{associate.firstLastName}" />
+                            </p:column>
+                             <p:column headerText="#{msgs.cat_platform}" >
+                                <p:outputLabel value="#{associate.platform}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_state}" >
+                                <p:outputLabel value="#{associate.state}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_status}" >
+                                <p:selectOneMenu value="#{associate.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="associateDT" 
+                                                 update=":form:associateDetail" icon="ui-icon-search" 
+                                                 value="Visualizar" oncomplete="PF('associateDialog').show()" />
+                                <p:commandButton process="associateDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{associateBean.modifyAssociate()}" />
+                                <p:commandButton process="associateDT" 
+                                                 update=":form:associateDT" icon="ui-icon-trash" 
+                                                 value="Activar" actionListener="#{associateBean.enabledAssociate()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="associateDT" 
+                                                 update=":form:associateDT" icon="ui-icon-trash" 
+                                                 value="Desactivar" actionListener="#{associateBean.disableAssociate()}" >
+                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+
+                        </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton value="Agregar" action="#{associateBean.addAssociate}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <!-- detalle agremiados -->
+                        <p:dialog header="Detalle agremiados" widgetVar="associateDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="associateDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty associateBean.selected}" columnClasses="label,value" >
+                                    
+                                    <h:outputText value="Tirilla:" />
+                                    <h:outputText value="#{associateBean.selected.keyId}" />
+
+                                    <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{associateBean.selected.name}" />
+                                                                       
+                                    <h:outputText value="Apellido paterno:" />
+                                    <h:outputText value="#{associateBean.selected.firstLastName}" />
+                                                                       
+                                    <h:outputText value="Apellido Materno:" />
+                                    <h:outputText value="#{associateBean.selected.secondLastName}" />
+                                                                       
+                                    <h:outputText value="Plataforma:" />
+                                    <h:outputText value="#{associateBean.selected.platform}" />
+                                                                       
+                                    <h:outputText value="Estado:" />
+                                    <h:outputText value="#{associateBean.selected.state}" />
+                                                                       
+                                    <h:outputText value="Sección:" />
+                                    <h:outputText value="#{associateBean.selected.section}" />
+                                                                       
+                                    <h:outputText value="Teléfono:" />
+                                    <h:outputText value="#{associateBean.selected.phoneId}" />
+                                                                       
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{associateBean.selected.email}" />
+                                                                       
+                                    <h:outputText value="Status:" />
+                                        <p:selectOneMenu value="#{associate.status}" disabled="true">                                    
+                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                        </p:selectOneMenu>
+                                    
+                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{associateBean.selected.createDate}" />
+                                    
+                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{associateBean.selected.lastUpdate}" />
+                                                                       
+                                     <h:outputText value="Usuario:" />
+                                     <h:outputText value="#{associateBean.selected.user.name}" />
+                                                                       
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

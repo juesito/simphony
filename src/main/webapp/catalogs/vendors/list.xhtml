@@ -26,13 +26,21 @@
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
                                      >
-                            <p:column headerText="#{msgs.cat_name}" filterBy="#{vendor.name}"
-                                      filterMatchMode="contains">
+                            <p:column headerText="#{msgs.cat_nick}" filterBy="#{vendor.nick}"
+                                      filterMatchMode="contains" >
+                                <p:outputLabel value="#{vendor.nick}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_name}" >
                                 <p:outputLabel value="#{vendor.name}" />
                             </p:column>
 
-                            <p:column headerText="#{msgs.cat_nick}" >
-                                <p:outputLabel value="#{vendor.nick}" />
+                            <p:column headerText="#{msgs.cat_firstLastName}" >
+                                <p:outputLabel value="#{vendor.firstLastName}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_secondLastName}" >
+                                <p:outputLabel value="#{vendor.secondLastName}" />
                             </p:column>
 
                             <p:column headerText="#{msgs.cat_population}">
@@ -43,12 +51,12 @@
                             <p:column headerText="#{msgs.cat_workCenter}">
                                 <p:outputLabel value="#{vendor.workCenter.description}" />
                             </p:column>
-
+<!--
                             <p:column headerText="#{msgs.cat_createDate}" >
                                 <p:calendar value="#{vendor.createDate}" pattern="yyy/MMM/dd"
                                             style="width: 20px !important;" disabled="true"/>
                             </p:column>
-
+-->
                             <p:column headerText="#{msgs.cat_status}"  style="width: 50px;">
                                 <p:selectOneMenu value="#{vendor.status}" disabled="true">                                    
                                     <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
@@ -90,11 +98,17 @@
                             <p:outputPanel id="vendorDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty vendorBean.selected}" columnClasses="label,value" >
 
+                                    <h:outputText value="#{msgs.cat_nick}:" />
+                                    <h:outputText value="#{vendorBean.selected.nick}" />
+
                                     <h:outputText value="#{msgs.cat_name}:" />
                                     <h:outputText value="#{vendorBean.selected.name}" />
 
-                                    <h:outputText value="#{msgs.cat_nick}:" />
-                                    <h:outputText value="#{vendorBean.selected.nick}" />
+                                    <h:outputText value="#{msgs.cat_firstLastName}:" />
+                                    <h:outputText value="#{vendorBean.selected.firstLastName}" />
+
+                                    <h:outputText value="#{msgs.cat_secondLastName}:" />
+                                    <h:outputText value="#{vendorBean.selected.secondLastName}" />
 
                                     <h:outputText value="#{msgs.cat_population}:" />
                                     <h:outputText value="#{vendorBean.selected.population.description}" />

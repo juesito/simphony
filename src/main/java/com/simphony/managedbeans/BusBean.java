@@ -113,12 +113,12 @@ public class BusBean {
             bus.setCreateDate(cal.getTime());
             bus.setStatus(IConfigurable._ENABLED);
             this.busService.getBusRepository().save(bus);
-            GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.bus.getId());
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.bus.getNumber() + " " + mp.getValue("msj_record_save") );
             bus = new Bus();
 
             }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.bus.getNumber());
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.bus.getNumber() + " " + mp.getValue("error_keyId_Detail") );
         }
 
         return "";
@@ -197,11 +197,11 @@ public class BusBean {
         
         if(busUpdated == null){
             throw new PersonException("Autobús no existente"); 
-        }
+        } 
         this.bus.setUser(user);
         busUpdated.update(this.bus);
         this.busService.getBusRepository().save(busUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.bus.getId());
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.bus.getNumber() + " " + mp.getValue("msj_record_update") );
         bus = new Bus();
         return toBus();
     }

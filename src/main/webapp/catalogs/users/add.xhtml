@@ -21,39 +21,40 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_name}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText id="name" value="#{userBean.user.name}" required="true" 
-                                                 requiredMessage="Nombre requerido" maxlength="25" />
-                                    <p:message for="name" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText id="lastName" value="#{userBean.user.firstLastName}" required="true" 
-                                                 requiredMessage="Apellido Requerido" maxlength="25" />
-                                    <p:message for="lastName" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                
-                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_nick}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{userBean.user.nick}" required="true" 
                                                  requiredMessage="#{msgs.cat_req_nick}" maxlength="25" />
                                 </p:column>
-                                <p:column>
-                                    <p:outputLabel value="Email" />
+                                 <p:column>
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="email" value="#{userBean.user.email}" maxlength="50" />
-                                    <p:message for="email" />
+                                    <p:inputText id="name" value="#{userBean.user.name}" required="true" 
+                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
+                                    <p:message for="name" />
                                 </p:column>
                             </p:row>
+                            <p:row>
+                  
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="fLastName" value="#{userBean.user.firstLastName}" required="true" 
+                                                 requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                    <p:message for="fLastName" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="sLastName" value="#{userBean.user.secondLastName}" required="true" 
+                                                 requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                    <p:message for="sLastName" />
+                                </p:column>
+                           </p:row>
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_password}:" />
@@ -69,10 +70,18 @@
                                     <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" 
                                                 required="true" maxlength="25" />
                                 </p:column>
-
                             </p:row>
-                            
 
+                            <p:row>
+                                 <p:column>
+                                    <p:outputLabel value="Email:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="email" value="#{userBean.user.email}" maxlength="50" />
+                                    <p:message for="email" />
+                                </p:column>
+                            </p:row>
+                          
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
@@ -99,25 +108,6 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_name}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText id="name" value="#{userBean.user.name}" required="true" 
-                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
-                                    <p:message for="name" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText id="lastName" value="#{userBean.user.firstLastName}" required="true" 
-                                                 requiredMessage="Apellido Requerido" maxlength="25" />
-                                    <p:message for="lastName" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                
-                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_nick}:" />
                                 </p:column>
                                 <p:column>
@@ -125,11 +115,30 @@
                                                  requiredMessage="#{msgs.req_alias}" maxlength="25" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Email" />
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="email" value="#{userBean.user.email}" maxlength="50"  />
-                                    <p:message for="email" />
+                                    <p:inputText id="name" value="#{userBean.user.name}" required="true" 
+                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
+                                    <p:message for="name" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="fLastName" value="#{userBean.user.firstLastName}" required="true" 
+                                                 requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                    <p:message for="fLastName" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="sLastName" value="#{userBean.user.secondLastName}" required="true" 
+                                                 requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                    <p:message for="sLastName" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -149,7 +158,16 @@
                                 </p:column>
 
                             </p:row>
-                            <p:row>
+                           <p:row>
+                                 <p:column>
+                                    <p:outputLabel value="Email:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="email" value="#{userBean.user.email}" maxlength="50"  />
+                                    <p:message for="email" />
+                                </p:column>
+                            </p:row>
+                           <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_save}" action="#{userBean.update()}"

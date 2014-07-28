@@ -213,15 +213,14 @@ public class UserBean implements IConfigurable {
 
                 Calendar cal = Calendar.getInstance();
                 user.setCreateDate(cal.getTime());
-                user.setLastUpdate(cal.getTime());
                 user.setStatus(_ENABLED);
 
                 this.userService.getUserRepository().save(user);
-                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.user.getId());
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.user.getNick()+" "+mp.getValue("msj_record_save") );
                 user = new User();
         }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId") + mp.getValue("cat_keyId"), mp.getValue("error_keyId_Detail") + this.user.getNick());
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.user.getNick()+" "+mp.getValue("error_keyId_Detail"));
         }
 
         return "";
@@ -243,12 +242,12 @@ public class UserBean implements IConfigurable {
         
         userUpdated.update(user);
         this.userService.getUserRepository().save(userUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_update"), mp.getValue("msj_record_update") + this.user.getId());
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.user.getNick()+" "+mp.getValue("msj_record_update") );
         user = new User();
         return toUsers();
     }
 
-    /**
+     /**
      * Controlador listar usuarios
      *
      * @return
