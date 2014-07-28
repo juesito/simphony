@@ -7,24 +7,41 @@
 }
 
 #header, footer{
-    float: left;    
+    display: inline-block;
+    vertical-align: top;
     min-width: 100%;
     max-width: 100%;
 }
 
 #footer{
-    min-height: 200%;
-    max-height: 200%;
-    position: fixed;
+    overflow: auto;
+    min-height:100px;
+    max-height: 102px;
+    position: relative;
     width: 100%;
+    border-top:1px solid rgba(27,71,48,1);
 }
+
+#container {
+    min-width: 1200px;
+    max-width: 1201px;
+    margin-left:auto;
+    margin-right:auto;    
+    border:1px solid rgba(27,71,48,1);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(27,71,48,1); // Verde
+    -moz-box-shadow: 10px 10px 5px 0px rgba(27,71,48,1);
+    box-shadow: 10px 10px 5px 0px rgba(27,71,48,1);  
+    background-color: #fff;
+} 
+
 #wrapper{
     margin: 0 auto;
-    width: 1000px;
-    min-height: 500px;
-    max-height: 600px;
+    width: 100%;
+    margin-top: 10px;
     padding-bottom: 40px;
+    background-color:#C6CFB7;
 }
+
 
 #wrapper-cat{
     margin: 0 auto;
@@ -46,7 +63,7 @@
     float: left;
     padding: 5px;
     width: 170px;
-    min-height: 550px;
+    min-height: 400px;
     max-height: 600px; 
     border-right: none;
 }
@@ -54,7 +71,7 @@
 .center_content {
     position: relative;
     padding: 5px;
-    min-height: 550px;
+    min-height: 400px;
     max-height: 600px;
 }
 .content-catalog{
@@ -65,7 +82,7 @@
 .left_content {
     padding: 5px;
     margin-left: 170px;
-    min-height: 550px;
+    min-height: 400px;
     max-height: 600px;
 }
 
@@ -129,7 +146,7 @@
     min-height: 200px;
     max-height: 200px;
     position: relative;
-    border: 1px solid blue;
+    border: 1px solid rgba(27,71,48,1);
 }
 
 .msj-info-right{
@@ -158,39 +175,42 @@
     margin-top: 15px;
     padding: 10px;    
     position: relative;
-    border: dotted 1px #0A3A6E;    
+    border: dotted 1px rgba(27,71,48,1);    
     border-radius: 20px;
 }
 
 .msj-login-box{
     display: inline-block;
     vertical-align: top;
-    max-width: 160px;
-    min-width: 159px;
+    max-width: 180px;
+    min-width: 180px;
     max-height: 200px;
     min-height: 200px;
-    margin-left: 12px;
+    margin-left: 2px;
     margin-top: 15px;
     padding: 10px;    
     position: relative;
-    border: dotted 1px #0A3A6E;    
+    border: dotted 1px rgba(27,71,48,1);    
     border-radius: 20px;
 }
 
 
-#marco-bot-title{            
-    text-align: right;
-    float: right;
-    margin: 0px 150px;
-    padding-top: 0px;;
+#marco-bot-title{             
+    
+    display: inline-block;
+    vertical-align: top;        
+    margin: 3px 0px 2px 15px;
     width: 500px;
+    border:none;
 }
 
 #marco-bot-img{
-    float: left;
-    width: 100px;
-    height:100px;
-    margin: 10px 150px;
+    display: inline-block;
+    vertical-align: top;
+    min-width: 90px;
+    min-height:90px;
+    margin: 5px 25px 3px 560px;
+    border:none;
 }
 
 #contentGallery{ border: none !important; }
@@ -240,11 +260,24 @@ div{ display:block; }
 .box-content-sale{
     display: inline-block;
     vertical-align: top;
-    margin-top: 15px;    
-    border: 2px solid #0A3A6E;
+    margin-top: 15px; 
+    margin-right: 20px;
+    border: 2px solid rgba(27,71,48,1);
     padding: 10px 40px;     
     width: 300px;
+    min-height: 200px;
     border-radius: 25px;
+}
+
+.box-content-sale-detail{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+    border: 2px solid rgba(27,71,48,1);
+    padding: 10px 40px;     
+    width: 60%;
+    border-radius: 25px;
+    min-height: 400px;
 }
 
 
@@ -286,7 +319,7 @@ div{ display:block; }
 #text-info-expired{     
     width: 400px;
     font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important;
-    color: rgb(170,115,177) ;
+    color: rgba(27,71,48,1);
     text-align: justify;    
     text-wrap: normal;
     margin-right: 10px;

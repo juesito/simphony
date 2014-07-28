@@ -7,14 +7,9 @@ package com.simphony.selectors;
 
 import com.simphony.beans.ItineraryService;
 import com.simphony.beans.PopulationService;
-import com.simphony.entities.Itinerary;
 import com.simphony.entities.Population;
-import com.simphony.pojos.ComboBox;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;

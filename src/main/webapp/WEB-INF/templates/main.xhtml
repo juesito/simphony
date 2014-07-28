@@ -19,42 +19,46 @@
     </h:head>
 
     <h:body>
-
-        <div id="header">
-            <div class="wrap">
-                <ui:insert name="top-band">
-                    <ui:include src="./../../include/top-band.xhtml"></ui:include>
-                </ui:insert>
-                <ui:insert name="top">
-                    <ui:include src="./../../include/header.xhtml">
-                    </ui:include>
-                </ui:insert>
-
-            </div>
-            <div id="top-band2" class="top-band2">
-                <ui:insert name="top-band2">
-                    <ui:include src="./../../include/top-band2.xhtml"></ui:include>
-                </ui:insert>
-            </div>
-
-        </div>
-
         <div id="wrapper">
-            <div id="left">
-                <ui:insert name="left">
-                    <ui:include src="./../../include/menu.xhtml"></ui:include>
-                </ui:insert>
-            </div>
-            <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
-        </div>
+            <div id="container">
+                <div id="header">
+                    <div class="wrap">
+                        <ui:insert name="top-band">
+                            <ui:include src="./../../include/top-band.xhtml"></ui:include>
+                        </ui:insert>
+                        <ui:insert name="top">
+                            <ui:include src="./../../include/header.xhtml">
+                            </ui:include>
+                        </ui:insert>
 
-        <div id="footer">
-            <div id="wrap">
-                <ui:insert name="bottom"> 
-                    <ui:include src="./../../include/footer.xhtml"></ui:include>
-                </ui:insert>
+                    </div>
+                    <div id="top-band2" class="top-band2">
+                        <ui:insert name="top-band2">
+                            <ui:include src="./../../include/top-band2.xhtml"></ui:include>
+                        </ui:insert>
+                    </div>
+
+                </div>
+
+                <div id="content">
+                    <div id="left">
+                        <ui:insert name="left">
+                            <ui:include src="./../../include/menu.xhtml"></ui:include>
+                        </ui:insert>
+                    </div>
+                    <div id="content" class="left_content">
+                        <ui:insert name="content">Content</ui:insert>
+                    </div>
+                </div>
+
+
+                <div id="footer">
+                    <div id="wrap">
+                        <ui:insert name="bottom"> 
+                            <ui:include src="./../../include/footer.xhtml"></ui:include>
+                        </ui:insert>
+                    </div>
+                </div>
             </div>
         </div>
     </h:body>
