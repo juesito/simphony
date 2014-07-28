@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
 
-                        <p:outputLabel value="Usuarios" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_users}" class="welcome-title" />
                         <br />
 
                         <!-- Data table de usuarios -->
@@ -35,7 +35,7 @@
                                 <p:outputLabel value="#{user.firstLastName}" />
                             </p:column>
 
-                            <p:column headerText="Nick" >
+                            <p:column headerText="#{msgs.cat_nick}" >
                                 <p:outputLabel value="#{user.nick}" />
                             </p:column>
 
@@ -59,30 +59,30 @@
                             <f:facet name="footer">
                                 <p:commandButton process="userDT" 
                                                  update=":form:userDetail" icon="ui-icon-search" 
-                                                 value="Visualizar" oncomplete="PF('userDialog').show()" />
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('userDialog').show()" />
                                 <p:commandButton process="userDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Modificar" action="#{userBean.modifyUser()}" />
+                                                 value="#{msgs.but_modify}" action="#{userBean.modifyUser()}" />
                                 <p:commandButton process="userDT" 
                                                  update=":form:userDT" icon="ui-icon-trash" 
-                                                 value="Activar" actionListener="#{userBean.enabledUser()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de activar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_enable}" actionListener="#{userBean.enabledUser()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="userDT" 
                                                  update=":form:userDT" icon="ui-icon-trash" 
-                                                 value="Desactivar" actionListener="#{userBean.disableUser()}" >
-                                    <p:confirm header="Confirmación" message="Estas seguro de desactivar?" icon="ui-icon-alert" />
+                                                 value="#{msgs.but_disable}" actionListener="#{userBean.disableUser()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </f:facet>
                         </p:dataTable>
                         
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
 
 
-                        <p:commandButton value="Agregar" action="#{userBean.addUser()}"
+                        <p:commandButton value="#{msgs.but_add}" action="#{userBean.addUser()}"
                                          styleClass="catalog-button" ajax="false"/>
 
                         <!-- detalle usuarios userDialog-->
@@ -91,31 +91,28 @@
                             <p:outputPanel id="userDetail" style="text-align:center;">
                                  <p:panelGrid  columns="2" rendered="#{not empty userBean.selected}" columnClasses="label,value" >
 
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{userBean.selected.id}" />
-
-                                    <h:outputText value="Nombre:" />
+                                    <h:outputText value="#{msgs.cat_name}:" />
                                     <h:outputText value="#{userBean.selected.name}" />
 
-                                    <h:outputText value="Apellido:" />
+                                    <h:outputText value="#{msgs.cat_firstLastName}:" />
                                     <h:outputText value="#{userBean.selected.firstLastName}" />
 
-                                    <h:outputText value="Nick:" />
+                                    <h:outputText value="#{msgs.cat_nick}:" />
                                     <h:outputText value="#{userBean.selected.nick}" />
 
                                     <h:outputText value="Email:" />
                                     <h:outputText value="#{userBean.selected.email}" />
 
-                                    <h:outputText value="Status" />
+                                    <h:outputText value="#{msgs.cat_status}:" />
                                     <p:selectOneMenu value="#{user.status}" disabled="true">                                    
                                        <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
                                        <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                     </p:selectOneMenu>
 
-                                    <h:outputText value="Creado:" />
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{userBean.selected.createDate}" />
 
-                                    <h:outputText value="Modificado:" />
+                                    <h:outputText value="#{msgs.cat_updateDate}:" />
                                     <h:outputText value="#{userBean.selected.lastUpdate}" />
                                                                        
                                  </p:panelGrid>

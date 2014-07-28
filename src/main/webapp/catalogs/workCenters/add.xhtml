@@ -14,19 +14,19 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{workCenterBean.current.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="Agregar Estación de trabajo" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_workCenter}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Descripción" />
+                                    <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
                                  <p:column>
                                      <p:inputText id="descripcion" 
                                                   value="#{workCenterBean.workCenter.description}" maxlength="45" required="true" 
-                                                 requiredMessage="Descripción requerida" />
+                                                 requiredMessage="#{msgs.req_description}" />
                                     <p:message for="descripcion" />
                                 </p:column>
                             </p:row>
@@ -34,11 +34,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{workCenterBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{workCenterBean.save(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{workCenterBean.cancelWorkCenter()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{workCenterBean.cancelWorkCenter()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>
@@ -50,18 +50,18 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{workCenterBean.current.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="Modificar Estación de trabajo" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_workCenter}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Descripción" />
+                                    <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
                                  <p:column>
                                      <p:inputText id="descripcion" value="#{workCenterBean.workCenter.description}" maxlength="45" required="true" 
-                                                 requiredMessage="Descripción requerida"  />
+                                                 requiredMessage="#{msgs.req_description}"  />
                                     <p:message for="descripcion" />
                                 </p:column>
                             </p:row>
@@ -72,11 +72,11 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="Guardar" action="#{workCenterBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{workCenterBean.update(userBean.current)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Cancelar" action="#{workCenterBean.cancelWorkCenter()}"
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{workCenterBean.cancelWorkCenter()}"
                                                      id="cancelAdd" process="@this"
                                                      partialSubmit="true"/>
                                 </p:column>

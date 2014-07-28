@@ -194,6 +194,32 @@ input hover{
     background: linear-gradient(white, #2593CC); /* Standard syntax (must be last) */
 }
 
+.box-content p{
+    color:#121E31 !important;
+}
+.box-content table, .box-content tr{
+    background: transparent;
+}
+.box-content-sale p{
+    color:#121E31 !important;
+}
+.box-content-sale table, .box-content-sale tr{
+    background: transparent;
+}
+.box-content-sale{
+    font-size: 12px !important;    
+    min-width: 120px;
+    max-width: 121px;
+    max-width: 200px;
+    min-height: 400px;
+    max-height: 401px;
+    
+    background: -webkit-linear-gradient(white, #2593CC); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #2593CC); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #2593CC); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #2593CC); /* Standard syntax (must be last) */
+}
+
 input:hover{
     background: #0A3A6E !important;
     color: #FFF !important;
