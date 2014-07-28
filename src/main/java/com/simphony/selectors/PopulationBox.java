@@ -35,11 +35,10 @@ public class PopulationBox {
     @ManagedProperty(value = "#{itineraryService}")
     private ItineraryService itineraryService;
 
-    private Map<ComboBox, String> box = new TreeMap<ComboBox, String>(new ComboBoxComparator());
-    private final Map<String, ComboBox> reverseComboBoxes = new HashMap<String, ComboBox>();
     private List<Population> list = new ArrayList<Population>();
     private List<SelectItem> populationList = new ArrayList<SelectItem>();
     private List<SelectItem> populationOriSaleList = new ArrayList<SelectItem>();
+    private List<SelectItem> populationDesSaleList = new ArrayList<SelectItem>();
 
     /**
      * Creates a new instance of PopulationBox
@@ -54,9 +53,6 @@ public class PopulationBox {
         List<Population> optionList = this.getPopulationService().getPopulationRepository().findAllEnabled();
 
         for (Population population : optionList) {
-            ComboBox cmb = new ComboBox(population.getId().toString(), population.getDescription().trim());
-            box.put(cmb, cmb.getKey());
-            reverseComboBoxes.put(cmb.getKey(), cmb);
             list.add(population);
             populationList.add(new SelectItem(population, population.getDescription()));
         }
@@ -67,13 +63,23 @@ public class PopulationBox {
         
         populationOriSaleList.clear();
         //Llena solo poblaciones activas
-        List<Population> optionList = this.getPopulationService().getPopulationRepository().findOriginsForSale();
+        List<Population> optionList = this.getPopulationService().getPopulationRepository().
+                findOriginsForSale();
+        for (Population population : optionList) {            
+            populationOriSaleList.add(new SelectItem(population, population.getDescription()));
+        }
+        
+    }
+    
+    public void fillPopulationDesSaleList(Long originId){
+        
+        populationDesSaleList.clear();
+        //Llena solo poblaciones activas
+        List<Population> optionList = this.getPopulationService().getPopulationRepository().
+                findDestiniesForSale(originId);
 
-        for (Population population : optionList) {
-            ComboBox cmb = new ComboBox(population.getId().toString(), population.getDescription().trim());
-            box.put(cmb, cmb.getKey());
-            reverseComboBoxes.put(cmb.getKey(), cmb);
-            populationOriSaleList.add(new SelectItem(population.getId(), population.getDescription()));
+        for (Population population : optionList) {            
+            populationDesSaleList.add(new SelectItem(population, population.getDescription()));
         }
         
     }
@@ -103,18 +109,6 @@ public class PopulationBox {
         this.populationService = populationService;
     }
 
-    public Map<ComboBox, String> getBox() {
-        return box;
-    }
-
-    public void setBox(Map<ComboBox, String> box) {
-        this.box = box;
-    }
-
-    public ComboBox getBox(String key) {
-        return reverseComboBoxes.get(key);
-    }
-
     public void fillBox() {
         populationList.clear();
         init();
@@ -135,6 +129,16 @@ public class PopulationBox {
     public void setPopulationOriSaleList(List<SelectItem> populationOriSaleList) {
         this.populationOriSaleList = populationOriSaleList;
     }
+
+    public List<SelectItem> getPopulationDesSaleList() {
+        return populationDesSaleList;
+    }
+
+    public void setPopulationDesSaleList(List<SelectItem> populationDesSaleList) {
+        this.populationDesSaleList = populationDesSaleList;
+    }
+    
+    
 
     
 }

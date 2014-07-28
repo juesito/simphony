@@ -54,15 +54,7 @@
                                                     pattern="HH:mm a" timeOnly="true" size="8" />
                                     </p:column>
                                 </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Secuencia" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:calendar value="" disabled="true"
-                                                    pattern="HH:mm a" timeOnly="true" size="8" />
-                                    </p:column>
-                                </p:row>
+                                
 
                             </p:panelGrid>
                         </div>
@@ -119,9 +111,18 @@
                                     <p:column headerText="#{msgs.cat_status}" >
                                         <p:selectOneMenu value="#{itineraryDetailBean.itineraryDetail.typeOfRoute}" tabindex="5" required="true">                                    
                                             <f:selectItem itemValue="L" itemLabel="Local" />
-                                            <f:selectItem itemValue="P" itemLabel="Parcial" />
+                                            <f:selectItem itemValue="P" itemLabel="De paso" />
                                             <f:selectItem itemValue="F" itemLabel="Final" />
                                         </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Secuencia" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{itineraryDetailBean.itineraryDetail.sequence }"
+                                                    size="8" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -195,11 +196,20 @@
                                 <p:column headerText="#{msgs.cat_status}" >
                                     <p:selectOneMenu value="#{itineraryDetailBean.itineraryDetail.typeOfRoute}" tabindex="5" required="true">                                    
                                         <f:selectItem itemValue="L" itemLabel="Local" />
-                                        <f:selectItem itemValue="P" itemLabel="Parcial" />
+                                        <f:selectItem itemValue="P" itemLabel="De paso" />
                                         <f:selectItem itemValue="F" itemLabel="Final" />
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
+                            <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Secuencia" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{itineraryDetailBean.itineraryDetail.sequence }" 
+                                                    size="8" />
+                                    </p:column>
+                                </p:row>
 
                             <p:row>
                                 <p:column colspan="2"></p:column>
