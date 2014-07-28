@@ -294,3 +294,299 @@ div{ display:block; }
     border: none;
     float: right; 
 }
+#top {
+    position: relative;
+    padding: 15px 0;
+    margin: 0px auto;
+    min-height: 100px;
+    min-width: 100% !important;
+}
+
+#header, footer{
+    float: left;    
+    min-width: 100%;
+    max-width: 100%;
+}
+
+#footer{
+    min-height: 200%;
+    max-height: 200%;
+    position: fixed;
+    width: 100%;
+}
+#wrapper{
+    margin: 0 auto;
+    width: 1000px;
+    min-height: 500px;
+    max-height: 600px;
+    padding-bottom: 40px;
+}
+
+#wrapper-cat{
+    margin: 0 auto;
+    width: 1000px;
+    min-height: 580px;
+    max-height: 600px;
+    padding-bottom: 40px;
+    font-size: 10px;
+}
+
+.wrap {
+    position:relative;
+    margin:0 auto;
+    width:1000px;    
+    min-height: 150px;
+}
+
+#left {
+    float: left;
+    padding: 5px;
+    width: 170px;
+    min-height: 550px;
+    max-height: 600px; 
+    border-right: none;
+}
+
+.center_content {
+    position: relative;
+    padding: 5px;
+    min-height: 550px;
+    max-height: 600px;
+}
+.content-catalog{
+    min-height: 800px;
+    height: 800px;
+}
+
+.left_content {
+    padding: 5px;
+    margin-left: 170px;
+    min-height: 550px;
+    max-height: 600px;
+}
+
+// Configuracion para el header
+.marco-izq {    
+    max-height:100px;
+    float: left;    
+    position: relative;
+    border: 1px solid #fff !important;
+}
+
+#marco-izq-img{
+    float: left;
+    width: 17%;
+    max-height:110px;
+    position: relative;
+    clear: left;
+}
+
+#marco-der {
+    width: 50%;
+    margin-top: 0px;
+    margin-left: 0px;
+    padding-bottom: 0px;
+    height: 110px;
+    max-height:100px;
+    float: left;    
+    position: relative;    
+}
+
+#marco-izq-title{
+    min-width: 20%;
+    position: relative;
+    padding-top: 0px;
+    max-height:100px;        
+    float: left;
+}
+
+#logo{
+    margin-top: 2px;
+    margin-left: 2px;
+    border: 0px; 
+    width:160px; 
+    height:90px;
+}
+
+#top-band2{
+    position: relative;
+    height: 30px;    
+    min-width: 100% !important;
+}
+
+// Estilos para la hoja de content
+.text-info{
+    display: inline-block;
+    text-wrap: none;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    min-width: 500px;
+    max-width: 500px;
+    min-height: 200px;
+    max-height: 200px;
+    position: relative;
+    border: 1px solid blue;
+}
+
+.msj-info-right{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 30px;
+    margin-left: 15px;
+    text-align: center;    
+    text-wrap: normal; 
+    min-width: 352px; 
+    max-width: 355px; 
+    min-height: 360px;
+    max-height: 361px;
+    border: none;  
+    
+}
+
+.msj-info-left{
+    display: inline-block;
+    vertical-align: top;
+    max-width: 401px;
+    min-width: 400px;
+    max-height: 400px;
+    min-height: 400px;
+    margin-left: 12px;
+    margin-top: 15px;
+    padding: 10px;    
+    position: relative;
+    border: dotted 1px #0A3A6E;    
+    border-radius: 20px;
+}
+
+.msj-login-box{
+    display: inline-block;
+    vertical-align: top;
+    max-width: 160px;
+    min-width: 159px;
+    max-height: 200px;
+    min-height: 200px;
+    margin-left: 12px;
+    margin-top: 15px;
+    padding: 10px;    
+    position: relative;
+    border: dotted 1px #0A3A6E;    
+    border-radius: 20px;
+}
+
+
+#marco-bot-title{            
+    text-align: right;
+    float: right;
+    margin: 0px 150px;
+    padding-top: 0px;;
+    width: 500px;
+}
+
+#marco-bot-img{
+    float: left;
+    width: 100px;
+    height:100px;
+    margin: 10px 150px;
+}
+
+#contentGallery{ border: none !important; }
+.welcome-msg-gallery{margin-top: 20px;}
+.vlogin{ border:none !important; }
+
+
+div{ display:block; }
+
+#salePanel{
+    margin-top: 210px;
+    //float: left;
+    position: absolute;
+}
+
+.borderPanelGrid tr, .borderPanelGrid td{
+    border: none;
+}
+
+.itinerary-header-detail{
+    float: left;    
+}
+
+#itinerary-detail-detail{
+    float: right;    
+}
+
+.itinerary-header-detail{
+    display: inline-block;
+    vertical-align: top;
+}
+.itinerary-header-detail td, itinerary-header-detail tr{
+    border: none;  
+    
+}
+
+.itinerary-detail-detail{
+    min-width: 80%;
+    max-width: 81%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.sale-schedule-panel tr, .sale-schedule-panel td{
+    border: none;
+}
+.box-content-sale{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+    border: 2px solid #0A3A6E;
+    padding: 10px 40px;     
+    width: 300px;
+    border-radius: 25px;
+}
+
+
+.box-content{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+    border: 2px solid #0A3A6E;
+    padding: 10px 40px;     
+    width: 300px;
+    border-radius: 25px;
+}
+
+.button-rounded{
+    border: 2px solid #0A3A6E !important;    
+    padding: 1px 2px !important;       
+    border-radius: 25px !important;   
+    max-width: 90px;
+    max-height: 40px;
+}
+
+
+.msj-info-left-expired p{
+    font-size: 12px !important;
+    border: 1px solid;
+}
+.msj-info-left-expired h2{
+    font-size: 25px !important;
+}
+.msj-info-left-expired img{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.msj-info-right-expired h2{
+    text-align: center;
+}
+
+#text-info-expired{     
+    width: 400px;
+    font-family:'News Gothic Light', 'Arial','Arial Narrow', serif !important;
+    color: rgb(170,115,177) ;
+    text-align: justify;    
+    text-wrap: normal;
+    margin-right: 10px;
+    padding-top: 30px !important;
+    border: none;
+    float: right; 
+}
