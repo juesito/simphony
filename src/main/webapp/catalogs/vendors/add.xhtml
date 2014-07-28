@@ -21,6 +21,13 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
+                                    <p:outputLabel value="#{msgs.cat_nick}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
+                                                 requiredMessage="#{msgs.req_nick}" maxlength="25" />
+                                </p:column>
+                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
@@ -28,12 +35,22 @@
                                                  requiredMessage="#{msgs.req_name}" maxlength="25" />
                                     <p:message for="name" />
                                 </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_nick}:" />
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
-                                                 requiredMessage="#{msgs.req_nick}" maxlength="25" />
+                                    <p:inputText value="#{vendorBean.vendor.firstLastName}" required="true" 
+                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="lastName" value="#{vendorBean.vendor.secondLastName}" required="true" 
+                                                 requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                    <p:message for="lastName" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -105,19 +122,35 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_name}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText value="#{vendorBean.vendor.name}" required="true" 
-                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
-
-                                </p:column>
-                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_nick}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{vendorBean.vendor.nick}" required="true" 
                                                  requiredMessage="#{msgs.req_nick}" maxlength="25" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{vendorBean.vendor.name}" required="true" 
+                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{vendorBean.vendor.firstLastName}" required="true" 
+                                                 requiredMessage="#{msgs.req_name}" maxlength="25" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="lastName" value="#{vendorBean.vendor.secondLastName}" required="true" 
+                                                 requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                    <p:message for="lastName" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -148,9 +181,6 @@
                                         <f:selectItems value="#{boxPopulationService.populationList}" />
                                     </p:selectOneMenu>
                                 </p:column>
-                            </p:row>
-                            <p:row>
-
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_workCenter}:" />
                                 </p:column>

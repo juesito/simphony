@@ -26,8 +26,12 @@
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
                                     >
-                            <p:column headerText="#{msgs.cat_name}" filterBy="#{user.name}"
-                                      filterMatchMode="contains">
+                            <p:column headerText="#{msgs.cat_nick}" filterBy="#{user.nick}"
+                                      filterMatchMode="contains" >
+                                <p:outputLabel value="#{user.nick}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_name}" >
                                 <p:outputLabel value="#{user.name}" />
                             </p:column>
                             
@@ -35,8 +39,8 @@
                                 <p:outputLabel value="#{user.firstLastName}" />
                             </p:column>
 
-                            <p:column headerText="#{msgs.cat_nick}" >
-                                <p:outputLabel value="#{user.nick}" />
+                            <p:column headerText="#{msgs.cat_secondLastName}">
+                                <p:outputLabel value="#{user.secondLastName}" />
                             </p:column>
 
                             <p:column headerText="Email">
@@ -49,12 +53,12 @@
                                     <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
                                 </p:selectOneMenu>
                             </p:column>
-
+<!--
                             <p:column headerText="#{msgs.cat_createDate}" >
                                 <p:calendar value="#{user.createDate}" pattern="yyy/MMM/dd"
                                             style="width: 20px !important;" disabled="true"/>
                             </p:column>
-
+-->
                             <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton process="userDT" 
@@ -91,14 +95,17 @@
                             <p:outputPanel id="userDetail" style="text-align:center;">
                                  <p:panelGrid  columns="2" rendered="#{not empty userBean.selected}" columnClasses="label,value" >
 
+                                    <h:outputText value="#{msgs.cat_nick}:" />
+                                    <h:outputText value="#{userBean.selected.nick}" />
+
                                     <h:outputText value="#{msgs.cat_name}:" />
                                     <h:outputText value="#{userBean.selected.name}" />
 
                                     <h:outputText value="#{msgs.cat_firstLastName}:" />
                                     <h:outputText value="#{userBean.selected.firstLastName}" />
 
-                                    <h:outputText value="#{msgs.cat_nick}:" />
-                                    <h:outputText value="#{userBean.selected.nick}" />
+                                    <h:outputText value="#{msgs.cat_secondLastName}:" />
+                                    <h:outputText value="#{userBean.selected.secondLastName}" />
 
                                     <h:outputText value="Email:" />
                                     <h:outputText value="#{userBean.selected.email}" />

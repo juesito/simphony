@@ -213,7 +213,6 @@ public class UserBean implements IConfigurable {
 
                 Calendar cal = Calendar.getInstance();
                 user.setCreateDate(cal.getTime());
-                user.setLastUpdate(cal.getTime());
                 user.setStatus(_ENABLED);
 
                 this.userService.getUserRepository().save(user);
