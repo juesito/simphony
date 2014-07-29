@@ -27,7 +27,7 @@
                                                          style="width:160px" required="true" 
                                                          requiredMessage="Origen Requerido">
                                             <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
-                                            <p:ajax event="change" update=":saleForm:destiny" 
+                                           <p:ajax event="change" update=":saleForm:destiny" 
                                                     listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
                                         </p:selectOneMenu>
                                     </p:column>
@@ -81,6 +81,7 @@
                             </p:panelGrid>
                             
                         </div>
+                        
                         <div class="box-content-sale-detail" >
                             <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic">
                                 <p:column headerText="Itinerario">
@@ -100,7 +101,6 @@
                                 </p:column>
                             </p:dataTable>
                         </div>
-                        
                         
                     </h:form>
                 </ui:define>

@@ -66,8 +66,7 @@ body{
 }
 .ui-datatable tr:hover{
     background: rgba(27,71,48,1) !important; 
-    color:white;
-    
+    color:white;    
     border-bottom: 2px solid white !important; 
     text-align: center !important;
 } 
@@ -78,17 +77,95 @@ body{
 .ui-paginator-current{
     color:white;
 }
-/*
- 
- .ui-button{
-   color:#FFF !important;  
-   border: 1px solid #0A3A6E !important; 
-   background-color: rgba(27,71,48,1) !important;
-   
-   
- }
-  
 
+.miMenu{
+    list-style:none !important;
+    font-size: 15px !important;    
+    border-left:1px dotted #FBF7B4 !important;
+    border-right: 1px solid #FBF7B4 !important;
+    border-bottom: none !important;
+    border-top: none !important;
+    list-style:none !important;
+    background-image: none !important;
+    list-style-image: none !important;
+    background-color: transparent !important;    
+}
+.miMenu a{
+    color:white !important;
+    font-size: 12px !important;
+}
+.miMenu a:hover{
+    background-color: #FBF7B4 !important;
+    color:rgba(27,71,48,1) !important;    
+    font-size: 12px !important;
+}
+.ui-menuitem-active{
+    background-image: none !important;
+}
+.ui-menuitem-link {
+    padding-left: 10px !important;
+    border-left: 1px solid #FBF7B4 !important;
+}
+
+.ui-menuitem-link:hover {
+    padding-left: 10px !important;
+    background-image: none !important;
+
+}
+.ui-state-hover{
+    background-image: none !important;
+    background-color: #FBF7B4 !important;
+}
+
+.ui-menu-child{
+    background-image: none !important;
+    background-color: #C6CFB7 !important;
+}
+
+.ui-menu-child ui-menuitem-text{
+    color:#000 !important; 
+}
+
+.ui-menu-child.ui-menuitem-text span{
+    color:#000 !important; 
+}
+
+.miMenuItem a{
+    color: #000 !important;
+}
+
+.box-content-sale{
+    font-size: 12px !important;    
+    min-width: 120px;
+    max-width: 121px;
+    max-width: 200px;
+    min-height: 400px;
+    max-height: 401px;
+    
+    background: -webkit-linear-gradient(white, #FBF7B4); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #FBF7B4); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #FBF7B4); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #FBF7B4); /* Standard syntax (must be last) */
+}
+.box-content-sale table, .box-content-sale tr{
+    background: transparent;
+}
+
+.box-content-sale-detail{
+    font-size: 12px !important;    
+    min-height: 400px;
+    max-height: 401px;
+    
+    background: -webkit-linear-gradient(white, #FBF7B4); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #FBF7B4); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #FBF7B4); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #FBF7B4); /* Standard syntax (must be last) */
+    
+}
+
+/*
+
+  
 
 .ui-widget-header{
     margin-top: 15px !important;
@@ -96,15 +173,7 @@ body{
     border: none !important;
 }
 
-.miMenu{
-    list-style:none !important;
-    font-size: 15px !important;    
-    border:none !important;
-    list-style:none !important;
-    background-image: none !important;
-    list-style-image: none !important;
-    background-color: transparent !important;
-}
+
 
 .ui-menuitem-text{
 }
@@ -120,14 +189,9 @@ body{
     
 }
 
-.ui-menuitem-link {
-    padding: 4px !important;
-    border-left: 1px dotted blue !important;
-}
 
-.ui-menu-child ui-menuitem-link ui-menuitem-text{
-    color: #FFFFFF !important;
-}
+
+
 .miMenuItem{
     color: #FFFFFF !important;
 }

@@ -339,3 +339,17 @@ div{ display:block; }
 .loginPanelGrid tr, .loginPanelGrid td{
     border: none;
 }
+
+#marco-right-title{
+    float: right;
+    margin-right: 150px;
+}
+
+.catalog-table{
+    margin-top: 20px;
+}
+
+.ui-selectonemenu-trigger, ui-state-default  {
+    border: none !important;
+    font: 12px Helvetica, Arial, sans-serif;
+}
