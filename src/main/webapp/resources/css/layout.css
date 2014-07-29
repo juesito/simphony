@@ -62,7 +62,7 @@
 #left {
     float: left;
     padding: 5px;
-    width: 170px;
+    width: 210px;
     min-height: 400px;
     max-height: 600px; 
     border-right: none;
@@ -182,16 +182,15 @@
 .msj-login-box{
     display: inline-block;
     vertical-align: top;
-    max-width: 180px;
-    min-width: 180px;
+    max-width: 200px;
+    min-width: 201px;
     max-height: 200px;
     min-height: 200px;
     margin-left: 2px;
     margin-top: 15px;
     padding: 10px;    
     position: relative;
-    border: dotted 1px rgba(27,71,48,1);    
-    border-radius: 20px;
+    border: none;    
 }
 
 
@@ -292,7 +291,6 @@ div{ display:block; }
 }
 
 .button-rounded{
-    border: 2px solid #0A3A6E !important;    
     padding: 1px 2px !important;       
     border-radius: 25px !important;   
     max-width: 90px;
@@ -326,4 +324,18 @@ div{ display:block; }
     padding-top: 30px !important;
     border: none;
     float: right; 
+}
+
+.loginPanelGrid{
+    display: inline-block;
+    vertical-align: top;    
+    min-width: 200px;
+    border: 1px solid;
+    border:1px solid rgba(27,71,48,1);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(27,71,48,1); // Verde
+    -moz-box-shadow: 10px 10px 5px 0px rgba(27,71,48,1);
+    box-shadow: 10px 10px 5px 0px rgba(27,71,48,1);  
+}
+.loginPanelGrid tr, .loginPanelGrid td{
+    border: none;
 }

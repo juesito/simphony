@@ -15,7 +15,7 @@
 
                             <div class="msj-login-box">
 
-                                <p:panelGrid id="login" styleClass="borderPanelGrid"
+                                <p:panelGrid id="login" styleClass="loginPanelGrid"
                                              rendered="#{!userBean.current.looged}">
 
                                     <p:row>
@@ -54,9 +54,9 @@
 
                                     <p:row>
                                         <p:column colspan="2">
-                                            <p:commandButton update=":sform:growl" action="#{userBean.login()}"
+                                            <p:commandButton action="#{userBean.login()}"
                                                              tabindex="3" styleClass="button-rounded"
-                                                             value="Entrar" ajax="false" />  
+                                                             value="Entrar" ajax="true" />  
                                             <p:commandButton action="toindex" immediate="true" ajax="true"
                                                              tabindex="4" styleClass="button-rounded"
                                                              value="Cancelar"  />  
