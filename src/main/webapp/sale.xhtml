@@ -64,6 +64,21 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
+                                        <p:outputLabel value="Es agremiado?" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        
+                                        <p:selectOneRadio id="sample" value="#{saleBean.sale.partner}" layout="grid" 
+                                                      columns="2" required="true" requiredMessage="Requerido"  >  
+                                        <f:selectItem itemLabel="Si" itemValue="1" />  
+                                        <f:selectItem itemLabel="No" itemValue="2" />  
+                                    </p:selectOneRadio>  
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
                                         <p:outputLabel value="Pasajeros:" />
                                     </p:column>
                                 </p:row>
@@ -92,6 +107,10 @@
                             <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic"
                                          selectionMode="single" selection="#{saleBean.selected}" 
                                          rowKey="#{ic.rowId}">
+                                <p:column headerText="hr Salida">
+                                    <p:calendar pattern="HH:mm" size="10" readonly="true" disabled="true"
+                                                value="#{ic.itinerary.checkTime}" />
+                                </p:column>
                                 <p:column headerText="Origen">
                                     <p:outputLabel value="#{ic.itinerary.origin.description}" />
                                 </p:column>

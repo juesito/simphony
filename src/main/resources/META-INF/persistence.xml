@@ -19,6 +19,7 @@
     <class>com.simphony.entities.Route</class>
     <class>com.simphony.entities.Catalog</class>
     <class>com.simphony.entities.ItineraryDetail</class>
+    <class>com.simphony.entities.Guide</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>

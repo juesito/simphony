@@ -6,6 +6,7 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.CostService;
+import com.simphony.beans.GuideService;
 import com.simphony.beans.SaleService;
 import com.simphony.entities.Cost;
 import com.simphony.entities.Sale;
@@ -37,6 +38,9 @@ public class SaleBean {
 
     @ManagedProperty(value = "#{saleService}")
     private SaleService saleService;
+    
+    @ManagedProperty(value = "#{guideService}")
+    private GuideService guideService;
 
     /**
      * Creates a new instance of SaleBean
@@ -75,6 +79,10 @@ public class SaleBean {
         itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
 
     }
+    
+    public void save(){
+        
+    }
 
     
     public Cost getCost() {
@@ -108,7 +116,13 @@ public class SaleBean {
     public void setSelected(ItineraryCost selected) {
         this.selected = selected;
     }
-    
-    
+
+    public GuideService getGuideService() {
+        return guideService;
+    }
+
+    public void setGuideService(GuideService guideService) {
+        this.guideService = guideService;
+    }
 
 }

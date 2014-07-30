@@ -1,7 +1,6 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,11 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity(name="Sale")
 @Table(name="Ventas")
 public  class Sale implements Serializable {
-
 
     @Column(name="id")
     @Id
@@ -60,8 +59,11 @@ public  class Sale implements Serializable {
     @ManyToOne(targetEntity=Associate.class)
     private Associate associate;
 
+    @Transient
+    private boolean partner;
+    
     public Sale(){
-
+        this.setPartner(false);
     }
 
 
@@ -172,6 +174,40 @@ public  class Sale implements Serializable {
   public void setAssociate (Associate associate) {
         this.associate = associate;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
+
+    public boolean isPartner() {
+        return partner;
+    }
+
+    public void setPartner(boolean partner) {
+        this.partner = partner;
+    }
+
+    
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sale other = (Sale) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+  
+  
 
 }
 
