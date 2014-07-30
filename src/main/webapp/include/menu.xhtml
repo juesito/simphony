@@ -49,7 +49,7 @@
                             <p:column colspan="2">
                                 <p:commandButton update=":sform:growl" action="#{vendorBean.login()}"
                                                  tabindex="3" styleClass="button-rounded"
-                                                 value="Entrar" ajax="true">
+                                                 value="Entrar" ajax="ajax">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:commandButton>
                             </p:column>
@@ -68,7 +68,8 @@
                                                 action="toLogin" />
                             </p:column>
                         </p:row>
-                    </p:panelGrid>                 
+                    </p:panelGrid>      
+                    
 
                 </h:form>
             </ui:composition>

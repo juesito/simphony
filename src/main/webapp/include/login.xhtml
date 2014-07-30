@@ -7,14 +7,12 @@
 
     <f:view contentType="text/html">
         <h:body>
-            <ui:composition template="./../WEB-INF/templates/catalog.xhtml">
+            <ui:composition template="./../WEB-INF/templates/main.xhtml">
 
-                <ui:define name="content">
+                <ui:define name="left">
                     <h:form id="login-form">
-                        <div id="main-marquee" class="text-info"> 
 
                             <div class="msj-login-box">
-
                                 <p:panelGrid id="login" styleClass="loginPanelGrid"
                                              rendered="#{!userBean.current.looged}">
 
@@ -33,7 +31,7 @@
                                     <p:row>
                                         <p:column>
                                             <p:inputText id="userId" value="#{userBean.current.nick}" 
-                                                         maxlength="15" required="true" size="25"
+                                                         maxlength="15" required="true" size="20"
                                                          tabindex="1" >
                                                 <f:validateLength minimum="2" />
                                             </p:inputText>
@@ -44,7 +42,7 @@
                                     <p:row>
                                         <p:column>
                                             <p:password id="nick" value="#{userBean.current.password}" 
-                                                        maxlength="15" size="25"  
+                                                        maxlength="15" size="20"  
                                                         tabindex="2" feedback="false"
                                                         required="true" />
                                             <p:watermark for="nick" value="Contraseña" />
@@ -55,25 +53,31 @@
                                     <p:row>
                                         <p:column colspan="2">
                                             <p:commandButton action="#{userBean.login()}"
-                                                             tabindex="3" styleClass="button-rounded"
-                                                             value="Entrar" ajax="true" />  
-                                            
+                                                             tabindex="3" 
+                                                             value="Entrar" ajax="false" />  
+                                            <p:commandButton action="toindex"
+                                                             tabindex="4" immediate="true" 
+                                                             value="Salir"  />  
+
                                         </p:column>
 
                                     </p:row>
                                 </p:panelGrid>
-                            </div>
 
-                            <!-- mensaje de bienvenida -->
-                            <div class="msj-info-left">
-                                <p:outputLabel value="#{msgs.info_titlemsj}" styleClass="welcome-title"/>
-                                <br />
-                                <p:outputLabel value="#{msgs.info_main_title}" styleClass="welcome-msg"/>
-                                
                             </div>
-                            
-                        </div>
                     </h:form>
+                </ui:define>
+
+                <ui:define name="content">
+
+                    <!-- mensaje de bienvenida -->
+                    <div class="msj-info-left">
+                        <p:outputLabel value="#{msgs.info_titlemsj}" styleClass="welcome-title"/>
+                        <br />
+                        <p:outputLabel value="#{msgs.info_main_title}" styleClass="welcome-msg"/>
+
+                    </div>
+
                 </ui:define>
             </ui:composition>
         </h:body>
