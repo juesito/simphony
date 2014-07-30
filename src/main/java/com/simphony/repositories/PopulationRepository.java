@@ -25,7 +25,11 @@ public interface PopulationRepository extends JpaRepository<Population, Long> {
     @Query("SELECT p FROM Population p WHERE p.description = (:description)")
     public Population findByDesc(@Param("description") String description);
     
-    /*Obtenemos las poblaciones origen en itinerarios*/
+    /*Obtenemos las poblaciones origen en itinerarios
+    
+    
+    
+    
     @Query("SELECT distinct p FROM Population p, " + 
             " Itinerary i, ItineraryDetail d " + ""
             + " WHERE (p.id = i.origin.id " +
@@ -33,9 +37,13 @@ public interface PopulationRepository extends JpaRepository<Population, Long> {
             " AND ( UPPER(i.status) = UPPER('A') " +
             "   OR  UPPER(d.status) = UPPER('A')) " +
             " AND p.status = UPPER('A') ")
+    */
+    @Query("SELECT distinct i.origin FROM Itinerary i  " + 
+             " WHERE i.status = 'A' ")
     public List<Population> findOriginsForSale();
     
-    /*Obtenemos las poblaciones destino en itinerarios*/
+    
+    /*Obtenemos las poblaciones destino en itinerarios
     @Query("SELECT distinct p FROM Population p, " + 
             " Itinerary i, ItineraryDetail d " + ""
             + " WHERE (p.id = i.destiny.id " +
@@ -44,6 +52,10 @@ public interface PopulationRepository extends JpaRepository<Population, Long> {
             "   OR  UPPER(d.status) = UPPER('A')) " +
             " AND i.origin.id = (:originId) " +
             " AND p.status = UPPER('A') ")
+    */
+    @Query("SELECT distinct i.destiny FROM Itinerary i " + 
+             " WHERE i.origin.id = (:originId)  " +
+            " AND  UPPER(i.status) = UPPER('A')")
     public List<Population> findDestiniesForSale(@Param("originId") Long originId);
 
 }

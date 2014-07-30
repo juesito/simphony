@@ -27,7 +27,7 @@
                                                          style="width:160px" required="true" 
                                                          requiredMessage="Origen Requerido">
                                             <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
-                                            <p:ajax event="change" update=":saleForm:destiny" 
+                                           <p:ajax event="change" update=":saleForm:destiny" 
                                                     listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
                                         </p:selectOneMenu>
                                     </p:column>
@@ -59,7 +59,7 @@
                                 <p:row>
                                     <p:column>
                                         <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="10" 
-                                                    pages="3" showOn="button"/>
+                                                    pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -75,30 +75,38 @@
                                 <p:row>
                                     <p:column>
                                         <p:commandButton value="buscar" action="#{saleBean.findItinearies()}" 
-                                                         ajax="true" styleClass="button-rounded" update=":saleForm:dic"   />
+                                                         ajax="true" styleClass="button-rounded" 
+                                                         update=":saleForm:dic :saleForm:tripDate"   />
                                     </p:column>
                                 </p:row>                            
                             </p:panelGrid>
                             
                         </div>
+                        
                         <div class="box-content-sale-detail" >
-                            <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic">
-                                <p:column headerText="Itinerario">
-                                    #{ic.itinerary.id}
-                                </p:column>
+                            <p:outputLabel value="Fecha de salida:" />
+                            <p:calendar id="tripDate" value="#{saleBean.sale.tripDate}" pattern="dd/MMM/yyyy"
+                                        disabled="true" readonly="true"/>
+                            <br />
+                            <br />
+                            <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic"
+                                         selectionMode="single" selection="#{saleBean.selected}" 
+                                         rowKey="#{ic.rowId}">
                                 <p:column headerText="Origen">
-                                    #{ic.itinerary.origin.description}
+                                    <p:outputLabel value="#{ic.itinerary.origin.description}" />
                                 </p:column>
                                 <p:column headerText="Destino">
-                                    #{ic.itinerary.destiny.description}
+                                    <p:outputLabel value="#{ic.itinerary.destiny.description}" />
                                 </p:column>
                                 <p:column headerText="Costo">
-                                    #{ic.cost.cost}
+                                    <p:outputLabel value="#{ic.cost.cost}" />
                                 </p:column>
-                                <p:column headerText="Distancia">
-                                    #{ic.cost.kms}
+                                <p:column headerText="Tiempo recorrido">
+                                    <p:calendar value="#{ic.cost.routeTime}" timeOnly="true"
+                                                pattern="HH:mm" disabled="true" readonly="true" />
                                 </p:column>
                             </p:dataTable>
+                            <p:commandButton value="Selecionar asiento" />
                         </div>
                         
                         

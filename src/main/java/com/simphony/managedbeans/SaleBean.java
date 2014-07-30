@@ -26,6 +26,7 @@ public class SaleBean {
 
     private Sale sale = new Sale();
     private Cost cost = new Cost();
+    private ItineraryCost selected = new ItineraryCost();
 
     private List<Sale> list = new ArrayList();
     private List<Object[]> objects = new ArrayList<Object[]>();
@@ -98,6 +99,14 @@ public class SaleBean {
 
     public void setSaleService(SaleService saleService) {
         this.saleService = saleService;
+    }
+
+    public ItineraryCost getSelected() {
+        return selected;
+    }
+
+    public void setSelected(ItineraryCost selected) {
+        this.selected = selected;
     }
     
     
