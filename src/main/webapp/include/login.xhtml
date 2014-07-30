@@ -43,6 +43,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
+                                            <a href="header.xhtml"></a>
                                             <p:password id="nick" value="#{userBean.current.password}" 
                                                         maxlength="15" size="20"  
                                                         tabindex="2" feedback="false"
@@ -56,7 +57,10 @@
                                         <p:column colspan="2">
                                             <p:commandButton action="#{userBean.login()}"
                                                              tabindex="3" styleClass="button-rounded"
-                                                             value="Entrar" ajax="false" />  
+                                                             value="Entrar" ajax="false" /> 
+                                            <p:commandButton action="toIndex" immediate="true"
+                                                             tabindex="3" styleClass="button-rounded"
+                                                             value="Salir"  /> 
 
                                         </p:column>
 
