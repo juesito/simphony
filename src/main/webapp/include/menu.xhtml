@@ -38,7 +38,7 @@
                             <p:column colspan="2">
                                 
                                 <p:password id="vpassword" value="#{vendorBean.current.password}" 
-                                            maxlength="15" size="15"  immediate="true"
+                                            maxlength="15" size="15"  
                                             tabindex="2" required="true"  />
                                 <p:watermark for="vpassword" value="Contraseña" />
                                 <h:message for="vpassword" showSummary="false"/>
@@ -65,7 +65,7 @@
                             <p:column>
                                 <p:commandLink  value="Administrar" rendered="#{!userBean.current.looged}"
                                                 style="color:red !important;" immediate="true"
-                                                action="toLogin" />
+                                                action="toLogin" ajax="false" />
                             </p:column>
                         </p:row>
                     </p:panelGrid>      

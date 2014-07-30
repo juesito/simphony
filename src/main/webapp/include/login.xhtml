@@ -10,7 +10,9 @@
             <ui:composition template="./../WEB-INF/templates/main.xhtml">
 
                 <ui:define name="left">
-                    <h:form id="login-form">
+                    <h:form >
+
+                        <div id="main-marquee" class="text-info"> 
 
                             <div class="msj-login-box">
                                 <p:panelGrid id="login" styleClass="loginPanelGrid"
@@ -31,7 +33,7 @@
                                     <p:row>
                                         <p:column>
                                             <p:inputText id="userId" value="#{userBean.current.nick}" 
-                                                         maxlength="15" required="true" size="20"
+                                                         maxlength="15" required="true" size="25"
                                                          tabindex="1" >
                                                 <f:validateLength minimum="2" />
                                             </p:inputText>
@@ -42,7 +44,7 @@
                                     <p:row>
                                         <p:column>
                                             <p:password id="nick" value="#{userBean.current.password}" 
-                                                        maxlength="15" size="20"  
+                                                        maxlength="15" size="25"  
                                                         tabindex="2" feedback="false"
                                                         required="true" />
                                             <p:watermark for="nick" value="Contraseña" />
@@ -53,11 +55,8 @@
                                     <p:row>
                                         <p:column colspan="2">
                                             <p:commandButton action="#{userBean.login()}"
-                                                             tabindex="3" 
+                                                             tabindex="3" styleClass="button-rounded"
                                                              value="Entrar" ajax="false" />  
-                                            <p:commandButton action="toindex"
-                                                             tabindex="4" immediate="true" 
-                                                             value="Salir"  />  
 
                                         </p:column>
 
@@ -65,6 +64,8 @@
                                 </p:panelGrid>
 
                             </div>
+                        </div>
+
                     </h:form>
                 </ui:define>
 
