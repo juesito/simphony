@@ -49,15 +49,15 @@
                                     <p:outputLabel value="#{msgs.cat_departureTime}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:calendar value="#{itineraryBean.itinerary.departureTime}" 
-                                                pattern="HH:mm a" timeOnly="true" tabindex="3"/>
+                                    <p:calendar id="departureTime" value="#{itineraryBean.itinerary.departureTime}"
+                                                pattern="HH:mm" timeOnly="true" tabindex="3"/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_checkTime}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:calendar value="#{itineraryBean.itinerary.checkTime}" 
-                                                pattern="HH:mm a" timeOnly="true" tabindex="4" />
+                                    <p:calendar id="checkTime" value="#{itineraryBean.itinerary.checkTime}" 
+                                                pattern="HH:mm" timeOnly="true" tabindex="4" />
                                 </p:column>
                             </p:row>
                            <p:row>

@@ -42,7 +42,7 @@
                                     </p:column>
                                     <p:column>
                                         <p:calendar value="#{itineraryBean.itinerary.departureTime}"  disabled="true"
-                                                    pattern="HH:mm a" timeOnly="true" size="8"/>
+                                                    pattern="HH:mm" timeOnly="true" size="8"/>
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -51,7 +51,7 @@
                                     </p:column>
                                     <p:column>
                                         <p:calendar value="#{itineraryBean.itinerary.checkTime}" disabled="true"
-                                                    pattern="HH:mm a" timeOnly="true" size="8" />
+                                                    pattern="HH:mm" timeOnly="true" size="8" />
                                     </p:column>
                                 </p:row>
                                 
@@ -88,39 +88,28 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:outputLabel value="Horas desde Origen" />
+                                        <p:outputLabel value="#{msgs.cat_departureTime}:" />
                                     </p:column>
                                     <p:column>
-                                        <p:calendar value="#{itineraryDetailBean.itineraryDetail.hoursFromOrigin}" 
-                                                    pattern="HH:mm a" timeOnly="true" tabindex="3"/>
+                                        <p:calendar value="#{itineraryDetailBean.itineraryDetail.departureTime}" 
+                                                    pattern="HH:mm" timeOnly="true" tabindex="3"/>
                                     </p:column>
                                     <p:column>
-                                        <p:outputLabel value="Horas al Destino" />
+                                        <p:outputLabel value="#{msgs.cat_sequence}:" />
                                     </p:column>
                                     <p:column>
-                                        <p:calendar value="#{itineraryDetailBean.itineraryDetail.hoursToDestiny}" 
-                                                    pattern="HH:mm a" timeOnly="true" tabindex="4" />
+                                        <p:spinner stepFactor="10" min="0" max="1000" tabindex="4"/>
                                     </p:column>
                                 </p:row>
                                 <p:row>
-                                    <p:column>
+                                    <p:column>      
                                         <p:outputLabel value="#{msgs.cat_typeOfRoute}:" />
                                     </p:column>
                                     <p:column headerText="#{msgs.cat_status}" >
                                         <p:selectOneMenu value="#{itineraryDetailBean.itineraryDetail.typeOfRoute}" tabindex="5" required="true">                                    
                                             <f:selectItem itemValue="L" itemLabel="Local" />
                                             <f:selectItem itemValue="P" itemLabel="De paso" />
-                                            <f:selectItem itemValue="F" itemLabel="Final" />
                                         </p:selectOneMenu>
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Secuencia" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:inputText value="#{itineraryDetailBean.itineraryDetail.sequence }"
-                                                    size="8" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -170,19 +159,19 @@
                             </p:row>
 
                             <p:row>
-                                <p:column>
-                                    <p:outputLabel value="Horas desde Origen" />
-                                </p:column>
-                                <p:column>
-                                    <p:calendar value="#{itineraryDetailBean.itineraryDetail.hoursFromOrigin}" 
-                                                pattern="HH:mm a" timeOnly="true" tabindex="3"/>
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="Horas al Destino" />
-                                </p:column>
-                                <p:column>
-                                    <p:calendar value="#{itineraryDetailBean.itineraryDetail.hoursToDestiny}" 
-                                                pattern="HH:mm a" timeOnly="true" tabindex="4" />
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_departureTime}:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar value="#{itineraryDetailBean.itineraryDetail.departureTime}" 
+                                                    pattern="HH:mm" timeOnly="true" tabindex="3"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_sequence}:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:spinner stepFactor="10" min="0" max="1000" tabindex="4"  styleClass="spinner_Style"/>
+                                    </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
@@ -192,20 +181,9 @@
                                     <p:selectOneMenu value="#{itineraryDetailBean.itineraryDetail.typeOfRoute}" tabindex="5" required="true">                                    
                                         <f:selectItem itemValue="L" itemLabel="Local" />
                                         <f:selectItem itemValue="P" itemLabel="De paso" />
-                                        <f:selectItem itemValue="F" itemLabel="Final" />
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
-                            <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Secuencia" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:inputText value="#{itineraryDetailBean.itineraryDetail.sequence }" 
-                                                    size="8" />
-                                    </p:column>
-                                </p:row>
-
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
