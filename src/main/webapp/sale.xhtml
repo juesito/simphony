@@ -69,12 +69,7 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        
-                                        <p:selectOneRadio id="sample" value="#{saleBean.sale.partner}" layout="grid" 
-                                                      columns="2" required="true" requiredMessage="Requerido"  >  
-                                        <f:selectItem itemLabel="Si" itemValue="1" />  
-                                        <f:selectItem itemLabel="No" itemValue="2" />  
-                                    </p:selectOneRadio>  
+                                        <p:selectBooleanCheckbox value="#{saleBean.sale.partner}" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
