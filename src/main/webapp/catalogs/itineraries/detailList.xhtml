@@ -90,12 +90,9 @@
                                     <f:selectItem itemValue="F" itemLabel="Final" />
                                 </p:selectOneMenu>
                             </p:column>
-                            <p:column headerText="Hora Destino" >
-                                <p:calendar value="#{itineraryDetail.hoursToDestiny}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                            <p:column headerText="Hora Salida" >
+                                <p:calendar value="#{itineraryDetail.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
                             </p:column>
-                            <p:column headerText="Hora Origen" >
-                                <p:calendar value="#{itineraryDetail.hoursFromOrigin}" timeOnly="true" disabled="true" pattern="HH:mm" />
-                           </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{itineraryDetail.status}" />
                             </p:column>
@@ -153,17 +150,12 @@
                                     
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Horas de Origen:" />
+                                            <p:outputLabel value="Hora de Salida :" />
                                         </p:column>
                                         <p:column>
-                                            <p:calendar value="#{itineraryDetailBean.selected.hoursFromOrigin}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                            <p:calendar value="#{itineraryDetailBean.selected.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
                                         </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="Horas a destino:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:calendar value="#{itineraryDetailBean.selected.hoursToDestiny}" timeOnly="true" disabled="true" pattern="HH:mm" />
-                                        </p:column>
+                                        
                                     </p:row>
 
                                     <p:row>

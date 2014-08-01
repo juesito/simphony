@@ -46,16 +46,6 @@ public class ItineraryDetail implements Serializable, Cloneable {
     @Column(name = "tipoRuta")
     private String typeOfRoute;
 
-    @Column(name = "horasDesdeOrigen")
-    @Basic
-    @Temporal(javax.persistence.TemporalType.TIME)
-    private Date hoursFromOrigin;
-
-    @Column(name = "horasADestino")
-    @Basic
-    @Temporal(javax.persistence.TemporalType.TIME)
-    private Date hoursToDestiny;
-
     @Column(name = "estatus")
     @Basic
     private String status;
@@ -63,6 +53,11 @@ public class ItineraryDetail implements Serializable, Cloneable {
     @Column(name = "secuencia")
     @Basic
     private Integer sequence;
+    
+    @Column(name = "horaSalida")
+    @Basic
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date departureTime;
     
     @Transient
     private String action;
@@ -77,8 +72,6 @@ public class ItineraryDetail implements Serializable, Cloneable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    
 
     public Population getDestiny() {
         return destiny;
@@ -102,22 +95,6 @@ public class ItineraryDetail implements Serializable, Cloneable {
 
     public void setTypeOfRoute(String typeOfRoute) {
         this.typeOfRoute = typeOfRoute;
-    }
-
-    public Date getHoursFromOrigin() {
-        return hoursFromOrigin;
-    }
-
-    public void setHoursFromOrigin(Date hoursFromOrigin) {
-        this.hoursFromOrigin = hoursFromOrigin;
-    }
-
-    public Date getHoursToDestiny() {
-        return hoursToDestiny;
-    }
-
-    public void setHoursToDestiny(Date hoursToDestiny) {
-        this.hoursToDestiny = hoursToDestiny;
     }
 
     public String getStatus() {
@@ -155,13 +132,12 @@ public class ItineraryDetail implements Serializable, Cloneable {
     
     
     public void update(ItineraryDetail itineraryDetailUpdated) {
-        this.hoursFromOrigin = itineraryDetailUpdated.hoursFromOrigin;
-        this.hoursToDestiny = itineraryDetailUpdated.hoursToDestiny;
         this.destiny = itineraryDetailUpdated.destiny;
         this.origin = itineraryDetailUpdated.origin;
         this.status = itineraryDetailUpdated.status;
         this.typeOfRoute = itineraryDetailUpdated.typeOfRoute;
         this.itinerary = itineraryDetailUpdated.itinerary;
+        this.departureTime = itineraryDetailUpdated.departureTime;
     }
     
     @Override
@@ -192,7 +168,7 @@ public class ItineraryDetail implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "ItineraryDetail{" + "id=" + id + ", itinerary=" + itinerary + ", destiny=" + destiny + ", origin=" + origin + ", typeOfRoute=" + typeOfRoute + ", hoursFromOrigin=" + hoursFromOrigin + ", hoursToDestiny=" + hoursToDestiny + ", status=" + status + '}';
+        return "ItineraryDetail{" + "id=" + id + ", itinerary=" + itinerary + ", destiny=" + destiny + ", origin=" + origin + ", typeOfRoute=" + typeOfRoute + ", status=" + status + ", sequence=" + sequence + ", departureTime=" + departureTime + ", action=" + action + '}';
     }
 
     @Override
@@ -206,4 +182,13 @@ public class ItineraryDetail implements Serializable, Cloneable {
         return obj;
     }
 
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    
 }

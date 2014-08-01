@@ -174,7 +174,7 @@ public class ItineraryBean implements IConfigurable {
           //      exist = false;
           //  }
             
-            if (!exist) {
+            if (exist) {
                 itinerary.setUser(user);
                 itinerary.setCreateDate(cal.getTime());
                 itinerary.setStatus(_ENABLED);
