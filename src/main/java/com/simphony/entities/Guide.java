@@ -22,7 +22,7 @@ import javax.persistence.Temporal;
  *
  * @author Jueser
  */
-@Entity(name="Guia")
+@Entity(name="Guide")
 @Table(name = "Guias")
 public class Guide  implements Serializable, Cloneable{
     

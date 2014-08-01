@@ -27,7 +27,7 @@ public  class Sale implements Serializable {
     @ManyToOne(targetEntity=Vendor.class)
     private Vendor vendor;
 
-
+    @Transient
     @ManyToOne(targetEntity=Population.class)
     private Population origin;
 
@@ -41,9 +41,12 @@ public  class Sale implements Serializable {
     @Basic
     private Date tripDate;
 
-
+    @Transient
     @ManyToOne(targetEntity=Population.class)
     private Population destiny;
+    
+    @ManyToOne(targetEntity=Itinerary.class)
+    private Itinerary itinerary;
 
 
     @Column(name="tipo",length=2)
@@ -62,8 +65,17 @@ public  class Sale implements Serializable {
     @Transient
     private boolean partner;
     
+    @Transient
+    private boolean availability;
+    
+     @Transient
+    private boolean existRoutes;
+    
     public Sale(){
         this.setPartner(false);
+        this.setAvailability(false);
+        this.setExistRoutes(false);
+        this.associate = new Associate();
     }
 
 
@@ -190,6 +202,30 @@ public  class Sale implements Serializable {
         this.partner = partner;
     }
 
+    public Itinerary getItinerary() {
+        return itinerary;
+    }
+
+    public void setItinerary(Itinerary itinerary) {
+        this.itinerary = itinerary;
+    }
+
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
+
+    public boolean isExistRoutes() {
+        return existRoutes;
+    }
+
+    public void setExistRoutes(boolean existRoutes) {
+        this.existRoutes = existRoutes;
+    }
+    
     
     
     @Override

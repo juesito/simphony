@@ -27,17 +27,17 @@
                                                          style="width:160px" required="true" 
                                                          requiredMessage="Origen Requerido">
                                             <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
-                                           <p:ajax event="change" update=":saleForm:destiny" 
+                                            <p:ajax event="change" update=":saleForm:destiny" 
                                                     listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
                                         </p:selectOneMenu>
                                     </p:column>
-                                    
+
                                 </p:row>
                                 <p:row>
                                     <p:column>
                                         <p:outputLabel value="Destino:" />
                                     </p:column>
-                                    
+
                                 </p:row>
                                 <p:row>
                                     <p:column>
@@ -46,10 +46,10 @@
                                                          style="width:160px" required="true" 
                                                          requiredMessage="Destino requerido">
                                             <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
-                                            
+
                                         </p:selectOneMenu>
                                     </p:column>
-                                    
+
                                 </p:row>
                                 <p:row>
                                     <p:column>
@@ -58,7 +58,7 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="10" 
+                                        <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
                                                     pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
                                     </p:column>
                                 </p:row>
@@ -84,46 +84,92 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:commandButton value="buscar" action="#{saleBean.findItinearies()}" 
+                                        <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
                                                          ajax="true" styleClass="button-rounded" 
-                                                         update=":saleForm:dic :saleForm:tripDate"   />
+                                                         update=":saleForm:sale-panel"   />
                                     </p:column>
                                 </p:row>                            
                             </p:panelGrid>
-                            
+
                         </div>
-                        
+
                         <div class="box-content-sale-detail" >
-                            <p:outputLabel value="Fecha de salida:" />
-                            <p:calendar id="tripDate" value="#{saleBean.sale.tripDate}" pattern="dd/MMM/yyyy"
-                                        disabled="true" readonly="true"/>
-                            <br />
-                            <br />
-                            <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic"
-                                         selectionMode="single" selection="#{saleBean.selected}" 
-                                         rowKey="#{ic.rowId}">
-                                <p:column headerText="hr Salida">
-                                    <p:calendar pattern="HH:mm" size="10" readonly="true" disabled="true"
-                                                value="#{ic.itinerary.checkTime}" />
-                                </p:column>
-                                <p:column headerText="Origen">
-                                    <p:outputLabel value="#{ic.itinerary.origin.description}" />
-                                </p:column>
-                                <p:column headerText="Destino">
-                                    <p:outputLabel value="#{ic.itinerary.destiny.description}" />
-                                </p:column>
-                                <p:column headerText="Costo">
-                                    <p:outputLabel value="#{ic.cost.cost}" />
-                                </p:column>
-                                <p:column headerText="Tiempo recorrido">
-                                    <p:calendar value="#{ic.cost.routeTime}" timeOnly="true"
-                                                pattern="HH:mm" disabled="true" readonly="true" />
-                                </p:column>
-                            </p:dataTable>
-                            
+                            <!-- Itinerario Grid -->
+                            <p:panel id="sale-panel">
+                                <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
+                                    <p:row rendered="#{saleBean.sale.partner}">
+                                        <p:column>
+                                            <p:outputLabel value="Agremiado:"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText value="#{saleBean.sale.associate.keyId}" />
+                                            <p:commandButton icon="ui-icon-search" actionListener="#{saleBean.findAssociate()}"
+                                                             ajax="true" update=":saleForm:sale-detail-grid"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row rendered="#{saleBean.sale.partner}">
+                                        <p:column>
+                                            <p:outputLabel value="Agremiado" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.sale.associate.firstLastName} #{saleBean.sale.associate.name}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row><p:column>
+                                            <p:outputLabel value="Fecha de salida:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:calendar id="tripDate" value="#{saleBean.sale.tripDate}" pattern="dd/MMM/yyyy"
+                                                        disabled="true" readonly="true"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
+                                                             ajax="true" update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic"
+                                                         selectionMode="single" selection="#{saleBean.selected}" 
+                                                         rowKey="#{ic.rowId}">
+                                                <p:column headerText="hr Salida">
+                                                    <p:calendar pattern="HH:mm" size="10" readonly="true" disabled="true"
+                                                                value="#{ic.itinerary.checkTime}" />
+                                                </p:column>
+                                                <p:column headerText="Origen">
+                                                    <p:outputLabel value="#{ic.itinerary.origin.description}" />
+                                                </p:column>
+                                                <p:column headerText="Destino">
+                                                    <p:outputLabel value="#{ic.itinerary.destiny.description}" />
+                                                </p:column>
+                                                <p:column headerText="Costo">
+                                                    <p:outputLabel value="#{ic.cost.cost}" />
+                                                </p:column>
+                                                <p:column headerText="Tiempo recorrido">
+                                                    <p:calendar value="#{ic.cost.routeTime}" timeOnly="true"
+                                                                pattern="HH:mm" disabled="true" readonly="true" />
+                                                </p:column>
+
+                                            </p:dataTable>
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </p:panel>
+
+                            <!-- Seats Grid -->
+                            <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton value="Comprar Boletos" icon="ui-icon-cart" />
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
                         </div>
-                        
-                        
+
+
                     </h:form>
                 </ui:define>
 
