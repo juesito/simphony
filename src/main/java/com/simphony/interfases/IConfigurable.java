@@ -26,37 +26,9 @@ public interface IConfigurable {
     public final String _ADD = "A";
     public final String _MODIFY = "M";
 
-    //Areas usuario
-    public final String _USR_AREA_IT = "IT";
-    public final String _USR_AREA_QUALITY = "QL";
-    public final String _USR_AREA_MARKETING = "MK";
-    public final String _USR_AREA_PLANT = "PL";
-    public final String _USR_AREA_RANDD = "RD";
-    public final String _USR_AREA_PACKAGING = "PK";
-
-    //NCR Tipos
-    public final String _NCR_TYPE_FAMILY = "F";
-    public final String _NCR_TYPE_COMPONENT = "C";
-    public final String _NCR_TYPE_DEFECT = "D";
-
-    //Prefijos de los defectos
-    public final String _PREFIX_DEFECT_FAMILY = "FAM";
-    public final String _PREFIX_DEFECT_COMPONENT = "COM";
-    public final String _PREFIX_DEFECT_DEFECT = "DEF";
-
-    //Directorios para guardar documentos
-    public final String _DIR_DOC_ROOT = "C:\\Jafra-Claims\\";
-    public final String _DIR_DOC_TEMP = "C:\\Jafra-Claims\\temp\\";
-    public final String _DIR_DOC_CAPTURE = "Capture\\";
-    public final String _DIR_DOC_QRQC = "QRQC\\";
-    public final String _DIR_DOC_ANALIST = "Analist\\";
-
-    public final String _DIR_DOC_AREA = "Area\\";
-    public final String _DIR_DOC_DOCUMENTERS = "Documenters\\";
-    public final String _DIR_DOC_TICKETS = "Tickets\\";
-    public final String _DIR_DOC_FINAL_RESONSE = "Final-Response\\";
-    public final String _DIR_NOIMAGE = "C:\\Jafra-Claims\\NoImage.jpg";
-
+    public final String _GUIDE_TYPE_OPEN = "OP";
+    public final String _GUIDE_TYPE_CLOSED = "CL";
+    
     //Lenguajes
     public final String _LANGUAGE_MEXICAN = "ES";
     public final String _LANGUAGE_ENGLISH = "EN";

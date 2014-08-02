@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="rutas")
+@Table(name="Rutas")
 public class Route implements Serializable, Cloneable {
 
     @Column(name = "id")

@@ -9,9 +9,11 @@ import com.simphony.beans.AssociateService;
 import com.simphony.beans.CostService;
 import com.simphony.beans.GuideService;
 import com.simphony.beans.SaleService;
+import com.simphony.entities.Associate;
 import com.simphony.entities.Cost;
 import com.simphony.entities.Guide;
 import com.simphony.entities.Sale;
+import com.simphony.interfases.IConfigurable;
 import com.simphony.pojos.ItineraryCost;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class SaleBean {
+public class SaleBean implements IConfigurable{
 
     private Sale sale = new Sale();
     private Cost cost = new Cost();
@@ -83,12 +85,18 @@ public class SaleBean {
         itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
         itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
         sale.setExistRoutes(itineraryCost.size() > 0);
-        System.out.println("E. Routes-->" + sale.isExistRoutes());
 
     }
 
     public void findAssociate() {
-        this.sale.setAssociate(associateService.getRepository().findByKey(this.sale.getAssociate().getKeyId()));
+        Associate temp = associateService.getRepository().findByKey(this.sale.getAssociate().getKeyId());
+        
+        if(temp != null){
+            this.sale.setAssociate(temp);
+        }else{
+            this.sale.getAssociate().setKeyId(_BLANK);
+            GrowlBean.simplyErrorMessage("No se encontro", "Asociado no encontrado");
+        }
     }
 
     public void findAvailability() {
@@ -98,6 +106,12 @@ public class SaleBean {
             
         }else{
             this.sale.setAvailability(true);
+            guide = new Guide();
+            guide.setCheckDate(sale.getTripDate());
+            guide.setItinerary(this.selected.getItinerary());
+            guide.setStatus(_GUIDE_TYPE_CLOSED);
+            guide.setGuideReference("Sin Referencia");
+            guideService.getRepository().save(guide);
         }
         System.out.println("Availability-->" + sale.isAvailability());
     }

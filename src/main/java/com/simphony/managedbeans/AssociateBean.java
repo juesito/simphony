@@ -123,7 +123,6 @@ public class AssociateBean implements IConfigurable {
     /**
      * deshabilitamos agremiado
      *
-     * @throws com.simphony.exceptions.PersonException
      */
     public void disableAssociate() {
         this.selected.setStatus(_DISABLE);

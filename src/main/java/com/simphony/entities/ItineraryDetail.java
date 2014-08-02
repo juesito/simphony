@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -24,7 +23,7 @@ import javax.persistence.Transient;
  * @author root
  */
 @Entity(name = "ItineraryDetail")
-@Table(name = "detalleItinerarios")
+@Table(name = "DetalleItinerarios")
 public class ItineraryDetail implements Serializable, Cloneable {
 
     @Column(name = "id")

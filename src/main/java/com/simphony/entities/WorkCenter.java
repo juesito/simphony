@@ -8,7 +8,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name="WorkCenter")
-@Table(name="estacionesTrabajo")
+@Table(name="EstacionesTrabajo")
 public  class WorkCenter extends Catalog implements Serializable, Cloneable {
     public WorkCenter(){
 

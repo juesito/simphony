@@ -52,6 +52,7 @@ public class Itinerary implements Serializable, Cloneable {
     @Basic
     private String status;
     
+    @Column(name="ultimaModificacion")
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastUpdated;
@@ -62,6 +63,12 @@ public class Itinerary implements Serializable, Cloneable {
     public Itinerary() {
 
     }
+
+    public Itinerary(Long id) {
+        this.id = id;
+    }
+    
+    
     
     @PreUpdate
     public void preUpdate(){

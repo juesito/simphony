@@ -9,7 +9,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name="Bus")
-@Table(name="Autobus")
+@Table(name="Autobuses")
 public  class Bus extends Catalog implements Serializable, Cloneable {
 
     @Column(name="cupo")

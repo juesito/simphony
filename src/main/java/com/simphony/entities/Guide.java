@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -35,21 +36,20 @@ public class Guide  implements Serializable, Cloneable{
     @Basic(optional=true)
     private String guideReference;
     
+    @Column(name="estaus")
+    @Basic(optional=true)
+    private String status;
+    
     @Column(name = "fechaCompra")
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date purchaseDate;
+    private Date createDate;
     
     @Column(name = "fechaSalida")    
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date checkDate;
-    
-    @Column(name = "horaSalida")    
-    @Basic
-    @Temporal(javax.persistence.TemporalType.TIME)
-    private Date checkHour;
-    
+            
     @ManyToOne(targetEntity = Itinerary.class)
     private Itinerary itinerary;
     
@@ -65,6 +65,11 @@ public class Guide  implements Serializable, Cloneable{
     @ManyToOne(targetEntity = Vendor.class)
     private Vendor vendor;
 
+    @PreUpdate
+    public void preUpdate(){
+        setCreateDate(new Date());
+        
+    }
     public Long getId() {
         return id;
     }
@@ -81,12 +86,12 @@ public class Guide  implements Serializable, Cloneable{
         this.guideReference = guideReference;
     }
 
-    public Date getPurchaseDate() {
-        return purchaseDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = purchaseDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public Date getCheckDate() {
@@ -95,14 +100,6 @@ public class Guide  implements Serializable, Cloneable{
 
     public void setCheckDate(Date checkDate) {
         this.checkDate = checkDate;
-    }
-
-    public Date getCheckHour() {
-        return checkHour;
-    }
-
-    public void setCheckHour(Date checkHour) {
-        this.checkHour = checkHour;
     }
 
     public Itinerary getItinerary() {
@@ -144,6 +141,14 @@ public class Guide  implements Serializable, Cloneable{
     public void setVendor(Vendor vendor) {
         this.vendor = vendor;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
     @Override
     public int hashCode() {
@@ -154,7 +159,7 @@ public class Guide  implements Serializable, Cloneable{
 
     @Override
     public String toString() {
-        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", purchaseDate=" + purchaseDate + ", checkDate=" + checkDate + ", checkHour=" + checkHour + ", itinerary=" + itinerary + ", itineraryDetail=" + itineraryDetail + ", bus=" + bus + ", driverMan=" + driverMan + '}';
+        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", purchaseDate=" + createDate + ", checkDate=" + checkDate + ", itinerary=" + itinerary + ", itineraryDetail=" + itineraryDetail + ", bus=" + bus + ", driverMan=" + driverMan + '}';
     }
     
     @Override

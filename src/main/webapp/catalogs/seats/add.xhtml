@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <!-- panel para agregar -->
+                <p:panel rendered="#{seatBean.current.action eq 'A'}">
+                    <h:form id="add">
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_associate}" class="welcome-title" />
+                        <br/><br/>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Referencia:" />
+                                </p:column>
+                                 <p:column>
+                                     <p:inputText id="reference" value="#{seatBean.seat.reference}" required="true" 
+                                                 tabindex="1" maxlength="25" />
+                                    <p:message for="reference" />
+                                </p:column>
+                            </p:row>
+                            
+                            <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_save}" action="#{seatBean.save(userBean.current)}"
+                                                     ajax="false" update="main-form:growl" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{seatBean.cancelSeat()}"
+                                                     id="cancelAdd" process="@this"
+                                                     partialSubmit="true"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+                <!-- panel para modificar -->
+                <p:panel rendered="#{seatBean.current.action eq 'M'}">
+                    <h:form id="modify">
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_associate}" class="welcome-title" />
+                        <br/><br/>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">                            
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="name" value="#{seatBean.seat.reference}" required="true" maxlength="25" 
+                                                 requiredMessage="#{msgs.req_name}"/>
+                                    <p:message for="name" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_save}" action="#{seatBean.update(userBean.current)}"
+                                                     ajax="false" update="main-form:growl" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{seatBean.cancelSeat()}"
+                                                     id="cancelAdd" process="@this"
+                                                     partialSubmit="true"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

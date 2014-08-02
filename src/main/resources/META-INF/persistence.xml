@@ -2,7 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="simphony_pu" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <non-jta-data-source>simphony/jdbc</non-jta-data-source>
+    <non-jta-data-source>simphonydb/jdbc</non-jta-data-source>
     <class>com.simphony.entities.User</class>
     <class>com.simphony.entities.Population</class>
     <class>com.simphony.entities.SalePoint</class>
@@ -20,8 +20,10 @@
     <class>com.simphony.entities.Catalog</class>
     <class>com.simphony.entities.ItineraryDetail</class>
     <class>com.simphony.entities.Guide</class>
+    <class>com.simphony.entities.Seat</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+      <!--
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="jeargaqu"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
@@ -29,6 +31,7 @@
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
       <property name="hibernate.show_sql" value="true"/>
+      -->
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=simphonybd"/>
       <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
       <property name="javax.persistence.jdbc.password" value="jeargaqu"/>

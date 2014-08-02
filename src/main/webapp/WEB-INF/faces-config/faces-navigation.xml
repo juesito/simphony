@@ -121,6 +121,10 @@
             <from-outcome>toSale</from-outcome>
             <to-view-id>/sale.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>toSeats</from-outcome>
+            <to-view-id>/catalogs/seats/list.xhtml</to-view-id>
+        </navigation-case>
 
     </navigation-rule>
     <navigation-rule>
@@ -138,6 +142,16 @@
         <navigation-case>
             <from-outcome>addItineraryDetail</from-outcome>
             <to-view-id>/catalogs/itineraries/addDetail.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <description>Nos dirigimos a agregar asiento</description>
+        <from-view-id>/catalogs/seats/list.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addSeat</from-outcome>
+            <to-view-id>/catalogs/seats/add.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>

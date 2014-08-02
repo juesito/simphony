@@ -9,7 +9,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name="SalePoint")
-@Table(name="puntodeventa")
+@Table(name="Puntodeventa")
 public  class SalePoint extends Catalog implements Serializable, Cloneable {
 
 
