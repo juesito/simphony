@@ -13,6 +13,7 @@
                 <ui:define name="content"> 
                     <h:form id="saleForm">
                         <div class="box-content-sale" >
+                            <!-- choice your origin and destiny -->
                             <p:panelGrid styleClass="sale-schedule-panel">
                                 <p:row>
                                     <p:column>
@@ -96,6 +97,7 @@
                         <div class="box-content-sale-detail" >
                             <!-- Itinerario Grid -->
                             <p:panel id="sale-panel">
+                                <!-- first phase -->
                                 <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
                                     <p:row rendered="#{saleBean.sale.partner}">
                                         <p:column>
@@ -165,7 +167,7 @@
                                 <!-- Seats Grid -->
                                 <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
                                     <p:row>
-                                        <p:column>
+                                        <p:column colspan="2">
                                             <p:commandButton value="Comprar Boletos" icon="ui-icon-cart" />
                                         </p:column>
                                     </p:row>
@@ -178,24 +180,34 @@
                                                     Asientos disponibles
                                                 </f:facet>
 
-                                                <h:panelGrid columns="1" >
+                                                <p:panelGrid columns="1" >
+                                                    <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
+                                                                   title="Seleccione asiento">
+                                                        <img src="#{facesContext.externalContext.requestContextPath}/images/company/pseat.png"
+                                                             width="20" height="20"/> 
+                                                        <h:outputText value="#{seat.reference}" />
+                                                        <f:setPropertyActionListener value="#{seat}" target="#{saleBean.selectedSeat}" />
+                                                    </p:commandLink>
 
-
-                                                    <img src="#{facesContext.externalContext.requestContextPath}/images/company/pseat.png"
-                                                         width="50" height="50"/> 
-                                                    <h:outputText value="#{seat.reference}" />
-
-
-                                                </h:panelGrid>
+                                                </p:panelGrid>
 
                                             </p:dataGrid>
+                                        </p:column>
+                                        <p:column>
+                                            <p:dataList value="#{saleBean.selectedSeats}" id="selectedSeatsList" 
+                                                        var="unselectedseatList" type="ordered" itemType="none" >
+                                                <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.removeSeat}" 
+                                                               title="Seleccione asiento" ajax="true">
+                                                    <f:setPropertyActionListener value="#{unselectedseatList}" target="#{saleBean.unselectedSeat}" />
+                                                    <p:outputLabel value="#{unselectedseatList.id}, #{unselectedseatList.reference}" />
+                                                    
+                                                </p:commandLink>                                                                                                
+                                            </p:dataList>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </p:panel>
                         </div>
-
-
                     </h:form>
                 </ui:define>
 

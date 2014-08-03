@@ -18,7 +18,9 @@ import com.simphony.entities.Seat;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.pojos.ItineraryCost;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -34,12 +36,15 @@ public class SaleBean implements IConfigurable {
 
     private Sale sale = new Sale();
     private Cost cost = new Cost();
+    private Seat selectedSeat = new Seat();
+    private Seat unselectedSeat = new Seat();
     private ItineraryCost selected = new ItineraryCost();
 
     private List<Sale> list = new ArrayList();
     private List<Object[]> objects = new ArrayList<Object[]>();
     private List<Seat> seat = new ArrayList();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
+    private List<Seat> selectedSeats = new ArrayList<Seat>();
 
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
@@ -111,6 +116,9 @@ public class SaleBean implements IConfigurable {
         }
     }
 
+    /**
+     * buscando dispobinibilidad
+     */
     public void findAvailability() {
 
         if (selected != null) {
@@ -136,6 +144,15 @@ public class SaleBean implements IConfigurable {
 
     public void save() {
 
+    }
+    
+    public void addSeat(){
+        selectedSeats.add(selectedSeat);
+        System.out.println("Asiento --> " + unselectedSeat);
+    }
+    
+    public void removeSeat(){
+        selectedSeats.remove(unselectedSeat);
     }
 
     public List<Seat> getSeat() {
@@ -201,5 +218,33 @@ public class SaleBean implements IConfigurable {
     public void setAssociateService(AssociateService associateService) {
         this.associateService = associateService;
     }
+
+    public Seat getSelectedSeat() {
+        return selectedSeat;
+    }
+
+    public void setSelectedSeat(Seat selectedSeat) {
+        this.selectedSeat = selectedSeat;
+    }
+
+    public List<Seat> getSelectedSeats() {
+        return selectedSeats;
+    }
+
+    public void setSelectedSeats(List<Seat> selectedSeats) {
+        this.selectedSeats = selectedSeats;
+    }
+
+    
+
+    public Seat getUnselectedSeat() {
+        return unselectedSeat;
+    }
+
+    public void setUnselectedSeat(Seat unselectedSeat) {
+        this.unselectedSeat = unselectedSeat;
+    }
+    
+    
 
 }
