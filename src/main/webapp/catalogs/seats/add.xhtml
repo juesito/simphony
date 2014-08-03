@@ -12,7 +12,7 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
-                <p:panel rendered="#{seatBean.current.action eq 'A'}">
+                <p:panel rendered="#{seatBean.seat.action eq 'A'}">
                     <h:form id="add">
                         <p:outputLabel value="#{msgs.but_add} #{msgs.cat_associate}" class="welcome-title" />
                         <br/><br/>
@@ -47,7 +47,7 @@
                     </h:form>
                 </p:panel>
                 <!-- panel para modificar -->
-                <p:panel rendered="#{seatBean.current.action eq 'M'}">
+                <p:panel rendered="#{seatBean.seat.action eq 'M'}">
                     <h:form id="modify">
                         <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_associate}" class="welcome-title" />
                         <br/><br/>

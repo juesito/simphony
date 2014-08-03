@@ -9,14 +9,17 @@ import com.simphony.beans.AssociateService;
 import com.simphony.beans.CostService;
 import com.simphony.beans.GuideService;
 import com.simphony.beans.SaleService;
+import com.simphony.beans.SeatService;
 import com.simphony.entities.Associate;
 import com.simphony.entities.Cost;
 import com.simphony.entities.Guide;
 import com.simphony.entities.Sale;
+import com.simphony.entities.Seat;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.pojos.ItineraryCost;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -27,7 +30,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class SaleBean implements IConfigurable{
+public class SaleBean implements IConfigurable {
 
     private Sale sale = new Sale();
     private Cost cost = new Cost();
@@ -35,6 +38,7 @@ public class SaleBean implements IConfigurable{
 
     private List<Sale> list = new ArrayList();
     private List<Object[]> objects = new ArrayList<Object[]>();
+    private List<Seat> seat = new ArrayList();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
 
     @ManagedProperty(value = "#{costService}")
@@ -49,10 +53,18 @@ public class SaleBean implements IConfigurable{
     @ManagedProperty(value = "#{associateService}")
     private AssociateService associateService;
 
+    @ManagedProperty(value = "#{seatService}")
+    private SeatService seatService;
+
     /**
      * Creates a new instance of SaleBean
      */
     public SaleBean() {
+    }
+
+    @PostConstruct
+    void init() {
+        seat = seatService.getRepository().findAllAvailable();
     }
 
     public CostService getCostService() {
@@ -90,10 +102,10 @@ public class SaleBean implements IConfigurable{
 
     public void findAssociate() {
         Associate temp = associateService.getRepository().findByKey(this.sale.getAssociate().getKeyId());
-        
-        if(temp != null){
+
+        if (temp != null) {
             this.sale.setAssociate(temp);
-        }else{
+        } else {
             this.sale.getAssociate().setKeyId(_BLANK);
             GrowlBean.simplyErrorMessage("No se encontro", "Asociado no encontrado");
         }
@@ -101,23 +113,45 @@ public class SaleBean implements IConfigurable{
 
     public void findAvailability() {
 
-        Guide guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getId(), sale.getTripDate());
-        if(guide != null){
-            
-        }else{
-            this.sale.setAvailability(true);
-            guide = new Guide();
-            guide.setCheckDate(sale.getTripDate());
-            guide.setItinerary(this.selected.getItinerary());
-            guide.setStatus(_GUIDE_TYPE_CLOSED);
-            guide.setGuideReference("Sin Referencia");
-            guideService.getRepository().save(guide);
+        if (selected != null) {
+
+            Guide guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getId(), sale.getTripDate());
+            if (guide != null) {
+                // Validación de asientos
+            } else {
+                this.sale.setAvailability(true);                
+                guide = new Guide();
+                guide.setCheckDate(sale.getTripDate());
+                guide.setItinerary(this.selected.getItinerary());
+                guide.setStatus(_GUIDE_TYPE_CLOSED);
+                guide.setGuideReference("Sin Referencia");
+                guideService.getRepository().save(guide);
+            }
+            System.out.println("Availability-->" + sale.isAvailability());
+        } else {
+            GrowlBean.simplyWarmMessage("No selecciono registro", "Es necesario seleccionar");
         }
-        System.out.println("Availability-->" + sale.isAvailability());
+        this.sale.setExistRoutes(false);
     }
 
     public void save() {
 
+    }
+
+    public List<Seat> getSeat() {
+        return seat;
+    }
+
+    public void setSeat(List<Seat> seat) {
+        this.seat = seat;
+    }
+
+    public SeatService getSeatService() {
+        return seatService;
+    }
+
+    public void setSeatService(SeatService seatService) {
+        this.seatService = seatService;
     }
 
     public Cost getCost() {

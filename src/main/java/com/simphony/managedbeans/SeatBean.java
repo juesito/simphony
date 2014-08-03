@@ -11,9 +11,6 @@ import com.simphony.entities.Seat;
 import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
-import static com.simphony.interfases.IConfigurable._DISABLE;
-import static com.simphony.interfases.IConfigurable._ENABLED;
-import static com.simphony.interfases.IConfigurable._MODIFY;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Date;
@@ -115,7 +112,11 @@ public class SeatBean implements IConfigurable {
         }
     }
     
-    public String save(User user) {
+    /**
+     * Guardamos el asiento
+     * @param user
+     */
+    public void save(User user) {
         Boolean exist = true;
 
         //Se espera validacion
@@ -127,15 +128,20 @@ public class SeatBean implements IConfigurable {
             this.service.getRepository().save(seat);
             GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.seat.getReference() + " " + mp.getValue("msj_record_save"));
             seat = new Seat();
+            seat.setAction(_ADD);
 
         } else {
             GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.seat.getReference() + " " + mp.getValue("error_keyId_Detail"));
         }
 
-        return "";
     }
 
-    public String update(User user) throws PersonException {
+    /**
+     * Actualizamos el asiento
+     * @param user
+     * @throws PersonException
+     */
+    public void update(User user) throws PersonException {
 
         Seat seatUpdated = this.service.getRepository().findOne(this.seat.getId());
 
@@ -143,14 +149,13 @@ public class SeatBean implements IConfigurable {
             throw new PersonException("Asiento no existente");
         }
 
-        //associate.setLastUpdate(cal.getTime());
         seat.setUser(user);
         seatUpdated.update(this.seat);
         this.service.getRepository().save(seatUpdated);
 
         GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.seat.getReference()+ " " + mp.getValue("msj_record_update"));
         seat = new Seat();
-        return toSeats();
+        seat.setAction(_MODIFY);
     }
 
     public String toSeats() {

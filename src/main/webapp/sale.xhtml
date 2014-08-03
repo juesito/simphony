@@ -126,10 +126,13 @@
                                     <p:row>
                                         <p:column>
                                             <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
-                                                             ajax="true" update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid"/>
+                                                             ajax="true" 
+                                                             update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid 
+                                                             :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
+                                        <!-- disponibilidad de itinerarios -->
                                         <p:column colspan="2">
                                             <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic"
                                                          selectionMode="single" selection="#{saleBean.selected}" 
@@ -157,16 +160,39 @@
                                     </p:row>
 
                                 </p:panelGrid>
-                            </p:panel>
 
-                            <!-- Seats Grid -->
-                            <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
-                                <p:row>
-                                    <p:column>
-                                        <p:commandButton value="Comprar Boletos" icon="ui-icon-cart" />
-                                    </p:column>
-                                </p:row>
-                            </p:panelGrid>
+
+                                <!-- Seats Grid -->
+                                <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton value="Comprar Boletos" icon="ui-icon-cart" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4"
+                                                        rows="10" paginator="false" id="seats"  >
+
+                                                <f:facet name="header">
+                                                    Asientos disponibles
+                                                </f:facet>
+
+                                                <h:panelGrid columns="1" >
+
+
+                                                    <img src="#{facesContext.externalContext.requestContextPath}/images/company/pseat.png"
+                                                         width="50" height="50"/> 
+                                                    <h:outputText value="#{seat.reference}" />
+
+
+                                                </h:panelGrid>
+
+                                            </p:dataGrid>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:panel>
                         </div>
 
 
