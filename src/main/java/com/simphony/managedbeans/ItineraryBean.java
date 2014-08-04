@@ -5,7 +5,9 @@
  */
 package com.simphony.managedbeans;
 
+import com.simphony.beans.CostService;
 import com.simphony.beans.ItineraryService;
+import com.simphony.entities.Cost;
 import com.simphony.entities.Itinerary;
 import com.simphony.entities.User;
 import com.simphony.exceptions.ItineraryException;
@@ -39,6 +41,9 @@ public class ItineraryBean implements IConfigurable {
     @ManagedProperty(value = "#{itineraryService}")
     private ItineraryService itineraryService;
     
+    @ManagedProperty(value = "#{costService}")
+    private CostService costService;
+    
     private Calendar cal = Calendar.getInstance();
 
     /**
@@ -61,6 +66,14 @@ public class ItineraryBean implements IConfigurable {
         return itineraryService;
     }
     
+    public CostService getCostService() {
+        return costService;
+    }
+
+    public void setCostService(CostService costService) {
+        this.costService = costService;
+    }
+
     public Itinerary getItinerary() {
         return itinerary;
     }
@@ -179,6 +192,16 @@ public class ItineraryBean implements IConfigurable {
                 itinerary.setCreateDate(cal.getTime());
                 itinerary.setStatus(_ENABLED);
                 
+                Cost c = this.costService.getCostRepository().findByOriDes(this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
+
+                Calendar calItinerary = Calendar.getInstance();
+                calItinerary.setTime(itinerary.getDepartureTime());
+
+                Calendar calCost = Calendar.getInstance();
+                calCost.setTime(c.getRouteTime());
+                calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
+                this.itinerary.setCheckTime(calItinerary.getTime());
+                
                 this.itineraryService.getItineraryRepository().save(itinerary);
                 GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itinerary.getOrigin().getDescription());
                 itinerary = new Itinerary();
@@ -199,6 +222,14 @@ public class ItineraryBean implements IConfigurable {
      */
     public String update(User user) throws ItineraryException {
         
+        Cost c = this.costService.getCostRepository().findByOriDes(this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
+        
+        Calendar calItinerary = Calendar.getInstance();
+        calItinerary.setTime(this.itinerary.getDepartureTime());
+        
+        Calendar calCost = Calendar.getInstance();
+        calCost.setTime(c.getRouteTime());
+        calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
         Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(this.itinerary.getId());
         
         if (itineraryUpdated == null) {
@@ -206,6 +237,7 @@ public class ItineraryBean implements IConfigurable {
         }
         
         this.itinerary.setUser(user);
+        this.itinerary.setCheckTime(calItinerary.getTime());
         itineraryUpdated.update(this.itinerary);
         this.itineraryService.getItineraryRepository().save(itineraryUpdated);
         

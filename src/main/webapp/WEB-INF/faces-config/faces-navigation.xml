@@ -60,6 +60,16 @@
             <to-view-id>/catalogs/driverMen/add.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <description>de catalogo de Tipos de pago</description>
+            <from-outcome>toPayType</from-outcome>
+            <to-view-id>/catalogs/payTypes/list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>        
+            <from-outcome>addPayType</from-outcome>
+            <to-view-id>/catalogs/payTypes/add.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
 
         <navigation-case>
             <from-outcome>addWorkCenter</from-outcome>
@@ -97,7 +107,7 @@
             <from-outcome>toBus</from-outcome>
             <to-view-id>/catalogs/buses/list.xhtml</to-view-id>
         </navigation-case>
-        <navigation-case>
+       <navigation-case>
             <from-outcome>toUserTypes</from-outcome>
             <to-view-id>/catalogs/userTypes/list.xhtml</to-view-id>
         </navigation-case>
