@@ -22,9 +22,9 @@ import javax.persistence.Table;
 @Table(name="TiposdePago")
 public class PayType extends Catalog implements Serializable, Cloneable {
     
-    @Column(name="descuento")
+    @Column(name="referencia")
     @Basic
-    private float discount;
+    private String reference;
 
     public PayType(){
 
@@ -32,7 +32,7 @@ public class PayType extends Catalog implements Serializable, Cloneable {
 
     public void update(PayType payTypeUpdated){
         super.update(payTypeUpdated);
-        this.discount = payTypeUpdated.getDiscount();
+        this.reference = payTypeUpdated.getReference();
 
      }
  
@@ -41,13 +41,13 @@ public class PayType extends Catalog implements Serializable, Cloneable {
         super.setLastUpdate(new Date());
     }
 
-    public float getDiscount() {
-        return this.discount;
+    public String getReference() {
+        return this.reference;
     }
 
 
-    public void setDiscount (float discount) {
-        this.discount = discount;
+    public void setReference (String reference) {
+        this.reference = reference;
     }
 
 }

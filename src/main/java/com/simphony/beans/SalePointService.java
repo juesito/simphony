@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class SalePointService {
     
     @Autowired
-    private SalePointRepository salePointRepository;
+    SalePointRepository salePointRepository;
 
     public SalePointRepository getSalePointRepository() {
         return salePointRepository;

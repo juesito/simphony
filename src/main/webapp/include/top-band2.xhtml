@@ -52,7 +52,11 @@
                                 <p:menuitem value="Autobuses" action="#{busBean.toBus()}" ajax="false" /> 
                                 <p:menuitem value="Puntos de venta" action="#{salePointBean.toSalePoint()}" ajax="false" /> 
                                 <p:menuitem value="Estaciones de trabajo" action="#{workCenterBean.toWorkCenter()}" ajax="false" /> 
-                                <p:menuitem value="Vendedores" action="#{vendorBean.toVendors}" ajax="false" />
+                                <p:menuitem value="Vendedores" action="#{vendorBean.toVendors}" ajax="false" >
+                                    <f:actionListener  binding="#{boxPopulationService.fillBox()}"/> 
+                                    <f:actionListener  binding="#{boxWorkCenterService.fillBox()}"/> 
+                                    <f:actionListener  binding="#{boxSalePointService.fillBox()}"/> 
+                                </p:menuitem>
                                 <p:menuitem value="Tipos de Pago" action="#{payTypeBean.toPayType()}" ajax="false" /> 
                                 <p:menuitem value="Usuarios" action="#{userBean.toUsers}" ajax="false"
                                             actionListener="#{boxPopulationService.fillBox()}"/>

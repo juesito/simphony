@@ -30,8 +30,11 @@
                             <p:column headerText="#{msgs.cat_description}" >
                                 <p:outputLabel value="#{payType.description}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_discount}" >
-                                <p:outputLabel value="#{payType.discount}" />
+                            <p:column headerText="#{msgs.cat_reference}" >
+                                <p:selectOneMenu value="#{payType.reference}" disabled="true">                                    
+                                    <f:selectItem itemValue="_YES" itemLabel="#{msgs.but_yes}" />
+                                    <f:selectItem itemValue="_NO" itemLabel="#{NO}" />
+                                </p:selectOneMenu>
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
                                 <p:selectOneMenu value="#{payType.status}" disabled="true">                                    
@@ -79,9 +82,12 @@
                                     <h:outputText value="#{msgs.cat_description}:" />
                                     <h:outputText value="#{payTypeBean.selected.description}" />
                                                                        
-                                    <h:outputText value="#{msgs.cat_discount}:" />
-                                    <h:outputText value="#{payTypeBean.selected.discount}" />
-                                                                       
+                                    <h:outputText value="#{msgs.cat_reference}:" />
+                                        <p:selectOneMenu value="#{payType.reference}" disabled="true">                                    
+                                            <f:selectItem itemValue="_YES" itemLabel="#{msgs.but_yes}" />
+                                            <f:selectItem itemValue="_NO" itemLabel="#{NO}" />
+                                        </p:selectOneMenu>
+                                    
                                     <h:outputText value="#{msgs.cat_status}:" />
                                         <p:selectOneMenu value="#{payType.status}" disabled="true">                                    
                                             <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />

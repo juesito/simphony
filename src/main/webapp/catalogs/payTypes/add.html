@@ -30,13 +30,12 @@
                                 </p:column>
                             </p:row>
                         <p:row>
-                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_discount}:" />
-                                </p:column>
-                                 <p:column>
-                                     <p:inputText id="discount" value="#{payTypeBean.payType.discount}" maxlength="5" required="true" 
-                                                  requiredMessage="#{msgs.req_discount}" size="10"/>
-                                    <p:message for="discount" />
+                                <p:column>
+                                    <p:selectOneMenu  id="reference" effect="blind" value="#{payTypeBean.payType.reference}" 
+                                                      style="width: 100px;" >
+                                        <f:selectItem itemLabel="_YES" itemValue="#{msgs.but_yes}" />
+                                        <f:selectItem itemLabel="_NO" itemValue="No" />                                        
+                                    </p:selectOneMenu>
                                 </p:column>
                        </p:row>
                        <p:row>
@@ -78,13 +77,12 @@
                                 </p:column>
                             </p:row>
                         <p:row>
-                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_discount}:" />
-                                </p:column>
-                                 <p:column>
-                                     <p:inputText id="discount" value="#{payTypeBean.payType.discount}" maxlength="5" required="true" 
-                                                  requiredMessage="#{msgs.req_discount}" size="10"/>
-                                    <p:message for="discount" />
+                                <p:column>
+                                    <p:selectOneMenu  id="reference" effect="blind" value="#{payTypeBean.payType.reference}" 
+                                                      style="width: 100px;" >
+                                        <f:selectItem itemLabel="_YES" itemValue="#{msgs.but_yes}" />
+                                        <f:selectItem itemLabel="_NO" itemValue="No" />                                        
+                                    </p:selectOneMenu>
                                 </p:column>
                        </p:row>
                        <p:row>
