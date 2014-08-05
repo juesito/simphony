@@ -102,6 +102,7 @@ public class SaleBean implements IConfigurable {
         itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
         itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
         sale.setExistRoutes(itineraryCost.size() > 0);
+        sale.setAvailability(false);
 
     }
 
