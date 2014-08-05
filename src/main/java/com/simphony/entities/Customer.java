@@ -41,6 +41,16 @@ public  class Customer extends Person implements Serializable, Cloneable {
         }
         return obj;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+    
+    
   
 
 }

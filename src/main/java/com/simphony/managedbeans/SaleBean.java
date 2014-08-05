@@ -12,15 +12,15 @@ import com.simphony.beans.SaleService;
 import com.simphony.beans.SeatService;
 import com.simphony.entities.Associate;
 import com.simphony.entities.Cost;
+import com.simphony.entities.Customer;
 import com.simphony.entities.Guide;
 import com.simphony.entities.Sale;
+import com.simphony.entities.SaleDetail;
 import com.simphony.entities.Seat;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.pojos.ItineraryCost;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -37,7 +37,7 @@ public class SaleBean implements IConfigurable {
     private Sale sale = new Sale();
     private Cost cost = new Cost();
     private Seat selectedSeat = new Seat();
-    private Seat unselectedSeat = new Seat();
+    
     private ItineraryCost selected = new ItineraryCost();
 
     private List<Sale> list = new ArrayList();
@@ -45,6 +45,9 @@ public class SaleBean implements IConfigurable {
     private List<Seat> seat = new ArrayList();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
     private List<Seat> selectedSeats = new ArrayList<Seat>();
+    
+    private SaleDetail unSelectedDetail = new SaleDetail();
+    private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
 
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
@@ -148,12 +151,14 @@ public class SaleBean implements IConfigurable {
     }
     
     public void addSeat(){
-        selectedSeats.add(selectedSeat);
+        SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat,  new Customer());
+        saleDetail.add(saleDetailTmp);
         System.out.println("Asiento --> " + selectedSeat);
     }
     
     public void removeSeat(){
-        selectedSeats.remove(unselectedSeat);
+        saleDetail.remove(unSelectedDetail);
+        System.out.println("Total detalle:" + saleDetail.size());
     }
 
     public List<Seat> getSeat() {
@@ -235,17 +240,22 @@ public class SaleBean implements IConfigurable {
     public void setSelectedSeats(List<Seat> selectedSeats) {
         this.selectedSeats = selectedSeats;
     }
-
-    
-
-    public Seat getUnselectedSeat() {
-        return unselectedSeat;
+   
+    public List<SaleDetail> getSaleDetail() {
+        return saleDetail;
     }
 
-    public void setUnselectedSeat(Seat unselectedSeat) {
-        this.unselectedSeat = unselectedSeat;
+    public void setSaleDetail(List<SaleDetail> saleDetail) {
+        this.saleDetail = saleDetail;
     }
-    
+
+    public SaleDetail getUnSelectedDetail() {
+        return unSelectedDetail;
+    }
+
+    public void setUnSelectedDetail(SaleDetail unSelectedDetail) {
+        this.unSelectedDetail = unSelectedDetail;
+    }
     
 
 }

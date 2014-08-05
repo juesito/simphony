@@ -32,18 +32,18 @@ import org.springframework.data.domain.Sort;
 @ManagedBean
 @SessionScoped
 public class ItineraryBean implements IConfigurable {
-    
+
     private final MessageProvider mp;
     private Itinerary itinerary = new Itinerary();
     private Itinerary selected = new Itinerary();
     private List<Itinerary> list = new ArrayList<Itinerary>();
-    
+
     @ManagedProperty(value = "#{itineraryService}")
     private ItineraryService itineraryService;
-    
+
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
-    
+
     private Calendar cal = Calendar.getInstance();
 
     /**
@@ -52,20 +52,20 @@ public class ItineraryBean implements IConfigurable {
     public ItineraryBean() {
         mp = new MessageProvider();
     }
-    
+
     @PostConstruct
     public void postInitialization() {
-        
+
     }
-    
+
     public void setItineraryService(ItineraryService itineraryService) {
         this.itineraryService = itineraryService;
     }
-    
+
     public ItineraryService getItineraryService() {
         return itineraryService;
     }
-    
+
     public CostService getCostService() {
         return costService;
     }
@@ -77,27 +77,27 @@ public class ItineraryBean implements IConfigurable {
     public Itinerary getItinerary() {
         return itinerary;
     }
-    
+
     public void setItinerary(Itinerary itinerary) {
         this.itinerary = itinerary;
     }
-    
+
     public Itinerary getSelected() {
         return selected;
     }
-    
+
     public void setSelected(Itinerary selected) {
         this.selected = selected;
     }
-    
+
     public List<Itinerary> getList() {
         return list;
     }
-    
+
     public void setList(List<Itinerary> list) {
         this.list = list;
     }
-    
+
     public String addItinerary() {
         itinerary = new Itinerary();
         this.itinerary.setAction(_ADD);
@@ -129,14 +129,14 @@ public class ItineraryBean implements IConfigurable {
      */
     public void disableItinerary() {
         this.selected.setStatus(_DISABLE);
-        
+
         Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(selected.getId());
-        
+
         itineraryUpdated.update(selected);
         this.itineraryService.getItineraryRepository().save(itineraryUpdated);
-        
+
         this.fillItineraries();
-        
+
     }
 
     /**
@@ -144,16 +144,16 @@ public class ItineraryBean implements IConfigurable {
      */
     public void enabledItinerary() {
         this.selected.setStatus(_ENABLED);
-        
+
         Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(selected.getId());
-        
+
         itineraryUpdated.update(selected);
         this.itineraryService.getItineraryRepository().save(itineraryUpdated);
-        
+
         this.fillItineraries();
-        
+
     }
-    
+
     public String cancelItinerary() {
         this.fillItineraries();
         return "toItineraries";
@@ -180,32 +180,36 @@ public class ItineraryBean implements IConfigurable {
     public void save(User user) {
         Boolean exist = true;
         if (this.itinerary.getOrigin() != null && this.itinerary.getDestiny() != null) {
-            
+
             Itinerary itineratyTemp = this.itineraryService.getItineraryRepository().findByOriginAndDestiny(
                     this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
           //  if (itineratyTemp == null) {
-          //      exist = false;
-          //  }
-            
+            //      exist = false;
+            //  }
+
             if (exist) {
                 itinerary.setUser(user);
                 itinerary.setCreateDate(cal.getTime());
                 itinerary.setStatus(_ENABLED);
-                
+
                 Cost c = this.costService.getCostRepository().findByOriDes(this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
 
-                Calendar calItinerary = Calendar.getInstance();
-                calItinerary.setTime(itinerary.getDepartureTime());
+                if (c != null) {
+                    Calendar calItinerary = Calendar.getInstance();
+                    calItinerary.setTime(itinerary.getDepartureTime());
 
-                Calendar calCost = Calendar.getInstance();
-                calCost.setTime(c.getRouteTime());
-                calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
-                this.itinerary.setCheckTime(calItinerary.getTime());
-                
-                this.itineraryService.getItineraryRepository().save(itinerary);
-                GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itinerary.getOrigin().getDescription());
-                itinerary = new Itinerary();
-                itinerary.setAction(_ADD);
+                    Calendar calCost = Calendar.getInstance();
+                    calCost.setTime(c.getRouteTime());
+                    calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
+                    this.itinerary.setCheckTime(calItinerary.getTime());
+
+                    this.itineraryService.getItineraryRepository().save(itinerary);
+                    GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itinerary.getOrigin().getDescription());
+                    itinerary = new Itinerary();
+                    itinerary.setAction(_ADD);
+                } else {
+                    GrowlBean.simplyErrorMessage(mp.getValue("error_cost_title"), mp.getValue("error_cost"));
+                } //Existe tarifa?
             } else {
                 GrowlBean.simplyErrorMessage(mp.getValue("error_keyId"), mp.getValue("error_keyId_Detail"));
             }
@@ -221,28 +225,28 @@ public class ItineraryBean implements IConfigurable {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws ItineraryException {
-        
+
         Cost c = this.costService.getCostRepository().findByOriDes(this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
-        
+
         Calendar calItinerary = Calendar.getInstance();
         calItinerary.setTime(this.itinerary.getDepartureTime());
-        
+
         Calendar calCost = Calendar.getInstance();
         calCost.setTime(c.getRouteTime());
         calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
         Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(this.itinerary.getId());
-        
+
         if (itineraryUpdated == null) {
             throw new ItineraryException(mp.getValue("cat_itinerary") + " " + mp.getValue("not_founded"));
         }
-        
+
         this.itinerary.setUser(user);
         this.itinerary.setCheckTime(calItinerary.getTime());
         itineraryUpdated.update(this.itinerary);
         this.itineraryService.getItineraryRepository().save(itineraryUpdated);
-        
+
         GrowlBean.simplyInfoMessage(mp.getValue("msj_modified"), mp.getValue("msj_record_modified") + this.itinerary.getOrigin().getDescription());
-        
+
         itinerary = new Itinerary();
         return toItineraries();
     }
@@ -256,7 +260,7 @@ public class ItineraryBean implements IConfigurable {
         this.fillItineraries();
         return "toItineraries";
     }
-    
+
     /**
      * Controlador listar Itinerario
      *
@@ -265,7 +269,7 @@ public class ItineraryBean implements IConfigurable {
     public String toItineraryDetail() {
         if (this.selected != null) {
             try {
-                this.itinerary = (Itinerary) this.selected.clone();               
+                this.itinerary = (Itinerary) this.selected.clone();
             } catch (CloneNotSupportedException ex) {
                 Logger.getLogger(ItineraryBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -274,9 +278,9 @@ public class ItineraryBean implements IConfigurable {
             return "toItineraries";
         }
     }
-    
+
     private Sort sortByKeyId() {
         return new Sort(Sort.Direction.ASC, "origin");
     }
-    
+
 }

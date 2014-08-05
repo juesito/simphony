@@ -13,21 +13,19 @@ import javax.persistence.Table;
 @Table(name="DetalleVenta")
 public  class SaleDetail implements Serializable {
 
-
     @Column(name="importe")
     @Basic
-    private float amount;
-
+    private double amount;
 
     @Column(name="id")
     @Id
     private Long id;
 
-
-    @Column(name="asiento")
-    @Basic
-    private int seatId;
-
+    @ManyToOne(targetEntity=Seat.class)
+    private Seat seat;
+    
+    @ManyToOne(targetEntity=Customer.class)
+    private Customer customer;
 
     @Id@ManyToOne(targetEntity=Sale.class)
     private Sale sale;
@@ -36,13 +34,20 @@ public  class SaleDetail implements Serializable {
 
     }
 
+    public SaleDetail(double amount, Seat seat, Customer customer) {
+        this.amount = amount;
+        this.seat = seat;
+        this.customer = customer;
+    }
 
-   public float getAmount() {
+    
+
+   public double getAmount() {
         return this.amount;
     }
 
 
-  public void setAmount (float amount) {
+  public void setAmount (double amount) {
         this.amount = amount;
     }
 
@@ -57,18 +62,21 @@ public  class SaleDetail implements Serializable {
         this.id = id;
     }
 
-
-
-   public int getSeatId() {
-        return this.seatId;
+    public Seat getSeat() {
+        return seat;
     }
 
-
-  public void setSeatId (int seatId) {
-        this.seatId = seatId;
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
    public Sale getSale() {
         return this.sale;

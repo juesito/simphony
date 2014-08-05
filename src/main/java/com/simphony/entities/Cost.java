@@ -32,7 +32,7 @@ public class Cost extends Catalog implements Serializable, Cloneable {
 
     @Column(name = "cost", length = 4)
     @Basic
-    private int cost;
+    private double cost;
 
     public Cost() {
 
@@ -85,11 +85,11 @@ public class Cost extends Catalog implements Serializable, Cloneable {
         this.destiny = destiny;
     }
 
-    public int getCost() {
-        return this.cost;
+    public double getCost() {
+        return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
