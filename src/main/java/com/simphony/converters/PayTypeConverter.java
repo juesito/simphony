@@ -6,7 +6,6 @@
 
 package com.simphony.converters;
 
-//import com.simphony.entities.PayType;
 import com.simphony.entities.PayType;
 import com.simphony.selectors.PayTypeBox;
 import javax.faces.component.UIComponent;
