@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+                        
+                        <p:outputLabel value="#{msgs.cat_payTypes}" class="welcome-title" />
+                        
+                         <br />
+                        <!-- Data table -->
+                        <p:dataTable value="#{payTypeBean.list}" var="payType" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{payTypeBean.selected}" 
+                                     rowKey="#{payType.id}" id="payTypeDT"
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                    >
+                           
+                            <p:column headerText="#{msgs.cat_description}" >
+                                <p:outputLabel value="#{payType.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_reference}" >
+                                <p:selectOneMenu value="#{payType.reference}" disabled="true">                                    
+                                    <f:selectItem itemValue="_YES" itemLabel="#{msgs.but_yes}" />
+                                    <f:selectItem itemValue="_NO" itemLabel="#{NO}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_status}" >
+                                <p:selectOneMenu value="#{payType.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="payTypeDT" 
+                                                 update=":form:payTypeDetail" icon="ui-icon-search" 
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('payTypeDialog').show()" />
+                                <p:commandButton process="payTypeDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="#{msgs.but_modify}" action="#{payTypeBean.modifyPayType()}" />
+                                <p:commandButton process="payTypeDT" 
+                                                 update=":form:payTypeDT" icon="ui-icon-trash" 
+                                                 value="#{msgs.but_enable}" actionListener="#{payTypeBean.enabledPayType()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton process="payTypeDT" 
+                                                 update=":form:payTypeDT" icon="ui-icon-trash" 
+                                                 value="#{msgs.but_disable}" actionListener="#{payTypeBean.disablePayType()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+
+                        </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton value="#{msgs.but_add}" action="#{payTypeBean.addPayType}"
+                                         styleClass="catalog-button" ajax="false"/>
+
+                        <!-- detalle  -->
+                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_payType}" widgetVar="payTypeDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="payTypeDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty payTypeBean.selected}" columnClasses="label,value" >
+                                    
+                                    <h:outputText value="#{msgs.cat_description}:" />
+                                    <h:outputText value="#{payTypeBean.selected.description}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_reference}:" />
+                                        <p:selectOneMenu value="#{payType.reference}" disabled="true">                                    
+                                            <f:selectItem itemValue="_YES" itemLabel="#{msgs.but_yes}" />
+                                            <f:selectItem itemValue="_NO" itemLabel="#{NO}" />
+                                        </p:selectOneMenu>
+                                    
+                                    <h:outputText value="#{msgs.cat_status}:" />
+                                        <p:selectOneMenu value="#{payType.status}" disabled="true">                                    
+                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
+                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
+                                        </p:selectOneMenu>
+                                    
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
+                                    <h:outputText value="#{payTypeBean.selected.createDate}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_updateDate}:" />
+                                    <h:outputText value="#{payTypeBean.selected.lastUpdate}" />
+                                                                       
+                                     <h:outputText value="#{msgs.cat_user}:" />
+                                     <h:outputText value="#{payTypeBean.selected.user.name}" />
+                                                                       
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

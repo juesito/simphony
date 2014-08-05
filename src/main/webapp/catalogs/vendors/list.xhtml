@@ -43,9 +43,12 @@
                                 <p:outputLabel value="#{vendor.secondLastName}" />
                             </p:column>
 
+                            <p:column headerText="#{msgs.cat_salePoint}">
+                                <p:outputLabel value="#{vendor.salePoint.description}" />
+                            </p:column>
+
                             <p:column headerText="#{msgs.cat_population}">
                                 <p:outputLabel value="#{vendor.population.description}" />
-
                             </p:column>
 
                             <p:column headerText="#{msgs.cat_workCenter}">
@@ -109,6 +112,9 @@
 
                                     <h:outputText value="#{msgs.cat_secondLastName}:" />
                                     <h:outputText value="#{vendorBean.selected.secondLastName}" />
+
+                                    <h:outputText value="#{msgs.cat_salePoint}:" />
+                                    <h:outputText value="#{vendorBean.selected.salePoint.description}" />
 
                                     <h:outputText value="#{msgs.cat_population}:" />
                                     <h:outputText value="#{vendorBean.selected.population.description}" />

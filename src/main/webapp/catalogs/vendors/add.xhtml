@@ -72,6 +72,17 @@
                             </p:row>
                             <p:row>
                                 <p:column>
+                                    <p:outputLabel value="#{msgs.cat_salePoint}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="salePoint" value="#{vendorBean.vendor.salePoint}" 
+                                                     converter="salePointConverter" 
+                                                     style="width:160px" >
+                                        <f:selectItems value="#{boxSalePointService.salePointList}" />
+                                   </p:selectOneMenu>
+
+                                </p:column>
+                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_population}:" />
                                 </p:column>
                                 <p:column>
@@ -79,9 +90,10 @@
                                                      converter="populationConverter" 
                                                      style="width:160px" >
                                         <f:selectItems value="#{boxPopulationService.populationList}" />
-
                                     </p:selectOneMenu>
                                 </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_workCenter}:" />
                                 </p:column>
@@ -92,7 +104,6 @@
                                         <f:selectItems value="#{boxWorkCenterService.workCenterList}" />
 
                                     </p:selectOneMenu>
-
                                 </p:column>
                             </p:row>
 
@@ -172,6 +183,17 @@
                             </p:row>
                             <p:row>
                                 <p:column>
+                                    <p:outputLabel value="#{msgs.cat_salePoint}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="salePoint" value="#{vendorBean.vendor.salePoint}" 
+                                                     converter="salePointConverter" 
+                                                     style="width:160px" >
+                                        <f:selectItems value="#{boxSalePointService.salePointList}" />
+                                   </p:selectOneMenu>
+
+                                </p:column>
+                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_population}:" />
                                 </p:column>
                                 <p:column>
@@ -181,10 +203,12 @@
                                         <f:selectItems value="#{boxPopulationService.populationList}" />
                                     </p:selectOneMenu>
                                 </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_workCenter}:" />
                                 </p:column>
-                                 <p:column>
+                                <p:column>
                                     <p:selectOneMenu id="advanced" value="#{vendorBean.vendor.workCenter}" 
                                                      converter="workCenterConverter" 
                                                      style="width:160px" >
