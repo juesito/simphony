@@ -25,8 +25,7 @@ public class PayTypeConverter implements Converter {
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if(value != null && value.trim().length() > 0) {
             PayTypeBox service = (PayTypeBox) context.getExternalContext().getApplicationMap().get("boxPayTypeService");
-//            PayType payType = service.getPayTypeService().getPayTypeRepository().findOne(Long.parseLong(value));
-            PayType payType = null; //service.getPayTypeService().getPayTypeRepository().findOne(Long.parseLong(value));
+            PayType payType = service.getPayTypeService().getPayTypeRepository().findOne(Long.parseLong(value));
             return payType;
         }
         else {
@@ -37,8 +36,7 @@ public class PayTypeConverter implements Converter {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if(value != null && value instanceof PayType) {
-            //return String.valueOf(((PayType) value).getId());
-            return "0";
+            return String.valueOf(((PayType) value).getId());
         }
         else {
             return "";

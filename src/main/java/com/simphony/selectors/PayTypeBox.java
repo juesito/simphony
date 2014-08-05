@@ -29,10 +29,10 @@ public class PayTypeBox {
 
     @PostConstruct
     public void init() {
-        List<PayType> optionList = new  ArrayList(); //this.getPayTypeService().getPayTypeRepository().findAllEnabled();
+        List<PayType> optionList = this.getPayTypeService().getPayTypeRepository().findAll();
 
         for (PayType payType : optionList) {
-            //payTypeList.add(new SelectItem(payType, payType.getDescription()));
+            payTypeList.add(new SelectItem(payType, payType.getDescription()));
         }
     }
 

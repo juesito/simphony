@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.simphony.selectors;
 
 import com.simphony.beans.WorkCenterService;
@@ -12,7 +17,7 @@ import javax.faces.model.SelectItem;
 
 /**
  *
- * @author root
+ * @author Soporte IT
  */
 @ManagedBean(name = "boxWorkCenterService", eager = true)
 @ApplicationScoped
@@ -20,22 +25,29 @@ public class WorkCenterBox {
 
     @ManagedProperty(value = "#{workCenterService}")
     private WorkCenterService workCenterService;
-
+    
+    private List<WorkCenter> list = new ArrayList<WorkCenter>();
     private List<SelectItem> workCenterList = new ArrayList<SelectItem>();
 
+    /**
+     * Creates a new instance of WorkCenterBox
+     */
     public WorkCenterBox() {
     }
-    
 
     @PostConstruct
     public void init() {
+         
+        //Llena solo poblaciones activas
         List<WorkCenter> optionList = this.getWorkCenterService().getWorkCenterRepository().findAllEnabled();
 
         for (WorkCenter workCenter : optionList) {
+            list.add(workCenter);
             workCenterList.add(new SelectItem(workCenter, workCenter.getDescription()));
         }
-    }
 
+    }
+    
     public List<SelectItem> getWorkCenterList() {
         return workCenterList;
     }
@@ -57,5 +69,12 @@ public class WorkCenterBox {
         init();
     }
 
+    public List<WorkCenter> getList() {
+        return list;
+    }
+
+    public void setList(List<WorkCenter> list) {
+        this.list = list;
+    }
 
 }
