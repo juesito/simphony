@@ -26,6 +26,9 @@ public class Vendor extends Person implements Serializable, Cloneable {
 
     @ManyToOne(targetEntity = Population.class)
     private Population population;
+    
+    @ManyToOne(targetEntity = SalePoint.class)
+    private SalePoint salePoint;
 
     public Vendor() {
 
@@ -35,6 +38,7 @@ public class Vendor extends Person implements Serializable, Cloneable {
         super.update(vendorUpdated);
         this.nick = vendorUpdated.getNick();
         this.password = vendorUpdated.getPassword();
+        this.salePoint = vendorUpdated.getSalePoint();
     }
 
     @PreUpdate
@@ -72,6 +76,14 @@ public class Vendor extends Person implements Serializable, Cloneable {
 
     public void setPopulation(Population population) {
         this.population = population;
+    }
+
+    public SalePoint getSalePoint() {
+        return this.salePoint;
+    }
+
+    public void setSalePoint(SalePoint salePoint) {
+        this.salePoint = salePoint;
     }
 
     @Override

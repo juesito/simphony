@@ -52,13 +52,6 @@
                                     <p:calendar id="departureTime" value="#{itineraryBean.itinerary.departureTime}"
                                                 pattern="HH:mm" timeOnly="true" tabindex="3"/>
                                 </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_checkTime}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:calendar id="checkTime" value="#{itineraryBean.itinerary.checkTime}" 
-                                                pattern="HH:mm" timeOnly="true" tabindex="4" />
-                                </p:column>
                             </p:row>
                            <p:row>
                                 <p:column colspan="2"></p:column>
@@ -114,16 +107,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar id="mdeparturetime" value="#{itineraryBean.itinerary.departureTime}" 
-                                                pattern="HH:mm a" timeOnly="true" tabindex="3"/>
+                                                pattern="HH:mm" timeOnly="true" tabindex="3"/>
                                     <p:message for="mdeparturetime" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_checkTime}:" for="mchecktime" />
-                                </p:column>
-                                <p:column>
-                                    <p:calendar id="mchecktime" value="#{itineraryBean.itinerary.checkTime}" 
-                                                pattern="HH:mm a" timeOnly="true" tabindex="4" />
-                                    <p:message for="mchecktime" />
                                 </p:column>
                             </p:row>
 

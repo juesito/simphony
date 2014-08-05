@@ -6,26 +6,28 @@
 
 package com.simphony.beans;
 
-import com.simphony.repositories.SalePointRepository;
+import com.simphony.repositories.PayTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
  *
- * @author root
+ * @author Soporte IT
  */
 @Component
-public class SalePointService {
+public class PayTypeService {
     
     @Autowired
-    SalePointRepository salePointRepository;
+    PayTypeRepository payTypeRepository;
 
-    public SalePointRepository getSalePointRepository() {
-        return salePointRepository;
+    public PayTypeRepository getPayTypeRepository() {
+        return payTypeRepository;
     }
 
-    public void setSalePointRepository(SalePointRepository salePointRepository) {
-        this.salePointRepository= salePointRepository;
+    public void setPayTypeRepository(PayTypeRepository payTypeRepository) {
+        this.payTypeRepository = payTypeRepository;
     }
-        
+    
+    
+    
 }

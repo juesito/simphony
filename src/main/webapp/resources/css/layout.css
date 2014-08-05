@@ -353,3 +353,8 @@ div{ display:block; }
     border: none !important;
     font: 12px Helvetica, Arial, sans-serif;
 }
+
+
+.grid-seats tr, grid-seats td{
+    border: none;
+}

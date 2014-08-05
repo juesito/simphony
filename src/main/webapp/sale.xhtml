@@ -27,6 +27,7 @@
                                                          converter="populationConverter" 
                                                          style="width:160px" required="true" 
                                                          requiredMessage="Origen Requerido">
+                                            <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                             <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
                                             <p:ajax event="change" update=":saleForm:destiny" 
                                                     listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
@@ -46,6 +47,7 @@
                                                          converter="populationConverter" 
                                                          style="width:160px" required="true" 
                                                          requiredMessage="Destino requerido">
+                                            <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                             <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
 
                                         </p:selectOneMenu>
@@ -180,7 +182,7 @@
                                                     Asientos disponibles
                                                 </f:facet>
 
-                                                <p:panelGrid columns="1" >
+                                                <p:panelGrid columns="1" styleClass="grid-seats" >
                                                     <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
                                                                    title="Seleccione asiento">
                                                         <img src="#{facesContext.externalContext.requestContextPath}/images/company/pseat.png"
@@ -195,7 +197,7 @@
                                         </p:column>
                                         <p:column>
                                             <p:dataList value="#{saleBean.selectedSeats}" id="selectedSeatsList" 
-                                                        var="unselectedseatList" type="ordered" itemType="none" >
+                                                        var="unselectedseatList" type="ordered" itemType="none" styleClass="loginPanelGrid" >
                                                 <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.removeSeat}" 
                                                                title="Seleccione asiento" ajax="true">
                                                     <f:setPropertyActionListener value="#{unselectedseatList}" target="#{saleBean.unselectedSeat}" />
