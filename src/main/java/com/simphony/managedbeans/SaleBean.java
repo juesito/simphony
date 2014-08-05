@@ -148,7 +148,7 @@ public class SaleBean implements IConfigurable {
     
     public void addSeat(){
         selectedSeats.add(selectedSeat);
-        System.out.println("Asiento --> " + unselectedSeat);
+        System.out.println("Asiento --> " + selectedSeat);
     }
     
     public void removeSeat(){
