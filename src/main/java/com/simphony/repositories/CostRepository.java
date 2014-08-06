@@ -21,8 +21,9 @@ public interface CostRepository extends JpaRepository<Cost, Long>{
          + " WHERE c.origin.id = (:originId) AND c.destiny.id = (:destinyId)")
     public Cost findByOriDes(@Param("originId") Long originId, @Param("destinyId") Long destinyId);
     
-    @Query("SELECT c FROM Cost c "
-         + " WHERE c.origin.id = (:originId) AND c.destiny.id = (:destinyId)")
+    @Query("SELECT c FROM Cost c WHERE (c.origin.id = (:originId) AND c.destiny.id = (:destinyId)) "
+            + " OR (c.destiny.id = (:originId) AND c.origin.id = (:destinyId)) "
+            + "AND UPPER(w.status) = UPPER('A')") 
     public Cost routeTime(@Param("originId") Long originId, @Param("destinyId") Long destinyId);
        
 

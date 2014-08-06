@@ -27,7 +27,8 @@
                                 <p:column>
                                 <p:selectOneMenu id="route" value="#{itineraryBean.itinerary.route}" 
                                                      converter="mainItineraryConverter" 
-                                                     style="width:160px" tabindex="1" >
+                                                     style="width:200px" tabindex="1" >
+                                   <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_route}"  />
                                     <f:selectItems value="#{boxMainItineraryService.mainItineraryList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="route" />
@@ -37,7 +38,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar id="departureTime" value="#{itineraryBean.itinerary.departureTime}"
-                                                pattern="HH:mm" timeOnly="true" tabindex="3"/>
+                                                pattern="HH:mm" timeOnly="true" tabindex="3" style="width:50px"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -69,16 +70,8 @@
                                         <p:outputLabel value="#{msgs.cat_sequence}:" />
                                     </p:column>
                                     <p:column>
-                                        <p:spinner id="sequence" value="#{itineraryBean.itinerary.sequence}" stepFactor="10" min="0" max="1000" tabindex="4"/>
-                                    </p:column>
-                                    <p:column>      
-                                        <p:outputLabel value="#{msgs.cat_typeOfRoute}:" />
-                                    </p:column>
-                                    <p:column headerText="#{msgs.cat_status}" >
-                                        <p:selectOneMenu value="#{itineraryBean.itinerary.typeOfRoute}" tabindex="5" required="true">                                    
-                                            <f:selectItem itemValue="L" itemLabel="Local" />
-                                            <f:selectItem itemValue="P" itemLabel="De paso" />
-                                        </p:selectOneMenu>
+                                        <p:spinner id="sequence" value="#{itineraryBean.itinerary.sequence}" stepFactor="10" min="0" max="1000" 
+                                                   tabindex="4" />
                                     </p:column>
                                 </p:row>
                             <p:row>

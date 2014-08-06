@@ -44,7 +44,7 @@ public class MainItineraryBox implements IConfigurable{
 
         for (Itinerary mainItinerary : optionList) {
             String msgBox = _SHM.format(mainItinerary.getDepartureTime()) + " " +
-                    mainItinerary.getOrigin().getDescription() + " " +
+                    mainItinerary.getOrigin().getDescription() + "-" +
                     mainItinerary.getDestiny().getDescription();
             
             mainItineraryList.add(new SelectItem(mainItinerary, msgBox));

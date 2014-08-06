@@ -7,6 +7,7 @@
 package com.simphony.repositories;
 
 import com.simphony.entities.Bus;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,7 +18,11 @@ import org.springframework.data.repository.query.Param;
  */
 public interface BusRepository extends JpaRepository<Bus, Long> {
    
-      @Query("SELECT b FROM Bus b WHERE b.number = (:number)")
+    @Query("SELECT w FROM Bus w WHERE UPPER(w.status) = UPPER('A')")
+    public List<Bus> findAllEnabled();
+
+    
+    @Query("SELECT b FROM Bus b WHERE b.number = (:number)")
     public Bus findByNum(@Param("number") String number);
 
 }

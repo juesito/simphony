@@ -207,6 +207,9 @@ public class ItineraryBean implements IConfigurable {
                     calCost.setTime(c.getRouteTime());
                     calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
                     this.itinerary.setCheckTime(calItinerary.getTime());
+                    if (itinerary.getRoute() == null){
+                        this.itinerary.setTypeOfRoute("L");
+                    }else this.itinerary.setTypeOfRoute("P");
 
                     this.itineraryService.getItineraryRepository().save(itinerary);
                     GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itinerary.getOrigin().getDescription());
@@ -247,6 +250,9 @@ public class ItineraryBean implements IConfigurable {
 
         this.itinerary.setUser(user);
         this.itinerary.setCheckTime(calItinerary.getTime());
+        if (itinerary.getRoute() == null){
+            this.itinerary.setTypeOfRoute("L");
+        }else this.itinerary.setTypeOfRoute("P");
         itineraryUpdated.update(this.itinerary);
         this.itineraryService.getItineraryRepository().save(itineraryUpdated);
 
@@ -285,7 +291,7 @@ public class ItineraryBean implements IConfigurable {
     }
 
     private Sort sortByKeyId() {
-        return new Sort(Sort.Direction.ASC, "origin");
+        return new Sort(Sort.Direction.ASC, "typeOfRoute","sequence");
     }
 
 }

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+                        
+                        <p:outputLabel value="Guias" class="welcome-title" />
+                        
+                         <br />
+                        <!-- Data table -->
+                        <p:dataTable value="#{guideBean.list}" var="guide" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{guideBean.selected}" 
+                                     rowKey="#{guide.id}" id="guideDT"
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     >
+                           
+                            <p:column headerText="#{msgs.cat_Date}" >
+                                <p:outputLabel value="#{guide.Date}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_departureTime}" >
+                                <p:outputLabel value="#{guide}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_origin}" >
+                                <p:outputLabel value="#{guide.origin.description}" />
+                            </p:column>
+                             <p:column headerText="#{msgs.cat_destiny}" >
+                                 <p:outputLabel value="#{guide.destiny.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_bus}" >
+                                <p:outputLabel value="#{guide.bus.number}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_driverMan}" >
+                                <p:outputLabel value="#{guide.driverMan.firstLastName} #{guide.driverMan.name}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_status}" >
+                                <p:selectOneMenu value="#{guide.status}" disabled="true">                                    
+                                    <f:selectItem itemValue="A" itemLabel="#{msgs.sts_open}" />
+                                    <f:selectItem itemValue="C" itemLabel="#{msgs.sts_cancel}" />
+                                    <f:selectItem itemValue="I" itemLabel="#{msgs.sts_close}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="guideDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Modificar" action="#{guideBean.modifyGuide()}" />
+                                <p:commandButton process="guideDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Detalle" action="#{guideBean.modifyGuide()}" />
+                                <p:commandButton process="guideDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="Imprimir" action="#{guideBean.modifyGuide()}" />
+                            </f:facet>
+
+                        </p:dataTable>
+
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
