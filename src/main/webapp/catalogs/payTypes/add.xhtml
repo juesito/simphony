@@ -21,20 +21,23 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_number}:" />
+                                    <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
                                  <p:column>
                                      <p:inputText id="description" value="#{payTypeBean.payType.description}" maxlength="35" required="true" 
-                                                  requiredMessage="#{msgs.req_description}" size="11"/>
+                                                  requiredMessage="#{msgs.req_description}" size="35"/>
                                     <p:message for="description" />
                                 </p:column>
                             </p:row>
                         <p:row>
                                 <p:column>
+                                    <p:outputLabel value="#{msgs.cat_reference}:" />
+                                </p:column>
+                                <p:column>
                                     <p:selectOneMenu  id="reference" effect="blind" value="#{payTypeBean.payType.reference}" 
-                                                      style="width: 100px;" >
-                                        <f:selectItem itemLabel="_YES" itemValue="#{msgs.but_yes}" />
-                                        <f:selectItem itemLabel="_NO" itemValue="No" />                                        
+                                                      style="width: 70px;" >
+                                        <f:selectItem itemLabel="#{msgs.but_yes}" itemValue="_YES" />
+                                        <f:selectItem itemLabel="NO" itemValue="_NO" />                                        
                                     </p:selectOneMenu>
                                 </p:column>
                        </p:row>
@@ -73,15 +76,18 @@
                                  <p:column>
                                      <p:inputText id="description" value="#{payTypeBean.payType.description}" maxlength="35" required="true" 
                                                  requiredMessage="#{msgs.req_description}"/>
-                                    <p:message for="descripion" />
+                                    <p:message for="description" />
                                 </p:column>
                             </p:row>
                         <p:row>
                                 <p:column>
+                                    <p:outputLabel value="#{msgs.cat_reference}:" />
+                                </p:column>
+                                <p:column>
                                     <p:selectOneMenu  id="reference" effect="blind" value="#{payTypeBean.payType.reference}" 
                                                       style="width: 100px;" >
-                                        <f:selectItem itemLabel="_YES" itemValue="#{msgs.but_yes}" />
-                                        <f:selectItem itemLabel="_NO" itemValue="No" />                                        
+                                        <f:selectItem itemLabel="#{msgs.but_yes}" itemValue="_YES" />
+                                        <f:selectItem itemLabel="NO" itemValue="_NO" />                                        
                                     </p:selectOneMenu>
                                 </p:column>
                        </p:row>

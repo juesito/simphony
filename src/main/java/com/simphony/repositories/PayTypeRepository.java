@@ -7,6 +7,7 @@
 package com.simphony.repositories;
 
 import com.simphony.entities.PayType;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,5 +20,8 @@ public interface PayTypeRepository extends JpaRepository<PayType, Long> {
    
       @Query("SELECT b FROM PayType b WHERE b.description = (:description)")
     public PayType findByDes(@Param("description") String description);
+
+        @Query("SELECT w FROM PayType w WHERE UPPER(w.status) = UPPER('A')")
+    public List<PayType> findAllEnabled();
 
 }

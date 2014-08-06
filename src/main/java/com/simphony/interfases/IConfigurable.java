@@ -9,6 +9,7 @@ public interface IConfigurable {
     public final SimpleDateFormat _SDFCHARTLEGEND = new SimpleDateFormat("MMM yyyy");
     public final SimpleDateFormat _SDF = new SimpleDateFormat("yyyyMMdd");
     public final SimpleDateFormat _SHF = new SimpleDateFormat("hhmmss");
+    public final SimpleDateFormat _SHM = new SimpleDateFormat("hh:mm");
     public final SimpleDateFormat _SGF = new SimpleDateFormat("yyyyMMdd hhmmss");
     public final String _BLANK = "";
     public final String _ROOT_IMG = "ROOTIMG";

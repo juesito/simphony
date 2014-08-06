@@ -1,96 +1,73 @@
 package com.simphony.entities;
 
+import com.simphony.interfases.IConfigurable;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.Transient;
 
 @Entity(name = "Itinerary")
 @Table(name = "Itinerarios")
-public class Itinerary implements Serializable, Cloneable {
+public class Itinerary extends Catalog implements IConfigurable, Serializable, Cloneable {
 
-    @Column(name = "id")
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    
-    private Long id;
-    
-    @OneToOne(targetEntity = User.class)
-    private User user;
-    
-    @ManyToOne(targetEntity = Population.class)
-    private Population destiny;
-    
-    @ManyToOne(targetEntity = Population.class)
-    private Population origin;
-
-    @Column(name = "fechaCreacion")
-    @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date createDate;
+    @ManyToOne(targetEntity=Itinerary.class)
+    private Itinerary route;
 
     @Column(name = "horaSalida")
     @Basic
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.TIME)
     private Date departureTime;
+
+    @ManyToOne(targetEntity = Population.class)
+    private Population origin;
+
+    @ManyToOne(targetEntity = Population.class)
+    private Population destiny;
+ 
+    @Column(name = "secuencia")
+    @Basic
+    private Integer sequence;
+
+    @Basic
+    @Column(name = "tipoRuta")
+    private String typeOfRoute;
 
     @Column(name = "horaLlegada")
     @Basic
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.TIME)
     private Date checkTime;
 
-    @Column(name = "estatus")
-    @Basic
-    private String status;
-    
-    @Column(name="ultimaModificacion")
-    @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date lastUpdated;
 
-    @Transient
-    private String action;
-
+ 
     public Itinerary() {
 
     }
 
     public Itinerary(Long id) {
-        this.id = id;
+        this.setId(id);
     }
     
     
     
     @PreUpdate
     public void preUpdate(){
-        setLastUpdated(new Date());
+        super.setLastUpdate(new Date());
     }
 
     public void update(Itinerary itineraryUpdated) {
+        super.update(itineraryUpdated);
+        this.route = itineraryUpdated.route;
         this.checkTime = itineraryUpdated.checkTime;
         this.departureTime = itineraryUpdated.departureTime;
         this.destiny = itineraryUpdated.destiny;
         this.origin = itineraryUpdated.origin;
-        this.user = itineraryUpdated.user;
-        this.status = itineraryUpdated.status;
-        this.createDate = itineraryUpdated.createDate;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.typeOfRoute = itineraryUpdated.typeOfRoute;
+        this.sequence = itineraryUpdated.sequence;
     }
 
     public Population getDestiny() {
@@ -100,22 +77,6 @@ public class Itinerary implements Serializable, Cloneable {
     public void setDestiny(Population destiny) {
         this.destiny = destiny;
     }
-
-    public Date getCreateDate() {
-        return this.createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }   
 
     public Population getOrigin() {
         return origin;
@@ -141,61 +102,31 @@ public class Itinerary implements Serializable, Cloneable {
         this.checkTime = checkTime;
     }
 
-    public String getStatus() {
-        return status;
+    public Itinerary getRoute() {
+        return route;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setRoute(Itinerary route) {
+        this.route = route;
     }
 
-    public String getAction() {
-        return action;
+        public String getTypeOfRoute() {
+        return typeOfRoute;
     }
 
-    public void setAction(String action) {
-        this.action = action;
-    }
-    
-    public Date getLastUpdated() {
-        return lastUpdated;
+    public void setTypeOfRoute(String typeOfRoute) {
+        this.typeOfRoute = typeOfRoute;
     }
 
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public Integer getSequence() {
+        return sequence;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        Object obj = null;
-        try {
-            obj = super.clone();
-        } catch (CloneNotSupportedException ex) {
-            System.out.println(" no se puede duplicar");
-        }
-        return obj;
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
-    
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
+ 
+    public String getFormatDepartureTime(){
+        return _SHM.format(this.departureTime);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Itinerary other = (Itinerary) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
 }
