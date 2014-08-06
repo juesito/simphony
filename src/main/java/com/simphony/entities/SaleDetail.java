@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,7 +20,7 @@ public  class SaleDetail implements Serializable {
     private double amount;
 
     @Column(name="id")
-    @Id
+    @Id@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(targetEntity=Seat.class)
@@ -27,7 +29,7 @@ public  class SaleDetail implements Serializable {
     @ManyToOne(targetEntity=Customer.class)
     private Customer customer;
 
-    @Id@ManyToOne(targetEntity=Sale.class)
+    @ManyToOne(targetEntity=Sale.class)
     private Sale sale;
 
     public SaleDetail(){
@@ -50,7 +52,6 @@ public  class SaleDetail implements Serializable {
   public void setAmount (double amount) {
         this.amount = amount;
     }
-
 
 
    public Long getId() {

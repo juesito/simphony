@@ -232,3 +232,12 @@ input:hover{
 .login-input{
     height: 20px;
 }
+
+.grid-seats-main{
+    background-color: transparent !important;
+}
+
+#sale-seat-grid{
+    background-image: none !important;
+    background-color: transparent !important;
+}

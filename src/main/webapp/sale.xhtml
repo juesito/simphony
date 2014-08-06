@@ -14,7 +14,7 @@
                     <h:form id="saleForm">
                         <div class="box-content-sale" >
                             <!-- choice your origin and destiny -->
-                            <p:panelGrid styleClass="sale-schedule-panel">
+                            <p:panelGrid styleClass="sale-schedule-panel" >
                                 <p:row>
                                     <p:column>
                                         <p:outputLabel value="Saliendo de:" />
@@ -89,7 +89,9 @@
                                     <p:column>
                                         <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
                                                          ajax="true" styleClass="button-rounded" 
-                                                         update=":saleForm:sale-panel"   />
+                                                         update=":saleForm:sale-panel"  >
+
+                                        </p:commandButton>
                                     </p:column>
                                 </p:row>                            
                             </p:panelGrid>
@@ -108,7 +110,9 @@
                                         <p:column>
                                             <p:inputText value="#{saleBean.sale.associate.keyId}" />
                                             <p:commandButton icon="ui-icon-search" actionListener="#{saleBean.findAssociate()}"
-                                                             ajax="true" update=":saleForm:sale-detail-grid"/>
+                                                             ajax="true" update=":saleForm:sale-detail-grid">
+
+                                            </p:commandButton>
                                         </p:column>
                                     </p:row>
                                     <p:row rendered="#{saleBean.sale.partner}">
@@ -132,7 +136,9 @@
                                             <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
                                                              ajax="true" 
                                                              update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid 
-                                                             :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel"/>
+                                                             :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel">
+                                                <f:actionListener  binding="#{saleBean.fillSeats()}"/> 
+                                            </p:commandButton>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -155,7 +161,7 @@
                                                     <p:outputLabel value="#{ic.cost.cost}" />
                                                 </p:column>
                                                 <p:column headerText="Tiempo recorrido">
-                                                    <p:calendar value="#{ic.cost.routeTime}" timeOnly="true"
+                                                    <p:calendar value="#{ic.cost.routeTime}" timeOnly="true" size="8"
                                                                 pattern="HH:mm" disabled="true" readonly="true" />
                                                 </p:column>
 
@@ -169,70 +175,57 @@
                                 <!-- Seats Grid -->
                                 <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
                                     <p:row>
-                                        <p:column colspan="2">
-                                            <p:commandButton value="Comprar Boletos" icon="ui-icon-cart"
-                                                             oncomplete="PF('dlgPay').show();" update=":saleForm:payGrid" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
                                         <p:column>
-                                            <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4"
-                                                        rows="10" paginator="false" id="seats"  >
+                                            <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4" 
+                                                        rows="40" paginator="false" id="seats" styleClass="grid-seats-main"
+                                                        >
 
                                                 <f:facet name="header">
                                                     Asientos disponibles
                                                 </f:facet>
 
-                                                <p:panelGrid columns="1" styleClass="grid-seats" >
+                                                <p:panel styleClass="#{saleBean.columnClass(seat.id)}">
+
                                                     <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
                                                                    title="Seleccione asiento">
-                                                        <img src="#{facesContext.externalContext.requestContextPath}/images/company/pseat.png"
-                                                             width="20" height="20"/> 
+
                                                         <h:outputText value="#{seat.reference}" />
                                                         <f:setPropertyActionListener value="#{seat}" target="#{saleBean.selectedSeat}" />
                                                     </p:commandLink>
 
-                                                </p:panelGrid>
+                                                </p:panel>
+
 
                                             </p:dataGrid>
                                         </p:column>
                                         <p:column>
+                                            <!-- lista de asientos ocupados -->
                                             <p:dataList value="#{saleBean.saleDetail}" id="selectedSeatsList" 
-                                                        var="unselectedseatList" type="ordered" itemType="none" styleClass="loginPanelGrid" >
+                                                        var="unselectedseatList" type="ordered" itemType="none" styleClass="reservedSeat-grid" >
+                                                <f:facet name="header">
+                                                    <p:outputLabel value="Asientos reservados" style="font-size: 12px;" />
+                                                </f:facet>
                                                 <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.removeSeat}" 
                                                                title="Seleccione asiento" ajax="true">
-                                                    <f:setPropertyActionListener value="#{unselectedseatList}" target="#{saleBean.saleDetail}" />
-                                                    <p:outputLabel value="#{unselectedseatList.seat.id}, #{unselectedseatList.seat.reference}" />
+                                                    <f:setPropertyActionListener value="#{unselectedseatList}" target="#{saleBean.unSelectedDetail}" />
+                                                    <p:outputLabel value="#{unselectedseatList.seat.reference}" />
 
                                                 </p:commandLink>                                                                                                
                                             </p:dataList>
                                         </p:column>
                                     </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
+                                                             action="toSaleConfirm"  ajax="false"/>
+                                        </p:column>
+                                    </p:row>
                                 </p:panelGrid>
+
+
                             </p:panel>
 
-                            <!-- Gride del tipo de pago -->
-                           <p:dialog header="Modal Dialog" widgetVar="dlgPay" modal="true"
-                                      height="500" width="300">
-                                <p:panelGrid id="payGrid">
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Origen:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.itinerary.origin.description}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Destino:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.itinerary.destiny.description}" />
-                                        </p:column>
-                                    </p:row>
-                                </p:panelGrid>
-                           </p:dialog>
+                            
                         </div>
                     </h:form>
                 </ui:define>

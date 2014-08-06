@@ -6,6 +6,7 @@
 
 package com.simphony.beans;
 
+import com.simphony.repositories.SaleDetailRepository;
 import com.simphony.repositories.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,9 @@ public class SaleService {
     
     @Autowired
     SaleRepository saleRepository;
+    
+    @Autowired
+    SaleDetailRepository detailRepository;
 
     public SaleRepository getSaleRepository() {
         return saleRepository;
@@ -27,6 +31,16 @@ public class SaleService {
     public void setSaleRepository(SaleRepository saleRepository) {
         this.saleRepository = saleRepository;
     }
+
+    public SaleDetailRepository getDetailRepository() {
+        return detailRepository;
+    }
+
+    public void setDetailRepository(SaleDetailRepository detailRepository) {
+        this.detailRepository = detailRepository;
+    }
+    
+    
     
     
 }

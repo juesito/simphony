@@ -165,4 +165,14 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <description>Nos dirigimos a confirmar venta</description>
+        <from-view-id>sale.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toSaleConfirm</from-outcome>
+            <to-view-id>confirmSale.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

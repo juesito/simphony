@@ -161,7 +161,7 @@
     min-height: 360px;
     max-height: 361px;
     border: none;  
-    
+
 }
 
 .msj-info-left{
@@ -195,7 +195,7 @@
 
 
 #marco-bot-title{             
-    
+
     display: inline-block;
     vertical-align: top;        
     margin: 3px 0px 2px 15px;
@@ -243,7 +243,7 @@ div{ display:block; }
 }
 .itinerary-header-detail td, itinerary-header-detail tr{
     border: none;  
-    
+
 }
 
 .itinerary-detail-detail{
@@ -264,7 +264,7 @@ div{ display:block; }
     border: 2px solid rgba(27,71,48,1);
     padding: 10px 40px;     
     width: 300px;
-    min-height: 200px;
+    min-height: 350px;
     border-radius: 25px;
 }
 
@@ -276,7 +276,7 @@ div{ display:block; }
     padding: 10px 40px;     
     width: 60%;
     border-radius: 25px;
-    min-height: 400px;
+    min-height: 500px;
 }
 
 
@@ -357,4 +357,79 @@ div{ display:block; }
 
 .grid-seats tr, grid-seats td{
     border: none;
+
 }
+
+.aislel{   
+    border-right: none  !important; 
+    border-top: none  !important; 
+    border-bottom: none  !important; 
+    border-left: #1B4730 double !important; 
+    text-align: center;
+    min-height: 20px !important; 
+    min-width: 30px !important; 
+    margin-left: 0px;
+    font-size: 12px !important;     
+    background: #ffffff url(pseat.png) no-repeat left top !important;
+    background-attachment: fixed;  // cover !important;
+    background-size: 40% !important;
+    font-weight: bold !important;
+    text-align: center;
+    color:#94A89E !important;
+}
+
+.aisler{   
+    border-left: none  !important; 
+    border-top: none  !important; 
+    border-bottom: none  !important; 
+    border-right: #1B4730 double !important; 
+    text-align: center;
+    min-height: 20px !important; 
+    min-width: 30px !important; 
+
+    margin-right: 30px;
+    font-size: 12px !important;  
+    
+    background: #ffffff url(pseat.png) no-repeat left top !important;
+    background-attachment: fixed;  // cover !important;
+    background-size: 40% !important;
+    font-weight: bold !important;
+    text-align: center;
+    color:#94A89E !important;
+}
+
+.window{
+    margin: 0px !important;
+    padding: 0px !important;
+    min-height: 20px !important; 
+    min-width: 30px !important; 
+    font-size: 12px !important;  
+    background: #ffffff url(pseat.png) no-repeat left top !important;
+    background-attachment: fixed;  // cover !important;
+    background-size: 40% !important;
+    font-weight: bold !important;
+    text-align: center;
+    color:#94A89E !important;
+    border:none !important;
+}
+.window:hover, .aisler:hover, .aislel:hover{
+    background: #849A8E !important;
+    cursor: pointer;
+
+}
+
+.reservedSeat-grid{
+    display: inline-block;
+    vertical-align: top;    
+    min-width: 200px;
+    min-height: 380px;
+    font-size: 10px !important;
+    border: 1px solid;
+    border:1px solid rgba(27,71,48,1);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(27,71,48,1); // Verde
+    -moz-box-shadow: 10px 10px 5px 0px rgba(27,71,48,1);
+    box-shadow: 10px 10px 5px 0px rgba(27,71,48,1);  
+}
+
+
+

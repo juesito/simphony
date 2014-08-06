@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -17,6 +19,7 @@ public  class Sale implements Serializable {
 
     @Column(name="id")
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
 
@@ -96,7 +99,9 @@ public  class Sale implements Serializable {
 
 
   public void setCancelVendor (Vendor cancelVendor) {
+      if(cancelVendor != null){
         this.cancelVendor = cancelVendor;
+      }
     }
 
 
