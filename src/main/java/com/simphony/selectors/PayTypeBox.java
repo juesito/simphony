@@ -26,7 +26,6 @@ public class PayTypeBox {
     @ManagedProperty(value = "#{payTypeService}")
     private PayTypeService payTypeService;
     
-    private List<PayType> list = new ArrayList<PayType>();
     private List<SelectItem> payTypeList = new ArrayList<SelectItem>();
 
     /**
@@ -42,7 +41,6 @@ public class PayTypeBox {
         List<PayType> optionList = this.getPayTypeService().getPayTypeRepository().findAllEnabled();
 
         for (PayType payType : optionList) {
-            list.add(payType);
             payTypeList.add(new SelectItem(payType, payType.getDescription()));
         }
 
@@ -67,14 +65,6 @@ public class PayTypeBox {
     public void fillBox() {
         payTypeList.clear();
         init();
-    }
-
-    public List<PayType> getList() {
-        return list;
-    }
-
-    public void setList(List<PayType> list) {
-        this.list = list;
     }
 
 }

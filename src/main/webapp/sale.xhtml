@@ -123,7 +123,8 @@
                                             <p:outputLabel value="#{saleBean.sale.associate.firstLastName} #{saleBean.sale.associate.name}" />
                                         </p:column>
                                     </p:row>
-                                    <p:row><p:column>
+                                    <p:row>
+                                        <p:column>
                                             <p:outputLabel value="Fecha de salida:" />
                                         </p:column>
                                         <p:column>
@@ -131,6 +132,7 @@
                                                         disabled="true" readonly="true"/>
                                         </p:column>
                                     </p:row>
+                                    
                                     <p:row>
                                         <p:column>
                                             <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"

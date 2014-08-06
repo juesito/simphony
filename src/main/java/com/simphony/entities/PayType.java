@@ -6,6 +6,7 @@
 
 package com.simphony.entities;
 
+import com.simphony.interfases.IConfigurable;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -20,14 +21,14 @@ import javax.persistence.Table;
  */
 @Entity(name="PayType")
 @Table(name="TiposdePago")
-public class PayType extends Catalog implements Serializable, Cloneable {
+public class PayType extends Catalog implements Serializable, Cloneable, IConfigurable {
     
     @Column(name="referencia")
     @Basic
     private String reference;
 
-    public PayType(){
-
+    public PayType(){        
+        this.reference = _NO;
     }         
 
     public void update(PayType payTypeUpdated){
@@ -50,4 +51,5 @@ public class PayType extends Catalog implements Serializable, Cloneable {
         this.reference = reference;
     }
 
+    
 }

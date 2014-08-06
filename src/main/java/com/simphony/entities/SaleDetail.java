@@ -26,8 +26,9 @@ public  class SaleDetail implements Serializable {
     @ManyToOne(targetEntity=Seat.class)
     private Seat seat;
     
-    @ManyToOne(targetEntity=Customer.class)
-    private Customer customer;
+    @Column(name="nombreCliente")
+    @Basic
+    private String customerName;
 
     @ManyToOne(targetEntity=Sale.class)
     private Sale sale;
@@ -39,25 +40,30 @@ public  class SaleDetail implements Serializable {
     public SaleDetail(double amount, Seat seat, Customer customer) {
         this.amount = amount;
         this.seat = seat;
-        this.customer = customer;
     }
-
     
+    /**
+     * Limpiamos el detalle de la venta.
+     */
+    public void clear(){
+        this.id = 0L;
+        this.amount = 0.0;
+        this.customerName = "";
+        this.seat = new Seat();
+        this.sale = new Sale();
+    }
 
    public double getAmount() {
         return this.amount;
     }
 
-
   public void setAmount (double amount) {
         this.amount = amount;
     }
 
-
    public Long getId() {
         return this.id;
     }
-
 
   public void setId (Long id) {
         this.id = id;
@@ -71,18 +77,17 @@ public  class SaleDetail implements Serializable {
         this.seat = seat;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
    public Sale getSale() {
         return this.sale;
     }
-
 
   public void setSale (Sale sale) {
         this.sale = sale;

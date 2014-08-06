@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -48,13 +49,10 @@ public class Guide  implements Serializable, Cloneable{
     @Column(name = "fechaSalida")    
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date checkDate;
+    private Date departureDate;
             
     @ManyToOne(targetEntity = Itinerary.class)
     private Itinerary itinerary;
-    
-    @ManyToOne(targetEntity = ItineraryDetail.class)
-    private ItineraryDetail itineraryDetail;    
     
     @ManyToOne(targetEntity = Bus.class)
     private Bus bus;
@@ -65,6 +63,17 @@ public class Guide  implements Serializable, Cloneable{
     @ManyToOne(targetEntity = Vendor.class)
     private Vendor vendor;
 
+    @Transient
+    private boolean newGuide;
+
+    public Guide() {
+        this.newGuide = false;
+    }
+
+    public Guide(boolean newGuide) {
+        this.newGuide = newGuide;
+    }
+    
     @PreUpdate
     public void preUpdate(){
         setCreateDate(new Date());
@@ -94,12 +103,12 @@ public class Guide  implements Serializable, Cloneable{
         this.createDate = createDate;
     }
 
-    public Date getCheckDate() {
-        return checkDate;
+    public Date getDepartureDate() {
+        return departureDate;
     }
 
-    public void setCheckDate(Date checkDate) {
-        this.checkDate = checkDate;
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
     }
 
     public Itinerary getItinerary() {
@@ -108,14 +117,6 @@ public class Guide  implements Serializable, Cloneable{
 
     public void setItinerary(Itinerary itinerary) {
         this.itinerary = itinerary;
-    }
-
-    public ItineraryDetail getItineraryDetail() {
-        return itineraryDetail;
-    }
-
-    public void setItineraryDetail(ItineraryDetail itineraryDetail) {
-        this.itineraryDetail = itineraryDetail;
     }
 
     public Bus getBus() {
@@ -149,6 +150,14 @@ public class Guide  implements Serializable, Cloneable{
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public boolean isNewGuide() {
+        return newGuide;
+    }
+
+    public void setNewGuide(boolean newGuide) {
+        this.newGuide = newGuide;
+    }
     
     @Override
     public int hashCode() {
@@ -159,9 +168,9 @@ public class Guide  implements Serializable, Cloneable{
 
     @Override
     public String toString() {
-        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", purchaseDate=" + createDate + ", checkDate=" + checkDate + ", itinerary=" + itinerary + ", itineraryDetail=" + itineraryDetail + ", bus=" + bus + ", driverMan=" + driverMan + '}';
+        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", status=" + status + ", createDate=" + createDate + ", departureDate=" + departureDate + ", itinerary=" + itinerary + ", bus=" + bus + ", driverMan=" + driverMan + ", vendor=" + vendor + ", newGuide=" + newGuide + '}';
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

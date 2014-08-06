@@ -28,6 +28,7 @@
                                 <p:selectOneMenu id="route" value="#{itineraryBean.itinerary.route}" 
                                                      converter="mainItineraryConverter" 
                                                      style="width:160px" tabindex="1" >
+                                    <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                     <f:selectItems value="#{boxMainItineraryService.mainItineraryList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="route" />

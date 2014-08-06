@@ -28,6 +28,7 @@
                                 <p:menuitem value="Venta diaria" action="toSale" icon="ui-icon-document" ajax="false"
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
+                                    <f:actionListener  binding="#{boxPayTypeService.fillBox()}"/>
                                 </p:menuitem>
                                 <p:menuitem value="Cancelación" url="#" />
                             </p:submenu>

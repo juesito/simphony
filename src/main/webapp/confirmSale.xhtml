@@ -11,7 +11,7 @@
             <ui:composition template="./WEB-INF/templates/catalog.xhtml">
 
                 <ui:define name="content"> 
-                    <h:form id="saleForm">
+                    <h:form id="confirmSaleForm">
 
                         <div class="box-content-sale-detail" >
                             <!-- Gride del tipo de pago -->
@@ -57,6 +57,27 @@
                                         <p:outputLabel value="#{saleBean.selected.cost.kms}" />
                                     </p:column>
                                 </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Tipo de pago:"  for="payType"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="payType" value="#{saleBean.sale.payType}" 
+                                                         style="width:160px" converter="payTypeConverter" immediate="true" >
+                                            <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                            <f:selectItems value="#{boxPayTypeService.payTypeList}" />
+                                            <p:ajax event="change" update=":confirmSaleForm:payGrid-content" />
+                                            
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Información de pago:" for="paymentInfo" />
+                                    </p:column>
+                                    <p:column colspan="4">
+                                        <p:inputText id="paymentInfo" value="#{saleBean.sale.paymentInfo}"
+                                                     rendered="#{saleBean.sale.payType.reference.trim() eq 'S'}"/>
+                                    </p:column>
+                                </p:row>
                             </p:panelGrid>
 
 
@@ -78,7 +99,7 @@
                                                 <p:outputLabel value=" Nombre pasajero:" />
                                             </p:column>
                                             <p:column>
-                                                <p:inputText value="#{seat.customer.fullName}" />
+                                                <p:inputText value="#{seat.customerName}" />
                                             </p:column>
 
                                         </p:dataGrid>
@@ -86,8 +107,12 @@
                                 </p:row>                                        
 
                             </p:panelGrid>
-                            <p:commandButton value="Guardar" ajax="false" action="#{saleBean.save(vendorBean.current)}"/>
-                            <p:commandButton value="Cancelar" ajax="false" immediate="true" />
+                            <p:commandButton value="Guardar" ajax="false" action="#{saleBean.save(vendorBean.current)}">
+                                <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
+                            </p:commandButton>
+                            <p:commandButton value="Cancelar" ajax="false" immediate="true" action="toSale"  >
+                                <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                            </p:commandButton>
 
                         </div>
                     </h:form>
