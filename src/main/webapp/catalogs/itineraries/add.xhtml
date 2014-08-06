@@ -22,6 +22,26 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
+                                    <p:outputLabel value="#{msgs.cat_route}:" />
+                                </p:column>
+                                <p:column>
+                                <p:selectOneMenu id="route" value="#{itineraryBean.itinerary.route}" 
+                                                     converter="mainItineraryConverter" 
+                                                     style="width:160px" tabindex="1" >
+                                    <f:selectItems value="#{boxMainItineraryService.mainItineraryList}"/>
+                                    </p:selectOneMenu>                                    
+                                    <p:message for="route" />
+                                 </p:column>
+                               <p:column>
+                                    <p:outputLabel value="#{msgs.cat_departureTime}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar id="departureTime" value="#{itineraryBean.itinerary.departureTime}"
+                                                pattern="HH:mm" timeOnly="true" tabindex="3"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_origin}:" />
                                 </p:column>
                                 <p:column>
@@ -44,14 +64,24 @@
                                     <p:message for="origin" />
                                 </p:column>
                             </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_sequence}:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:spinner id="sequence" value="#{itineraryBean.itinerary.sequence}" stepFactor="10" min="0" max="1000" tabindex="4"/>
+                                    </p:column>
+                                    <p:column>      
+                                        <p:outputLabel value="#{msgs.cat_typeOfRoute}:" />
+                                    </p:column>
+                                    <p:column headerText="#{msgs.cat_status}" >
+                                        <p:selectOneMenu value="#{itineraryBean.itinerary.typeOfRoute}" tabindex="5" required="true">                                    
+                                            <f:selectItem itemValue="L" itemLabel="Local" />
+                                            <f:selectItem itemValue="P" itemLabel="De paso" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
                             <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_departureTime}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:calendar id="departureTime" value="#{itineraryBean.itinerary.departureTime}"
-                                                pattern="HH:mm" timeOnly="true" tabindex="3"/>
-                                </p:column>
                             </p:row>
                            <p:row>
                                 <p:column colspan="2"></p:column>
@@ -79,39 +109,65 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_origin}:" for="morigin" />
+                                    <p:outputLabel value="#{msgs.cat_route}:" />
                                 </p:column>
                                 <p:column>
-                                <p:selectOneMenu id="morigin" value="#{itineraryBean.itinerary.origin}" 
-                                                     converter="populationConverter" 
-                                                     style="width:160px" tabindex="2" >
-                                    <f:selectItems value="#{boxPopulationService.populationList}"/>
-                                </p:selectOneMenu>                                    
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_destiny}:" for="mdestiny" />
-                                </p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="mdestiny" value="#{itineraryBean.itinerary.destiny}" 
-                                                     converter="populationConverter" 
-                                                     style="width:160px" tabindex="2" >
-                                        <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                <p:selectOneMenu id="route" value="#{itineraryBean.itinerary.route}" 
+                                                     converter="mainItineraryConverter" 
+                                                     style="width:160px" tabindex="1" >
+                                    <f:selectItems value="#{boxMainItineraryService.mainItineraryList}"/>
                                     </p:selectOneMenu>                                    
-                                    <p:message for="mdestiny" />
+                                    <p:message for="route" />
+                                 </p:column>
+                               <p:column>
+                                    <p:outputLabel value="#{msgs.cat_departureTime}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar id="departureTime" value="#{itineraryBean.itinerary.departureTime}"
+                                                pattern="HH:mm" timeOnly="true" tabindex="3"/>
                                 </p:column>
                             </p:row>
-                            
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_departureTime}" for="mdeparturetime"/>
+                                    <p:outputLabel value="#{msgs.cat_origin}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:calendar id="mdeparturetime" value="#{itineraryBean.itinerary.departureTime}" 
-                                                pattern="HH:mm" timeOnly="true" tabindex="3"/>
-                                    <p:message for="mdeparturetime" />
+                                    <p:selectOneMenu id="origin" value="#{itineraryBean.itinerary.origin}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" tabindex="1" >
+                                        <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                    </p:selectOneMenu>                                    
+                                    <p:message for="origin" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_destiny}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="destiny" value="#{itineraryBean.itinerary.destiny}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px"  tabindex="2" >
+                                        <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                    </p:selectOneMenu>                                    
+                                    <p:message for="origin" />
                                 </p:column>
                             </p:row>
-
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_sequence}:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:spinner id="sequence" value="#{itineraryBean.itinerary.sequence}" stepFactor="10" min="0" max="1000" tabindex="4"/>
+                                    </p:column>
+                                    <p:column>      
+                                        <p:outputLabel value="#{msgs.cat_typeOfRoute}:" />
+                                    </p:column>
+                                    <p:column headerText="#{msgs.cat_status}" >
+                                        <p:selectOneMenu value="#{itineraryBean.itinerary.typeOfRoute}" tabindex="5" required="true">                                    
+                                            <f:selectItem itemValue="L" itemLabel="Local" />
+                                            <f:selectItem itemValue="P" itemLabel="De paso" />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.simphony.selectors;
 
 import com.simphony.beans.PayTypeService;
@@ -12,7 +17,7 @@ import javax.faces.model.SelectItem;
 
 /**
  *
- * @author root
+ * @author Soporte IT
  */
 @ManagedBean(name = "boxPayTypeService", eager = true)
 @ApplicationScoped
@@ -20,22 +25,29 @@ public class PayTypeBox {
 
     @ManagedProperty(value = "#{payTypeService}")
     private PayTypeService payTypeService;
-
+    
+    private List<PayType> list = new ArrayList<PayType>();
     private List<SelectItem> payTypeList = new ArrayList<SelectItem>();
 
+    /**
+     * Creates a new instance of PayTypeBox
+     */
     public PayTypeBox() {
     }
-    
 
     @PostConstruct
     public void init() {
-        List<PayType> optionList = this.getPayTypeService().getPayTypeRepository().findAll();
+         
+        //Llena solo poblaciones activas
+        List<PayType> optionList = this.getPayTypeService().getPayTypeRepository().findAllEnabled();
 
         for (PayType payType : optionList) {
+            list.add(payType);
             payTypeList.add(new SelectItem(payType, payType.getDescription()));
         }
-    }
 
+    }
+    
     public List<SelectItem> getPayTypeList() {
         return payTypeList;
     }
@@ -57,5 +69,12 @@ public class PayTypeBox {
         init();
     }
 
+    public List<PayType> getList() {
+        return list;
+    }
+
+    public void setList(List<PayType> list) {
+        this.list = list;
+    }
 
 }

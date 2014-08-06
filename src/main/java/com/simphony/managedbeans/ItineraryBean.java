@@ -181,13 +181,18 @@ public class ItineraryBean implements IConfigurable {
         Boolean exist = true;
         if (this.itinerary.getOrigin() != null && this.itinerary.getDestiny() != null) {
 
+        try {
             Itinerary itineratyTemp = this.itineraryService.getItineraryRepository().findByOriginAndDestiny(
-                    this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
-          //  if (itineratyTemp == null) {
-            //      exist = false;
-            //  }
+                    this.itinerary.getDepartureTime(),this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
+            if(itineratyTemp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
 
-            if (exist) {
+        }
+            if (!exist) {
                 itinerary.setUser(user);
                 itinerary.setCreateDate(cal.getTime());
                 itinerary.setStatus(_ENABLED);
