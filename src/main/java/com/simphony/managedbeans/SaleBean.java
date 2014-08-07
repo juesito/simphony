@@ -161,19 +161,37 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * 
+     *
      * @param vendor
-     * @return 
+     * @return
      */
     public String save(Vendor vendor) {
 
         sale.setVendor(vendor);
         sale.setCreateDate(new Date());
+        sale.setOrigin(this.selected.getItinerary().getOrigin());
+        sale.setOrigin(this.selected.getItinerary().getDestiny());
+        sale.setType(sale.getAssociate().getName() != null ? _SALE_TYPE_ASSOCIATE : _SALE_TYPE_ASSOCIATE);
+        sale = saleService.getSaleRepository().save(sale);
+
+        for (SaleDetail dtSale : this.saleDetail) {
+            dtSale.setSale(sale);
+            saleService.getDetailRepository().save(dtSale);
+
+        }
+
+        // Guardamos la guia
+        if (guide.isNewGuide()) {
+            guide.setCreateDate(new Date());
+            guide.setDepartureDate(sale.getTripDate());
+            guide.setOrigin(this.selected.getItinerary().getOrigin());
+            guide.setDestiny(this.selected.getItinerary().getDestiny());
             guide.setStatus(_GUIDE_TYPE_OPEN);
             guide.setVendor(vendor);
             guide.setGuideReference("Sin Referencia");
             guideService.getRepository().save(guide);
-        
+        }
+
         GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
         this.clearSale();
         return "toSale";

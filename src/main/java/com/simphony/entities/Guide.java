@@ -46,17 +46,13 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date departureDate;
             
-   @Column(name = "horaSalida")
-    @Basic
-    @Temporal(javax.persistence.TemporalType.TIME)
-    private Date departureTime;
-
-    @ManyToOne(targetEntity = Population.class)
+    @ManyToOne(targetEntity=Population.class)
     private Population origin;
-
-    @ManyToOne(targetEntity = Population.class)
+    
+    @ManyToOne(targetEntity=Population.class)
     private Population destiny;
- 
+    
+    
     @ManyToOne(targetEntity = Bus.class)
     private Bus bus;
     
@@ -98,9 +94,18 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
         return departureDate;
     }
 
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getDepartureDate() {
+        return departureDate;
+    }
+
     public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
+
 
     public Bus getBus() {
         return bus;
@@ -157,6 +162,32 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     public void setDestiny(Population destiny) {
         this.destiny = destiny;
     }
+
+    public boolean isNewGuide() {
+        return newGuide;
+    }
+
+    public void setNewGuide(boolean newGuide) {
+        this.newGuide = newGuide;
+    }
+
+    public Population getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Population origin) {
+        this.origin = origin;
+    }
+
+    public Population getDestiny() {
+        return destiny;
+    }
+
+    public void setDestiny(Population destiny) {
+        this.destiny = destiny;
+    }
+    
+    
     
     
     

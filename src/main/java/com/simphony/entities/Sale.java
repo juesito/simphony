@@ -33,14 +33,8 @@ public  class Sale implements Serializable, IConfigurable {
     
     
 
-    @Transient
-    @ManyToOne(targetEntity=Population.class)
-    private Population origin;
-
-
     @ManyToOne(targetEntity=PayType.class)
     private PayType payType;
-
 
     @Column(name="fechaSalida")
     @Basic
@@ -50,6 +44,9 @@ public  class Sale implements Serializable, IConfigurable {
     @Basic
     private String paymentInfo;
 
+    @ManyToOne(targetEntity=Population.class)
+    private Population origin;
+    
     @ManyToOne(targetEntity=Population.class)
     private Population destiny;
     
