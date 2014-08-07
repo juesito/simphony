@@ -30,6 +30,8 @@ public  class Sale implements Serializable, IConfigurable {
 
     @ManyToOne(targetEntity=Vendor.class)
     private Vendor vendor;
+    
+    
 
     @Transient
     @ManyToOne(targetEntity=Population.class)
@@ -48,13 +50,9 @@ public  class Sale implements Serializable, IConfigurable {
     @Basic
     private String paymentInfo;
 
-    @Transient
     @ManyToOne(targetEntity=Population.class)
     private Population destiny;
     
-    @ManyToOne(targetEntity=Itinerary.class)
-    private Itinerary itinerary;
-
     @Column(name="tipo",length=2)
     @Basic
     private String type;
@@ -93,7 +91,7 @@ public  class Sale implements Serializable, IConfigurable {
         
         this.associate = new Associate();
         this.type = _SALE_TYPE_PUBLIC;
-        this.itinerary = new Itinerary();
+        
     }
 
    public Long getId() {
@@ -209,14 +207,6 @@ public  class Sale implements Serializable, IConfigurable {
 
     public void setPartner(boolean partner) {
         this.partner = partner;
-    }
-
-    public Itinerary getItinerary() {
-        return itinerary;
-    }
-
-    public void setItinerary(Itinerary itinerary) {
-        this.itinerary = itinerary;
     }
 
     public boolean isAvailability() {

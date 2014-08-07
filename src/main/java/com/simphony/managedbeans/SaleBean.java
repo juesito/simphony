@@ -109,7 +109,16 @@ public class SaleBean implements IConfigurable {
         itineraryCost.clear();
         List<ItineraryCost> itineraryCostTemp = new ArrayList<ItineraryCost>();
         itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
+
         itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
+
+        if (itineraryCostTemp.size() > 0) {
+
+            for (ItineraryCost it : itineraryCostTemp) {
+                it.getItinerary().setDestiny(this.sale.getDestiny());
+                itineraryCost.add(it);
+            }
+        }
         sale.setExistRoutes(itineraryCost.size() > 0);
         sale.setAvailability(false);
 
@@ -136,7 +145,9 @@ public class SaleBean implements IConfigurable {
 
         if (selected != null) {
 
-            guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getId(), sale.getTripDate());
+            guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(), 
+                    selected.getItinerary().getDestiny().getId(), 
+                    sale.getTripDate());
             if (guide != null) {
                 // Validación de asientos
             } else {
@@ -158,27 +169,11 @@ public class SaleBean implements IConfigurable {
 
         sale.setVendor(vendor);
         sale.setCreateDate(new Date());
-        sale.setItinerary(this.selected.getItinerary());
-        sale.setType(sale.getAssociate().getName() != null ? _SALE_TYPE_ASSOCIATE : _SALE_TYPE_ASSOCIATE);
-        sale = saleService.getSaleRepository().save(sale);
-
-        for (SaleDetail dtSale : this.saleDetail) {
-            dtSale.setSale(sale);
-            saleService.getDetailRepository().save(dtSale);
-
-        }
-
-        // Guardamos la guia
-        if (guide.isNewGuide()) {
-            guide.setCreateDate(new Date());
-            guide.setDepartureDate(sale.getTripDate());
- //           guide.setItinerary(this.selected.getItinerary());
             guide.setStatus(_GUIDE_TYPE_OPEN);
             guide.setVendor(vendor);
             guide.setGuideReference("Sin Referencia");
             guideService.getRepository().save(guide);
-        }
-
+        
         GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
         this.clearSale();
         return "toSale";

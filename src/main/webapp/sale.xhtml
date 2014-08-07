@@ -149,9 +149,9 @@
                                             <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic"
                                                          selectionMode="single" selection="#{saleBean.selected}" 
                                                          rowKey="#{ic.rowId}">
-                                                <p:column headerText="hr Salida">
+                                                <p:column headerText="hr Salida">                                                    
                                                     <p:calendar pattern="HH:mm" size="10" readonly="true" disabled="true"
-                                                                value="#{ic.itinerary.checkTime}" />
+                                                                value="#{ic.itinerary.departureTime}" />
                                                 </p:column>
                                                 <p:column headerText="Origen">
                                                     <p:outputLabel value="#{ic.itinerary.origin.description}" />

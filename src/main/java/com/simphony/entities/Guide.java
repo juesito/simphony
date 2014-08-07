@@ -141,19 +141,6 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     public void setNewGuide(boolean newGuide) {
         this.newGuide = newGuide;
     }
-    
-    @Override
-    public String toString() {
-        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", status=" + status + ", departureDate=" + departureDate + ", bus=" + bus + ", driverMan=" + driverMan1 + ", vendor=" + vendor + ", newGuide=" + newGuide + '}';
-    }
-
-    public Date getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
-    }
 
     public Population getOrigin() {
         return origin;
@@ -170,5 +157,20 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     public void setDestiny(Population destiny) {
         this.destiny = destiny;
     }
- 
+    
+    
+    
+    @Override
+    public String toString() {
+        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", status=" + status + ", departureDate=" + departureDate + ", bus=" + bus + ", driverMan=" + driverMan1 + ", vendor=" + vendor + ", newGuide=" + newGuide + '}';
+        
+    }
+
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+    }
 }
