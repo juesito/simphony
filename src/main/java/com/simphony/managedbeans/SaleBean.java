@@ -109,7 +109,16 @@ public class SaleBean implements IConfigurable {
         itineraryCost.clear();
         List<ItineraryCost> itineraryCostTemp = new ArrayList<ItineraryCost>();
         itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
+
         itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
+
+        if (itineraryCostTemp.size() > 0) {
+
+            for (ItineraryCost it : itineraryCostTemp) {
+                it.getItinerary().setDestiny(this.sale.getDestiny());
+                itineraryCost.add(it);
+            }
+        }
         sale.setExistRoutes(itineraryCost.size() > 0);
         sale.setAvailability(false);
 
@@ -136,7 +145,9 @@ public class SaleBean implements IConfigurable {
 
         if (selected != null) {
 
-            guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getId(), sale.getTripDate());
+            guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(), 
+                    selected.getItinerary().getDestiny().getId(), 
+                    sale.getTripDate());
             if (guide != null) {
                 // Validación de asientos
             } else {
@@ -150,15 +161,16 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * 
+     *
      * @param vendor
-     * @return 
+     * @return
      */
     public String save(Vendor vendor) {
 
         sale.setVendor(vendor);
         sale.setCreateDate(new Date());
-        sale.setItinerary(this.selected.getItinerary());
+        sale.setOrigin(this.selected.getItinerary().getOrigin());
+        sale.setOrigin(this.selected.getItinerary().getDestiny());
         sale.setType(sale.getAssociate().getName() != null ? _SALE_TYPE_ASSOCIATE : _SALE_TYPE_ASSOCIATE);
         sale = saleService.getSaleRepository().save(sale);
 
@@ -172,7 +184,8 @@ public class SaleBean implements IConfigurable {
         if (guide.isNewGuide()) {
             guide.setCreateDate(new Date());
             guide.setDepartureDate(sale.getTripDate());
-            guide.setItinerary(this.selected.getItinerary());
+            guide.setOrigin(this.selected.getItinerary().getOrigin());
+            guide.setDestiny(this.selected.getItinerary().getDestiny());
             guide.setStatus(_GUIDE_TYPE_OPEN);
             guide.setVendor(vendor);
             guide.setGuideReference("Sin Referencia");

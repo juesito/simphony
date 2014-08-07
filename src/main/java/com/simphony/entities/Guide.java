@@ -51,8 +51,12 @@ public class Guide  implements Serializable, Cloneable{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date departureDate;
             
-    @ManyToOne(targetEntity = Itinerary.class)
-    private Itinerary itinerary;
+    @ManyToOne(targetEntity=Population.class)
+    private Population origin;
+    
+    @ManyToOne(targetEntity=Population.class)
+    private Population destiny;
+    
     
     @ManyToOne(targetEntity = Bus.class)
     private Bus bus;
@@ -111,13 +115,6 @@ public class Guide  implements Serializable, Cloneable{
         this.departureDate = departureDate;
     }
 
-    public Itinerary getItinerary() {
-        return itinerary;
-    }
-
-    public void setItinerary(Itinerary itinerary) {
-        this.itinerary = itinerary;
-    }
 
     public Bus getBus() {
         return bus;
@@ -158,6 +155,24 @@ public class Guide  implements Serializable, Cloneable{
     public void setNewGuide(boolean newGuide) {
         this.newGuide = newGuide;
     }
+
+    public Population getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Population origin) {
+        this.origin = origin;
+    }
+
+    public Population getDestiny() {
+        return destiny;
+    }
+
+    public void setDestiny(Population destiny) {
+        this.destiny = destiny;
+    }
+    
+    
     
     @Override
     public int hashCode() {
@@ -168,9 +183,9 @@ public class Guide  implements Serializable, Cloneable{
 
     @Override
     public String toString() {
-        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", status=" + status + ", createDate=" + createDate + ", departureDate=" + departureDate + ", itinerary=" + itinerary + ", bus=" + bus + ", driverMan=" + driverMan + ", vendor=" + vendor + ", newGuide=" + newGuide + '}';
+        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", status=" + status + ", createDate=" + createDate + ", departureDate=" + departureDate + ", origin=" + origin + ", destiny=" + destiny + ", bus=" + bus + ", driverMan=" + driverMan + ", vendor=" + vendor + ", newGuide=" + newGuide + '}';
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
