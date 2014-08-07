@@ -36,6 +36,7 @@ public class GuideBean implements IConfigurable {
     private Guide current = new Guide();
     private Guide selected = new Guide();
     private List<Guide> list = new ArrayList<Guide>();
+    private List<Guide> listDetail = new ArrayList<Guide>();
 
     @ManagedProperty(value = "#{guideService}")
     private GuideService guideService;

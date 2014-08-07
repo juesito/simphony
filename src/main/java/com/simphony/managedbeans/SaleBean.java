@@ -187,7 +187,7 @@ public class SaleBean implements IConfigurable {
             guide.setOrigin(this.selected.getItinerary().getOrigin());
             guide.setDestiny(this.selected.getItinerary().getDestiny());
             guide.setStatus(_GUIDE_TYPE_OPEN);
-            guide.setVendor(vendor);
+//            guide.setVendor(vendor);
             guide.setGuideReference("Sin Referencia");
             guideService.getRepository().save(guide);
         }

@@ -37,10 +37,6 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     @Basic(optional=true)
     private String guideReference;
     
-    @Column(name="estatus")
-    @Basic(optional=true)
-    private String status;
-    
     @Column(name = "fechaSalida")    
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -67,9 +63,6 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     @ManyToOne(targetEntity = DriverMan.class)
     private DriverMan driverMan2;
 
-    @ManyToOne(targetEntity = Vendor.class)
-    private Vendor vendor;
-
     @Transient
     private boolean newGuide;
 
@@ -84,8 +77,15 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     @PreUpdate
     public void preUpdate(){
         setCreateDate(new Date());
-        
     }
+    
+    public void update(Guide guideUpdated){
+        super.update(guideUpdated);
+        this.bus = guideUpdated.getBus();
+        this.driverMan1 = guideUpdated.getDriverMan1();
+        this.driverMan2 = guideUpdated.getDriverMan2();
+    }
+
  
     public String getGuideReference() {
         return guideReference;
@@ -126,14 +126,6 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
 
     public void setDriverMan2(DriverMan driverMan2) {
         this.driverMan2 = driverMan2;
-    }
-
-    public Vendor getVendor() {
-        return vendor;
-    }
-
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
     }
 
     public boolean isNewGuide() {

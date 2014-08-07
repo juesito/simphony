@@ -14,10 +14,10 @@
                 <div class="catalog-table">
                     <h:form id="form">
                         
-                        <p:outputLabel value=" Guias" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_guides}" class="welcome-title" />
                         
                          <br />
-                        <!-- Data table -->
+                        <!-- Data table de usuarios -->
                         <p:dataTable value="#{guideBean.list}" var="guide" style="font-size: 12px;"
                                      selectionMode="single" selection="#{guideBean.selected}" 
                                      rowKey="#{guide.id}" id="guideDT"
@@ -25,13 +25,14 @@
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
-                                     >
-                           
-                            <p:column headerText="#{msgs.cat_Date}" >
+                                    >
+
+                            <p:column headerText="#{msgs.cat_date}" filterBy="#{guide.departureDate}"
+                                      filterMatchMode="contains" >
                                 <p:outputLabel value="#{guide.departureDate}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_departureTime}" >
-                                <p:outputLabel value="#{guide.departureTime}" />
+                                <p:calendar value="#{guide.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{guide.origin.description}" />
@@ -57,13 +58,13 @@
                             <f:facet name="footer">
                                 <p:commandButton process="guideDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Modificar" action="#{guideBean.modifyGuide()}" />
+                                                 value="#{msgs.but_modify}" action="#{guideBean.modifyGuide()}" />
                                 <p:commandButton process="guideDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Detalle" action="#{guideBean.modifyGuide()}" />
+                                                 value="#{msgs.but_detail}" action="#{guideBean.modifyGuide()}" />
                                 <p:commandButton process="guideDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="Imprimir" action="#{guideBean.modifyGuide()}" />
+                                                 value="#{msgs.but_print}" action="#{guideBean.modifyGuide()}" />
                             </f:facet>
 
                         </p:dataTable>

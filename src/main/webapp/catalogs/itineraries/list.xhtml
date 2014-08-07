@@ -43,7 +43,10 @@
                                             disabled="true" pattern="HH:mm" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_typeOfRoute}" style="width:50px" >
-                                <p:outputLabel value="#{itinerary.typeOfRoute}" />
+                                <p:selectOneMenu value="#{itinerary.typeOfRoute}" disabled="true">                                    
+                                    <f:selectItem itemValue="L" itemLabel="#{msgs.sts_local}" />
+                                    <f:selectItem itemValue="P" itemLabel="#{msgs.sts_pass}" />
+                                </p:selectOneMenu>
                             </p:column>
                             <p:column headerText="#{msgs.cat_sequence}" style="width:60px" >
                                 <p:outputLabel value="#{itinerary.sequence}" />

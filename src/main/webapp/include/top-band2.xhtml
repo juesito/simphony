@@ -35,6 +35,7 @@
                             <p:submenu label="Operación" rendered="#{userBean.current.looged}" >
                                 <p:menuitem value="Itinerarios" action="#{itineraryBean.toItineraries()}" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillBox()}"/>
+                                    <f:actionListener  binding="#{boxItineraryService.fillBox()}"/>
                                 </p:menuitem>
                                 <p:menuitem value="Guías de viaje" action="#{guideBean.toGuide()}" ajax="false">
                                     <f:actionListener  binding="#{boxBusService.fillBox()}"/>
