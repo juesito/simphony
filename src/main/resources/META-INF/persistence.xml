@@ -16,10 +16,8 @@
     <class>com.simphony.entities.DriverMan</class>
     <class>com.simphony.entities.SaleDetail</class>
     <class>com.simphony.entities.Itinerary</class>
-    <class>com.simphony.entities.Route</class>
     <class>com.simphony.entities.Catalog</class>
     <class>com.simphony.entities.ItineraryDetail</class>
-    <class>com.simphony.entities.Guide</class>
     <class>com.simphony.entities.Seat</class>
     <class>com.simphony.entities.Customer</class>
     <class>com.simphony.entities.PayType</class>

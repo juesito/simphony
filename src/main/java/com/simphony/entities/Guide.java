@@ -160,16 +160,6 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
         this.destiny = destiny;
     }
 
-  
-    
-    
-    
-    @Override
-    public String toString() {
-        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", status=" + status + ", departureDate=" + departureDate + ", bus=" + bus + ", driverMan=" + driverMan1 + ", vendor=" + vendor + ", newGuide=" + newGuide + '}';
-        
-    }
-
     public Date getDepartureTime() {
         return departureTime;
     }
