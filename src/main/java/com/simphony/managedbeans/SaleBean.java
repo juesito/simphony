@@ -17,9 +17,12 @@ import com.simphony.entities.Guide;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
 import com.simphony.entities.Seat;
+import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.pojos.ItineraryCost;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -34,18 +37,17 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class SaleBean implements IConfigurable {
 
+    Guide guide = new Guide();
     private Sale sale = new Sale();
     private Cost cost = new Cost();
     private Seat selectedSeat = new Seat();
-    
-    private ItineraryCost selected = new ItineraryCost();
 
-    private List<Sale> list = new ArrayList();
-    private List<Object[]> objects = new ArrayList<Object[]>();
     private List<Seat> seat = new ArrayList();
-    private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
+    private List<Sale> list = new ArrayList();
+    private ItineraryCost selected = new ItineraryCost();
     private List<Seat> selectedSeats = new ArrayList<Seat>();
-    
+    private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
+
     private SaleDetail unSelectedDetail = new SaleDetail();
     private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
 
@@ -72,6 +74,7 @@ public class SaleBean implements IConfigurable {
 
     @PostConstruct
     void init() {
+        seat.clear();
         seat = seatService.getRepository().findAllAvailable();
     }
 
@@ -99,6 +102,9 @@ public class SaleBean implements IConfigurable {
         this.list = list;
     }
 
+    /**
+     * Buscamos itinerarios
+     */
     public void findItinearies() {
         itineraryCost.clear();
         List<ItineraryCost> itineraryCostTemp = new ArrayList<ItineraryCost>();
@@ -109,6 +115,9 @@ public class SaleBean implements IConfigurable {
 
     }
 
+    /**
+     * Buscamos al agremiado
+     */
     public void findAssociate() {
         Associate temp = associateService.getRepository().findByKey(this.sale.getAssociate().getKeyId());
 
@@ -121,44 +130,88 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * buscando dispobinibilidad
+     * buscando disponibilidad
      */
     public void findAvailability() {
 
         if (selected != null) {
 
-            Guide guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getId(), sale.getTripDate());
+            guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getId(), sale.getTripDate());
             if (guide != null) {
                 // Validación de asientos
             } else {
-                this.sale.setAvailability(true);                
-                guide = new Guide();
-                guide.setCheckDate(sale.getTripDate());
-                guide.setItinerary(this.selected.getItinerary());
-                guide.setStatus(_GUIDE_TYPE_CLOSED);
-                guide.setGuideReference("Sin Referencia");
-                guideService.getRepository().save(guide);
+                this.sale.setAvailability(true);
+                guide = new Guide(true);
             }
-            System.out.println("Availability-->" + sale.isAvailability());
         } else {
             GrowlBean.simplyWarmMessage("No selecciono registro", "Es necesario seleccionar");
         }
         this.sale.setExistRoutes(false);
     }
 
-    public void save() {
+    /**
+     * 
+     * @param vendor
+     * @return 
+     */
+    public String save(Vendor vendor) {
 
+        sale.setVendor(vendor);
+        sale.setCreateDate(new Date());
+        sale.setItinerary(this.selected.getItinerary());
+        sale.setType(sale.getAssociate().getName() != null ? _SALE_TYPE_ASSOCIATE : _SALE_TYPE_ASSOCIATE);
+        sale = saleService.getSaleRepository().save(sale);
+
+        for (SaleDetail dtSale : this.saleDetail) {
+            dtSale.setSale(sale);
+            saleService.getDetailRepository().save(dtSale);
+
+        }
+
+        // Guardamos la guia
+        if (guide.isNewGuide()) {
+            guide.setCreateDate(new Date());
+            guide.setDepartureDate(sale.getTripDate());
+ //           guide.setItinerary(this.selected.getItinerary());
+            guide.setStatus(_GUIDE_TYPE_OPEN);
+            guide.setVendor(vendor);
+            guide.setGuideReference("Sin Referencia");
+            guideService.getRepository().save(guide);
+        }
+
+        GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
+        this.clearSale();
+        return "toSale";
     }
-    
-    public void addSeat(){
-        SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat,  new Customer());
-        saleDetail.add(saleDetailTmp);
-        System.out.println("Asiento --> " + selectedSeat);
+
+    public void clearSale() {
+        this.sale.clear();
+        this.saleDetail.clear();
     }
-    
-    public void removeSeat(){
-        saleDetail.remove(unSelectedDetail);
-        System.out.println("Total detalle:" + saleDetail.size());
+
+    /**
+     * Agregamos el asiento seleccionado
+     */
+    public void addSeat() {
+        if (this.selectedSeat != null) {
+            SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer());
+            if (!saleDetail.contains(saleDetailTmp)) {
+                saleDetail.add(saleDetailTmp);
+            }
+        }
+    }
+
+    /**
+     * Removemos el asiento seleccionado
+     */
+    public void removeSeat() {
+        if (unSelectedDetail != null) {
+            saleDetail.remove(unSelectedDetail);
+        }
+    }
+
+    public void fillSeats() {
+        init();
     }
 
     public List<Seat> getSeat() {
@@ -240,7 +293,7 @@ public class SaleBean implements IConfigurable {
     public void setSelectedSeats(List<Seat> selectedSeats) {
         this.selectedSeats = selectedSeats;
     }
-   
+
     public List<SaleDetail> getSaleDetail() {
         return saleDetail;
     }
@@ -256,6 +309,19 @@ public class SaleBean implements IConfigurable {
     public void setUnSelectedDetail(SaleDetail unSelectedDetail) {
         this.unSelectedDetail = unSelectedDetail;
     }
-    
+
+    public String columnClass(int value) {
+        Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42};
+        Integer[] arraLeft = new Integer[]{3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43};
+
+        String customClass = "window";
+        if (Arrays.asList(arraRight).contains(value)) {
+            customClass = "aisler";
+        } else if (Arrays.asList(arraLeft).contains(value)) {
+            customClass = "aislel";
+        }
+
+        return customClass;
+    }
 
 }

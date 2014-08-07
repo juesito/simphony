@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  *
@@ -25,7 +26,7 @@ import javax.persistence.Temporal;
  */
 @Entity(name="Guide")
 @Table(name = "Guias")
-public class Guide  implements Serializable, Cloneable{
+public class Guide  extends Catalog implements Serializable, Cloneable{
     
     @Column(name = "id")
     @Id
@@ -36,48 +37,55 @@ public class Guide  implements Serializable, Cloneable{
     @Basic(optional=true)
     private String guideReference;
     
-    @Column(name="estaus")
+    @Column(name="estatus")
     @Basic(optional=true)
     private String status;
-    
-    @Column(name = "fechaCompra")
-    @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date createDate;
     
     @Column(name = "fechaSalida")    
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date checkDate;
+    private Date departureDate;
             
-    @ManyToOne(targetEntity = Itinerary.class)
-    private Itinerary itinerary;
-    
-    @ManyToOne(targetEntity = ItineraryDetail.class)
-    private ItineraryDetail itineraryDetail;    
-    
+   @Column(name = "horaSalida")
+    @Basic
+    @Temporal(javax.persistence.TemporalType.TIME)
+    private Date departureTime;
+
+    @ManyToOne(targetEntity = Population.class)
+    private Population origin;
+
+    @ManyToOne(targetEntity = Population.class)
+    private Population destiny;
+ 
     @ManyToOne(targetEntity = Bus.class)
     private Bus bus;
     
     @ManyToOne(targetEntity = DriverMan.class)
-    private DriverMan driverMan;
-    
+    private DriverMan driverMan1;
+
+    @ManyToOne(targetEntity = DriverMan.class)
+    private DriverMan driverMan2;
+
     @ManyToOne(targetEntity = Vendor.class)
     private Vendor vendor;
 
+    @Transient
+    private boolean newGuide;
+
+    public Guide() {
+        this.newGuide = false;
+    }
+
+    public Guide(boolean newGuide) {
+        this.newGuide = newGuide;
+    }
+    
     @PreUpdate
     public void preUpdate(){
         setCreateDate(new Date());
         
     }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+ 
     public String getGuideReference() {
         return guideReference;
     }
@@ -86,36 +94,12 @@ public class Guide  implements Serializable, Cloneable{
         this.guideReference = guideReference;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getDepartureDate() {
+        return departureDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getCheckDate() {
-        return checkDate;
-    }
-
-    public void setCheckDate(Date checkDate) {
-        this.checkDate = checkDate;
-    }
-
-    public Itinerary getItinerary() {
-        return itinerary;
-    }
-
-    public void setItinerary(Itinerary itinerary) {
-        this.itinerary = itinerary;
-    }
-
-    public ItineraryDetail getItineraryDetail() {
-        return itineraryDetail;
-    }
-
-    public void setItineraryDetail(ItineraryDetail itineraryDetail) {
-        this.itineraryDetail = itineraryDetail;
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
     }
 
     public Bus getBus() {
@@ -126,12 +110,20 @@ public class Guide  implements Serializable, Cloneable{
         this.bus = bus;
     }
 
-    public DriverMan getDriverMan() {
-        return driverMan;
+    public DriverMan getDriverMan1() {
+        return driverMan1;
     }
 
-    public void setDriverMan(DriverMan driverMan) {
-        this.driverMan = driverMan;
+    public void setDriverMan1(DriverMan driverMan1) {
+        this.driverMan1 = driverMan1;
+    }
+
+    public DriverMan getDriverMan2() {
+        return driverMan2;
+    }
+
+    public void setDriverMan2(DriverMan driverMan2) {
+        this.driverMan2 = driverMan2;
     }
 
     public Vendor getVendor() {
@@ -142,40 +134,41 @@ public class Guide  implements Serializable, Cloneable{
         this.vendor = vendor;
     }
 
-    public String getStatus() {
-        return status;
-    }
+    public boolean isNewGuide() {
+        return newGuide;
+    } 
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setNewGuide(boolean newGuide) {
+        this.newGuide = newGuide;
     }
     
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
-    }
-
     @Override
     public String toString() {
-        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", purchaseDate=" + createDate + ", checkDate=" + checkDate + ", itinerary=" + itinerary + ", itineraryDetail=" + itineraryDetail + ", bus=" + bus + ", driverMan=" + driverMan + '}';
+        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", status=" + status + ", departureDate=" + departureDate + ", bus=" + bus + ", driverMan=" + driverMan1 + ", vendor=" + vendor + ", newGuide=" + newGuide + '}';
     }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Guide other = (Guide) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+    public Date getDepartureTime() {
+        return departureTime;
     }
-    
-    
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public Population getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Population origin) {
+        this.origin = origin;
+    }
+
+    public Population getDestiny() {
+        return destiny;
+    }
+
+    public void setDestiny(Population destiny) {
+        this.destiny = destiny;
+    }
+ 
 }

@@ -21,7 +21,7 @@
                         <p:dataTable value="#{itineraryBean.list}" var="itinerary" style="font-size: 12px;"
                                      selectionMode="single" selection="#{itineraryBean.selected}" 
                                      rowKey="#{itinerary.id}" id="itineraryDT"
-                                     emptyMessage="#{msgs.no_records_found}" rows="4"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15">

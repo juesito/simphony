@@ -1,10 +1,13 @@
 package com.simphony.entities;
 
+import com.simphony.interfases.IConfigurable;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -13,10 +16,11 @@ import javax.persistence.Transient;
 
 @Entity(name="Sale")
 @Table(name="Ventas")
-public  class Sale implements Serializable {
+public  class Sale implements Serializable, IConfigurable {
 
     @Column(name="id")
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
 
@@ -32,14 +36,17 @@ public  class Sale implements Serializable {
     private Population origin;
 
 
-    @Column(name="formaPago",length=2)
-    @Basic
-    private String payType;
+    @ManyToOne(targetEntity=PayType.class)
+    private PayType payType;
 
 
     @Column(name="fechaSalida")
     @Basic
     private Date tripDate;
+    
+    @Column(name="informacionPago")
+    @Basic
+    private String paymentInfo;
 
     @Transient
     @ManyToOne(targetEntity=Population.class)
@@ -48,11 +55,9 @@ public  class Sale implements Serializable {
     @ManyToOne(targetEntity=Itinerary.class)
     private Itinerary itinerary;
 
-
     @Column(name="tipo",length=2)
     @Basic
     private String type;
-
 
     @Column(name="fechaCreacion")
     @Basic
@@ -76,8 +81,20 @@ public  class Sale implements Serializable {
         this.setAvailability(false);
         this.setExistRoutes(false);
         this.associate = new Associate();
+        this.payType = new PayType();
+        this.paymentInfo = "";
+        
     }
 
+    public void clear(){
+        this.setPartner(false);
+        this.setAvailability(false);
+        this.setExistRoutes(false);
+        
+        this.associate = new Associate();
+        this.type = _SALE_TYPE_PUBLIC;
+        this.itinerary = new Itinerary();
+    }
 
    public Long getId() {
         return this.id;
@@ -96,7 +113,9 @@ public  class Sale implements Serializable {
 
 
   public void setCancelVendor (Vendor cancelVendor) {
+      if(cancelVendor != null){
         this.cancelVendor = cancelVendor;
+      }
     }
 
 
@@ -121,18 +140,13 @@ public  class Sale implements Serializable {
         this.origin = origin;
     }
 
-
-
-   public String getPayType() {
-        return this.payType;
+    public PayType getPayType() {
+        return payType;
     }
 
-
-  public void setPayType (String payType) {
+    public void setPayType(PayType payType) {
         this.payType = payType;
     }
-
-
 
    public Date getTripDate() {
         return this.tripDate;
@@ -143,18 +157,13 @@ public  class Sale implements Serializable {
         this.tripDate = tripDate;
     }
 
-
-
    public Population getDestiny() {
         return this.destiny;
     }
 
-
   public void setDestiny (Population destiny) {
         this.destiny = destiny;
     }
-
-
 
    public String getType() {
         return this.type;
@@ -224,6 +233,14 @@ public  class Sale implements Serializable {
 
     public void setExistRoutes(boolean existRoutes) {
         this.existRoutes = existRoutes;
+    }
+
+    public String getPaymentInfo() {
+        return paymentInfo;
+    }
+
+    public void setPaymentInfo(String paymentInfo) {
+        this.paymentInfo = paymentInfo;
     }
     
     

@@ -14,7 +14,7 @@
                 <div class="catalog-table">
                     <h:form id="form">
                         
-                        <p:outputLabel value="Guias" class="welcome-title" />
+                        <p:outputLabel value=" Guias" class="welcome-title" />
                         
                          <br />
                         <!-- Data table -->
@@ -28,10 +28,10 @@
                                      >
                            
                             <p:column headerText="#{msgs.cat_Date}" >
-                                <p:outputLabel value="#{guide.Date}" />
+                                <p:outputLabel value="#{guide.departureDate}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_departureTime}" >
-                                <p:outputLabel value="#{guide}" />
+                                <p:outputLabel value="#{guide.departureTime}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{guide.origin.description}" />
@@ -43,7 +43,7 @@
                                 <p:outputLabel value="#{guide.bus.number}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_driverMan}" >
-                                <p:outputLabel value="#{guide.driverMan.firstLastName} #{guide.driverMan.name}" />
+                                <p:outputLabel value="#{guide.driverMan1.firstLastName} #{guide.driverMan1.name}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
                                 <p:selectOneMenu value="#{guide.status}" disabled="true">                                    

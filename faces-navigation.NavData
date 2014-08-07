@@ -16,6 +16,10 @@
         <Node id="catalogs/itineraries/list.xhtml" x="150" y="600" zoom="true"/>
         <Node id="include/footer.xhtml" x="400" y="450" zoom="true"/>
         <Node id="catalogs/itineraries/detailList.xhtml" x="26" y="687" zoom="true"/>
+        <Node id="include/footer.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="catalogs/workCenters/list.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="include/info.xhtml" x="650" y="750" zoom="true"/>
         <Node id="catalogs/workCenters/list.xhtml" x="650" y="600" zoom="true"/>
         <Node id="include/info.xhtml" x="650" y="750" zoom="true"/>
         <Node id="index.xhtml" x="400" y="150" zoom="true"/>
@@ -30,8 +34,6 @@
         <Node id="include/top-band2.xhtml" x="150" y="150" zoom="true"/>
         <Node id="sale.xhtml" x="650" y="300" zoom="true"/>
         <Node id="catalogs/buses/list.xhtml" x="400" y="300" zoom="true"/>
-        <Node id="catalogs/userTypes/list.xhtml" x="1900" y="150" zoom="true"/>
-        <Node id="catalogs/costs/list.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="catalogs/users/list.xhtml" x="150" y="450" zoom="true"/>
         <Node id="catalogs/salePoints/add.xhtml" x="900" y="150" zoom="true"/>
         <Node id="include/header.xhtml" x="900" y="600" zoom="true"/>
