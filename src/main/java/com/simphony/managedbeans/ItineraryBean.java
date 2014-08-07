@@ -291,7 +291,7 @@ public class ItineraryBean implements IConfigurable {
     }
 
     private Sort sortByKeyId() {
-        return new Sort(Sort.Direction.ASC, "typeOfRoute","sequence");
+        return new Sort(Sort.Direction.ASC, "id","route.id");
     }
 
 }
