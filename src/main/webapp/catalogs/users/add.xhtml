@@ -25,7 +25,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText value="#{userBean.user.nick}" required="true" 
-                                                 requiredMessage="#{msgs.cat_req_nick}" maxlength="25" />
+                                                 requiredMessage="#{msgs.req_nick}" maxlength="25" />
                                 </p:column>
                                  <p:column>
                                     <p:outputLabel value="#{msgs.cat_name}:" />
@@ -68,7 +68,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" 
-                                                required="true" maxlength="25" />
+                                                required="true" requiredMessage="#{msgs.req_password}" maxlength="25" />
                                 </p:column>
                             </p:row>
 

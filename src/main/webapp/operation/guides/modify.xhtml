@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <!-- panel para agregar -->
+                <p:panel rendered="#{guideBean.current.action eq 'M'}">
+                    <h:form id="modify">
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_guide}" class="welcome-title" />
+                        <br/><br/>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_bus}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="bus" value="#{busBean.bus.id}" 
+                                                     converter="busConverter" 
+                                                     style="width:160px" required="true" 
+                                                     tabindex="1" >
+                                        <f:selectItems value="#{boxBusService.busList}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>  
+                            <p:column>
+                                    <p:outputLabel value="#{msgs.cat_driverMan} 1:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="driverMan1" value="#{driverManBean.driverMan.id}" 
+                                                     converter="driverManConverter" 
+                                                     style="width:160px" required="true" 
+                                                     tabindex="2" >
+                                        <f:selectItems value="#{boxDriverManService.driverManList}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>  
+                            <p:column>
+                                    <p:outputLabel value="#{msgs.cat_driverMan} 2:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="driverMan2" value="#{driverManBean.driverMan.id}" 
+                                                     converter="driverManConverter" 
+                                                     style="width:160px" required="true" 
+                                                     tabindex="2" >
+                                        <f:selectItems value="#{boxDriverManService.driverManList}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_save}" action="#{guideBean.update(userBean.current)}"
+                                                     ajax="false"  update="main-form:growl" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
+                                                     id="cancelAdd" process="@this"
+                                                     partialSubmit="true"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

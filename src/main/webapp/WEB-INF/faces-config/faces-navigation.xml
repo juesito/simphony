@@ -123,6 +123,20 @@
             <from-outcome>toItineraries</from-outcome>
             <to-view-id>/catalogs/itineraries/list.xhtml</to-view-id>
         </navigation-case>
+
+        <navigation-case>
+            <from-outcome>modifyGuide</from-outcome>
+            <to-view-id>/operation/guides/modify.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>toGuide</from-outcome>
+            <to-view-id>/operation/guides/list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>toGuideDetail</from-outcome>
+            <to-view-id>/operation/guides/listDetail.xhtml</to-view-id>
+        </navigation-case>
+
         <navigation-case>
             <from-outcome>toLogin</from-outcome>
             <to-view-id>/include/login.xhtml</to-view-id>

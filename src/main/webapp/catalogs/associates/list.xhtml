@@ -27,7 +27,8 @@
                                      rowsPerPageTemplate="5,10,15"
                                      >
                            
-                            <p:column headerText="#{msgs.cat_keyId}" >
+                            <p:column headerText="#{msgs.cat_keyId}" filterBy="#{associate.keyId}"
+                                      filterMatchMode="contains" >
                                 <p:outputLabel value="#{associate.keyId}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_name}" >

@@ -207,11 +207,15 @@ public class ItineraryBean implements IConfigurable {
                     calCost.setTime(c.getRouteTime());
                     calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
                     this.itinerary.setCheckTime(calItinerary.getTime());
+                    if (itinerary.getRoute() == null){
+                        this.itinerary.setTypeOfRoute("L");
+                    }else this.itinerary.setTypeOfRoute("P");
 
                     this.itineraryService.getItineraryRepository().save(itinerary);
                     GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itinerary.getOrigin().getDescription());
                     itinerary = new Itinerary();
                     itinerary.setAction(_ADD);
+//                    mainItineraryService.fillBox();
                 } else {
                     GrowlBean.simplyErrorMessage(mp.getValue("error_cost_title"), mp.getValue("error_cost"));
                 } //Existe tarifa?
@@ -247,6 +251,9 @@ public class ItineraryBean implements IConfigurable {
 
         this.itinerary.setUser(user);
         this.itinerary.setCheckTime(calItinerary.getTime());
+        if (itinerary.getRoute() == null){
+            this.itinerary.setTypeOfRoute("L");
+        }else this.itinerary.setTypeOfRoute("P");
         itineraryUpdated.update(this.itinerary);
         this.itineraryService.getItineraryRepository().save(itineraryUpdated);
 
@@ -285,7 +292,7 @@ public class ItineraryBean implements IConfigurable {
     }
 
     private Sort sortByKeyId() {
-        return new Sort(Sort.Direction.ASC, "origin");
+        return new Sort(Sort.Direction.ASC, "id","route.id");
     }
 
 }

@@ -27,7 +27,8 @@
                                      rowsPerPageTemplate="5,10,15"
                                      >
                            
-                            <p:column headerText="#{msgs.cat_description}" >
+                            <p:column headerText="#{msgs.cat_description}" filterBy="#{salePoint.description}"
+                                      filterMatchMode="contains" >
                                 <p:outputLabel value="#{salePoint.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_address}" >

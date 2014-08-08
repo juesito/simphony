@@ -27,7 +27,8 @@
                                      rowKey="#{driverMan.id}" id="driverManDT"
                                      >
                            
-                            <p:column headerText="#{msgs.cat_name}" >
+                            <p:column headerText="#{msgs.cat_name}" filterBy="#{driverMan.name}"
+                                      filterMatchMode="contains" >
                                 <p:outputLabel value="#{driverMan.name}"  />
                             </p:column>
                             <p:column headerText="#{msgs.cat_firstLastName}" >

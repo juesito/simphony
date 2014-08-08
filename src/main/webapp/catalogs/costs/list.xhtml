@@ -27,7 +27,8 @@
                                      rowsPerPageTemplate="5,10,15"
                                     >
                            
-                            <p:column headerText="#{msgs.cat_origin}" >
+                            <p:column headerText="#{msgs.cat_origin}" filterBy="#{cost.origin.description}"
+                                      filterMatchMode="contains" >
                                 <p:outputLabel value="#{cost.origin.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_destiny}" >

@@ -26,7 +26,7 @@ import javax.persistence.Transient;
  */
 @Entity(name="Guide")
 @Table(name = "Guias")
-public class Guide  implements Serializable, Cloneable{
+public class Guide  extends Catalog implements Serializable, Cloneable{
     
     @Column(name = "id")
     @Id
@@ -37,20 +37,16 @@ public class Guide  implements Serializable, Cloneable{
     @Basic(optional=true)
     private String guideReference;
     
-    @Column(name="estaus")
-    @Basic(optional=true)
-    private String status;
-    
-    @Column(name = "fechaCompra")
-    @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date createDate;
-    
     @Column(name = "fechaSalida")    
     @Basic
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date departureDate;
             
+    @Column(name = "horaSalida")
+    @Basic
+    @Temporal(javax.persistence.TemporalType.TIME)
+    private Date departureTime;
+
     @ManyToOne(targetEntity=Population.class)
     private Population origin;
     
@@ -62,10 +58,10 @@ public class Guide  implements Serializable, Cloneable{
     private Bus bus;
     
     @ManyToOne(targetEntity = DriverMan.class)
-    private DriverMan driverMan;
-    
-    @ManyToOne(targetEntity = Vendor.class)
-    private Vendor vendor;
+    private DriverMan driverMan1;
+
+    @ManyToOne(targetEntity = DriverMan.class)
+    private DriverMan driverMan2;
 
     @Column(name = "rutaPadre")
     private Long rootRoute;
@@ -88,30 +84,22 @@ public class Guide  implements Serializable, Cloneable{
     @PreUpdate
     public void preUpdate(){
         setCreateDate(new Date());
-        
     }
-    public Long getId() {
-        return id;
+    
+    public void update(Guide guideUpdated){
+        super.update(guideUpdated);
+        this.bus = guideUpdated.getBus();
+        this.driverMan1 = guideUpdated.getDriverMan1();
+        this.driverMan2 = guideUpdated.getDriverMan2();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+ 
     public String getGuideReference() {
         return guideReference;
     }
 
     public void setGuideReference(String guideReference) {
         this.guideReference = guideReference;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     public Date getDepartureDate() {
@@ -131,33 +119,25 @@ public class Guide  implements Serializable, Cloneable{
         this.bus = bus;
     }
 
-    public DriverMan getDriverMan() {
-        return driverMan;
+    public DriverMan getDriverMan1() {
+        return driverMan1;
     }
 
-    public void setDriverMan(DriverMan driverMan) {
-        this.driverMan = driverMan;
+    public void setDriverMan1(DriverMan driverMan1) {
+        this.driverMan1 = driverMan1;
     }
 
-    public Vendor getVendor() {
-        return vendor;
+    public DriverMan getDriverMan2() {
+        return driverMan2;
     }
 
-    public void setVendor(Vendor vendor) {
-        this.vendor = vendor;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDriverMan2(DriverMan driverMan2) {
+        this.driverMan2 = driverMan2;
     }
 
     public boolean isNewGuide() {
         return newGuide;
-    }
+    } 
 
     public void setNewGuide(boolean newGuide) {
         this.newGuide = newGuide;
@@ -205,25 +185,7 @@ public class Guide  implements Serializable, Cloneable{
         return hash;
     }
 
-    @Override
-    public String toString() {
-        return "Guide{" + "id=" + id + ", guideReference=" + guideReference + ", status=" + status + ", createDate=" + createDate + ", departureDate=" + departureDate + ", origin=" + origin + ", destiny=" + destiny + ", bus=" + bus + ", driverMan=" + driverMan + ", vendor=" + vendor + ", newGuide=" + newGuide + '}';
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
     }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Guide other = (Guide) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-    
-    
 }
