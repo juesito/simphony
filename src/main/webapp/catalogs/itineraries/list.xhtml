@@ -22,15 +22,15 @@
                                      selectionMode="single" selection="#{itineraryBean.selected}" 
                                      rowKey="#{itinerary.id}" id="itineraryDT"
                                      emptyMessage="#{msgs.no_records_found}" rows="10"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15">
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
+                                     >
                             
                             <p:column headerText="#{msgs.cat_route}" >
                                 <p:outputLabel value="#{itinerary.route.formatDepartureTime} #{itinerary.route.origin.description}-#{itinerary.route.destiny.description}"  />
                             </p:column>
                             <p:column headerText="#{msgs.cat_departureTime}" style="width:50px" >
-                                <p:calendar value="#{itinerary.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                <p:outputLabel value="#{itinerary.formatDepartureTime}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{itinerary.origin.description}" />
@@ -39,23 +39,16 @@
                                 <p:outputLabel value="#{itinerary.destiny.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_checkTime}" style="width:50px">
-                                <p:calendar value="#{itinerary.checkTime}" timeOnly="true" 
-                                            disabled="true" pattern="HH:mm" />
+                                <p:outputLabel value="#{itinerary.formatCheckTime}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_typeOfRoute}" style="width:50px" >
-                                <p:selectOneMenu value="#{itinerary.typeOfRoute}" disabled="true">                                    
-                                    <f:selectItem itemValue="L" itemLabel="#{msgs.sts_local}" />
-                                    <f:selectItem itemValue="P" itemLabel="#{msgs.sts_pass}" />
-                                </p:selectOneMenu>
+                            <p:column headerText="#{msgs.cat_typeOfRoute}" style="width:70px" >
+                                <p:outputLabel value="#{itinerary.formatTypeOfRoute}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_sequence}" style="width:60px" >
                                 <p:outputLabel value="#{itinerary.sequence}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" style="width:50px" >
-                                <p:selectOneMenu value="#{itinerary.status}" disabled="true">                                    
-                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{itinerary.formatStatus}" />
                             </p:column>
                             
                             <!-- Footer -->
@@ -75,10 +68,6 @@
                                                  update=":form:itineraryDT" icon="ui-icon-trash" 
                                                  value="#{msgs.but_disable}" actionListener="#{itineraryBean.disableItinerary()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
-                                </p:commandButton>
-                                <p:commandButton icon="ui-icon-script"
-                                                 value="#{msgs.cat_detail}" action="#{itineraryBean.toItineraryDetail()}" 
-                                                 actionListener="#{itineraryDetailBean.fillItineraries(itineraryBean.selected.id)}">
                                 </p:commandButton>
                             </f:facet>
                         </p:dataTable>
@@ -102,7 +91,7 @@
                                     <h:outputText value="#{itineraryBean.selected.route.formatDepartureTime} #{itineraryBean.selected.route.origin.description}-#{itineraryBean.selected.route.destiny.description}" />
 
                                     <h:outputText value="#{msgs.cat_departureTime}:" />
-                                    <h:outputText value="#{itineraryBean.selected.departureTime}" />
+                                    <h:outputText value="#{itineraryBean.selected.formatDepartureTime}" />
                                     
                                     <h:outputText value="#{msgs.cat_origin}:" />
                                     <h:outputText value="#{itineraryBean.selected.origin.description}" />
@@ -111,20 +100,14 @@
                                     <h:outputText value="#{itineraryBean.selected.destiny.description}" />
                                     
                                     <h:outputText value="#{msgs.cat_checkTime}:" />
-                                    <p:calendar value="#{itineraryBean.selected.checkTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                    <h:outputText value="#{itineraryBean.selected.formatCheckTime}" />
                                     
                                     <h:outputText value="#{msgs.cat_typeOfRoute}:" />
-                                    <p:selectOneMenu value="#{itineraryBean.selected.typeOfRoute}" disabled="true">                                    
-                                        <f:selectItem itemValue="L" itemLabel="Local" />
-                                        <f:selectItem itemValue="P" itemLabel="De paso" />
-                                    </p:selectOneMenu>
+                                    <h:outputText value="#{itineraryBean.selected.typeOfRoute}" />
                                     
                                     <h:outputText value="#{msgs.cat_status}:" />
-                                    <p:selectOneMenu value="#{itineraryBean.selected.status}" disabled="true">                                    
-                                        <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                        <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                    </p:selectOneMenu>
-                                    
+                                    <h:outputText value="#{itineraryBean.selected.formatStatus}" />
+
                                     <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{itineraryBean.selected.createDate}" />
 

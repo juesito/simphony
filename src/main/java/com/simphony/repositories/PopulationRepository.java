@@ -18,7 +18,7 @@ import org.springframework.data.repository.query.Param;
 public interface PopulationRepository extends JpaRepository<Population, Long> {
 
     @Query("SELECT p FROM Population p "
-            + "WHERE UPPER(p.status) = UPPER('A')")
+            + "WHERE UPPER(p.status) = UPPER('A') order by description")
     public List<Population> findAllEnabled();
 
     /*Obtenemos las poblaciones por descripción*/
