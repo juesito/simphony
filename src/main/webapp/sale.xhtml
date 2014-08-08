@@ -150,6 +150,9 @@
                                                          selectionMode="single" selection="#{saleBean.selected}" 
                                                          rowKey="#{ic.rowId}">
                                                 <p:column headerText="hr Salida">                                                    
+                                                    <p:outputLabel value="#{ic.itinerary.typeOfRoute}" />
+                                                </p:column>
+                                                <p:column headerText="hr Salida">                                                    
                                                     <p:calendar pattern="HH:mm" size="10" readonly="true" disabled="true"
                                                                 value="#{ic.itinerary.departureTime}" />
                                                 </p:column>
@@ -157,7 +160,10 @@
                                                     <p:outputLabel value="#{ic.itinerary.origin.description}" />
                                                 </p:column>
                                                 <p:column headerText="Destino">
-                                                    <p:outputLabel value="#{ic.itinerary.destiny.description}" />
+                                                    <p:outputLabel value="#{ic.itinerary.destiny.description}" 
+                                                                   rendered="#{ic.itinerary.typeOfRoute eq 'L'}" />
+                                                    <p:outputLabel value="#{ic.alternateItinerary.destiny.description}" 
+                                                                   rendered="#{ic.itinerary.typeOfRoute eq 'P'}" />
                                                 </p:column>
                                                 <p:column headerText="Costo">
                                                     <p:outputLabel value="#{ic.cost.cost}" />

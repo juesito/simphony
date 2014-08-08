@@ -72,7 +72,7 @@ public class SaleBean implements IConfigurable {
 
     @ManagedProperty(value = "#{seatService}")
     private SeatService seatService;
-    
+
     @ManagedProperty(value = "#{itineraryService}")
     private ItineraryService itineraryService;
 
@@ -88,30 +88,6 @@ public class SaleBean implements IConfigurable {
         seat = seatService.getRepository().findAllAvailable();
     }
 
-    public CostService getCostService() {
-        return costService;
-    }
-
-    public void setCostService(CostService costService) {
-        this.costService = costService;
-    }
-
-    public Sale getSale() {
-        return sale;
-    }
-
-    public void setSale(Sale sale) {
-        this.sale = sale;
-    }
-
-    public List<Sale> getList() {
-        return list;
-    }
-
-    public void setList(List<Sale> list) {
-        this.list = list;
-    }
-
     /**
      * Buscamos itinerarios
      */
@@ -125,13 +101,14 @@ public class SaleBean implements IConfigurable {
         if (itineraryCostTemp.size() > 0) {
 
             for (ItineraryCost it : itineraryCostTemp) {
-                it.getItinerary().setDestiny(this.sale.getDestiny());
+                it.getItinerary().setTypeOfRoute(it.getAlternateItinerary().getTypeOfRoute());
+                it.getItinerary().setRoute(it.getAlternateItinerary().getRoute());
                 itineraryCost.add(it);
             }
         }
-        
+
         model = new ItineraryCostModel(itineraryCost);
-        
+
         sale.setExistRoutes(itineraryCost.size() > 0);
         sale.setAvailability(false);
 
@@ -145,7 +122,7 @@ public class SaleBean implements IConfigurable {
 
         if (temp != null) {
             try {
-                associate = (Associate)temp.clone();
+                associate = (Associate) temp.clone();
             } catch (CloneNotSupportedException ex) {
                 Logger.getLogger(SaleBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -162,19 +139,30 @@ public class SaleBean implements IConfigurable {
 
         if (selected != null) {
 
-            guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(), 
-                    selected.getItinerary().getDestiny().getId(), 
-                    sale.getTripDate());
+            if (selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {
+                guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
+                        selected.getItinerary().getDestiny().getId(),
+                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
+            } else {
+                guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
+                        selected.getAlternateItinerary().getDestiny().getId(),
+                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
+            }
+
             if (guide != null) {
                 // Validación de asientos
+                guide = new Guide(false);
+
+                this.sale.setAvailability(true);
             } else {
                 this.sale.setAvailability(true);
                 guide = new Guide(true);
             }
+            this.sale.setExistRoutes(false);
         } else {
             GrowlBean.simplyWarmMessage("No selecciono registro", "Es necesario seleccionar");
         }
-        this.sale.setExistRoutes(false);
+
     }
 
     /**
@@ -182,19 +170,19 @@ public class SaleBean implements IConfigurable {
      * @param vendor
      * @return
      */
-    public String save(Vendor vendor) {
+    public String save(Vendor vendor) throws CloneNotSupportedException {
 
         sale.setVendor(vendor);
         sale.setCreateDate(new Date());
         sale.setOrigin(this.selected.getItinerary().getOrigin());
         sale.setOrigin(this.selected.getItinerary().getDestiny());
         sale.setType(_SALE_TYPE_PUBLIC);
-        
-        if(sale.isPartner()){
+
+        if (sale.isPartner()) {
             sale.setAssociate(associate);
             sale.setType(_SALE_TYPE_ASSOCIATE);
         }
-        
+
         //Guardamos la venta
         sale = saleService.getSaleRepository().save(sale);
 
@@ -202,36 +190,72 @@ public class SaleBean implements IConfigurable {
         for (SaleDetail dtSale : this.saleDetail) {
             dtSale.setSale(sale);
             saleService.getDetailRepository().save(dtSale);
-
         }
 
         // Guardamos la guia
         if (guide.isNewGuide()) {
-            Long route = 0L;
-            Itinerary destiny = new Itinerary();
-            
-            if(this.selected.getItinerary().getRoute() == null){
-                destiny = itineraryService.getItineraryRepository().findForSequence(
-                        this.selected.getItinerary().getDestiny().getId(), this.selected.getItinerary().getId()); 
-                route = this.selected.getItinerary().getId();
-                guide.setRootGuide(0L);
-            }
-            
-            guide.setRootRoute(route);
+
+            guide.setVendor(vendor);
             guide.setCreateDate(new Date());
-            guide.setDepartureDate(sale.getTripDate());
-            guide.setOrigin(this.selected.getItinerary().getOrigin());
-            guide.setDestiny(this.selected.getItinerary().getDestiny());
-            guide.setStatus(_GUIDE_TYPE_OPEN);
-//            guide.setVendor(vendor);
+            guide.setStatus(_GUIDE_TYPE_OPEN);            
             guide.setGuideReference("Sin Referencia");
-            guideService.getRepository().save(guide);
-            System.out.println("Destiny" + destiny);
+            guide.setDepartureDate(sale.getTripDate());
+
+            if (this.selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {
+                
+                guide.setRootGuide(0L);
+                guide.setRootRoute(this.selected.getItinerary().getId());
+                guide.setOrigin(this.selected.getItinerary().getOrigin());
+                guide.setDestiny(this.selected.getItinerary().getDestiny());
+                
+                guideService.getRepository().save(guide);
+                guide.setRootGuide(guide.getId());
+                guide.update(guide);
+                guide = guideService.getRepository().save(guide);
+            } else {
+
+                Guide guideRoot = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
+                        selected.getItinerary().getDestiny().getId(),
+                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
+
+                if (guideRoot == null) {
+                    guideRoot = this.createRootGuide((Guide)guide.clone(), selected.getItinerary());
+                }
+                
+                guide.setOrigin(this.selected.getItinerary().getOrigin());
+                guide.setDestiny(this.selected.getAlternateItinerary().getDestiny());
+                guide.setRootRoute(guideRoot.getRootRoute());                
+                guide.setRootGuide(guideRoot.getId());
+                guideService.getRepository().save(guide);
+            }
+
+            
+            
         }
 
         GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
         this.clearSale();
         return "toSale";
+    }
+
+    /**
+     * Creamos la guia padre
+     * @param guide
+     * @param rootRoute
+     * @return 
+     */
+    private Guide createRootGuide(Guide guide, Itinerary rootRoute) {
+
+        guide.setDestiny(rootRoute.getDestiny());
+        guide.setOrigin(rootRoute.getOrigin());
+        guide.setRootRoute(rootRoute.getId());
+
+        guide = guideService.getRepository().save(guide);
+        guide.setRootGuide(guide.getId());
+        guide.update(guide);
+        guide = guideService.getRepository().save(guide);
+        
+        return guide;
     }
 
     public void clearSale() {
@@ -383,9 +407,30 @@ public class SaleBean implements IConfigurable {
     public void setAssociate(Associate associate) {
         this.associate = associate;
     }
-    
-    
-    
+
+    public CostService getCostService() {
+        return costService;
+    }
+
+    public void setCostService(CostService costService) {
+        this.costService = costService;
+    }
+
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
+
+    public List<Sale> getList() {
+        return list;
+    }
+
+    public void setList(List<Sale> list) {
+        this.list = list;
+    }
 
     public String columnClass(int value) {
         Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42};

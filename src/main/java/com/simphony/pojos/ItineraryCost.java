@@ -17,7 +17,7 @@ import java.util.Date;
 public class ItineraryCost {
 
     private Itinerary itinerary;
-    private ItineraryDetail itineraryDetail;
+    private Itinerary alternateItinerary;
     private Cost cost;
     private Integer rowId = 1;
 
@@ -29,12 +29,20 @@ public class ItineraryCost {
         this.itinerary = itinerary;
         this.cost = cost;
         this.rowId++;
+        Date date = new Date();
+        Long dateL = date.getTime();
+        rowId = rowId * dateL.intValue();
+
     }
 
-    public ItineraryCost(ItineraryDetail itineraryDetail, Cost cost) {
-        this.itineraryDetail = itineraryDetail;
+    public ItineraryCost(Itinerary itinerary, Cost cost, Itinerary alternateItinerary) {
+        this.itinerary = itinerary;
+        this.alternateItinerary = alternateItinerary;
         this.cost = cost;
         this.rowId++;
+        Date date = new Date();
+        Long dateL = date.getTime();
+        rowId = rowId * dateL.intValue();
     }
 
     public Itinerary getItinerary() {
@@ -45,14 +53,14 @@ public class ItineraryCost {
         this.itinerary = itinerary;
     }
 
-    public ItineraryDetail getItineraryDetail() {
-        return itineraryDetail;
+    public Itinerary getAlternateItinerary() {
+        return alternateItinerary;
     }
 
-    public void setItineraryDetail(ItineraryDetail itineraryDetail) {
-        this.itineraryDetail = itineraryDetail;
+    public void setAlternateItinerary(Itinerary alternateItinerary) {
+        this.alternateItinerary = alternateItinerary;
     }
-
+    
     public Cost getCost() {
         return cost;
     }
@@ -67,16 +75,17 @@ public class ItineraryCost {
     }
 
     public String getRowId() {
+
         String id = rowId.toString();
-        if (itinerary != null) {
-            id = "." + this.itinerary.getOrigin().getId() + "." + this.itinerary.getDestiny().getId();
-            System.out.println("id ---->" + id);
-        }
 
         return id;
     }
 
     public void setRowId(Integer rowId) {
+        Date date = new Date();
+        Long dateL = date.getTime();
+        rowId = rowId * dateL.intValue();
+        System.out.println("ROWID -->" + rowId);
         this.rowId = rowId;
     }
 

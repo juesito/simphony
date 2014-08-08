@@ -143,11 +143,11 @@ public class GuideBean implements IConfigurable {
         if(guideUpdated == null){
             throw new PersonException("Estación de trabajo no existente"); 
         }
-        guide.setUser(user);
+        guide.setVendor(user);
         guide.setLastUpdate(cal.getTime());
         guideUpdated.update(this.guide);
         this.guideService.getRepository().save(guideUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.guide.getDescription()+" "+mp.getValue("msj_record_update"));
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.guide.getId()+ " "+mp.getValue("msj_record_update"));
         guide = new Guide();
         return toGuide();
     }

@@ -19,7 +19,12 @@ import org.springframework.data.repository.query.Param;
 public interface GuideRepository extends JpaRepository<Guide, Long> {
     
     //Modificar
-  @Query("SELECT g FROM Guide g WHERE g.origin.id = :origin AND g.destiny.id = :destiny AND g.departureDate = :departureDate")
-    public Guide findByItineraryAndDate(@Param("origin")Long origin, @Param("destiny")Long destiny, @Param("departureDate")Date departureDate);
+  @Query("SELECT g FROM Guide g " +
+         "  WHERE g.origin.id = :origin " +
+         "    AND g.destiny.id = :destiny " +
+         "    AND g.departureDate = :departureDate" +
+         "    AND g.rootRoute.id = :routeId" )
+    public Guide findByItineraryAndDate(@Param("origin")Long origin, @Param("destiny")Long destiny, 
+            @Param("departureDate")Date departureDate, @Param("routeId")Long routeId);
 }
 

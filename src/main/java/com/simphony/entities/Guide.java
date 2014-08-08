@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.simphony.entities;
 
 import java.io.Serializable;
@@ -15,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,39 +24,38 @@ import javax.persistence.Transient;
  *
  * @author Jueser
  */
-@Entity(name="Guide")
+@Entity(name = "Guide")
 @Table(name = "Guias")
-public class Guide  extends Catalog implements Serializable, Cloneable{
-    
+public class Guide implements Serializable, Cloneable {
+
     @Column(name = "id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(name="referencia")
-    @Basic(optional=true)
+
+    @Column(name = "referencia")
+    @Basic(optional = true)
     private String guideReference;
-    
-    @Column(name = "fechaSalida")    
+
+    @Column(name = "fechaSalida")
     @Basic
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date departureDate;
-            
+
     @Column(name = "horaSalida")
     @Basic
     @Temporal(javax.persistence.TemporalType.TIME)
     private Date departureTime;
 
-    @ManyToOne(targetEntity=Population.class)
+    @ManyToOne(targetEntity = Population.class)
     private Population origin;
-    
-    @ManyToOne(targetEntity=Population.class)
+
+    @ManyToOne(targetEntity = Population.class)
     private Population destiny;
-    
-    
+
     @ManyToOne(targetEntity = Bus.class)
     private Bus bus;
-    
+
     @ManyToOne(targetEntity = DriverMan.class)
     private DriverMan driverMan1;
 
@@ -65,35 +64,61 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
 
     @Column(name = "rutaPadre")
     private Long rootRoute;
-    
+
     @Column(name = "guiaPadre")
     private Long rootGuide;
+
+    @Column(name = "fechaCreacion")
+    @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date createDate;
+
+    @Column(name = "estatus")
+    @Basic
+    private String status;
+
+    @OneToOne(targetEntity = Vendor.class)
+    private Person vendor;
     
+    @Column(name="ultimaModificacion")
+    @Basic
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date lastUpdate;
+
+    @Transient
+    private boolean newGuide = false;
     
     @Transient
-    private boolean newGuide;
+    private String action;
 
     public Guide() {
-        this.newGuide = false;
     }
 
     public Guide(boolean newGuide) {
         this.newGuide = newGuide;
     }
-    
+
     @PreUpdate
-    public void preUpdate(){
-        setCreateDate(new Date());
+    public void preUpdate() {
+        this.setLastUpdate(new Date());
     }
-    
-    public void update(Guide guideUpdated){
-        super.update(guideUpdated);
+
+    public void update(Guide guideUpdated) {
+        this.id = guideUpdated.getId();
+        this.vendor = guideUpdated.getVendor();
+        this.rootGuide = guideUpdated.getRootGuide();
+        this.rootRoute = guideUpdated.getRootRoute();
+        this.origin = guideUpdated.getOrigin();
+        this.destiny = guideUpdated.getDestiny();
+        this.departureDate = guideUpdated.getDepartureDate();
+        this.guideReference = guideUpdated.getGuideReference();
+        this.status = guideUpdated.getStatus();
+                
         this.bus = guideUpdated.getBus();
         this.driverMan1 = guideUpdated.getDriverMan1();
         this.driverMan2 = guideUpdated.getDriverMan2();
     }
 
- 
     public String getGuideReference() {
         return guideReference;
     }
@@ -109,7 +134,6 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
-
 
     public Bus getBus() {
         return bus;
@@ -137,7 +161,7 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
 
     public boolean isNewGuide() {
         return newGuide;
-    } 
+    }
 
     public void setNewGuide(boolean newGuide) {
         this.newGuide = newGuide;
@@ -174,8 +198,65 @@ public class Guide  extends Catalog implements Serializable, Cloneable{
     public void setRootGuide(Long rootGuide) {
         this.rootGuide = rootGuide;
     }
-    
-    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Person getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Person vendor) {
+        this.vendor = vendor;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }
     
     
     @Override
