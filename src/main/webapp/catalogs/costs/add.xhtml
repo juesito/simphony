@@ -27,8 +27,9 @@
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{costBean.cost.origin}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
+                                                     style="width:160px" required="true" requiredMessage="#{msgs.req_origin}"
                                                      tabindex="1" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
@@ -40,8 +41,9 @@
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{costBean.cost.destiny}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
+                                                     style="width:160px" required="true" requiredMessage="#{msgs.req_destiny}" 
                                                      tabindex="2" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
@@ -62,7 +64,7 @@
                                     <p:outputLabel value="#{msgs.cat_routeTime}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:calendar value="#{costBean.cost.routeTime}" 
+                                    <p:calendar value="#{costBean.cost.routeTime}" required="true" requiredMessage="#{msgs.req_routeTime}"
                                                 pattern="HH:mm" timeOnly="true" tabindex="4"/>
                                 </p:column>
                             </p:row>
@@ -109,19 +111,23 @@
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{costBean.cost.origin}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
+                                                     style="width:160px" required="true" requiredMessage="#{msgs.req_origin}"
                                                      tabindex="1" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_destiny}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{costBean.cost.destiny}" 
                                                      converter="populationConverter" 
-                                                     style="width:160px" required="true" 
+                                                     style="width:160px" required="true" requiredMessage="#{msgs.req_destiny}"
                                                      tabindex="2" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
@@ -142,6 +148,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar id="routeTime" value="#{costBean.cost.routeTime}" 
+                                                required="true" requiredMessage="#{msgs.req_routeTime}"
                                                 pattern="HH:mm" timeOnly="true" tabindex="4"/>
                                     <p:message for="routeTime" />
                                 </p:column>

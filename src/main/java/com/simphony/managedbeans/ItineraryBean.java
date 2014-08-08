@@ -215,6 +215,7 @@ public class ItineraryBean implements IConfigurable {
                     GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itinerary.getOrigin().getDescription());
                     itinerary = new Itinerary();
                     itinerary.setAction(_ADD);
+//                    mainItineraryService.fillBox();
                 } else {
                     GrowlBean.simplyErrorMessage(mp.getValue("error_cost_title"), mp.getValue("error_cost"));
                 } //Existe tarifa?

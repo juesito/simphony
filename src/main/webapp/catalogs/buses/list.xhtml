@@ -27,7 +27,8 @@
                                      rowsPerPageTemplate="5,10,15"
                                     >
                            
-                            <p:column headerText="#{msgs.cat_number}" >
+                            <p:column headerText="#{msgs.cat_number}" filterBy="#{bus.number}"
+                                      filterMatchMode="contains" >
                                 <p:outputLabel value="#{bus.number}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_type}" >

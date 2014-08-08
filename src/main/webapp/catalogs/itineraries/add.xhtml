@@ -38,7 +38,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar id="departureTime" value="#{itineraryBean.itinerary.departureTime}"
-                                                pattern="HH:mm" timeOnly="true" tabindex="3" style="width:50px"/>
+                                                pattern="HH:mm" timeOnly="true" tabindex="3" style="width:50px"
+                                                required="true" requiredMessage="#{msgs.req_sequence}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -47,8 +48,9 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{itineraryBean.itinerary.origin}" 
-                                                     converter="populationConverter" 
+                                                     converter="populationConverter"  required="true" requiredMessage="#{msgs.req_origin}"
                                                      style="width:160px" tabindex="1" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="origin" />
@@ -58,8 +60,9 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{itineraryBean.itinerary.destiny}" 
-                                                     converter="populationConverter" 
+                                                     converter="populationConverter" required="true" requiredMessage="#{msgs.req_destiny}"
                                                      style="width:160px"  tabindex="2" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="origin" />
@@ -71,7 +74,7 @@
                                     </p:column>
                                     <p:column>
                                         <p:spinner id="sequence" value="#{itineraryBean.itinerary.sequence}" stepFactor="10" min="0" max="1000" 
-                                                   tabindex="4" />
+                                                   tabindex="4"    required="true" requiredMessage="#{msgs.req_sequence}" />
                                     </p:column>
                                 </p:row>
                             <p:row>
@@ -117,7 +120,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:calendar id="departureTime" value="#{itineraryBean.itinerary.departureTime}"
-                                                pattern="HH:mm" timeOnly="true" tabindex="3"/>
+                                                pattern="HH:mm" timeOnly="true" tabindex="3"
+                                                required="true" requiredMessage="#{msgs.req_departureTime}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -126,8 +130,9 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="origin" value="#{itineraryBean.itinerary.origin}" 
-                                                     converter="populationConverter" 
+                                                     converter="populationConverter" required="true" requiredMessage="#{msgs.req_origin}"
                                                      style="width:160px" tabindex="1" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="origin" />
@@ -137,8 +142,9 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu id="destiny" value="#{itineraryBean.itinerary.destiny}" 
-                                                     converter="populationConverter" 
+                                                     converter="populationConverter" required="true" requiredMessage="#{msgs.req_destiny}"
                                                      style="width:160px"  tabindex="2" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="origin" />
@@ -149,13 +155,15 @@
                                         <p:outputLabel value="#{msgs.cat_sequence}:" />
                                     </p:column>
                                     <p:column>
-                                        <p:spinner id="sequence" value="#{itineraryBean.itinerary.sequence}" stepFactor="10" min="0" max="1000" tabindex="4"/>
+                                        <p:spinner id="sequence" value="#{itineraryBean.itinerary.sequence}" stepFactor="10" min="0" max="1000" 
+                                                   tabindex="4" required="true" requiredMessage="#{msgs.req_sequence}" />
                                     </p:column>
                                     <p:column>      
                                         <p:outputLabel value="#{msgs.cat_typeOfRoute}:" />
                                     </p:column>
                                     <p:column headerText="#{msgs.cat_status}" >
-                                        <p:selectOneMenu value="#{itineraryBean.itinerary.typeOfRoute}" tabindex="5" required="true">                                    
+                                        <p:selectOneMenu value="#{itineraryBean.itinerary.typeOfRoute}" tabindex="5" 
+                                                         required="true" requiredMessage="#{msgs.req_typeOfRoute}">                                    
                                             <f:selectItem itemValue="L" itemLabel="Local" />
                                             <f:selectItem itemValue="P" itemLabel="De paso" />
                                         </p:selectOneMenu>
