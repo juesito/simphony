@@ -127,6 +127,38 @@ public class Itinerary extends Catalog implements IConfigurable, Serializable, C
     }
  
     public String getFormatDepartureTime(){
-        return _SHM.format(this.departureTime);
+        if(this.departureTime != null){
+            return _SHM.format(this.departureTime);
+        }else return "";
+        
     }
+
+    public String getFormatCheckTime(){
+         if(this.checkTime != null){
+            return _SHM.format(this.checkTime);
+        }else return "";
+    }
+
+    public String getFormatTypeOfRoute(){
+        String texto = "";
+        if(this.typeOfRoute != null){
+            if (this.typeOfRoute.equals("L")){
+                texto = "Local";
+            }else texto = "De paso";
+        
+            return texto;
+        }else return texto;
+    }
+
+       public String getFormatStatus(){
+        String texto = "";
+        if(this.typeOfRoute != null){
+            if (this.getStatus().equals("A")){
+                texto = "Activo";
+            }else texto = "Inactivo";
+       
+            return texto;
+        }else return texto;
+    }
+
 }
