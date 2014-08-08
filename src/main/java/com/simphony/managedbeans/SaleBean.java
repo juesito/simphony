@@ -8,22 +8,27 @@ package com.simphony.managedbeans;
 import com.simphony.beans.AssociateService;
 import com.simphony.beans.CostService;
 import com.simphony.beans.GuideService;
+import com.simphony.beans.ItineraryService;
 import com.simphony.beans.SaleService;
 import com.simphony.beans.SeatService;
 import com.simphony.entities.Associate;
 import com.simphony.entities.Cost;
 import com.simphony.entities.Customer;
 import com.simphony.entities.Guide;
+import com.simphony.entities.Itinerary;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
 import com.simphony.entities.Seat;
 import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
+import com.simphony.models.ItineraryCostModel;
 import com.simphony.pojos.ItineraryCost;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -37,7 +42,8 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class SaleBean implements IConfigurable {
 
-    Guide guide = new Guide();
+    private Guide guide = new Guide();
+    private Associate associate = new Associate();
     private Sale sale = new Sale();
     private Cost cost = new Cost();
     private Seat selectedSeat = new Seat();
@@ -45,6 +51,7 @@ public class SaleBean implements IConfigurable {
     private List<Seat> seat = new ArrayList();
     private List<Sale> list = new ArrayList();
     private ItineraryCost selected = new ItineraryCost();
+    private ItineraryCostModel model = new ItineraryCostModel();
     private List<Seat> selectedSeats = new ArrayList<Seat>();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
 
@@ -65,6 +72,9 @@ public class SaleBean implements IConfigurable {
 
     @ManagedProperty(value = "#{seatService}")
     private SeatService seatService;
+    
+    @ManagedProperty(value = "#{itineraryService}")
+    private ItineraryService itineraryService;
 
     /**
      * Creates a new instance of SaleBean
@@ -119,6 +129,9 @@ public class SaleBean implements IConfigurable {
                 itineraryCost.add(it);
             }
         }
+        
+        model = new ItineraryCostModel(itineraryCost);
+        
         sale.setExistRoutes(itineraryCost.size() > 0);
         sale.setAvailability(false);
 
@@ -128,12 +141,16 @@ public class SaleBean implements IConfigurable {
      * Buscamos al agremiado
      */
     public void findAssociate() {
-        Associate temp = associateService.getRepository().findByKey(this.sale.getAssociate().getKeyId());
+        Associate temp = associateService.getRepository().findByKey(this.associate.getKeyId());
 
         if (temp != null) {
-            this.sale.setAssociate(temp);
+            try {
+                associate = (Associate)temp.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(SaleBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            this.sale.getAssociate().setKeyId(_BLANK);
+            this.associate.setKeyId(_BLANK);
             GrowlBean.simplyErrorMessage("No se encontro", "Asociado no encontrado");
         }
     }
@@ -171,9 +188,17 @@ public class SaleBean implements IConfigurable {
         sale.setCreateDate(new Date());
         sale.setOrigin(this.selected.getItinerary().getOrigin());
         sale.setOrigin(this.selected.getItinerary().getDestiny());
-        sale.setType(sale.getAssociate().getName() != null ? _SALE_TYPE_ASSOCIATE : _SALE_TYPE_ASSOCIATE);
+        sale.setType(_SALE_TYPE_PUBLIC);
+        
+        if(sale.isPartner()){
+            sale.setAssociate(associate);
+            sale.setType(_SALE_TYPE_ASSOCIATE);
+        }
+        
+        //Guardamos la venta
         sale = saleService.getSaleRepository().save(sale);
 
+        //Guardamos el detalle de la venta
         for (SaleDetail dtSale : this.saleDetail) {
             dtSale.setSale(sale);
             saleService.getDetailRepository().save(dtSale);
@@ -182,6 +207,17 @@ public class SaleBean implements IConfigurable {
 
         // Guardamos la guia
         if (guide.isNewGuide()) {
+            Long route = 0L;
+            Itinerary destiny = new Itinerary();
+            
+            if(this.selected.getItinerary().getRoute() == null){
+                destiny = itineraryService.getItineraryRepository().findForSequence(
+                        this.selected.getItinerary().getDestiny().getId(), this.selected.getItinerary().getId()); 
+                route = this.selected.getItinerary().getId();
+                guide.setRootGuide(0L);
+            }
+            
+            guide.setRootRoute(route);
             guide.setCreateDate(new Date());
             guide.setDepartureDate(sale.getTripDate());
             guide.setOrigin(this.selected.getItinerary().getOrigin());
@@ -190,6 +226,7 @@ public class SaleBean implements IConfigurable {
             guide.setVendor(vendor);
             guide.setGuideReference("Sin Referencia");
             guideService.getRepository().save(guide);
+            System.out.println("Destiny" + destiny);
         }
 
         GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
@@ -322,6 +359,33 @@ public class SaleBean implements IConfigurable {
     public void setUnSelectedDetail(SaleDetail unSelectedDetail) {
         this.unSelectedDetail = unSelectedDetail;
     }
+
+    public ItineraryService getItineraryService() {
+        return itineraryService;
+    }
+
+    public void setItineraryService(ItineraryService itineraryService) {
+        this.itineraryService = itineraryService;
+    }
+
+    public ItineraryCostModel getModel() {
+        return model;
+    }
+
+    public void setModel(ItineraryCostModel model) {
+        this.model = model;
+    }
+
+    public Associate getAssociate() {
+        return associate;
+    }
+
+    public void setAssociate(Associate associate) {
+        this.associate = associate;
+    }
+    
+    
+    
 
     public String columnClass(int value) {
         Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42};

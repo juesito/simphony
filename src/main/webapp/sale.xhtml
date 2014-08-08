@@ -108,7 +108,7 @@
                                             <p:outputLabel value="Agremiado:"  />
                                         </p:column>
                                         <p:column>
-                                            <p:inputText value="#{saleBean.sale.associate.keyId}" />
+                                            <p:inputText value="#{saleBean.associate.keyId}" />
                                             <p:commandButton icon="ui-icon-search" actionListener="#{saleBean.findAssociate()}"
                                                              ajax="true" update=":saleForm:sale-detail-grid">
 
@@ -120,7 +120,7 @@
                                             <p:outputLabel value="Agremiado" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.associate.firstLastName} #{saleBean.sale.associate.name}" />
+                                            <p:outputLabel value="#{saleBean.associate.firstLastName} #{saleBean.associate.name}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -146,7 +146,7 @@
                                     <p:row>
                                         <!-- disponibilidad de itinerarios -->
                                         <p:column colspan="2">
-                                            <p:dataTable id="dic" value="#{saleBean.itineraryCost}" var="ic"
+                                            <p:dataTable id="dic" value="#{saleBean.model}" var="ic"
                                                          selectionMode="single" selection="#{saleBean.selected}" 
                                                          rowKey="#{ic.rowId}">
                                                 <p:column headerText="hr Salida">                                                    

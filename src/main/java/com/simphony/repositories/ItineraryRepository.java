@@ -26,5 +26,8 @@ public interface ItineraryRepository extends JpaRepository<Itinerary, Long>{
 
     @Query("SELECT a FROM Itinerary a WHERE a.typeOfRoute = 'L' ")
     public List<Itinerary> findAllLocal();
+    
+    @Query("SELECT a FROM Itinerary a WHERE a.destiny.id = :destiny and a.route.id = :route ")
+    public Itinerary findForSequence(@Param("destiny")Long destiny, @Param("route")Long route);
 
 }

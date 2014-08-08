@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.simphony.pojos;
 
 import com.simphony.entities.Cost;
@@ -16,16 +15,16 @@ import java.util.Date;
  * @author root
  */
 public class ItineraryCost {
-    private Itinerary itinerary;    
+
+    private Itinerary itinerary;
     private ItineraryDetail itineraryDetail;
     private Cost cost;
     private Integer rowId = 1;
 
     public ItineraryCost() {
-        
+
     }
 
-    
     public ItineraryCost(Itinerary itinerary, Cost cost) {
         this.itinerary = itinerary;
         this.cost = cost;
@@ -37,8 +36,7 @@ public class ItineraryCost {
         this.cost = cost;
         this.rowId++;
     }
-    
-    
+
     public Itinerary getItinerary() {
         return itinerary;
     }
@@ -68,14 +66,18 @@ public class ItineraryCost {
         return "ItineraryCost{" + "itinerary=" + itinerary + ",  cost=" + cost + '}';
     }
 
-    public Integer getRowId() {
-        return rowId;
+    public String getRowId() {
+        String id = rowId.toString();
+        if (itinerary != null) {
+            id = "." + this.itinerary.getOrigin().getId() + "." + this.itinerary.getDestiny().getId();
+            System.out.println("id ---->" + id);
+        }
+
+        return id;
     }
 
     public void setRowId(Integer rowId) {
         this.rowId = rowId;
     }
-    
-    
-    
+
 }

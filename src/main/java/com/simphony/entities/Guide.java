@@ -48,7 +48,7 @@ public class Guide  implements Serializable, Cloneable{
     
     @Column(name = "fechaSalida")    
     @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date departureDate;
             
     @ManyToOne(targetEntity=Population.class)
@@ -67,6 +67,13 @@ public class Guide  implements Serializable, Cloneable{
     @ManyToOne(targetEntity = Vendor.class)
     private Vendor vendor;
 
+    @Column(name = "rutaPadre")
+    private Long rootRoute;
+    
+    @Column(name = "guiaPadre")
+    private Long rootGuide;
+    
+    
     @Transient
     private boolean newGuide;
 
@@ -171,6 +178,23 @@ public class Guide  implements Serializable, Cloneable{
     public void setDestiny(Population destiny) {
         this.destiny = destiny;
     }
+
+    public Long getRootRoute() {
+        return rootRoute;
+    }
+
+    public void setRootRoute(Long rootRoute) {
+        this.rootRoute = rootRoute;
+    }
+
+    public Long getRootGuide() {
+        return rootGuide;
+    }
+
+    public void setRootGuide(Long rootGuide) {
+        this.rootGuide = rootGuide;
+    }
+    
     
     
     

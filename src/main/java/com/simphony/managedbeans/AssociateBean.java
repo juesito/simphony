@@ -48,10 +48,12 @@ public class AssociateBean implements IConfigurable {
      */
     public AssociateBean() {
         mp = new MessageProvider();
+        
     }
 
     @PostConstruct
     public void postInitialization() {
+        this.checkRootAssociate();
 
     }
 
@@ -242,5 +244,22 @@ public class AssociateBean implements IConfigurable {
 
     private Sort sortByKeyId() {
         return new Sort(Sort.Direction.ASC, "keyId");
+    }
+    
+    /**
+     * validamos si existe usuario
+     */
+    private void checkRootAssociate() {
+        if (!this.service.getRepository().exists(0L)) {
+            Calendar cal = Calendar.getInstance();
+            Associate root = new Associate();
+            root.setName("");
+            root.setFirstLastName("");
+            root.setSecondLastName("");
+            root.setStatus(_DISABLE);
+            root.setCreateDate(cal.getTime());
+            root.setLastUpdate(cal.getTime());
+            this.service.getRepository().save(root);
+        }
     }
 }
