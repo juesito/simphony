@@ -18,24 +18,28 @@
     <class>com.simphony.entities.Itinerary</class>
     <class>com.simphony.entities.Catalog</class>
     <class>com.simphony.entities.ItineraryDetail</class>
+    <class>com.simphony.entities.Guide</class>
     <class>com.simphony.entities.Seat</class>
     <class>com.simphony.entities.Customer</class>
     <class>com.simphony.entities.PayType</class>
-    <class>com.simphony.entities.Guide</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <!--
-            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=simphonybd"/>
-              <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-              <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
-            -->
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="jeargaqu"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <!--
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=simphonybd"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
       <property name="javax.persistence.jdbc.password" value="jeargaqu"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
       <property name="hibernate.show_sql" value="true"/>
+      -->
     </properties>
   </persistence-unit>
 </persistence>

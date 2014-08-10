@@ -73,4 +73,15 @@ public  class Bus extends Catalog implements Serializable, Cloneable {
         this.type = type;
     }
 
+      public String getFormatStatus(){
+        String texto = "";
+        if(this.getStatus() != null){
+            if (this.getStatus().equals("A")){
+                texto = "Activo";
+            }else texto = "Inactivo";
+       
+            return texto;
+        }else return texto;
+    }
+
 }

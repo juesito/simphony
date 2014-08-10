@@ -51,5 +51,26 @@ public class PayType extends Catalog implements Serializable, Cloneable, IConfig
         this.reference = reference;
     }
 
-    
+     public String getFormatStatus(){
+        String texto = "";
+        if(this.getStatus() != null){
+            if (this.getStatus().equals("A")){
+                texto = "Activo";
+            }else texto = "Inactivo";
+       
+            return texto;
+        }else return texto;
+    }
+
+     public String getFormatRef(){
+        String texto = "";
+        if(this.reference != null){
+            if (this.reference.equals("S")){
+                texto = "Si";
+            }else texto = "No";
+       
+            return texto;
+        }else return texto;
+    }
+     
 }

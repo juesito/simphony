@@ -37,5 +37,16 @@ public  class SalePoint extends Catalog implements Serializable, Cloneable {
         this.domicilio = salePointUpdated.getDomicilio();
     }
 
+    public String getFormatStatus(){
+        String texto = "";
+        if(this.getStatus() != null){
+            if (this.getStatus().equals("A")){
+                texto = "Activo";
+            }else texto = "Inactivo";
+       
+            return texto;
+        }else return texto;
+    }
+    
 }
 

@@ -50,7 +50,7 @@
                                     <p:selectOneMenu id="origin" value="#{itineraryBean.itinerary.origin}" 
                                                      converter="populationConverter"  required="true" requiredMessage="#{msgs.req_origin}"
                                                      style="width:160px" tabindex="1" >
-                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_origin}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="origin" />
@@ -62,7 +62,7 @@
                                     <p:selectOneMenu id="destiny" value="#{itineraryBean.itinerary.destiny}" 
                                                      converter="populationConverter" required="true" requiredMessage="#{msgs.req_destiny}"
                                                      style="width:160px"  tabindex="2" >
-                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_destiny}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>                                    
                                     <p:message for="origin" />

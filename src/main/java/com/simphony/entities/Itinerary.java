@@ -152,7 +152,7 @@ public class Itinerary extends Catalog implements IConfigurable, Serializable, C
 
        public String getFormatStatus(){
         String texto = "";
-        if(this.typeOfRoute != null){
+        if(this.getStatus() != null){
             if (this.getStatus().equals("A")){
                 texto = "Activo";
             }else texto = "Inactivo";

@@ -78,7 +78,7 @@
                                     <p:selectOneMenu id="salePoint" value="#{vendorBean.vendor.salePoint}" 
                                                      converter="salePointConverter" style="width:160px" 
                                                      required="true" requiredMessage="#{msgs.req_salePoint}">
-                                    <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                    <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_salePoint}"  />
                                     <f:selectItems value="#{boxSalePointService.salePointList}" />
                                     </p:selectOneMenu>
 
@@ -90,7 +90,7 @@
                                     <p:selectOneMenu id="population" value="#{vendorBean.vendor.population}" 
                                                      converter="populationConverter" style="width:160px"
                                                      required="true" requiredMessage="#{msgs.req_population}" >
-                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_population}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}" />
                                     </p:selectOneMenu>
                                 </p:column>
@@ -103,7 +103,7 @@
                                     <p:selectOneMenu id="advanced" value="#{vendorBean.vendor.workCenter}" 
                                                      converter="workCenterConverter" style="width:160px" 
                                                      required="true" requiredMessage="#{msgs.req_workCenter}" >
-                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_workCenter}"  />
                                        <f:selectItems value="#{boxWorkCenterService.workCenterList}" />
 
                                     </p:selectOneMenu>

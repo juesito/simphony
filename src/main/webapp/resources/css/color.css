@@ -2,7 +2,7 @@ body{
     margin: 0px;
     background-color:#C6CFB7 !important;
     font: 13px Helvetica, Arial, sans-serif;
-}
+} 
 
 .topheader{
     font-size: 30px;
@@ -18,12 +18,12 @@ body{
 .welcome-title{
     color: rgba(27,71,48,1) !important;
     font-weight: bold;
-    font-size: 30px !important;
+    font-size: 20px !important;
 }
 
-#header, #footer{ background-color: #FFF !important; color: rgba(18,124,10,1); }
+#header, #footer{ background-color: #DDF0C2 !important; color: #015A22; }
 #top a:link, #top a:visited { color: white; }
-#top-band2{background-color: rgba(27,71,48,1);}
+#top-band2{background-color: #225A01;}
 #msj-info-left{ color: rgb(10,58,110); }
 #marco-izq-title{ border-left-color: rgba(55,74,153, 1) !important; }
 .welcome-msg{ margin-top: 20px !important; }
@@ -32,14 +32,14 @@ body{
 
 
 .ui-datatable-even{
-    background-color: #C6CFB7 !important;
+    background-color: #65AD6D !important;
 }
 .ui-datatable-odd{
     font-weight: bold !important;
 }
 .ui-datatable th{
     color: white !important; 
-    font-weight: bold !important;
+    font-weight: normal !important;
 }
 
 .ui-datatable tr .ui-state-disabled{
@@ -62,7 +62,10 @@ body{
 
 .ui-datatable-footer{
     background: white !important;
-    border-top: 1px solid #0A3A6E !important;
+    border-top: 0px solid #0A3A6E !important;
+    border-bottom: 0px solid #0A3A6E !important;
+    border-left: 0px solid #0A3A6E !important;
+    border-right: 0px solid #0A3A6E !important;
 }
 .ui-datatable tr:hover{
     background: rgba(27,71,48,1) !important; 
@@ -95,7 +98,7 @@ body{
     font-size: 12px !important;
 }
 .miMenu a:hover{
-    background-color: #FBF7B4 !important;
+    background-color: #DDF0C2 !important;
     color:rgba(27,71,48,1) !important;    
     font-size: 12px !important;
 }
@@ -104,7 +107,7 @@ body{
 }
 .ui-menuitem-link {
     padding-left: 10px !important;
-    border-left: 1px solid #FBF7B4 !important;
+    border-left: 3px solid #EEEEEE !important;
 }
 
 .ui-menuitem-link:hover {
@@ -114,12 +117,12 @@ body{
 }
 .ui-state-hover{
     background-image: none !important;
-    background-color: #FBF7B4 !important;
+    background-color: #6DAD65 !important;
 }
 
 .ui-menu-child{
     background-image: none !important;
-    background-color: #C6CFB7 !important;
+    background-color: #6DAD65 !important;
 }
 
 .ui-menu-child ui-menuitem-text{
@@ -142,10 +145,10 @@ body{
     min-height: 400px;
     max-height: 401px;
     
-    background: -webkit-linear-gradient(white, #FBF7B4); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(white, #FBF7B4); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(white, #FBF7B4); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(white, #FBF7B4); /* Standard syntax (must be last) */
+    background: -webkit-linear-gradient(white, #EEEEEE); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #EEEEEE); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #EEEEEE); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #6DaD65); /* Standard syntax (must be last) */
 }
 .box-content-sale table, .box-content-sale tr{
     background: transparent;
@@ -156,10 +159,10 @@ body{
     min-height: 400px;
     max-height: 401px;
     
-    background: -webkit-linear-gradient(white, #FBF7B4); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(white, #FBF7B4); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(white, #FBF7B4); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(white, #FBF7B4); /* Standard syntax (must be last) */
+    background: -webkit-linear-gradient(white, #EEEEEE); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, #EEEEEE); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, #EEEEEE); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, #EEEEEE); /* Standard syntax (must be last) */
     
 }
 
@@ -241,3 +244,16 @@ input:hover{
     background-image: none !important;
     background-color: transparent !important;
 }
+
+
+.box-content-cat1{
+    font-size: 12px !important;    
+    min-width: 220px;
+    max-width: 221px;
+    max-width: 400px;
+    min-height: 200px;
+    max-height: 201px;
+    
+    background-color:  #1FA14A; /* Standard syntax (must be last) */
+}
+

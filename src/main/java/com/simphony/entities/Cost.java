@@ -1,5 +1,6 @@
 package com.simphony.entities;
 
+import static com.simphony.interfases.IConfigurable._SHM;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -91,6 +92,23 @@ public class Cost extends Catalog implements Serializable, Cloneable {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public String getFormatStatus(){
+    String texto = "";
+    if(this.getStatus() != null){
+        if (this.getStatus().equals("A")){
+            texto = "Activo";
+        }else texto = "Inactivo";
+       
+        return texto;
+    }else return texto;
+    }
+
+    public String getFormatRouteTime(){
+    if(this.routeTime != null){
+       return _SHM.format(this.routeTime);
+    }else return "";
     }
 
 }

@@ -22,26 +22,19 @@
                         <p:dataTable value="#{payTypeBean.list}" var="payType" style="font-size: 12px;"
                                      selectionMode="single" selection="#{payTypeBean.selected}" 
                                      rowKey="#{payType.id}" id="payTypeDT"
-                                     rows="4"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
                                     >
                            
                             <p:column headerText="#{msgs.cat_description}" >
                                 <p:outputLabel value="#{payType.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_reference}" >
-                                <p:selectOneMenu value="#{payType.reference}" disabled="true">                                    
-                                    <f:selectItem itemValue="S" itemLabel="#{msgs.but_yes}" />
-                                    <f:selectItem itemValue="N" itemLabel="#{msgs.but_no}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{payType.formatRef}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:selectOneMenu value="#{payType.status}" disabled="true">                                    
-                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{payType.formatStatus}" />
                             </p:column>
                             
                              <!-- Footer -->
@@ -84,16 +77,10 @@
                                     <h:outputText value="#{payTypeBean.selected.description}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_reference}:" />
-                                        <p:selectOneMenu value="#{payType.reference}" disabled="true">                                    
-                                            <f:selectItem itemValue="_YES" itemLabel="#{msgs.but_yes}" />
-                                            <f:selectItem itemValue="_NO" itemLabel="NO" />
-                                        </p:selectOneMenu>
+                                    <h:outputText value="#{payTypeBean.selected.reference}" />
                                     
                                     <h:outputText value="#{msgs.cat_status}:" />
-                                        <p:selectOneMenu value="#{payType.status}" disabled="true">                                    
-                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                        </p:selectOneMenu>
+                                    <h:outputText value="#{payTimeBean.selected.formatStatus}" />
                                     
                                     <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{payTypeBean.selected.createDate}" />

@@ -16,9 +16,9 @@
                     <h:form id="add">
                         <p:outputLabel value="#{msgs.but_add} #{msgs.cat_cost}" class="welcome-title" />
                         <br/><br/>
-
+                        <table width="700px" style="height: 250px; border: 1px solid; background-color: #DDF0C2;"><tr><td>
                         <!-- Grid para agregar entidad -->                    
-                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid" >
+                        <p:panelGrid style="margin: 0 auto;border: 1px solid;" styleClass="borderPanelGrid" >
                             <!-- Primer renglón -->
                             <p:row>
                                 <p:column>
@@ -29,7 +29,7 @@
                                                      converter="populationConverter" 
                                                      style="width:160px" required="true" requiredMessage="#{msgs.req_origin}"
                                                      tabindex="1" >
-                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_origin}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
@@ -43,7 +43,7 @@
                                                      converter="populationConverter" 
                                                      style="width:160px" required="true" requiredMessage="#{msgs.req_destiny}" 
                                                      tabindex="2" >
-                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_destiny}"  />
                                         <f:selectItems value="#{boxPopulationService.populationList}"/>
                                     </p:selectOneMenu>
                                 </p:column>
@@ -93,7 +93,7 @@
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
-
+                        </td></tr></table>
                     </h:form>
                 </p:panel>
                 <!-- panel para modificar -->

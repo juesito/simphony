@@ -21,10 +21,9 @@
                         <p:dataTable value="#{populationBean.list}" var="population" style="font-size: 12px;"
                                      selectionMode="single" selection="#{populationBean.selected}" 
                                      rowKey="#{population.id}" id="populationDT" 
-                                     rows="4"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="7,10,13"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
                                      >
 
                             <p:column headerText="#{msgs.cat_description}" filterBy="#{population.description}"
@@ -32,10 +31,7 @@
                                 <p:outputLabel value="#{population.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >                                
-                                <p:selectOneMenu value="#{population.status}" disabled="true">                                    
-                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{population.formatStatus}" />
                             </p:column>
 
                             <!-- Footer -->
@@ -88,10 +84,7 @@
                                             <p:outputLabel value="#{msgs.cat_status}:" />
                                         </p:column>
                                         <p:column>
-                                            <p:selectOneMenu value="#{population.status}" disabled="true">                                    
-                                                <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                                <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                            </p:selectOneMenu>
+                                   <h:outputText value="#{populationBean.selected.formatStatus}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>

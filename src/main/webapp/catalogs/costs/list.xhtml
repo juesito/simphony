@@ -21,10 +21,9 @@
                         <p:dataTable value="#{costBean.list}" var="cost" style="font-size: 12px;"
                                      selectionMode="single" selection="#{costBean.selected}" 
                                      rowKey="#{cost.id}" id="costDT"
-                                     rows="4"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
                                     >
                            
                             <p:column headerText="#{msgs.cat_origin}" filterBy="#{cost.origin.description}"
@@ -38,16 +37,13 @@
                                 <p:outputLabel value="#{cost.cost}" />
                             </p:column>
                              <p:column headerText="#{msgs.cat_routeTime}" >
-                                 <p:calendar value="#{cost.routeTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                 <p:outputLabel value="#{cost.formatRouteTime}" />
                             </p:column>
                             <p:column headerText="Kms" >
                                 <p:outputLabel value="#{cost.kms}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:selectOneMenu value="#{cost.status}" disabled="true">                                    
-                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{cost.formatStatus}" />
                             </p:column>
                      
                              <!-- Footer -->
@@ -96,16 +92,13 @@
                                     <h:outputText value="#{costBean.selected.cost}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_routeTime}:" />
-                                    <p:calendar value="#{costBean.selected.routeTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                    <h:outputText value="#{costBean.selected.formatRouteTime}" />
                                                                        
                                     <h:outputText value="Kms:" />
                                     <h:outputText value="#{costBean.selected.kms}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_status}:" />
-                                        <p:selectOneMenu value="#{cost.status}" disabled="true">                                    
-                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                        </p:selectOneMenu>
+                                    <h:outputText value="#{costBean.selected.formatStatus}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{costBean.selected.createDate}" />

@@ -21,10 +21,9 @@
                         <p:dataTable value="#{vendorBean.list}" var="vendor" style="font-size: 12px;"
                                      selectionMode="single" selection="#{vendorBean.selected}" 
                                      rowKey="#{vendor.id}" id="vendorDT"
-                                     rows="4"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
                                      >
                             <p:column headerText="#{msgs.cat_nick}" filterBy="#{vendor.nick}"
                                       filterMatchMode="contains" >
@@ -61,10 +60,7 @@
                             </p:column>
 -->
                             <p:column headerText="#{msgs.cat_status}"  style="width: 50px;">
-                                <p:selectOneMenu value="#{vendor.status}" disabled="true">                                    
-                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{vendor.formatStatus}" />
                             </p:column>
 
                             <!-- Footer -->
@@ -123,10 +119,7 @@
                                     <h:outputText value="#{vendorBean.selected.workCenter.description}" />  
 
                                     <h:outputText value="#{msgs.cat_status}:" />
-                                    <p:selectOneMenu value="#{vendor.status}" disabled="true">                                    
-                                       <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                       <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                    </p:selectOneMenu>
+                                    <h:outputText value="#{vendorBean.selected.formatStatus}" />
 
                                     <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{vendorBean.selected.createDate}" />

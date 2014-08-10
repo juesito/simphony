@@ -39,7 +39,7 @@
     width: 100%;
     margin-top: 10px;
     padding-bottom: 40px;
-    background-color:#C6CFB7;
+    background-color:#FFFFFF;
 }
 
 
@@ -55,8 +55,10 @@
 .wrap {
     position:relative;
     margin:0 auto;
-    width:1000px;    
+    width:1201px;    
     min-height: 150px;
+//    background-color: #DDF0C2;
+    background-image: url("verde7.jpg");
 }
 
 #left {
@@ -99,7 +101,7 @@
     width: 17%;
     max-height:110px;
     position: relative;
-    clear: left;
+    clear: right;
 }
 
 #marco-der {
@@ -109,7 +111,7 @@
     padding-bottom: 0px;
     height: 110px;
     max-height:100px;
-    float: left;    
+    float: right;    
     position: relative;    
 }
 
@@ -118,15 +120,15 @@
     position: relative;
     padding-top: 0px;
     max-height:100px;        
-    float: left;
+    float: right;
 }
 
 #logo{
     margin-top: 2px;
-    margin-left: 2px;
+    margin-left: 30px;
     border: 0px; 
-    width:160px; 
-    height:90px;
+    width:330px; 
+    height:150px;
 }
 
 #top-band2{
@@ -364,7 +366,7 @@ div{ display:block; }
     border-right: none  !important; 
     border-top: none  !important; 
     border-bottom: none  !important; 
-    border-left: #1B4730 double !important; 
+    border-left: #6DAD65 double !important; 
     text-align: center;
     min-height: 20px !important; 
     min-width: 30px !important; 
@@ -382,7 +384,7 @@ div{ display:block; }
     border-left: none  !important; 
     border-top: none  !important; 
     border-bottom: none  !important; 
-    border-right: #1B4730 double !important; 
+    border-right: #6DAD65 double !important; 
     text-align: center;
     min-height: 20px !important; 
     min-width: 30px !important; 

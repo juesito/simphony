@@ -21,10 +21,9 @@
                         <p:dataTable value="#{salePointBean.list}" var="salePoint" style="font-size: 12px;"
                                      selectionMode="single" selection="#{salePointBean.selected}" 
                                      rowKey="#{salePoint.id}" id="salePointDT"
-                                     rows="4"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
                                      >
                            
                             <p:column headerText="#{msgs.cat_description}" filterBy="#{salePoint.description}"
@@ -35,10 +34,7 @@
                                 <p:outputLabel value="#{salePoint.domicilio}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:selectOneMenu value="#{salePoint.status}" disabled="true">                                    
-                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{salePoint.formatStatus}" />
                             </p:column>
                             
                              <!-- Footer -->
@@ -84,10 +80,7 @@
                                     <h:outputText value="#{salePointBean.selected.domicilio}" />
 
                                    <h:outputText value="#{msgs.cat_status}:" />
-                                        <p:selectOneMenu value="#{salePoint.status}" disabled="true">                                    
-                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                        </p:selectOneMenu>
+                                   <h:outputText value="#{salePointBean.selected.formatStatus}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{salePointBean.selected.createDate}" />
