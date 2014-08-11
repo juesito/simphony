@@ -12,6 +12,7 @@ import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.models.AssociateModel;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +38,7 @@ public class AssociateBean implements IConfigurable {
     private Associate associate = new Associate();
     private Associate current = new Associate();
     private Associate selected = new Associate();
+    private AssociateModel model = new AssociateModel();
     private List<Associate> list = new ArrayList<Associate>();
 
     @ManagedProperty(value = "#{associateService}")
@@ -168,6 +170,7 @@ public class AssociateBean implements IConfigurable {
         while (cu.hasNext()) {
             list.add(cu.next());
         }
+        model = new AssociateModel(list);
     }
 
     /**
@@ -212,6 +215,7 @@ public class AssociateBean implements IConfigurable {
     /**
      * Actualizamos el usuario
      *
+     * @param user
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
@@ -245,17 +249,27 @@ public class AssociateBean implements IConfigurable {
     private Sort sortByKeyId() {
         return new Sort(Sort.Direction.ASC, "keyId");
     }
+
+    public AssociateModel getModel() {
+        return model;
+    }
+
+    public void setModel(AssociateModel model) {
+        this.model = model;
+    }
+    
+    
     
     /**
      * validamos si existe usuario
      */
     private void checkRootAssociate() {
-        if (!this.service.getRepository().exists(0L)) {
+        if (!this.service.getRepository().exists(1L)) {
             Calendar cal = Calendar.getInstance();
             Associate root = new Associate();
-            root.setName("");
-            root.setFirstLastName("");
-            root.setSecondLastName("");
+            root.setName("System");
+            root.setFirstLastName("Administrator");
+            root.setSecondLastName("Default");
             root.setStatus(_DISABLE);
             root.setCreateDate(cal.getTime());
             root.setLastUpdate(cal.getTime());

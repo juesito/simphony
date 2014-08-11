@@ -25,8 +25,7 @@ import javax.persistence.Transient;
 @MappedSuperclass
 public abstract class Catalog implements Serializable{
     @Column(name="id")
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
     @Transient

@@ -18,9 +18,9 @@
                         
                          <br />
                         <!-- Data table -->
-                        <p:dataTable value="#{associateBean.list}" var="associate" style="font-size: 12px;"
+                        <p:dataTable value="#{associateBean.model}" var="associate" style="font-size: 12px;"
                                      selectionMode="single" selection="#{associateBean.selected}" 
-                                     rowKey="#{associate.keyId}" id="associateDT"
+                                     rowKey="#{associate.id}" id="associateDT"
                                      emptyMessage="#{msgs.no_records_found}" rows="10"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
@@ -38,10 +38,7 @@
                             </p:column>
                              <p:column headerText="#{msgs.cat_platform}" >
                                 <p:outputLabel value="#{associate.platform}" />
-                            </p:column>
-                            <p:column headerText="#{msgs.cat_state}" >
-                                <p:outputLabel value="#{associate.state}" />
-                            </p:column>
+                            </p:column>                            
                             <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{associate.formatStatus}" />
                             </p:column>

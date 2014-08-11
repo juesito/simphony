@@ -9,6 +9,7 @@ import static com.simphony.interfases.IConfigurable._ADD;
 import static com.simphony.interfases.IConfigurable._DISABLE;
 import static com.simphony.interfases.IConfigurable._ENABLED;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.models.DriverManModel;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +35,7 @@ public class DriverManBean implements IConfigurable {
     private DriverMan driverMan = new DriverMan();
     private DriverMan current = new DriverMan();
     private DriverMan selected = new DriverMan();
+    private DriverManModel model = new DriverManModel();
     private List<DriverMan> list = new ArrayList<DriverMan>();
 
     @ManagedProperty(value = "#{driverManService}")
@@ -162,10 +164,12 @@ public class DriverManBean implements IConfigurable {
         while (cu.hasNext()) {
             list.add(cu.next());
         }
+        model = new DriverManModel(list);
     }
 
     /**
      * Guardamos el DriverMan
+     * @param user
      * @return
      */
     public String save(User user) {
@@ -183,6 +187,7 @@ public class DriverManBean implements IConfigurable {
     /**
      * Actualizamos DriverMan
      *
+     * @param user
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
@@ -215,4 +220,13 @@ public class DriverManBean implements IConfigurable {
         return new Sort(Sort.Direction.ASC, "Name");
     }
 
+    public DriverManModel getModel() {
+        return model;
+    }
+
+    public void setModel(DriverManModel model) {
+        this.model = model;
+    }
+
+    
 }

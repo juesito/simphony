@@ -48,12 +48,6 @@ public class Itinerary extends Catalog implements IConfigurable, Serializable, C
 
     }
 
-    public Itinerary(Long id) {
-        this.setId(id);
-    }
-    
-    
-    
     @PreUpdate
     public void preUpdate(){
         super.setLastUpdate(new Date());

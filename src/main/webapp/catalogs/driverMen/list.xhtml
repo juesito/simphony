@@ -18,12 +18,11 @@
                         
                          <br />
                         <!-- Data table -->
-                        <p:dataTable value="#{driverManBean.list}" var="driverMan" style="font-size: 12px;"
+                        <p:dataTable value="#{driverManBean.model}" var="driverMan" style="font-size: 12px;"
                                      selectionMode="single" selection="#{driverManBean.selected}" 
                                      emptyMessage="#{msgs.no_records_found}" rows="10"
                                      paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{PageLinks}"
-                                     >
+                                     paginatorTemplate="{PageLinks}" rowKey="#{driverMan.id}">
                            
                             <p:column headerText="#{msgs.cat_name}" filterBy="#{driverMan.name}"
                                       filterMatchMode="contains" >
