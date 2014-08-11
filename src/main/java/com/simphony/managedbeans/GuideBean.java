@@ -107,7 +107,7 @@ public class GuideBean implements IConfigurable {
             } catch (CloneNotSupportedException ex) {
                 Logger.getLogger(GuideBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return "addGuide";
+            return "modifyGuide";
         }else
             return "toGuide";
     }
@@ -141,13 +141,13 @@ public class GuideBean implements IConfigurable {
         Guide guideUpdated = this.guideService.getRepository().findOne(this.guide.getId());
         
         if(guideUpdated == null){
-            throw new PersonException("Estación de trabajo no existente"); 
+            throw new PersonException("Guía no existente"); 
         }
         guide.setVendor(user);
         guide.setLastUpdate(cal.getTime());
         guideUpdated.update(this.guide);
         this.guideService.getRepository().save(guideUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.guide.getId()+ " "+mp.getValue("msj_record_update"));
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " "+mp.getValue("msj_record_update"));
         guide = new Guide();
         return toGuide();
     }

@@ -10,6 +10,8 @@ public interface IConfigurable {
     final SimpleDateFormat _SHF = new SimpleDateFormat("hhmmss");
     final SimpleDateFormat _SHM = new SimpleDateFormat("kk:mm");
     final SimpleDateFormat _SGF = new SimpleDateFormat("yyyyMMdd hhmmss");
+    final SimpleDateFormat _DMA = new SimpleDateFormat("dd-MM-yyyy");
+
     final String _BLANK = "";
     final String _ROOT_IMG = "ROOTIMG";
 

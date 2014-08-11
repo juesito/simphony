@@ -33,7 +33,7 @@
                                 <p:menuitem value="Cancelación" url="#" />
                             </p:submenu>
                             <p:submenu label="   Operación   " rendered="#{userBean.current.looged}" >
-                                <p:menuitem value="Itinerarios" action="#{itineraryBean.toItineraries()}" ajax="false">
+                                <p:menuitem value="Rutas" action="#{itineraryBean.toItineraries()}" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillBox()}"/>
                                     <f:actionListener  binding="#{boxMainItineraryService.fillBox()}"/>
                                 </p:menuitem>

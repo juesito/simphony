@@ -846,10 +846,10 @@ body .ui-tooltip {
 .ui-widget-content {
 	border: 0px solid #6DAD65;
 	background: #ffffff url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
-	color: #6DAD65;
+	color:  darkslategray;
 }
 .ui-widget-content a {
-	color: #6DAD65;
+	color:  darkslategray;
 }
 .ui-widget-header {
 	border: 0px solid #6DAD65;

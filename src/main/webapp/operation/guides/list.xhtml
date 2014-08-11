@@ -28,10 +28,10 @@
 
                             <p:column headerText="#{msgs.cat_date}" filterBy="#{guide.departureDate}"
                                       filterMatchMode="contains" >
-                                <p:outputLabel value="#{guide.departureDate}" />
+                                <p:outputLabel value="#{guide.formatDepartureDate}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_departureTime}" >
-                                <p:calendar value="#{guide.departureDate}" timeOnly="true" disabled="true" pattern="HH:mm" />
+                                <p:outputLabel value="#{guide.formatDepartureTime}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{guide.origin.description}" />
@@ -46,11 +46,7 @@
                                 <p:outputLabel value="#{guide.driverMan1.firstLastName} #{guide.driverMan1.name}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:selectOneMenu value="#{guide.status}" disabled="true">                                    
-                                    <f:selectItem itemValue="A" itemLabel="#{msgs.sts_open}" />
-                                    <f:selectItem itemValue="C" itemLabel="#{msgs.sts_cancel}" />
-                                    <f:selectItem itemValue="I" itemLabel="#{msgs.sts_close}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{guide.formatStatus}" />
                             </p:column>
                             
                              <!-- Footer -->
