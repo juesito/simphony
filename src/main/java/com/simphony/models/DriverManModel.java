@@ -7,7 +7,6 @@
 package com.simphony.models;
 
 import com.simphony.entities.DriverMan;
-import com.simphony.pojos.ItineraryCost;
 import java.util.List;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;

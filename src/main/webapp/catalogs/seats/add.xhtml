@@ -14,19 +14,19 @@
                 <!-- panel para agregar -->
                 <p:panel rendered="#{seatBean.seat.action eq 'A'}">
                     <h:form id="add">
-                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_associate}" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_seats}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="Referencia:" />
+                                    <p:outputLabel value="Asiento:" />
                                 </p:column>
                                  <p:column>
-                                     <p:inputText id="reference" value="#{seatBean.seat.reference}" required="true" 
-                                                 tabindex="1" maxlength="25" />
-                                    <p:message for="reference" />
+                                     <p:inputText id="seat" value="#{seatBean.seat.seat}" required="true" 
+                                                 tabindex="1" maxlength="2" requiredMessage="#{msgs.req_seat}"/>
+                                    <p:message for="seat" />
                                 </p:column>
                             </p:row>
                             
@@ -49,19 +49,19 @@
                 <!-- panel para modificar -->
                 <p:panel rendered="#{seatBean.seat.action eq 'M'}">
                     <h:form id="modify">
-                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_associate}" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_seat}" class="welcome-title" />
                         <br/><br/>
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">                            
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_name}:" />
+                                    <p:outputLabel value="#{msgs.cat_seat}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="name" value="#{seatBean.seat.reference}" required="true" maxlength="25" 
-                                                 requiredMessage="#{msgs.req_name}"/>
-                                    <p:message for="name" />
+                                    <p:inputText id="seat" value="#{seatBean.seat.seat}" required="true" maxlength="2" 
+                                                 requiredMessage="#{msgs.req_seat}"/>
+                                    <p:message for="seat" />
                                 </p:column>
                             </p:row>
                             <p:row>

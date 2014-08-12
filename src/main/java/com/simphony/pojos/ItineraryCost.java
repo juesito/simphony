@@ -7,7 +7,6 @@ package com.simphony.pojos;
 
 import com.simphony.entities.Cost;
 import com.simphony.entities.Itinerary;
-import com.simphony.entities.ItineraryDetail;
 import java.util.Date;
 
 /**
