@@ -43,7 +43,7 @@ public class BusBox {
 
         for (Bus bus : optionList) {
             list.add(bus);
-            busList.add(new SelectItem(bus, bus.getDescription()));
+            busList.add(new SelectItem(bus, bus.getNumber()));
         }
 
     }

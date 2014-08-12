@@ -5,6 +5,8 @@
  */
 package com.simphony.entities;
 
+import static com.simphony.interfases.IConfigurable._DMA;
+import static com.simphony.interfases.IConfigurable._SHM;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -269,4 +271,31 @@ public class Guide implements Serializable, Cloneable {
     public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
     }
+
+    public String getFormatDepartureTime(){
+        if(this.departureTime != null){
+            return _SHM.format(this.departureTime);
+        }else return "";
+   }
+    
+    public String getFormatStatus(){
+    String texto = "";
+       if(this.getStatus() != null){
+            if (this.getStatus().equals("A")){
+                texto = "Abierta";
+            }else 
+                 if (this.getStatus().equals("I")){
+                     texto = "Cerrada";
+                 } else texto = "Cancelada";
+       
+            return texto;
+        }else return texto;
+    }
+    
+    public String getFormatDepartureDate(){
+        if(this.departureDate != null){
+            return _DMA.format(this.departureDate);
+        }else return "";
+   }
+
 }

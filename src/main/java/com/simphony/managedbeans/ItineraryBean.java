@@ -12,6 +12,7 @@ import com.simphony.entities.Itinerary;
 import com.simphony.entities.User;
 import com.simphony.exceptions.ItineraryException;
 import com.simphony.interfases.IConfigurable;
+import com.simphony.selectors.MainItineraryBox;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +42,9 @@ public class ItineraryBean implements IConfigurable {
     @ManagedProperty(value = "#{itineraryService}")
     private ItineraryService itineraryService;
 
+    @ManagedProperty(value = "#{boxMainItineraryService}")
+    private MainItineraryBox boxItineraryService;
+
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
 
@@ -66,9 +70,17 @@ public class ItineraryBean implements IConfigurable {
         return itineraryService;
     }
 
+    public MainItineraryBox getBoxItineraryService() {
+        return boxItineraryService;
+    }
+
+    public void setBoxItineraryService(MainItineraryBox boxItineraryService) {
+        this.boxItineraryService = boxItineraryService;
+    }
+
     public CostService getCostService() {
         return costService;
-    }
+    } 
 
     public void setCostService(CostService costService) {
         this.costService = costService;
@@ -219,7 +231,7 @@ public class ItineraryBean implements IConfigurable {
                     GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itinerary.getOrigin().getDescription());
                     itinerary = new Itinerary();
                     itinerary.setAction(_ADD);
-//                    mainItineraryService.fillBox();
+                    boxItineraryService.fillBox();
                 } else {
                     GrowlBean.simplyErrorMessage(mp.getValue("error_cost_title"), mp.getValue("error_cost"));
                 } //Existe tarifa?
