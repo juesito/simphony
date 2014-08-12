@@ -21,6 +21,8 @@
     <class>com.simphony.entities.Seat</class>
     <class>com.simphony.entities.Customer</class>
     <class>com.simphony.entities.PayType</class>
+    <class>com.simphony.entities.GuideDetail</class>
+    <class>com.simphony.entities.ReservedSeats</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>

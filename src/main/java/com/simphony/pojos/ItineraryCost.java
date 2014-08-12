@@ -19,6 +19,7 @@ public class ItineraryCost {
     private Itinerary alternateItinerary;
     private Cost cost;
     private Integer rowId = 1;
+    private Date departureTime;
 
     public ItineraryCost() {
 
@@ -79,6 +80,15 @@ public class ItineraryCost {
 
         return id;
     }
+
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+    }
+    
 
     public void setRowId(Integer rowId) {
         Date date = new Date();

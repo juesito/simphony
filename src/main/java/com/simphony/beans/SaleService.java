@@ -6,6 +6,7 @@
 
 package com.simphony.beans;
 
+import com.simphony.repositories.ReservedSeatsRepository;
 import com.simphony.repositories.SaleDetailRepository;
 import com.simphony.repositories.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class SaleService {
     
     @Autowired
     SaleDetailRepository detailRepository;
+    
+    @Autowired
+    ReservedSeatsRepository reservedSeatsRepository;
 
     public SaleRepository getSaleRepository() {
         return saleRepository;
@@ -39,6 +43,15 @@ public class SaleService {
     public void setDetailRepository(SaleDetailRepository detailRepository) {
         this.detailRepository = detailRepository;
     }
+
+    public ReservedSeatsRepository getReservedSeatsRepository() {
+        return reservedSeatsRepository;
+    }
+
+    public void setReservedSeatsRepository(ReservedSeatsRepository reservedSeatsRepository) {
+        this.reservedSeatsRepository = reservedSeatsRepository;
+    }
+    
     
     
     
