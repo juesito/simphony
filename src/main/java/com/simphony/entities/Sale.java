@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 @Entity(name="Sale")
@@ -38,6 +39,7 @@ public  class Sale implements Serializable, IConfigurable {
 
     @Column(name="fechaSalida")
     @Basic
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date tripDate;
     
     @Column(name="informacionPago")

@@ -30,7 +30,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -157,6 +156,7 @@ public class SaleBean implements IConfigurable {
     public void findAvailability() {
 
         if (selected != null) {
+            this.sale.setTripDate(this.selected.getDepartureTime());
 
             if (selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {
                 guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
@@ -310,7 +310,7 @@ public class SaleBean implements IConfigurable {
     }
 
     public String toSaleConfirm(){
-        this.sale.setTripDate(this.selected.getDepartureTime());
+        
         return "toSaleConfirm";
     }
     
