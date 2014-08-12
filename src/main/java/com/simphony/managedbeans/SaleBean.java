@@ -15,7 +15,9 @@ import com.simphony.entities.Associate;
 import com.simphony.entities.Cost;
 import com.simphony.entities.Customer;
 import com.simphony.entities.Guide;
+import com.simphony.entities.GuideDetail;
 import com.simphony.entities.Itinerary;
+import com.simphony.entities.ReservedSeats;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
 import com.simphony.entities.Seat;
@@ -25,8 +27,10 @@ import com.simphony.models.ItineraryCostModel;
 import com.simphony.pojos.ItineraryCost;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -106,6 +110,21 @@ public class SaleBean implements IConfigurable {
                 itineraryCost.add(it);
             }
         }
+        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.sale.getTripDate());
+        
+        for(int i=0; i < itineraryCost.size(); i++){
+            Calendar calTime = Calendar.getInstance();
+            Calendar calTimeTmp = Calendar.getInstance();
+            calTime = (Calendar)cal.clone();
+            
+            calTimeTmp.setTime(itineraryCost.get(i).getItinerary().getDepartureTime());
+            calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
+            calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
+            calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
+            itineraryCost.get(i).setDepartureTime(calTime.getTime());
+        }
 
         model = new ItineraryCostModel(itineraryCost);
 
@@ -151,7 +170,9 @@ public class SaleBean implements IConfigurable {
 
             if (guide != null) {
                 // Validación de asientos
-                guide = new Guide(false);
+                guide = new Guide(false);                
+                //seat = seatService.getRepository().findAllAvailable();
+                List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guide.getRootGuide(), guide.getRootRoute());
 
                 this.sale.setAvailability(true);
             } else {
@@ -186,28 +207,22 @@ public class SaleBean implements IConfigurable {
         //Guardamos la venta
         sale = saleService.getSaleRepository().save(sale);
 
-        //Guardamos el detalle de la venta
-        for (SaleDetail dtSale : this.saleDetail) {
-            dtSale.setSale(sale);
-            saleService.getDetailRepository().save(dtSale);
-        }
-
         // Guardamos la guia
         if (guide.isNewGuide()) {
 
             guide.setVendor(vendor);
             guide.setCreateDate(new Date());
-            guide.setStatus(_GUIDE_TYPE_OPEN);            
+            guide.setStatus(_GUIDE_TYPE_OPEN);
             guide.setGuideReference("Sin Referencia");
             guide.setDepartureDate(sale.getTripDate());
 
             if (this.selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {
-                
+
                 guide.setRootGuide(0L);
                 guide.setRootRoute(this.selected.getItinerary().getId());
                 guide.setOrigin(this.selected.getItinerary().getOrigin());
                 guide.setDestiny(this.selected.getItinerary().getDestiny());
-                
+
                 guideService.getRepository().save(guide);
                 guide.setRootGuide(guide.getId());
                 guide.update(guide);
@@ -219,18 +234,48 @@ public class SaleBean implements IConfigurable {
                         sale.getTripDate(), selected.getItinerary().getRoute().getId());
 
                 if (guideRoot == null) {
-                    guideRoot = this.createRootGuide((Guide)guide.clone(), selected.getItinerary());
+                    guideRoot = this.createRootGuide((Guide) guide.clone(), selected.getItinerary());
                 }
-                
+
                 guide.setOrigin(this.selected.getItinerary().getOrigin());
                 guide.setDestiny(this.selected.getAlternateItinerary().getDestiny());
-                guide.setRootRoute(guideRoot.getRootRoute());                
+                guide.setRootRoute(guideRoot.getRootRoute());
                 guide.setRootGuide(guideRoot.getId());
                 guideService.getRepository().save(guide);
             }
+        }
 
-            
-            
+        /**
+         * Guardamos el detalle de la guia
+         */
+        if (guide != null) {
+            GuideDetail guideDetail = new GuideDetail();
+            guideDetail.setGuide(guide);
+            guideDetail.setSale(sale);
+            guideService.getDetailRepository().save(guideDetail);
+        }
+
+        //Guardamos el detalle de la venta
+        ReservedSeats reservedSeat = new ReservedSeats();
+        reservedSeat.setGuideId(guide.getRootGuide());
+        reservedSeat.setRouteId(guide.getRootRoute());
+        reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
+
+        for (SaleDetail dtSale : this.saleDetail) {
+
+            dtSale.setSale(sale);
+            saleService.getDetailRepository().save(dtSale);
+            if (reservedSeat.getRouteType().equals(_LOCAL)) {
+                reservedSeat.setInitialSequence(0);
+                reservedSeat.setFinalSequence(0);
+            } else {
+                reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
+                reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
+            }
+            reservedSeat.setSeatId(dtSale.getSeat().getId());
+
+            //
+            saleService.getReservedSeatsRepository().save(reservedSeat);
         }
 
         GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
@@ -240,9 +285,10 @@ public class SaleBean implements IConfigurable {
 
     /**
      * Creamos la guia padre
+     *
      * @param guide
      * @param rootRoute
-     * @return 
+     * @return
      */
     private Guide createRootGuide(Guide guide, Itinerary rootRoute) {
 
@@ -254,7 +300,7 @@ public class SaleBean implements IConfigurable {
         guide.setRootGuide(guide.getId());
         guide.update(guide);
         guide = guideService.getRepository().save(guide);
-        
+
         return guide;
     }
 
@@ -263,6 +309,11 @@ public class SaleBean implements IConfigurable {
         this.saleDetail.clear();
     }
 
+    public String toSaleConfirm(){
+        this.sale.setTripDate(this.selected.getDepartureTime());
+        return "toSaleConfirm";
+    }
+    
     /**
      * Agregamos el asiento seleccionado
      */

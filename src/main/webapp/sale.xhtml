@@ -153,8 +153,8 @@
                                                     <p:outputLabel value="#{ic.itinerary.typeOfRoute}" />
                                                 </p:column>
                                                 <p:column headerText="hr Salida">                                                    
-                                                    <p:calendar pattern="HH:mm" size="10" readonly="true" disabled="true"
-                                                                value="#{ic.itinerary.departureTime}" />
+                                                    <p:calendar pattern="dd/MM/yyyy HH:mm" size="20" readonly="true" disabled="true"
+                                                                value="#{ic.departureTime}" />
                                                 </p:column>
                                                 <p:column headerText="Origen">
                                                     <p:outputLabel value="#{ic.itinerary.origin.description}" />
@@ -225,7 +225,7 @@
                                     <p:row>
                                         <p:column colspan="2">
                                             <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
-                                                             action="toSaleConfirm"  ajax="false"/>
+                                                             action="#{saleBean.toSaleConfirm()}"  ajax="false"/>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>

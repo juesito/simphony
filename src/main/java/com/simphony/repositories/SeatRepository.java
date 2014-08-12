@@ -20,4 +20,6 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     @Query("SELECT a FROM Seat a WHERE a.status = 'A'")
     public List<Seat> findAllAvailable();
     
+    
+    
 }
