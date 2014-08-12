@@ -14,88 +14,90 @@
                     <h:form id="saleForm">
                         <div class="box-content-sale" >
                             <!-- choice your origin and destiny -->
-                            <p:panelGrid styleClass="sale-schedule-panel" id="sale-input"
-                                         rendered="#{not saleBean.sale.availability}" >
-                                <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Saliendo de:" />
-                                    </p:column>                                    
-                                </p:row>
-                                <p:row>
-                                    <p:column>
+                            <p:panel id="sale-input" rendered="#{not saleBean.sale.availability}">
+                                <p:panelGrid styleClass="sale-schedule-panel" 
+                                             >
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Saliendo de:" />
+                                        </p:column>                                    
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
 
-                                        <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
-                                                         converter="populationConverter" 
-                                                         style="width:160px" required="true" 
-                                                         requiredMessage="Origen Requerido">
-                                            <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                            <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
-                                            <p:ajax event="change" update=":saleForm:destiny" 
-                                                    listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
-                                        </p:selectOneMenu>
-                                    </p:column>
+                                            <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
+                                                             converter="populationConverter" 
+                                                             style="width:160px" required="true" 
+                                                             requiredMessage="Origen Requerido">
+                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
+                                                <p:ajax event="change" update=":saleForm:destiny" 
+                                                        listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
+                                            </p:selectOneMenu>
+                                        </p:column>
 
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Destino:" />
-                                    </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Destino:" />
+                                        </p:column>
 
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
-                                                         converter="populationConverter" 
-                                                         style="width:160px" required="true" 
-                                                         requiredMessage="Destino requerido">
-                                            <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                            <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
+                                                             converter="populationConverter" 
+                                                             style="width:160px" required="true" 
+                                                             requiredMessage="Destino requerido">
+                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
 
-                                        </p:selectOneMenu>
-                                    </p:column>
+                                            </p:selectOneMenu>
+                                        </p:column>
 
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Fecha de salida:" />
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                                    pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Es agremiado?" />
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:selectBooleanCheckbox value="#{saleBean.sale.partner}" />
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Pasajeros:" />
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:inputText size="5" />
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
-                                                         ajax="true" styleClass="button-rounded" 
-                                                         update=":saleForm:sale-panel "  >
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Fecha de salida:" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                                        pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Es agremiado?" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:selectBooleanCheckbox value="#{saleBean.sale.partner}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Pasajeros:" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:inputText size="5" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
+                                                             ajax="true" styleClass="button-rounded" 
+                                                             update=":saleForm:sale-panel "  >
 
-                                        </p:commandButton>
-                                    </p:column>
-                                </p:row>                            
-                            </p:panelGrid>
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:row>                            
+                                </p:panelGrid>
+                            </p:panel>
 
                         </div>
 
@@ -129,11 +131,10 @@
                                             <p:outputLabel value="Fecha de salida:" />
                                         </p:column>
                                         <p:column>
-                                            <p:calendar id="tripDate" value="#{saleBean.sale.tripDate}" pattern="dd/MMM/yyyy"
-                                                        disabled="true" readonly="true"/>
+                                            <p:outputLabel id="tripDate" value="#{saleBean.sale.formatTripTime}" />
                                         </p:column>
                                     </p:row>
-                                    
+
                                     <p:row>
                                         <p:column>
                                             <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
@@ -183,11 +184,7 @@
 
                                 <!-- Seats Grid -->
                                 <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.tripDate}" />
-                                        </p:column>
-                                    </p:row>
+                                    
                                     <p:row>
                                         <p:column>
                                             <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4" 
@@ -233,13 +230,19 @@
                                             <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
                                                              action="#{saleBean.toSaleConfirm()}"  ajax="true"/>
                                         </p:column>
+                                        <p:column colspan="2">
+                                            <p:commandButton value="Cancelar" icon="ui-icon-cart"
+                                                             action="toSale"  ajax="false" immediate="true">
+                                                <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                            </p:commandButton>
+                                        </p:column>
                                     </p:row>
                                 </p:panelGrid>
 
 
                             </p:panel>
 
-                            
+
                         </div>
                     </h:form>
                 </ui:define>

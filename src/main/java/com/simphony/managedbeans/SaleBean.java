@@ -155,7 +155,7 @@ public class SaleBean implements IConfigurable {
      */
     public void findAvailability() {
 
-        if (selected != null) {
+        if (selected != null) { 
             this.sale.setTripDate(this.selected.getDepartureTime());
 
             if (selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {

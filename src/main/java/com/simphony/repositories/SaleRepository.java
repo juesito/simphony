@@ -37,6 +37,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
            "   AND c.origin.id = (:originId) " +
            "   AND c.destiny.id = (:destinyId)" +
            "   AND j.typeOfRoute = 'P'" + 
+           "   AND i.typeOfRoute = 'P'" +  
            "   AND c.status = 'A'")
     public List<ItineraryCost> findItineraryDetailCost(@Param("originId")Long originId,@Param("destinyId") Long destinyId);
     
