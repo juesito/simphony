@@ -281,6 +281,17 @@ div{ display:block; }
     min-height: 500px;
 }
 
+.box-content-sale-confirm{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+    border: 1px solid rgba(27,71,48,1);
+    padding: 10px 40px;     
+    width: 90%;
+    border-radius: 25px;
+    min-height: 500px;
+}
+
 
 .box-content{
     display: inline-block;

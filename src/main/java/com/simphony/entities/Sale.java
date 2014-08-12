@@ -232,6 +232,12 @@ public  class Sale implements Serializable, IConfigurable {
         this.paymentInfo = paymentInfo;
     }
     
+    public String getFormatTripTime(){
+        if(this.tripDate != null){
+            return _SDT.format(this.tripDate);
+        }else return "";
+        
+    }
     
     
     @Override

@@ -14,7 +14,8 @@
                     <h:form id="saleForm">
                         <div class="box-content-sale" >
                             <!-- choice your origin and destiny -->
-                            <p:panelGrid styleClass="sale-schedule-panel" >
+                            <p:panelGrid styleClass="sale-schedule-panel" id="sale-input"
+                                         rendered="#{not saleBean.sale.availability}" >
                                 <p:row>
                                     <p:column>
                                         <p:outputLabel value="Saliendo de:" />
@@ -89,7 +90,7 @@
                                     <p:column>
                                         <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
                                                          ajax="true" styleClass="button-rounded" 
-                                                         update=":saleForm:sale-panel"  >
+                                                         update=":saleForm:sale-panel "  >
 
                                         </p:commandButton>
                                     </p:column>
@@ -137,7 +138,7 @@
                                         <p:column>
                                             <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
                                                              ajax="true" 
-                                                             update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid 
+                                                             update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
                                                              :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel">
                                                 <f:actionListener  binding="#{saleBean.fillSeats()}"/> 
                                             </p:commandButton>
@@ -230,7 +231,7 @@
                                     <p:row>
                                         <p:column colspan="2">
                                             <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
-                                                             action="#{saleBean.toSaleConfirm()}"  ajax="false"/>
+                                                             action="#{saleBean.toSaleConfirm()}"  ajax="true"/>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
