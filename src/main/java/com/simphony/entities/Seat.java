@@ -34,8 +34,8 @@ public class Seat implements Serializable, Cloneable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
     
-    @Column(name="referencia")
-    private String reference;
+    @Column(name="asiento")
+    private String seat;
     
     @Basic
     @Column(name="estatus")
@@ -73,12 +73,12 @@ public class Seat implements Serializable, Cloneable {
         this.id = id;
     }
 
-    public String getReference() {
-        return reference;
+    public String getSeat() {
+        return seat;
     }
 
-    public void setReference(String reference) {
-        this.reference = reference;
+    public void setSeat(String seat) {
+        this.seat = seat;
     }
 
     public String getStatus() {
@@ -150,7 +150,7 @@ public class Seat implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "Seat{" + "id=" + id + ", reference=" + reference + ", status=" + status + ", user=" + user + '}';
+        return "Seat{" + "id=" + id + ", seat=" + seat + ", status=" + status + ", user=" + user + '}';
     }
     
     @Override
@@ -162,6 +162,17 @@ public class Seat implements Serializable, Cloneable {
             System.out.println(" no se puede duplicar");
         }
         return obj;
+    }
+ 
+      public String getFormatStatus(){
+        String texto = "";
+        if(this.getStatus() != null){
+            if (this.getStatus().equals("A")){
+                texto = "Activo";
+            }else texto = "Inactivo";
+       
+            return texto;
+        }else return texto;
     }
     
 }

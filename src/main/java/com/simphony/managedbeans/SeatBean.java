@@ -6,7 +6,6 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.SeatService;
-import com.simphony.entities.Associate;
 import com.simphony.entities.Seat;
 import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
@@ -104,7 +103,7 @@ public class SeatBean implements IConfigurable {
             try {
                 this.seat = (Seat) this.selected.clone();
             } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(AssociateBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SeatBean.class.getName()).log(Level.SEVERE, null, ex);
             }
             return "addSeat";
         } else {
@@ -126,12 +125,12 @@ public class SeatBean implements IConfigurable {
             seat.setStatus(_ENABLED);
 
             this.service.getRepository().save(seat);
-            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.seat.getReference() + " " + mp.getValue("msj_record_save"));
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), seat.getSeat() + " " + mp.getValue("msj_record_save"));
             seat = new Seat();
             seat.setAction(_ADD);
 
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.seat.getReference() + " " + mp.getValue("error_keyId_Detail"));
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.seat.getSeat() + " " + mp.getValue("error_keyId_Detail"));
         }
 
     }
@@ -153,7 +152,7 @@ public class SeatBean implements IConfigurable {
         seatUpdated.update(this.seat);
         this.service.getRepository().save(seatUpdated);
 
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.seat.getReference()+ " " + mp.getValue("msj_record_update"));
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.seat.getSeat()+ " " + mp.getValue("msj_record_update"));
         seat = new Seat();
         seat.setAction(_MODIFY);
     }

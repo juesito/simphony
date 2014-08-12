@@ -202,7 +202,7 @@
                                                     <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
                                                                    title="Seleccione asiento">
 
-                                                        <h:outputText value="#{seat.reference}" />
+                                                        <h:outputText value="#{seat.seat}" />
                                                         <f:setPropertyActionListener value="#{seat}" target="#{saleBean.selectedSeat}" />
                                                     </p:commandLink>
 
@@ -221,7 +221,7 @@
                                                 <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.removeSeat}" 
                                                                title="Seleccione asiento" ajax="true">
                                                     <f:setPropertyActionListener value="#{unselectedseatList}" target="#{saleBean.unSelectedDetail}" />
-                                                    <p:outputLabel value="#{unselectedseatList.seat.reference}" />
+                                                    <p:outputLabel value="#{unselectedseatList.seat.seat}" />
 
                                                 </p:commandLink>                                                                                                
                                             </p:dataList>

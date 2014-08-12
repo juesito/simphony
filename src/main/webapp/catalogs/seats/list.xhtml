@@ -14,30 +14,23 @@
                 <div class="catalog-table">
                     <h:form id="form">
                         
-                        <p:outputLabel value="#{msgs.cat_associates}" class="welcome-title" />
+                        <p:outputLabel value="#{msgs.cat_seats}" class="welcome-title" />
                         
                          <br />
                         <!-- Data table -->
                         <p:dataTable value="#{seatBean.list}" var="seat" style="font-size: 12px;"
                                      selectionMode="single" selection="#{seatBean.selected}" 
                                      rowKey="#{seat.id}" id="seatDT"
-                                     rows="4"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
                                      >
                            
-                            <p:column headerText="#{msgs.cat_keyId}" >
-                                <p:outputLabel value="#{seat.id}" />
-                            </p:column>
-                            <p:column headerText="#{msgs.cat_name}" >
-                                <p:outputLabel value="#{seat.reference}" />
+                            <p:column headerText="#{msgs.cat_seat}" >
+                                <p:outputLabel value="#{seat.seat}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
-                                <p:selectOneMenu value="#{seat.status}" disabled="true">                                    
-                                    <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                    <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel value="#{seat.formatStatus}" />
                             </p:column>
                             
                              <!-- Footer -->
@@ -70,29 +63,23 @@
                         <p:commandButton value="#{msgs.but_add}" action="#{seatBean.addSeat}"
                                          styleClass="catalog-button" ajax="false"/>
 
-                        <!-- detalle agremiados -->
-                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_associate}" widgetVar="seatDialog" modal="true" 
+                        <!-- detalle -->
+                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_seat}" widgetVar="seatDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="seatDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty seatBean.selected}" columnClasses="label,value" >
                                     
-                                    <h:outputText value="#{msgs.cat_keyId}" />
-                                    <h:outputText value="#{seatBean.selected.id}" />
+                                    <h:outputText value="#{msgs.cat_seat}" />
+                                    <h:outputText value="#{seatBean.selected.seat}" />
 
-                                    <h:outputText value="#{msgs.cat_name}:" />
-                                    <h:outputText value="#{seatBean.selected.reference}" />
-                                                                       
                                     <h:outputText value="#{msgs.cat_status}:" />
-                                        <p:selectOneMenu value="#{seat.status}" disabled="true">                                    
-                                            <f:selectItem itemValue="A" itemLabel="#{msgs.cat_enabled}" />
-                                            <f:selectItem itemValue="B" itemLabel="#{msgs.cat_disabled}" />
-                                        </p:selectOneMenu>
+                                    <h:outputText value="#{seatBean.selected.formatStatus}" />
                                     
                                     <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{seatBean.selected.createDate}" />
                                     
                                     <h:outputText value="#{msgs.cat_updateDate}:" />
-                                    <h:outputText value="#{associateBean.selected.lastUpdate}" />
+                                    <h:outputText value="#{seatBean.selected.lastUpdated}" />
                                                                        
                                      <h:outputText value="#{msgs.cat_user}:" />
                                      <h:outputText value="#{seatBean.selected.user.name}" />

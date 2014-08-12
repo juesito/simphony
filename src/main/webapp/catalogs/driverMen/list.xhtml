@@ -20,9 +20,10 @@
                         <!-- Data table -->
                         <p:dataTable value="#{driverManBean.model}" var="driverMan" style="font-size: 12px;"
                                      selectionMode="single" selection="#{driverManBean.selected}" 
+                                     rowKey="#{driverMan.id}" id="driverManDT"
                                      emptyMessage="#{msgs.no_records_found}" rows="10"
                                      paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{PageLinks}" rowKey="#{driverMan.id}">
+                                     paginatorTemplate="{PageLinks}">
                            
                             <p:column headerText="#{msgs.cat_name}" filterBy="#{driverMan.name}"
                                       filterMatchMode="contains" >
