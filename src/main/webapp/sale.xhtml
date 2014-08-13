@@ -135,22 +135,13 @@
                                         </p:column>
                                     </p:row>
 
-                                    <p:row>
-                                        <p:column>
-                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
-                                                             ajax="true" 
-                                                             update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
-                                                             :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel">
-                                                <f:actionListener  binding="#{saleBean.fillSeats()}"/> 
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:row>
+                                    
                                     <p:row>
                                         <!-- disponibilidad de itinerarios -->
                                         <p:column colspan="2">
                                             <p:dataTable id="dic" value="#{saleBean.model}" var="ic"
                                                          selectionMode="single" selection="#{saleBean.selected}" 
-                                                         rowKey="#{ic.rowId}">
+                                                         rowKey="#{ic.rowId}" emptyMessage="Sin tarifas registradas" >
                                                 <p:column headerText="hr Salida">                                                    
                                                     <p:outputLabel value="#{ic.itinerary.typeOfRoute}" />
                                                 </p:column>
@@ -173,6 +164,16 @@
                                                 </p:column>
 
                                             </p:dataTable>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
+                                                             ajax="true" 
+                                                             update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
+                                                             :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel">
+                                                <f:actionListener  binding="#{saleBean.fillSeats()}"/> 
+                                            </p:commandButton>
                                         </p:column>
                                     </p:row>
 

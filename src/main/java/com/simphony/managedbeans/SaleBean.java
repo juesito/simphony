@@ -204,8 +204,8 @@ public class SaleBean implements IConfigurable {
 
         sale.setVendor(vendor);
         sale.setCreateDate(new Date());
-        sale.setOrigin(this.selected.getItinerary().getOrigin());
-        sale.setOrigin(this.selected.getItinerary().getDestiny());
+        sale.setOrigin(this.selected.getCost().getOrigin());
+        sale.setOrigin(this.selected.getCost().getDestiny());
         sale.setType(_SALE_TYPE_PUBLIC);
 
         if (sale.isPartner()) {
@@ -232,8 +232,8 @@ public class SaleBean implements IConfigurable {
 
                 guide.setRootGuide(0L);
                 guide.setRootRoute(this.selected.getItinerary().getId());
-                guide.setOrigin(this.selected.getItinerary().getOrigin());
-                guide.setDestiny(this.selected.getItinerary().getDestiny());
+                guide.setOrigin(this.selected.getCost().getOrigin());
+                guide.setDestiny(this.selected.getCost().getDestiny());
 
                 guideService.getRepository().save(guide);
                 guide.setRootGuide(guide.getId());
@@ -241,16 +241,16 @@ public class SaleBean implements IConfigurable {
                 guide = guideService.getRepository().save(guide);
             } else {
 
-                Guide guideRoot = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
-                        selected.getItinerary().getDestiny().getId(),
+                Guide guideRoot = guideService.getRepository().findByItineraryAndDate(this.selected.getCost().getOrigin().getId(),
+                        selected.getCost().getDestiny().getId(),
                         sale.getTripDate(), selected.getItinerary().getRoute().getId());
 
                 if (guideRoot == null) {
                     guideRoot = this.createRootGuide((Guide) guide.clone(), selected.getItinerary());
                 }
 
-                guide.setOrigin(this.selected.getItinerary().getOrigin());
-                guide.setDestiny(this.selected.getAlternateItinerary().getDestiny());
+                guide.setOrigin(this.selected.getCost().getOrigin());
+                guide.setDestiny(this.selected.getCost().getDestiny());
                 guide.setRootRoute(guideRoot.getRootRoute());
                 guide.setRootGuide(guideRoot.getId());
                 guideService.getRepository().save(guide);
