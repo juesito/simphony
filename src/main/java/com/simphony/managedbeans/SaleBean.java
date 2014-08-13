@@ -96,10 +96,10 @@ public class SaleBean implements IConfigurable {
      */
     public void findItinearies() {
         itineraryCost.clear();
-        List<ItineraryCost> itineraryCostTemp = new ArrayList<ItineraryCost>();
+         
         itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
 
-        itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
+        List<ItineraryCost> itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
 
         if (itineraryCostTemp.size() > 0) {
 
@@ -110,25 +110,29 @@ public class SaleBean implements IConfigurable {
             }
         }
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(this.sale.getTripDate());
+        if (itineraryCost.size() > 0) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(this.sale.getTripDate());
 
-        for (int i = 0; i < itineraryCost.size(); i++) {
-            Calendar calTime = calTime = (Calendar) cal.clone();
-            Calendar calTimeTmp = Calendar.getInstance();
-            calTime = (Calendar) cal.clone();
+            for (int i = 0; i < itineraryCost.size(); i++) {
+                Calendar calTime = calTime = (Calendar) cal.clone();
+                Calendar calTimeTmp = Calendar.getInstance();
+                calTime = (Calendar) cal.clone();
 
-            calTimeTmp.setTime(itineraryCost.get(i).getItinerary().getDepartureTime());
-            calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
-            calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
-            calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
-            itineraryCost.get(i).setDepartureTime(calTime.getTime());
+                calTimeTmp.setTime(itineraryCost.get(i).getItinerary().getDepartureTime());
+                calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
+                calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
+                calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
+                itineraryCost.get(i).setDepartureTime(calTime.getTime());
+            }
+
+            model = new ItineraryCostModel(itineraryCost);
+
+            sale.setExistRoutes(itineraryCost.size() > 0);
+            sale.setAvailability(false);
+        }else{
+            GrowlBean.simplyErrorMessage("No se encontro", "Rutas no encontradas");
         }
-
-        model = new ItineraryCostModel(itineraryCost);
-
-        sale.setExistRoutes(itineraryCost.size() > 0);
-        sale.setAvailability(false);
 
     }
 
@@ -155,7 +159,7 @@ public class SaleBean implements IConfigurable {
      */
     public void findAvailability() {
 
-        if (selected != null) { 
+        if (selected != null) {
             this.sale.setTripDate(this.selected.getDepartureTime());
 
             if (selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {

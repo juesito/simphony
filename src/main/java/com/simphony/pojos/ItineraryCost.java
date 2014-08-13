@@ -20,6 +20,7 @@ public class ItineraryCost {
     private Cost cost;
     private Integer rowId = 1;
     private Date departureTime;
+    private Boolean normalMode;
 
     public ItineraryCost() {
 
@@ -32,6 +33,7 @@ public class ItineraryCost {
         Date date = new Date();
         Long dateL = date.getTime();
         rowId = rowId * dateL.intValue();
+        normalMode = true;
 
     }
 
@@ -43,6 +45,7 @@ public class ItineraryCost {
         Date date = new Date();
         Long dateL = date.getTime();
         rowId = rowId * dateL.intValue();
+        normalMode = false;
     }
 
     public Itinerary getItinerary() {
@@ -88,6 +91,15 @@ public class ItineraryCost {
     public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
     }
+
+    public Boolean isNormalMode() {
+        return normalMode;
+    }
+
+    public void setNormalMode(Boolean normalMode) {
+        this.normalMode = normalMode;
+    }
+    
     
 
     public void setRowId(Integer rowId) {

@@ -159,13 +159,10 @@
                                                                 value="#{ic.departureTime}"  />
                                                 </p:column>
                                                 <p:column headerText="Origen">
-                                                    <p:outputLabel value="#{ic.itinerary.origin.description}" />
+                                                    <p:outputLabel value="#{ic.cost.origin.description}" />
                                                 </p:column>
                                                 <p:column headerText="Destino">
-                                                    <p:outputLabel value="#{ic.itinerary.destiny.description}" 
-                                                                   rendered="#{ic.itinerary.typeOfRoute eq 'L'}" />
-                                                    <p:outputLabel value="#{ic.alternateItinerary.destiny.description}" 
-                                                                   rendered="#{ic.itinerary.typeOfRoute eq 'P'}" />
+                                                    <p:outputLabel value="#{ic.cost.destiny.description}" />
                                                 </p:column>
                                                 <p:column headerText="Costo">
                                                     <p:outputLabel value="#{ic.cost.cost}" />

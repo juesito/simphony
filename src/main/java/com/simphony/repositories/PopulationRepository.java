@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.simphony.repositories;
+package com.simphony.repositories; 
 
 import com.simphony.entities.Population;
 import java.util.List;
@@ -34,11 +34,19 @@ public interface PopulationRepository extends JpaRepository<Population, Long> {
     
     @Query("SELECT p " +
             "  FROM Population p " +
-            "  WHERE p.id IN (SELECT j.destiny.id " +
-            "        FROM Itinerary i, Itinerary j " +
-            "        WHERE (j.route.id = i.id OR j.id = i.id) " +
-            "          AND i.origin.id = :originId AND j.status = 'A') " +
-            "    and p.status = 'A' " +
+            "  WHERE p.id IN (SELECT j.origin.id " +
+            "                   FROM Itinerary i, Itinerary j " +
+            "                   WHERE (j.route.id = i.route.id AND i.origin.id <> j.origin.id"
+            + "                  AND j.typeOfRoute = 'P' ) " +
+            "                     AND i.origin.id = :originId AND j.status = 'A'" +
+            "                      AND i.status = 'A')   " +
+            "   OR p.id IN (              " +
+            "                SELECT j.destiny.id " +
+            "                  FROM Itinerary i, Itinerary j " +
+            "                    WHERE (j.route.id = i.route.id AND j.typeOfRoute = 'L' ) " +
+            "                      AND i.origin.id = :originId AND j.status = 'A' " +
+            "                      AND i.status = 'A' )  " +
+            "    AND p.status = 'A' " +
             "  ORDER BY p.description ")
     public List<Population> findDestiniesForSale(@Param("originId") Long originId);
 

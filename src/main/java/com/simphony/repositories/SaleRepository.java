@@ -32,12 +32,11 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
     @Query("SELECT NEW com.simphony.pojos.ItineraryCost(i, c, j) " +
            " FROM Itinerary i, Itinerary j, Cost c" +
            " WHERE i.origin.id = c.origin.id  " +
-           "   AND j.destiny.id = c.destiny.id " +
+           "   AND j.origin.id = c.destiny.id " +
            "   AND j.route.id = i.id " + 
            "   AND c.origin.id = (:originId) " +
            "   AND c.destiny.id = (:destinyId)" +
            "   AND j.typeOfRoute = 'P'" + 
-           "   AND i.typeOfRoute = 'P'" +  
            "   AND c.status = 'A'")
     public List<ItineraryCost> findItineraryDetailCost(@Param("originId")Long originId,@Param("destinyId") Long destinyId);
     
