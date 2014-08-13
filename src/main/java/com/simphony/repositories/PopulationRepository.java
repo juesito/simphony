@@ -37,7 +37,7 @@ public interface PopulationRepository extends JpaRepository<Population, Long> {
             "  WHERE p.id IN (SELECT j.origin.id " +
             "                   FROM Itinerary i, Itinerary j " +
             "                   WHERE (j.route.id = i.route.id AND i.origin.id <> j.origin.id"
-            + "                  AND j.typeOfRoute = 'P' ) " +
+            + "                  AND j.typeOfRoute = 'P' AND i.sequence <= j.sequence ) " +
             "                     AND i.origin.id = :originId AND j.status = 'A'" +
             "                      AND i.status = 'A')   " +
             "   OR p.id IN (              " +
