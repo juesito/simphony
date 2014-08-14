@@ -57,16 +57,24 @@
                                     <p:selectOneMenu id="driverMan2" value="#{guideBean.guide.driverMan2}" 
                                                      converter="driverManConverter" 
                                                      style="width:250px" required="true" 
-                                                     tabindex="2" >
+                                                     tabindex="3" >
                                         <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_driverMan}"  />
                                         <f:selectItems value="#{boxDriverManService.driverManList}"/>
                                     </p:selectOneMenu>
                                     <p:message for="driverMan2" />
                                 </p:column>
                             </p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_quota}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="quota" value="#{guideBean.guide.quota}" required="true" maxlength="2" 
+                                                 tabindex="4" requiredMessage="#{msgs.req_quota}"/>
+                                    <p:message for="name" />
+                                </p:column>
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_type}:" />
+                                    <p:outputLabel value="#{msgs.cat_status}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu  id="status" effect="blind" value="#{guideBean.guide.status}" 

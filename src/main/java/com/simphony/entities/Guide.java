@@ -78,10 +78,7 @@ public class Guide implements Serializable, Cloneable {
     @Column(name = "estatus")
     @Basic
     private String status;
-
-    @Column(name="num guia")
-    @Basic
-    private Long guideNumber;
+    
     
     @Column(name="cupo")
     @Basic
@@ -128,7 +125,6 @@ public class Guide implements Serializable, Cloneable {
         this.driverMan1 = guideUpdated.getDriverMan1();
         this.driverMan2 = guideUpdated.getDriverMan2();
         this.quota = guideUpdated.getQuota();
-        this.guideNumber = guideUpdated.getGuideNumber();
     }
 
     public String getGuideReference() {
@@ -246,15 +242,7 @@ public class Guide implements Serializable, Cloneable {
     public Date getLastUpdate() {
         return lastUpdate;
     }
-
-    public Long getGuideNumber() {
-        return guideNumber;
-    }
-
-    public void setGuideNumber(Long guideNumber) {
-        this.guideNumber = guideNumber;
-    }
-
+  
     public int getQuota() {
         return quota;
     }
@@ -299,8 +287,8 @@ public class Guide implements Serializable, Cloneable {
     }
 
     public String getFormatDepartureTime(){
-        if(this.departureTime != null){
-            return _SHM.format(this.departureTime);
+        if(this.departureDate != null){
+            return _SHM.format(this.departureDate.getTime());
         }else return "";
    }
     
