@@ -24,13 +24,13 @@ public class ItineraryCost implements IConfigurable {
     private Boolean normalMode;
 
     public ItineraryCost() {
-        rowId = (int) (Math.random()*7);
+        rowId = (int) (Math.random()*5000+1);
     }
 
     public ItineraryCost(Itinerary itinerary, Cost cost) {
         this.itinerary = itinerary;
         this.cost = cost;        
-        rowId = (int) (Math.random()*7);
+        rowId = (int) (Math.random()*5000+1);
         normalMode = true;
 
     }
@@ -39,7 +39,7 @@ public class ItineraryCost implements IConfigurable {
         this.itinerary = itinerary;
         this.alternateItinerary = alternateItinerary;
         this.cost = cost;
-        rowId = (int) (Math.random()*7);
+        rowId = (int) (Math.random()*5000+1);
         normalMode = false;
     }
 
