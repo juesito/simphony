@@ -6,8 +6,9 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.GuideService;
-import com.simphony.entities.User;
 import com.simphony.entities.Guide;
+import com.simphony.entities.SaleDetail;
+import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._MODIFY;
@@ -36,7 +37,7 @@ public class GuideBean implements IConfigurable {
     private Guide current = new Guide();
     private Guide selected = new Guide();
     private List<Guide> list = new ArrayList<Guide>();
-    private List<Guide> listDetail = new ArrayList<Guide>();
+    private List<SaleDetail> listDetail = new ArrayList<SaleDetail>();
 
     @ManagedProperty(value = "#{guideService}")
     private GuideService guideService;
@@ -76,6 +77,14 @@ public class GuideBean implements IConfigurable {
 
     public void setList(List<Guide> list) {
         this.list = list;
+    }
+
+    public List<SaleDetail> getListDetail() {
+        return listDetail;
+    }
+
+    public void setListDetail(List<SaleDetail> listDetail) {
+        this.listDetail = listDetail;
     }
 
     public Guide getSelected() {
@@ -118,7 +127,7 @@ public class GuideBean implements IConfigurable {
     }
 
     /**
-     * Llenamos lista de agremiados
+     * Llenamos lista 
      */
     private void fillGuide() {
         list.clear();
@@ -129,6 +138,46 @@ public class GuideBean implements IConfigurable {
         }
     }
 
+
+        /**
+     * Controlador para el Deatlle
+     *
+     * @return
+     */
+    public String guideDetail() {
+        if (this.selected != null ) {
+            this.current.setAction(_MODIFY);
+            try {
+                this.guide = (Guide) this.selected.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(GuideBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "toGuideDetail";
+        }else
+            return "toGuide";
+    }
+
+    /**
+     * Llenamos lista 
+     */
+    private void fillDetail(Long guideId) {
+        listDetail.clear();
+        Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(guideId);
+        Iterator<SaleDetail> cu = c.iterator();
+        while (cu.hasNext()) {
+            listDetail.add(cu.next());
+        }
+    }
+
+    /**
+     * Controlador listar Detail
+     *
+     * @return
+     */
+    public String toGuideDetail() {
+        this.fillDetail(this.selected.getId());
+        return "toGuideDetail";
+    }
     
     /**
      * Actualizamos el usuario
@@ -158,12 +207,7 @@ public class GuideBean implements IConfigurable {
      * @return
      */
     public String toGuide() {
-        list.clear();
-        Iterable<Guide> c = this.getGuideService().getRepository().findAll();
-        Iterator<Guide> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
-        }
+        this.fillGuide();
         return "toGuide";
     }
 

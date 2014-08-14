@@ -21,7 +21,7 @@ body{
     font-size: 20px !important;
 }
 
-#header, #footer{ background-image: url("logoImage.png") !important; color: #015A22; }
+#header, #footer{ background-image: url("logoImage.png") !important; color: #015A22;  }
 #top a:link, #top a:visited { color: white; }
 #top-band2{background-color: #225A01;}
 #msj-info-left{ color: rgb(10,58,110); }
