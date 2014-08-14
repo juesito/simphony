@@ -64,24 +64,26 @@
                                     <p:message for="driverMan2" />
                                 </p:column>
                             </p:row>
-                                <p:column>
+                            <p:row>
+                            <p:column>
                                     <p:outputLabel value="#{msgs.cat_quota}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="quota" value="#{guideBean.guide.quota}" required="true" maxlength="2" 
                                                  tabindex="4" requiredMessage="#{msgs.req_quota}"/>
-                                    <p:message for="name" />
+                                    <p:message for="quota" />
                                 </p:column>
-                            <p:row>
+                            </p:row>
+                                <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_status}:" />
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu  id="status" effect="blind" value="#{guideBean.guide.status}" 
                                                       style="width: 100px;" >
-                                        <f:selectItem itemLabel="Abierta" itemValue="A" />
-                                        <f:selectItem itemLabel="Cerrada" itemValue="I" />                                        
-                                        <f:selectItem itemLabel="Cancelada" itemValue="C" />                                        
+                                        <f:selectItem itemLabel="Abierta" itemValue="OP" />
+                                        <f:selectItem itemLabel="Cerrada" itemValue="CL" />                                        
+                                        <f:selectItem itemLabel="Cancelada" itemValue="CA" />                                        
                                     </p:selectOneMenu>
                                     <p:message for="status" />
                                 </p:column>

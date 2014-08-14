@@ -295,10 +295,10 @@ public class Guide implements Serializable, Cloneable {
     public String getFormatStatus(){
     String texto = "";
        if(this.getStatus() != null){
-            if (this.getStatus().equals("A")){
+            if (this.getStatus().equals("OP")){
                 texto = "Abierta";
             }else 
-                 if (this.getStatus().equals("I")){
+                 if (this.getStatus().equals("CL")){
                      texto = "Cerrada";
                  } else texto = "Cancelada";
        
