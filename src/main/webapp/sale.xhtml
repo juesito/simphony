@@ -106,7 +106,16 @@
                             <p:panel id="sale-panel">
                                 <!-- first phase -->
                                 <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Fecha de salida:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel id="tripDate" value="#{saleBean.sale.formatDateTime}" />
+                                        </p:column>
+                                    </p:row>
                                     <p:row rendered="#{saleBean.sale.partner}">
+                                        
                                         <p:column>
                                             <p:outputLabel value="Agremiado:"  />
                                         </p:column>
@@ -126,15 +135,6 @@
                                             <p:outputLabel value="#{saleBean.associate.firstLastName} #{saleBean.associate.name}" />
                                         </p:column>
                                     </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Fecha de salida:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel id="tripDate" value="#{saleBean.sale.formatTripTime}" />
-                                        </p:column>
-                                    </p:row>
-
                                     
                                     <p:row>
                                         <!-- disponibilidad de itinerarios -->
@@ -145,9 +145,9 @@
                                                 <p:column headerText="hr Salida">                                                    
                                                     <p:outputLabel value="#{ic.itinerary.typeOfRoute}" />
                                                 </p:column>
-                                                <p:column headerText="hr Salida">                                                    
-                                                    <p:calendar pattern="HH:mm" size="20" readonly="true" disabled="true"
-                                                                value="#{ic.departureTime}"  />
+                                                <p:column headerText="hr Salida"> 
+                                                    <p:outputLabel value="#{ic.formatDepartureHourTime}" />
+                                                    
                                                 </p:column>
                                                 <p:column headerText="Origen">
                                                     <p:outputLabel value="#{ic.cost.origin.description}" />
@@ -159,8 +159,7 @@
                                                     <p:outputLabel value="#{ic.cost.cost}" />
                                                 </p:column>
                                                 <p:column headerText="Tiempo recorrido">
-                                                    <p:calendar value="#{ic.cost.routeTime}" timeOnly="true" size="8"
-                                                                pattern="HH:mm" disabled="true" readonly="true" />
+                                                    <p:outputLabel value="#{ic.cost.formatRouteTime}" />
                                                 </p:column>
 
                                             </p:dataTable>

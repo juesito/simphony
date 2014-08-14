@@ -239,6 +239,15 @@ public  class Sale implements Serializable, IConfigurable {
         
     }
     
+    public String getFormatDateTime(){
+        if(this.tripDate != null){
+            return _DMA.format(this.tripDate);
+        }else return "";
+        
+    }
+    
+   
+    
     
     @Override
     public boolean equals(Object obj) {
