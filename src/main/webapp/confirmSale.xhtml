@@ -14,7 +14,7 @@
                     <h:form id="confirmSaleForm">
 
                         <div class="box-content-sale-confirm" >
-                            <!-- Gride del tipo de pago -->
+                            <!-- Informacion general de la venta -->
                             <p:panelGrid id="payGrid-content">
                                 <p:row>
                                     <p:column>
@@ -27,7 +27,7 @@
                                         <p:outputLabel value="Costo:" />
                                     </p:column>
                                     <p:column>
-                                        <p:outputLabel value="#{saleBean.selected.cost.cost * saleBean.saleDetail.size()}" />
+                                        <p:outputLabel value="#{saleBean.sale.amount}" style="color:red !important;" />
                                     </p:column>
                                     <p:column>
                                         <p:outputLabel value="Agremiado:" />
@@ -55,33 +55,45 @@
                                     <p:column>
                                         <p:outputLabel value="#{saleBean.selected.cost.kms}" />
                                     </p:column>
-                                </p:row>
+                                </p:row>                                
+                            </p:panelGrid>
+                            <!-- Captura de pagos -->
+                            <p:panelGrid id="sale-payment-grid"  
+                                         style="margin-top: 15px; border: 1px solid #225A01; width: 100%;">
                                 <p:row>
                                     <p:column>
-                                        <p:outputLabel value="Tipo de pago:"  for="payType"/>
+                                        <p:dataGrid var="payment" value="#{payTypeBean.list}" columns="2" 
+                                                    rows="4" paginator="false" id="payment" styleClass="grid-seats-main">
+                                            <p:panelGrid>
+                                                <p:row>
+                                                    <p:column colspan="2"> 
+                                                        <p:outputLabel value="#{payment.description}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:outputLabel value="Información de Pago:"  />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column>
+                                                        <p:outputLabel value=" monto:" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:inputText value="#{payment.amount}" size="10" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:inputText value="#{payment.paymentInfo}" size="20" rendered="#{payment.reference eq 'S'}" />
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+
+                                        </p:dataGrid>
                                     </p:column>
-                                    <p:column>
-                                        <p:selectOneMenu id="payType" value="#{saleBean.sale.payType}" 
-                                                         style="width:160px" converter="payTypeConverter" immediate="true" >
-                                            <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                            <f:selectItems value="#{boxPayTypeService.payTypeList}" />
-                                            <p:ajax event="change" update=":confirmSaleForm:payGrid-content" />
-                                            
-                                        </p:selectOneMenu>
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="Información de pago:" for="paymentInfo" />
-                                    </p:column>
-                                    <p:column colspan="4">
-                                        <p:inputText id="paymentInfo" value="#{saleBean.sale.paymentInfo}"
-                                                     rendered="#{saleBean.sale.payType.reference.trim() eq 'S'}"/>
-                                    </p:column>
-                                </p:row>
+                                </p:row>                                        
+
                             </p:panelGrid>
 
-
                             <!-- Seats Grid -->
-                            <p:panelGrid id="sale-seat-grid"  style="margin-top: 15px;">
+                            <p:panelGrid id="sale-seat-grid"  style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
                                 <p:row>
                                     <p:column>
                                         <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="5" 
@@ -106,8 +118,10 @@
                                 </p:row>                                        
 
                             </p:panelGrid>
-                            <p:commandButton value="Guardar" ajax="false" action="#{saleBean.save(vendorBean.current)}">
-                                <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
+                            
+                            <!-- botones de control -->
+                            <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list)}">
+                                <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>                                
                             </p:commandButton>
                             <p:commandButton value="Cancelar" ajax="false" immediate="true" action="toSale"  >
                                 <f:actionListener  binding="#{saleBean.clearSale()}"/>

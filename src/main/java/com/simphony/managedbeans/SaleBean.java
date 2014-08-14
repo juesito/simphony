@@ -17,6 +17,8 @@ import com.simphony.entities.Customer;
 import com.simphony.entities.Guide;
 import com.simphony.entities.GuideDetail;
 import com.simphony.entities.Itinerary;
+import com.simphony.entities.PayType;
+import com.simphony.entities.Payment;
 import com.simphony.entities.ReservedSeats;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
@@ -190,7 +192,7 @@ public class SaleBean implements IConfigurable {
 
                 calTimeTmp.setTime(rootItinerary.getDepartureTime());
                 calTime.add(Calendar.SECOND, -calTimeTmp.get(Calendar.SECOND));
-                calTime.add(Calendar.MINUTE, -calTimeTmp.get(Calendar.MINUTE));                
+                calTime.add(Calendar.MINUTE, -calTimeTmp.get(Calendar.MINUTE));
                 calTime.add(Calendar.HOUR, -calTimeTmp.get(Calendar.HOUR));
                 rootItinerary.setDepartureTime(calTime.getTime());
             }
@@ -243,7 +245,7 @@ public class SaleBean implements IConfigurable {
      * @param vendor
      * @return
      */
-    public String save(Vendor vendor) throws CloneNotSupportedException {
+    public void save(Vendor vendor, List<PayType> payTypeList) throws CloneNotSupportedException {
 
         sale.setVendor(vendor);
         sale.setCreateDate(new Date());
@@ -335,9 +337,46 @@ public class SaleBean implements IConfigurable {
             saleService.getReservedSeatsRepository().save(reservedSeat);
         }
 
+        for (PayType payType : payTypeList) {
+            if (payType.getAmount() > 0.0) {
+                Payment payment = new Payment(payType, sale);
+                saleService.getPaymentRepository().save(payment);
+            }
+
+        }
+
         GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
         this.clearSale();
-        return "toSale";
+
+    }
+
+    /**
+     * Validamos lo necesario para la venta
+     * @param vendor
+     * @param payTypeList
+     * @return
+     * @throws CloneNotSupportedException 
+     */
+    public String validateSale(Vendor vendor, List<PayType> payTypeList) throws CloneNotSupportedException {
+        Double amountPayed = 0.0;
+        String msgNav = "toSale";
+        
+        for (PayType payType : payTypeList) {
+            amountPayed = amountPayed + payType.getAmount();
+        }
+
+        //Validamos el monto recibido
+        if (amountPayed < sale.getAmount()) {
+            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto indresado");
+            msgNav = "toSaleConfirm";
+        } else if (amountPayed > sale.getAmount()) {
+            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
+            msgNav =  "toSaleConfirm";
+        } else {
+            this.save(vendor, payTypeList);            
+        }
+        
+        return msgNav;
     }
 
     /**
@@ -367,7 +406,8 @@ public class SaleBean implements IConfigurable {
     }
 
     public String toSaleConfirm() {
-
+        Double amount = selected.getCost().getCost() * this.saleDetail.size();
+        sale.setAmount(amount);
         return "toSaleConfirm";
     }
 

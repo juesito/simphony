@@ -14,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -26,9 +27,17 @@ public class PayType extends Catalog implements Serializable, Cloneable, IConfig
     @Column(name="referencia")
     @Basic
     private String reference;
-
+    
+    @Transient
+    private Double amount;
+    
+    @Transient
+    private String paymentInfo;
+    
     public PayType(){        
         this.reference = _NO;
+        this.paymentInfo = "";
+        this.amount = 0.0;
     }         
 
     public void update(PayType payTypeUpdated){
@@ -72,5 +81,25 @@ public class PayType extends Catalog implements Serializable, Cloneable, IConfig
             return texto;
         }else return texto;
     }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getPaymentInfo() {
+        return paymentInfo;
+    }
+
+    public void setPaymentInfo(String paymentInfo) {
+        this.paymentInfo = paymentInfo;
+    }
+    
+    
+     
+     
      
 }

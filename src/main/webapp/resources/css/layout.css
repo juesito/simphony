@@ -444,5 +444,8 @@ div{ display:block; }
     box-shadow: 10px 10px 5px 0px rgba(27,71,48,1);  
 }
 
+.sale-payment-grid tr, .sale-payment-grid td{
+    
+}
 
 

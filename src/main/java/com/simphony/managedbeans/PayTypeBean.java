@@ -35,6 +35,7 @@ public class PayTypeBean {
     private PayType payType = new PayType();
     private PayType selected = new PayType();
     private Calendar cal = Calendar.getInstance();
+    
 
     @ManagedProperty(value = "#{payTypeService}")
     PayTypeService payTypeService;
@@ -176,7 +177,7 @@ public class PayTypeBean {
     /**
      * Llenamos lista de agremiados
      */
-    private void fillPayType() {
+    public void fillPayType() {
         list.clear();
         Iterable<PayType> c = this.payTypeService.getPayTypeRepository().findAll(sortByDes());
         Iterator<PayType> cu = c.iterator();
