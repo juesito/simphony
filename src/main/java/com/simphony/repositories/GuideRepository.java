@@ -41,6 +41,5 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
        "  WHERE g.sale.id = v.id AND g.guide.id = :guideId)" )
     public List<SaleDetail> qryGuideDetail(@Param("guideId")Long guideId);
 
-
 }
 
