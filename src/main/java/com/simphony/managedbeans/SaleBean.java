@@ -87,7 +87,7 @@ public class SaleBean implements IConfigurable {
 
     @PostConstruct
     void init() {
-        
+
     }
 
     /**
@@ -114,9 +114,8 @@ public class SaleBean implements IConfigurable {
             cal.setTime(this.sale.getTripDate());
 
             for (int i = 0; i < itineraryCost.size(); i++) {
-                Calendar calTime = calTime = (Calendar) cal.clone();
+                Calendar calTime = (Calendar) cal.clone();
                 Calendar calTimeTmp = Calendar.getInstance();
-                calTime = (Calendar) cal.clone();
 
                 calTimeTmp.setTime(itineraryCost.get(i).getItinerary().getDepartureTime());
                 calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
@@ -156,13 +155,50 @@ public class SaleBean implements IConfigurable {
     /**
      * buscando disponibilidad
      */
-    public void findAvailability() {
+    public void findAvailability(Vendor vendor) throws CloneNotSupportedException {
 
         if (selected != null) {
             this.sale.setTripDate(this.selected.getDepartureTime());
             Long ori = selected.getCost().getOrigin().getId();
             Long des = selected.getCost().getDestiny().getId();
             Long route = selected.getItinerary().getRoute().getId();
+
+            guide.setVendor(vendor);
+            guide.setCreateDate(new Date());
+            guide.setStatus(_GUIDE_TYPE_OPEN);
+            guide.setGuideReference("Sin Referencia");
+            guide.setDepartureDate(sale.getTripDate());
+
+            //Obtenemos el itinerario padre
+            Itinerary rootItinerary = itineraryService.getItineraryRepository().findOne(route);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(this.sale.getTripDate());
+
+            if (selected.isNormalMode()) {
+                Calendar calTime = (Calendar) cal.clone();
+                Calendar calTimeTmp = Calendar.getInstance();
+
+                calTimeTmp.setTime(rootItinerary.getDepartureTime());
+                calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
+                calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
+                calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
+                rootItinerary.setDepartureTime(calTime.getTime());
+            } else {
+                Calendar calTime = (Calendar) cal.clone();
+                Calendar calTimeTmp = Calendar.getInstance();
+
+                calTimeTmp.setTime(rootItinerary.getDepartureTime());
+                calTime.add(Calendar.SECOND, -calTimeTmp.get(Calendar.SECOND));
+                calTime.add(Calendar.MINUTE, -calTimeTmp.get(Calendar.MINUTE));                
+                calTime.add(Calendar.HOUR, -calTimeTmp.get(Calendar.HOUR));
+                rootItinerary.setDepartureTime(calTime.getTime());
+            }
+
+            Guide guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
+            if (guideRoot == null) {
+                guideRoot = this.createRootGuide((Guide) guide.clone(), selected.getItinerary());
+            }
 
             guide = guideService.getRepository().findByItineraryAndDate(ori, des, sale.getTripDate(), route);
 
@@ -178,7 +214,13 @@ public class SaleBean implements IConfigurable {
 
                     if (seat.contains(reserved.getSeat())) {
                         int index = seat.indexOf(reserved.getSeat());
-                        seat.set(index,occupiedPattern);
+                        //Parten del mismo origen                            
+                        if (selected.getItinerary().getSequence() == reserved.getInitialSequence()) {
+                            seat.set(index, occupiedPattern);
+                        } else if (selected.getAlternateItinerary().getSequence() > reserved.getInitialSequence()) {
+                            seat.set(index, occupiedPattern);
+                        }
+
                     }
                 }
 
@@ -274,7 +316,7 @@ public class SaleBean implements IConfigurable {
             //Guardamos el detalle de venta
             dtSale.setSale(sale);
             saleService.getDetailRepository().save(dtSale);
-            
+
             //Guardamos los asientos ocupados            
             ReservedSeats reservedSeat = new ReservedSeats();
             reservedSeat.setGuideId(guide.getRootGuide());

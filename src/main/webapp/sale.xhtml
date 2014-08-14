@@ -167,7 +167,8 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
+                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad"
+                                                             actionListener="#{saleBean.findAvailability(vendorBean.current)}"
                                                              ajax="true" 
                                                              update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
                                                              :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel :saleForm:seatsForBook">

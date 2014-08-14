@@ -28,10 +28,8 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
             @Param("departureDate")Date departureDate, @Param("routeId")Long routeId);
     
     @Query("SELECT g FROM Guide g " +
-         "  WHERE g.origin.id = :origin " +
-         "    AND g.destiny.id = :destiny " +
-         "    AND g.rootRoute = :routeId" )
-    public Guide findByItineraryAndDate2(@Param("origin")Long origin, @Param("destiny")Long destiny, 
-            @Param("routeId")Long routeId);
+         "  WHERE g.rootRoute = :routeId " +
+         "    AND g.departureDate = :departureDate ")
+    public Guide findRootGuide(@Param("routeId")Long routeId, @Param("departureDate")Date departureDate);
 }
 
