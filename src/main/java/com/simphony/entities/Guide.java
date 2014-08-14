@@ -78,6 +78,11 @@ public class Guide implements Serializable, Cloneable {
     @Column(name = "estatus")
     @Basic
     private String status;
+    
+    
+    @Column(name="cupo")
+    @Basic
+    private int quota;
 
     @OneToOne(targetEntity = Vendor.class)
     private Person vendor;
@@ -119,6 +124,7 @@ public class Guide implements Serializable, Cloneable {
         this.bus = guideUpdated.getBus();
         this.driverMan1 = guideUpdated.getDriverMan1();
         this.driverMan2 = guideUpdated.getDriverMan2();
+        this.quota = guideUpdated.getQuota();
     }
 
     public String getGuideReference() {
@@ -236,6 +242,14 @@ public class Guide implements Serializable, Cloneable {
     public Date getLastUpdate() {
         return lastUpdate;
     }
+  
+    public int getQuota() {
+        return quota;
+    }
+
+    public void setQuota(int quota) {
+        this.quota = quota;
+    }
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -273,18 +287,18 @@ public class Guide implements Serializable, Cloneable {
     }
 
     public String getFormatDepartureTime(){
-        if(this.departureTime != null){
-            return _SHM.format(this.departureTime);
+        if(this.departureDate != null){
+            return _SHM.format(this.departureDate.getTime());
         }else return "";
    }
     
     public String getFormatStatus(){
     String texto = "";
        if(this.getStatus() != null){
-            if (this.getStatus().equals("A")){
+            if (this.getStatus().equals("OP")){
                 texto = "Abierta";
             }else 
-                 if (this.getStatus().equals("I")){
+                 if (this.getStatus().equals("CL")){
                      texto = "Cerrada";
                  } else texto = "Cancelada";
        

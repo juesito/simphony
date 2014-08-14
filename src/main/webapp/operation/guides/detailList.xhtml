@@ -25,8 +25,7 @@
                                     <p:outputLabel value="#{msgs.cat_departureTime}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:calendar value="#{guideBean.guide.departureTime}"  disabled="true"
-                                                pattern="HH:mm" timeOnly="true" />
+                                    <p:outputLabel value="#{guideBean.selected.formatDepartureTime}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -34,7 +33,7 @@
                                     <p:outputLabel value="#{msgs.cat_origin}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel id="origin" value="#{guideBean.guide.origin.description}" />
+                                    <p:outputLabel id="origin" value="#{guideBean.selected.origin.description}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -42,7 +41,15 @@
                                     <p:outputLabel value="#{msgs.cat_destiny}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel id="destiny" value="#{guideBean.guide.destiny.description}" />
+                                    <p:outputLabel id="destiny" value="#{guideBean.selected.destiny.description}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_date}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel id="departureTime" value="#{guideBean.selected.formatDepartureDate}" />
                                 </p:column>
                             </p:row>
 
@@ -51,35 +58,18 @@
 
                     <div id="guide-detail-detail" class="guide-detail-detail">
                         <!-- Data table de itinetarios -->
-                        <p:dataTable value="#{guideBean.listDetail}" var="guideDetail" style="font-size: 12px;"
-                                     selectionMode="single" selection="#{guideBean.selected}" 
-                                     rowKey="#{guide.id}" id="guideDetailDT"
-                                     emptyMessage="#{msgs.no_records_found}" rows="5"
-                                     paginator="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15">
-
-                            <p:column headerText="#{msgs.cat_origin}" >
-                                <p:outputLabel value="#{guideDetail.origin.description}" />
+                        <p:dataTable value="#{guideBean.listDetail}" var="guideDetail" style="font-size: 12px;"                                   
+                                     id="guideDetailDT"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
+                                     >
+                            <p:column headerText="#{msgs.cat_seat}" >
+                                <p:outputLabel value="#{guideDetail.seat.id}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_destiny}" >
-                                <p:outputLabel value="#{guideDetail.destiny.description}" />
+                            <p:column headerText="#{msgs.cat_name}" >
+                                <p:outputLabel value="#{guideDetail.customerName}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_typeOfRoute}" >
-                                <p:selectOneMenu value="#{guideDetail.typeOfRoute}" 
-                                                 disabled="true">                                    
-                                    <f:selectItem itemValue="L" itemLabel="Local" />
-                                    <f:selectItem itemValue="P" itemLabel="Parcial" />
-                                    <f:selectItem itemValue="F" itemLabel="Final" />
-                                </p:selectOneMenu>
-                            </p:column>
-                            <p:column headerText="Hora Salida" >
-                                <p:calendar value="#{guideDetail.departureTime}" timeOnly="true" disabled="true" pattern="HH:mm" />
-                            </p:column>
-                            <p:column headerText="#{msgs.cat_status}" >
-                                <p:outputLabel value="#{guideDetail.status}" />
-                            </p:column>
-
                             <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
