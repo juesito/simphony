@@ -44,6 +44,14 @@
                                     <p:outputLabel id="destiny" value="#{guideBean.selected.destiny.description}" />
                                 </p:column>
                             </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_departureDate}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel id="destiny" value="#{guideBean.selected.formatDepartureDate}" />
+                                </p:column>
+                            </p:row>
 
                         </p:panelGrid>
                     </div>
@@ -57,7 +65,7 @@
                                      paginatorTemplate="{PageLinks}"
                                      >
                             <p:column headerText="#{msgs.cat_seat}" >
-                                <p:outputLabel value="#{guideDetail.seat}" />
+                                <p:outputLabel value="#{guideDetail.seat.id}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_name}" >
                                 <p:outputLabel value="#{guideDetail.customerName}" />

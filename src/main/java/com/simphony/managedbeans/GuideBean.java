@@ -133,9 +133,11 @@ public class GuideBean implements IConfigurable {
     private void fillGuide() {
         list.clear();
         Iterable<Guide> c = this.guideService.getRepository().findAll();
-        Iterator<Guide> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
+        if (c != null ){
+            Iterator<Guide> cu = c.iterator();
+            while (cu.hasNext()) {
+                list.add(cu.next());
+            }
         }
     }
 

@@ -79,6 +79,14 @@ public class Guide implements Serializable, Cloneable {
     @Basic
     private String status;
 
+    @Column(name="num guia")
+    @Basic
+    private Long guideNumber;
+    
+    @Column(name="cupo")
+    @Basic
+    private int quota;
+
     @OneToOne(targetEntity = Vendor.class)
     private Person vendor;
     
@@ -119,6 +127,8 @@ public class Guide implements Serializable, Cloneable {
         this.bus = guideUpdated.getBus();
         this.driverMan1 = guideUpdated.getDriverMan1();
         this.driverMan2 = guideUpdated.getDriverMan2();
+        this.quota = guideUpdated.getQuota();
+        this.guideNumber = guideUpdated.getGuideNumber();
     }
 
     public String getGuideReference() {
@@ -235,6 +245,22 @@ public class Guide implements Serializable, Cloneable {
 
     public Date getLastUpdate() {
         return lastUpdate;
+    }
+
+    public Long getGuideNumber() {
+        return guideNumber;
+    }
+
+    public void setGuideNumber(Long guideNumber) {
+        this.guideNumber = guideNumber;
+    }
+
+    public int getQuota() {
+        return quota;
+    }
+
+    public void setQuota(int quota) {
+        this.quota = quota;
     }
 
     public void setLastUpdate(Date lastUpdate) {
