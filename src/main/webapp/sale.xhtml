@@ -139,11 +139,11 @@
                                     <p:row>
                                         <!-- disponibilidad de itinerarios -->
                                         <p:column colspan="2">
-                                            <p:dataTable id="dic" value="#{saleBean.model}" var="ic"
+                                            <p:dataTable id="dic" value="#{saleBean.model}" var="ic" 
                                                          selectionMode="single" selection="#{saleBean.selected}" 
-                                                         rowKey="#{ic.rowId}" emptyMessage="Sin tarifas registradas" >
-                                                <p:column headerText="hr Salida">                                                    
-                                                    <p:outputLabel value="#{ic.itinerary.typeOfRoute}" />
+                                                         rowKey="#{ic.rowId}" emptyMessage="Sin tarifas registradas"  >
+                                                <p:column headerText="hr Salida" style="width: 100px; font-size: 9px;">                                                    
+                                                    <p:outputLabel value="#{ic.rowId}" />
                                                 </p:column>
                                                 <p:column headerText="hr Salida"> 
                                                     <p:outputLabel value="#{ic.formatDepartureHourTime}" />
@@ -167,7 +167,8 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
+                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad"
+                                                             actionListener="#{saleBean.findAvailability(vendorBean.current)}"
                                                              ajax="true" 
                                                              update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
                                                              :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel :saleForm:seatsForBook">
@@ -229,7 +230,9 @@
                                     <p:row>
                                         <p:column colspan="2">
                                             <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
-                                                             action="#{saleBean.toSaleConfirm()}"  ajax="true"/>
+                                                             action="#{saleBean.toSaleConfirm()}"  ajax="true">
+                                                <f:actionListener  binding="#{payTypeBean.fillPayType()}"/>
+                                            </p:commandButton>
                                         </p:column>
                                         <p:column colspan="2">
                                             <p:commandButton value="Cancelar" icon="ui-icon-cart"

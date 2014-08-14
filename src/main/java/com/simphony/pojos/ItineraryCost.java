@@ -19,21 +19,18 @@ public class ItineraryCost implements IConfigurable {
     private Itinerary itinerary;
     private Itinerary alternateItinerary;
     private Cost cost;
-    private Integer rowId = 1;
+    private Integer rowId;
     private Date departureTime;
     private Boolean normalMode;
 
     public ItineraryCost() {
-
+        rowId = (int) (Math.random()*7);
     }
 
     public ItineraryCost(Itinerary itinerary, Cost cost) {
         this.itinerary = itinerary;
-        this.cost = cost;
-        this.rowId++;
-        Date date = new Date();
-        Long dateL = date.getTime();
-        rowId = rowId * dateL.intValue();
+        this.cost = cost;        
+        rowId = (int) (Math.random()*7);
         normalMode = true;
 
     }
@@ -42,10 +39,7 @@ public class ItineraryCost implements IConfigurable {
         this.itinerary = itinerary;
         this.alternateItinerary = alternateItinerary;
         this.cost = cost;
-        this.rowId++;
-        Date date = new Date();
-        Long dateL = date.getTime();
-        rowId = rowId * dateL.intValue();
+        rowId = (int) (Math.random()*7);
         normalMode = false;
     }
 
@@ -105,10 +99,7 @@ public class ItineraryCost implements IConfigurable {
         return _SHM.format(this.departureTime);
     }
 
-    public void setRowId(Integer rowId) {
-        Date date = new Date();
-        Long dateL = date.getTime();
-        rowId = rowId * dateL.intValue();
+    public void setRowId(Integer rowId) {        
         this.rowId = rowId;
     }
 
