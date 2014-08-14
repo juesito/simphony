@@ -25,9 +25,16 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
          "  WHERE g.origin.id = :origin " +
          "    AND g.destiny.id = :destiny " +
          "    AND g.departureDate = :departureDate" +
-         "    AND g.rootRoute.id = :routeId" )
+         "    AND g.rootRoute = :routeId" )
     public Guide findByItineraryAndDate(@Param("origin")Long origin, @Param("destiny")Long destiny, 
             @Param("departureDate")Date departureDate, @Param("routeId")Long routeId);
+    
+    @Query("SELECT g FROM Guide g " +
+         "  WHERE g.origin.id = :origin " +
+         "    AND g.destiny.id = :destiny " +
+         "    AND g.rootRoute = :routeId" )
+    public Guide findByItineraryAndDate2(@Param("origin")Long origin, @Param("destiny")Long destiny, 
+            @Param("routeId")Long routeId);
 
     @Query("SELECT d from SaleDetail d " +
        " WHERE d.sale.id IN  ( SELECT v.id FROM GuideDetail g, Sale v " +

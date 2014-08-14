@@ -87,8 +87,7 @@ public class SaleBean implements IConfigurable {
 
     @PostConstruct
     void init() {
-        seat.clear();
-        seat = seatService.getRepository().findAllAvailable();
+        
     }
 
     /**
@@ -96,7 +95,7 @@ public class SaleBean implements IConfigurable {
      */
     public void findItinearies() {
         itineraryCost.clear();
-         
+
         itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
 
         List<ItineraryCost> itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
@@ -130,7 +129,7 @@ public class SaleBean implements IConfigurable {
 
             sale.setExistRoutes(itineraryCost.size() > 0);
             sale.setAvailability(false);
-        }else{
+        } else {
             GrowlBean.simplyErrorMessage("No se encontro", "Rutas no encontradas");
         }
 
@@ -161,30 +160,32 @@ public class SaleBean implements IConfigurable {
 
         if (selected != null) {
             this.sale.setTripDate(this.selected.getDepartureTime());
+            Long ori = selected.getCost().getOrigin().getId();
+            Long des = selected.getCost().getDestiny().getId();
+            Long route = selected.getItinerary().getRoute().getId();
 
-            if (selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {
-                guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
-                        selected.getItinerary().getDestiny().getId(),
-                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
-            } else if (selected.getAlternateItinerary() != null) {
-
-                guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
-                        selected.getAlternateItinerary().getDestiny().getId(),
-                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
-            } else {
-                guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
-                        selected.getItinerary().getDestiny().getId(),
-                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
-            }
+            guide = guideService.getRepository().findByItineraryAndDate(ori, des, sale.getTripDate(), route);
 
             if (guide != null) {
                 // Validación de asientos
-                guide = new Guide(false);
-                //seat = seatService.getRepository().findAllAvailable();
+                guide.setNewGuide(false);
+                seat.clear();
+                seat = seatService.getRepository().findAllAvailable();
+                Seat occupiedPattern = seatService.getRepository().findOccupiedSeatPattern();
                 List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guide.getRootGuide(), guide.getRootRoute());
+
+                for (ReservedSeats reserved : reservedSeats) {
+
+                    if (seat.contains(reserved.getSeat())) {
+                        int index = seat.indexOf(reserved.getSeat());
+                        seat.set(index,occupiedPattern);
+                    }
+                }
 
                 this.sale.setAvailability(true);
             } else {
+                seat.clear();
+                seat = seatService.getRepository().findAllAvailable();
                 this.sale.setAvailability(true);
                 guide = new Guide(true);
             }
@@ -268,15 +269,18 @@ public class SaleBean implements IConfigurable {
         }
 
         //Guardamos el detalle de la venta
-        ReservedSeats reservedSeat = new ReservedSeats();
-        reservedSeat.setGuideId(guide.getRootGuide());
-        reservedSeat.setRouteId(guide.getRootRoute());
-        reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
-
         for (SaleDetail dtSale : this.saleDetail) {
 
+            //Guardamos el detalle de venta
             dtSale.setSale(sale);
             saleService.getDetailRepository().save(dtSale);
+            
+            //Guardamos los asientos ocupados            
+            ReservedSeats reservedSeat = new ReservedSeats();
+            reservedSeat.setGuideId(guide.getRootGuide());
+            reservedSeat.setRouteId(guide.getRootRoute());
+            reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
+
             if (reservedSeat.getRouteType().equals(_LOCAL)) {
                 reservedSeat.setInitialSequence(0);
                 reservedSeat.setFinalSequence(0);
@@ -284,9 +288,8 @@ public class SaleBean implements IConfigurable {
                 reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
                 reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
             }
-            reservedSeat.setSeatId(dtSale.getSeat().getId());
+            reservedSeat.setSeat(dtSale.getSeat());
 
-            //
             saleService.getReservedSeatsRepository().save(reservedSeat);
         }
 

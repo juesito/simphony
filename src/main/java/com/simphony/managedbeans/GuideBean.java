@@ -109,7 +109,7 @@ public class GuideBean implements IConfigurable {
      * @return
      */
     public String modifyGuide() {
-        if (this.selected != null ) {
+        if (this.selected != null) {
             this.current.setAction(_MODIFY);
             try {
                 this.guide = (Guide) this.selected.clone();
@@ -117,8 +117,9 @@ public class GuideBean implements IConfigurable {
                 Logger.getLogger(GuideBean.class.getName()).log(Level.SEVERE, null, ex);
             }
             return "modifyGuide";
-        }else
+        } else {
             return "toGuide";
+        }
     }
 
     public String cancelGuide() {
@@ -127,7 +128,7 @@ public class GuideBean implements IConfigurable {
     }
 
     /**
-     * Llenamos lista 
+     * Llenamos lista
      */
     private void fillGuide() {
         list.clear();
@@ -138,27 +139,23 @@ public class GuideBean implements IConfigurable {
         }
     }
 
-
-        /**
+    /**
      * Controlador para el Deatlle
      *
      * @return
      */
     public String guideDetail() {
-        if (this.selected != null ) {
-            this.current.setAction(_MODIFY);
-            try {
-                this.guide = (Guide) this.selected.clone();
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(GuideBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (this.selected != null) {
+            listDetail.clear();
+            listDetail = guideService.getRepository().qryGuideDetail(this.selected.getId());
             return "toGuideDetail";
-        }else
+        } else {
             return "toGuide";
+        }
     }
 
     /**
-     * Llenamos lista 
+     * Llenamos lista
      */
     private void fillDetail(Long guideId) {
         listDetail.clear();
@@ -178,7 +175,7 @@ public class GuideBean implements IConfigurable {
         this.fillDetail(this.selected.getId());
         return "toGuideDetail";
     }
-    
+
     /**
      * Actualizamos el usuario
      *
@@ -186,21 +183,21 @@ public class GuideBean implements IConfigurable {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws PersonException {
-        
+
         Guide guideUpdated = this.guideService.getRepository().findOne(this.guide.getId());
-        
-        if(guideUpdated == null){
-            throw new PersonException("Guía no existente"); 
+
+        if (guideUpdated == null) {
+            throw new PersonException("Guía no existente");
         }
         guide.setVendor(user);
         guide.setLastUpdate(cal.getTime());
         guideUpdated.update(this.guide);
         this.guideService.getRepository().save(guideUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " "+mp.getValue("msj_record_update"));
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " " + mp.getValue("msj_record_update"));
         guide = new Guide();
         return toGuide();
     }
- 
+
     /**
      * Controlador listar Guide
      *

@@ -106,7 +106,16 @@
                             <p:panel id="sale-panel">
                                 <!-- first phase -->
                                 <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Fecha de salida:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel id="tripDate" value="#{saleBean.sale.formatDateTime}" />
+                                        </p:column>
+                                    </p:row>
                                     <p:row rendered="#{saleBean.sale.partner}">
+
                                         <p:column>
                                             <p:outputLabel value="Agremiado:"  />
                                         </p:column>
@@ -126,16 +135,7 @@
                                             <p:outputLabel value="#{saleBean.associate.firstLastName} #{saleBean.associate.name}" />
                                         </p:column>
                                     </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Fecha de salida:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel id="tripDate" value="#{saleBean.sale.formatTripTime}" />
-                                        </p:column>
-                                    </p:row>
 
-                                    
                                     <p:row>
                                         <!-- disponibilidad de itinerarios -->
                                         <p:column colspan="2">
@@ -145,9 +145,9 @@
                                                 <p:column headerText="hr Salida">                                                    
                                                     <p:outputLabel value="#{ic.itinerary.typeOfRoute}" />
                                                 </p:column>
-                                                <p:column headerText="hr Salida">                                                    
-                                                    <p:calendar pattern="HH:mm" size="20" readonly="true" disabled="true"
-                                                                value="#{ic.departureTime}"  />
+                                                <p:column headerText="hr Salida"> 
+                                                    <p:outputLabel value="#{ic.formatDepartureHourTime}" />
+
                                                 </p:column>
                                                 <p:column headerText="Origen">
                                                     <p:outputLabel value="#{ic.cost.origin.description}" />
@@ -159,8 +159,7 @@
                                                     <p:outputLabel value="#{ic.cost.cost}" />
                                                 </p:column>
                                                 <p:column headerText="Tiempo recorrido">
-                                                    <p:calendar value="#{ic.cost.routeTime}" timeOnly="true" size="8"
-                                                                pattern="HH:mm" disabled="true" readonly="true" />
+                                                    <p:outputLabel value="#{ic.cost.formatRouteTime}" />
                                                 </p:column>
 
                                             </p:dataTable>
@@ -171,18 +170,20 @@
                                             <p:commandButton icon="ui-icon-star" value="Disponibilidad" actionListener="#{saleBean.findAvailability()}"
                                                              ajax="true" 
                                                              update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
-                                                             :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel">
+                                                             :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel :saleForm:seatsForBook">
                                                 <f:actionListener  binding="#{saleBean.fillSeats()}"/> 
                                             </p:commandButton>
                                         </p:column>
                                     </p:row>
 
                                 </p:panelGrid>
+                            </p:panel>
 
 
-                                <!-- Seats Grid -->
+                            <!-- Seats Grid -->
+                            <p:panel id="seatsForBook">
                                 <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
-                                    
+
                                     <p:row>
                                         <p:column>
                                             <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4" 
@@ -193,16 +194,18 @@
                                                     Asientos disponibles
                                                 </f:facet>
 
-                                                <p:panel styleClass="#{saleBean.columnClass(seat.id)}">
+                                                <p:panel styleClass="#{saleBean.columnClass(seat.id)}" rendered="#{seat.seat ne 'OC'}">
 
                                                     <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
-                                                                   title="Seleccione asiento">
+                                                                   title="Seleccione asiento" >
 
-                                                        <h:outputText value="#{seat.seat}" />
+                                                        <p:outputLabel value="#{seat.seat}" />
                                                         <f:setPropertyActionListener value="#{seat}" target="#{saleBean.selectedSeat}" />
                                                     </p:commandLink>
+                                                    
 
                                                 </p:panel>
+                                                <p:outputLabel value="#{seat.seat}" rendered="#{seat.seat eq 'OC'}" />
 
 
                                             </p:dataGrid>
@@ -236,9 +239,10 @@
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
-
-
                             </p:panel>
+
+
+
 
 
                         </div>

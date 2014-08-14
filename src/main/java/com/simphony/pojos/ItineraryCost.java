@@ -7,13 +7,14 @@ package com.simphony.pojos;
 
 import com.simphony.entities.Cost;
 import com.simphony.entities.Itinerary;
+import com.simphony.interfases.IConfigurable;
 import java.util.Date;
 
 /**
  *
  * @author root
  */
-public class ItineraryCost {
+public class ItineraryCost implements IConfigurable {
 
     private Itinerary itinerary;
     private Itinerary alternateItinerary;
@@ -63,7 +64,7 @@ public class ItineraryCost {
     public void setAlternateItinerary(Itinerary alternateItinerary) {
         this.alternateItinerary = alternateItinerary;
     }
-    
+
     public Cost getCost() {
         return cost;
     }
@@ -99,14 +100,15 @@ public class ItineraryCost {
     public void setNormalMode(Boolean normalMode) {
         this.normalMode = normalMode;
     }
-    
-    
+
+    public String getFormatDepartureHourTime() {
+        return _SHM.format(this.departureTime);
+    }
 
     public void setRowId(Integer rowId) {
         Date date = new Date();
         Long dateL = date.getTime();
         rowId = rowId * dateL.intValue();
-        System.out.println("ROWID -->" + rowId);
         this.rowId = rowId;
     }
 

@@ -39,21 +39,20 @@ public class Cost extends Catalog implements Serializable, Cloneable {
 
     }
 
-    public void update(Cost costUpdated){
+    public void update(Cost costUpdated) {
         super.update(costUpdated);
         this.origin = costUpdated.getOrigin();
         this.destiny = costUpdated.getDestiny();
         this.cost = costUpdated.getCost();
         this.kms = costUpdated.getKms();
         this.routeTime = costUpdated.getRouteTime();
-     }
-    
+    }
+
     @PreUpdate
-    public void preUpdate(){
+    public void preUpdate() {
         super.setLastUpdate(new Date());
     }
 
-    
     public Date getRouteTime() {
         return this.routeTime;
     }
@@ -94,21 +93,28 @@ public class Cost extends Catalog implements Serializable, Cloneable {
         this.cost = cost;
     }
 
-    public String getFormatStatus(){
-    String texto = "";
-    if(this.getStatus() != null){
-        if (this.getStatus().equals("A")){
-            texto = "Activo";
-        }else texto = "Inactivo";
-       
-        return texto;
-    }else return texto;
+    public String getFormatStatus() {
+        String texto = "";
+        if (this.getStatus() != null) {
+            if (this.getStatus().equals("A")) {
+                texto = "Activo";
+            } else {
+                texto = "Inactivo";
+            }
+
+            return texto;
+        } else {
+            return texto;
+        }
     }
 
-    public String getFormatRouteTime(){
-    if(this.routeTime != null){
-       return _SHM.format(this.routeTime);
-    }else return "";
+    public String getFormatRouteTime() {
+        if (this.routeTime != null) {
+            return _SHM.format(this.routeTime);
+        } else {
+            return "";
+        }
     }
-
+    
+   
 }
