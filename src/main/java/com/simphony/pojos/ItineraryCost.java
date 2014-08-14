@@ -109,7 +109,6 @@ public class ItineraryCost implements IConfigurable {
         Date date = new Date();
         Long dateL = date.getTime();
         rowId = rowId * dateL.intValue();
-        System.out.println("ROWID -->" + rowId);
         this.rowId = rowId;
     }
 
