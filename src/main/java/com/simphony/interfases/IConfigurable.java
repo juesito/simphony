@@ -43,5 +43,7 @@ public interface IConfigurable {
 
     //Casos de navegación general
     final String _NAV_TO_INDEX = "toindex";
+    
+    final Integer _DEFAULT_SEAT_NUMBER = 40;
 
 }

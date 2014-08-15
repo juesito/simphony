@@ -23,6 +23,7 @@
     <class>com.simphony.entities.PayType</class>
     <class>com.simphony.entities.GuideDetail</class>
     <class>com.simphony.entities.ReservedSeats</class>
+    <class>com.simphony.entities.Payment</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!--
@@ -33,36 +34,7 @@
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
     <non-jta-data-source>simphony/jdbc</non-jta-data-source>
-    <class>com.simphony.entities.User</class>
-    <class>com.simphony.entities.Population</class>
-    <class>com.simphony.entities.SalePoint</class>
-    <class>com.simphony.entities.Associate</class>
-    <class>com.simphony.entities.WorkCenter</class>
-    <class>com.simphony.entities.Bus</class>
-    <class>com.simphony.entities.Cost</class>
-    <class>com.simphony.entities.Vendor</class>
-    <class>com.simphony.entities.Person</class>
-    <class>com.simphony.entities.Sale</class>
-    <class>com.simphony.entities.DriverMan</class>
-    <class>com.simphony.entities.SaleDetail</class>
-    <class>com.simphony.entities.Itinerary</class>
-    <class>com.simphony.entities.Catalog</class>
-    <class>com.simphony.entities.Guide</class>
-    <class>com.simphony.entities.Seat</class>
-    <class>com.simphony.entities.Customer</class>
-    <class>com.simphony.entities.PayType</class>
-    <class>com.simphony.entities.GuideDetail</class>
-    <class>com.simphony.entities.ReservedSeats</class>
-    <class>com.simphony.entities.Payment</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="jeargaqu"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-      <property name="hibernate.show_sql" value="true"/>
+    -->
       <!--      
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=simphonybd"/>
             <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>

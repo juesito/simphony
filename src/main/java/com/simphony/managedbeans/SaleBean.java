@@ -97,42 +97,46 @@ public class SaleBean implements IConfigurable {
      * Buscamos itinerarios
      */
     public void findItinearies() {
-        itineraryCost.clear();
+        if (this.sale.getPassengers() > 0) {
+            itineraryCost.clear();
 
-        itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
+            itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
 
-        List<ItineraryCost> itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
+            List<ItineraryCost> itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
 
-        if (itineraryCostTemp.size() > 0) {
+            if (itineraryCostTemp.size() > 0) {
 
-            for (ItineraryCost it : itineraryCostTemp) {
-                it.getItinerary().setTypeOfRoute(it.getAlternateItinerary().getTypeOfRoute());
-                it.getItinerary().setRoute(it.getAlternateItinerary().getRoute());
-                itineraryCost.add(it);
-            }
-        }
-
-        if (itineraryCost.size() > 0) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(this.sale.getTripDate());
-
-            for (int i = 0; i < itineraryCost.size(); i++) {
-                Calendar calTime = (Calendar) cal.clone();
-                Calendar calTimeTmp = Calendar.getInstance();
-
-                calTimeTmp.setTime(itineraryCost.get(i).getItinerary().getDepartureTime());
-                calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
-                calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
-                calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
-                itineraryCost.get(i).setDepartureTime(calTime.getTime());
+                for (ItineraryCost it : itineraryCostTemp) {
+                    it.getItinerary().setTypeOfRoute(it.getAlternateItinerary().getTypeOfRoute());
+                    it.getItinerary().setRoute(it.getAlternateItinerary().getRoute());
+                    itineraryCost.add(it);
+                }
             }
 
-            model = new ItineraryCostModel(itineraryCost);
+            if (itineraryCost.size() > 0) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(this.sale.getTripDate());
 
-            sale.setExistRoutes(itineraryCost.size() > 0);
-            sale.setAvailability(false);
+                for (int i = 0; i < itineraryCost.size(); i++) {
+                    Calendar calTime = (Calendar) cal.clone();
+                    Calendar calTimeTmp = Calendar.getInstance();
+
+                    calTimeTmp.setTime(itineraryCost.get(i).getItinerary().getDepartureTime());
+                    calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
+                    calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
+                    calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
+                    itineraryCost.get(i).setDepartureTime(calTime.getTime());
+                }
+
+                model = new ItineraryCostModel(itineraryCost);
+
+                sale.setExistRoutes(itineraryCost.size() > 0);
+                sale.setAvailability(false);
+            } else {
+                GrowlBean.simplyErrorMessage("No se encontro", "Rutas no encontradas");
+            }
         } else {
-            GrowlBean.simplyErrorMessage("No se encontro", "Rutas no encontradas");
+            GrowlBean.simplyErrorMessage("Sin pasajeros", "Es importante asignar los pasajeros");
         }
 
     }
@@ -157,6 +161,9 @@ public class SaleBean implements IConfigurable {
 
     /**
      * buscando disponibilidad
+     *
+     * @param vendor
+     * @throws java.lang.CloneNotSupportedException
      */
     public void findAvailability(Vendor vendor) throws CloneNotSupportedException {
 
@@ -217,7 +224,7 @@ public class SaleBean implements IConfigurable {
                 guideRoot.setCreateDate(new Date());
                 guideRoot.setStatus(_GUIDE_TYPE_OPEN);
                 guideRoot.setGuideReference("Sin Referencia");
-                guideRoot.setDepartureDate(sale.getTripDate());
+                guideRoot.setDepartureDate(rootItinerary.getDepartureTime());
                 guideRoot = this.createRootGuide(guideRoot, rootItinerary);
             }
 
@@ -262,7 +269,9 @@ public class SaleBean implements IConfigurable {
     /**
      *
      * @param vendor
+     * @param payTypeList
      * @return
+     * @throws java.lang.CloneNotSupportedException
      */
     public void save(Vendor vendor, List<PayType> payTypeList) throws CloneNotSupportedException {
 
@@ -421,25 +430,35 @@ public class SaleBean implements IConfigurable {
     }
 
     public String toSaleConfirm() {
-        Double amount = selected.getCost().getCost() * this.saleDetail.size();
-        sale.setAmount(amount);
-        
-        if(sale.isPartner()){
-            saleDetail.get(0).setCustomerName(associate.getFullName());
+        String msgNav = "toSaleConfirm";
+        if (this.sale.getPassengers() == saleDetail.size()) {
+            Double amount = selected.getCost().getCost() * this.saleDetail.size();
+            sale.setAmount(amount);
+
+            if (sale.isPartner()) {
+                saleDetail.get(0).setCustomerName(associate.getFullName());
+            }
+        } else {
+            GrowlBean.simplyWarmMessage("Asientos incompletos", "No Se han asigando los asientos solicitados");
+            msgNav = "toSale";
         }
-        
-        return "toSaleConfirm";
+
+        return msgNav;
     }
 
     /**
      * Agregamos el asiento seleccionado
      */
     public void addSeat() {
-        if (this.selectedSeat != null) {
-            SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer());
-            if (!saleDetail.contains(saleDetailTmp)) {
-                saleDetail.add(saleDetailTmp);
+        if (saleDetail.size() < this.sale.getPassengers() ) {
+            if (this.selectedSeat != null) {
+                SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer());
+                if (!saleDetail.contains(saleDetailTmp)) {
+                    saleDetail.add(saleDetailTmp);
+                }
             }
+        } else {
+            GrowlBean.simplyWarmMessage("Asientos completos", "Se han asigando todos los asientos solicitados");
         }
     }
 

@@ -53,7 +53,7 @@
                                         <p:outputLabel value="Distancia:" />
                                     </p:column>
                                     <p:column>
-                                        <p:outputLabel value="#{saleBean.selected.cost.kms}" />
+                                        <p:outputLabel value="#{saleBean.selected.cost.kms}"  />
                                     </p:column>
                                 </p:row>                                
                             </p:panelGrid>
@@ -93,7 +93,8 @@
                             </p:panelGrid>
 
                             <!-- Seats Grid -->
-                            <p:panelGrid id="sale-seat-grid"  style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
+                            <p:panelGrid id="sale-seat-grid" 
+                                         style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
                                 <p:row>
                                     <p:column>
                                         <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="5" 
@@ -118,14 +119,22 @@
                                 </p:row>                                        
 
                             </p:panelGrid>
-                            
+
                             <!-- botones de control -->
-                            <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list)}">
-                                <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>                                
-                            </p:commandButton>
-                            <p:commandButton value="Cancelar" ajax="false" immediate="true" action="toSale"  >
-                                <f:actionListener  binding="#{saleBean.clearSale()}"/>
-                            </p:commandButton>
+                            <p:panelGrid style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton value="Cancelar" ajax="false" immediate="true" 
+                                                         action="toSale" style="float: right;" >
+                                            <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                        </p:commandButton>
+                                        <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list)}"
+                                                         style="float: right;">
+                                            <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>                                
+                                        </p:commandButton>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
 
                         </div>
                     </h:form>
