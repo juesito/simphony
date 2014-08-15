@@ -253,29 +253,33 @@ public class ItineraryBean implements IConfigurable {
 
         Cost c = this.costService.getCostRepository().findByOriDes(this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
 
-        Calendar calItinerary = Calendar.getInstance();
-        calItinerary.setTime(this.itinerary.getDepartureTime());
+        if (c != null) {
+            Calendar calItinerary = Calendar.getInstance();
+            calItinerary.setTime(this.itinerary.getDepartureTime());
 
-        Calendar calCost = Calendar.getInstance();
-        calCost.setTime(c.getRouteTime());
-        calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
-        Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(this.itinerary.getId());
+            Calendar calCost = Calendar.getInstance();
+            calCost.setTime(c.getRouteTime());
+            calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
+            Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(this.itinerary.getId());
 
-        if (itineraryUpdated == null) {
-            throw new ItineraryException(mp.getValue("cat_itinerary") + " " + mp.getValue("not_founded"));
-        }
+            if (itineraryUpdated == null) {
+                throw new ItineraryException(mp.getValue("cat_itinerary") + " " + mp.getValue("not_founded"));
+            }
 
-        this.itinerary.setUser(user);
-        this.itinerary.setCheckTime(calItinerary.getTime());
-        if (itinerary.getRoute() == null){
-            this.itinerary.setTypeOfRoute("L");
-        }else this.itinerary.setTypeOfRoute("P");
-        itineraryUpdated.update(this.itinerary);
-        this.itineraryService.getItineraryRepository().save(itineraryUpdated);
+            this.itinerary.setUser(user);
+            this.itinerary.setCheckTime(calItinerary.getTime());
+            if (itinerary.getRoute() == null){
+                this.itinerary.setTypeOfRoute("L");
+            }else this.itinerary.setTypeOfRoute("P");
+            itineraryUpdated.update(this.itinerary);
+            this.itineraryService.getItineraryRepository().save(itineraryUpdated);
 
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_modified"), mp.getValue("msj_record_modified") + this.itinerary.getOrigin().getDescription());
-
-        itinerary = new Itinerary();
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_modified"), mp.getValue("msj_record_modified") + this.itinerary.getOrigin().getDescription());
+      
+            itinerary = new Itinerary();
+        } else {        //Existe tarifa?
+            GrowlBean.simplyErrorMessage(mp.getValue("error_cost_title"), mp.getValue("error_cost"));
+        } 
         return toItineraries();
     }
 
