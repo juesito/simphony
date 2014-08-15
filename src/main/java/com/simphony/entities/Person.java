@@ -15,6 +15,14 @@ import javax.persistence.Transient;
 @MappedSuperclass
 public abstract class Person implements Serializable {
 
+    public Person() {
+        this.FirstLastName = "";
+        this.name = "";
+        this.secondLastName = "";
+        this.looged = false;
+    }
+
+    
 
     @Column(name="id")
     @Id
@@ -65,10 +73,7 @@ public abstract class Person implements Serializable {
     @Basic
     private String FirstLastName;
 
-    public Person(){
-        this.looged = false;
-
-    }
+    
 
     public void update(Person personUpdated){
         this.name = personUpdated.getName();

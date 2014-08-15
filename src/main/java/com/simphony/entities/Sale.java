@@ -56,6 +56,10 @@ public class Sale implements Serializable, IConfigurable {
     @Basic
     private Double amount;
 
+    @Column(name = "pasajeros")
+    @Basic
+    private Integer passengers;
+    
     @Transient
     private boolean partner;
 
@@ -70,6 +74,7 @@ public class Sale implements Serializable, IConfigurable {
         this.setAvailability(false);
         this.setExistRoutes(false);
         this.associate = new Associate();
+        this.passengers = 0;
         this.amount = 0.0;
 
     }
@@ -206,13 +211,20 @@ public class Sale implements Serializable, IConfigurable {
 
     }
 
+    public Integer getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Integer passengers) {
+        this.passengers = passengers;
+    }
+    
     public String getFormatDateTime() {
         if (this.tripDate != null) {
             return _DMA.format(this.tripDate);
         } else {
             return "";
         }
-
     }
 
     @Override
