@@ -313,4 +313,14 @@ public class Guide implements Serializable, Cloneable {
         }else return "";
    }
 
+    public String getFullName1(){
+      String fullName = this.driverMan1.getName().trim() + " "+ this.driverMan1.getFirstLastName().trim() + " " + this.driverMan1.getSecondLastName().trim();
+      return fullName;
+    }
+
+    public String getFullName2(){
+      String fullName = this.driverMan2.getName().trim() + " "+ this.driverMan2.getFirstLastName().trim() + " " + this.driverMan2.getSecondLastName().trim();
+      return fullName;
+    }
+
 }
