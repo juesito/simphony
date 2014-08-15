@@ -7,32 +7,30 @@ package com.simphony.pojos;
 
 import com.simphony.entities.Cost;
 import com.simphony.entities.Itinerary;
+import com.simphony.interfases.IConfigurable;
 import java.util.Date;
 
 /**
  *
  * @author root
  */
-public class ItineraryCost {
+public class ItineraryCost implements IConfigurable {
 
     private Itinerary itinerary;
     private Itinerary alternateItinerary;
     private Cost cost;
-    private Integer rowId = 1;
+    private Integer rowId;
     private Date departureTime;
     private Boolean normalMode;
 
     public ItineraryCost() {
-
+        rowId = (int) (Math.random()*5000+1);
     }
 
     public ItineraryCost(Itinerary itinerary, Cost cost) {
         this.itinerary = itinerary;
-        this.cost = cost;
-        this.rowId++;
-        Date date = new Date();
-        Long dateL = date.getTime();
-        rowId = rowId * dateL.intValue();
+        this.cost = cost;        
+        rowId = (int) (Math.random()*5000+1);
         normalMode = true;
 
     }
@@ -41,10 +39,7 @@ public class ItineraryCost {
         this.itinerary = itinerary;
         this.alternateItinerary = alternateItinerary;
         this.cost = cost;
-        this.rowId++;
-        Date date = new Date();
-        Long dateL = date.getTime();
-        rowId = rowId * dateL.intValue();
+        rowId = (int) (Math.random()*5000+1);
         normalMode = false;
     }
 
@@ -63,7 +58,7 @@ public class ItineraryCost {
     public void setAlternateItinerary(Itinerary alternateItinerary) {
         this.alternateItinerary = alternateItinerary;
     }
-    
+
     public Cost getCost() {
         return cost;
     }
@@ -99,14 +94,12 @@ public class ItineraryCost {
     public void setNormalMode(Boolean normalMode) {
         this.normalMode = normalMode;
     }
-    
-    
 
-    public void setRowId(Integer rowId) {
-        Date date = new Date();
-        Long dateL = date.getTime();
-        rowId = rowId * dateL.intValue();
-        System.out.println("ROWID -->" + rowId);
+    public String getFormatDepartureHourTime() {
+        return _SHM.format(this.departureTime);
+    }
+
+    public void setRowId(Integer rowId) {        
         this.rowId = rowId;
     }
 

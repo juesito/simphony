@@ -25,18 +25,23 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
            "   AND i.destiny.id = c.destiny.id " +
            "   AND c.origin.id = (:originId) " +
            "   AND c.destiny.id = (:destinyId)" +
-           "   AND i.typeOfRoute IN ('L', 'P') " + 
+           "   AND i.typeOfRoute IN ('L') " + 
            "   AND c.status = 'A'")
     public List<ItineraryCost> findItineraryCost(@Param("originId")Long originId,@Param("destinyId") Long destinyId);
     
     @Query("SELECT NEW com.simphony.pojos.ItineraryCost(i, c, j) " +
            " FROM Itinerary i, Itinerary j, Cost c" +
-           " WHERE i.origin.id = c.origin.id  " +
-           "   AND j.origin.id = c.destiny.id " +
-           "   AND j.route.id = i.id " + 
+           " WHERE i.origin.id = c.origin.id    " +
+           "   AND ((j.origin.id = c.destiny.id " +
+           "          AND j.typeOfRoute = 'P'   " +
+           "          AND i.typeOfRoute = 'L'  " +
+           "          AND i.destiny.id <> c.destiny.id ) " +
+           "    OR (j.destiny.id = c.destiny.id " +
+           "          AND j.typeOfRoute = 'P'   " +
+           "          AND i.typeOfRoute = 'P')) " +
+           "   AND j.route.id = i.route.id " + 
            "   AND c.origin.id = (:originId) " +
            "   AND c.destiny.id = (:destinyId)" +
-           "   AND j.typeOfRoute = 'P'" + 
            "   AND c.status = 'A'")
     public List<ItineraryCost> findItineraryDetailCost(@Param("originId")Long originId,@Param("destinyId") Long destinyId);
     

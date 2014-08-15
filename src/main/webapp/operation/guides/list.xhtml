@@ -45,6 +45,9 @@
                             <p:column headerText="#{msgs.cat_driverMan}" >
                                 <p:outputLabel value="#{guide.driverMan1.firstLastName} #{guide.driverMan1.name}" />
                             </p:column>
+                            <p:column headerText="#{msgs.cat_quota}" >
+                                <p:outputLabel value="#{guide.quota}" />
+                            </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{guide.formatStatus}" />
                             </p:column>
@@ -56,7 +59,7 @@
                                                  value="#{msgs.but_modify}" action="#{guideBean.modifyGuide()}" />
                                 <p:commandButton process="guideDT" 
                                                  icon="ui-icon-search" ajax="false"
-                                                 value="#{msgs.but_detail}" action="#{guideBean.modifyGuide()}" />
+                                                 value="#{msgs.but_detail}" action="#{guideBean.guideDetail()}" />
                                 <p:commandButton process="guideDT" 
                                                  icon="ui-icon-search" ajax="false"
                                                  value="#{msgs.but_print}" action="#{guideBean.modifyGuide()}" />

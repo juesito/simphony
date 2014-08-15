@@ -17,6 +17,8 @@ import com.simphony.entities.Customer;
 import com.simphony.entities.Guide;
 import com.simphony.entities.GuideDetail;
 import com.simphony.entities.Itinerary;
+import com.simphony.entities.PayType;
+import com.simphony.entities.Payment;
 import com.simphony.entities.ReservedSeats;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
@@ -46,6 +48,7 @@ import javax.faces.bean.SessionScoped;
 public class SaleBean implements IConfigurable {
 
     private Guide guide = new Guide();
+    private Guide guideRoot = new Guide();
     private Associate associate = new Associate();
     private Sale sale = new Sale();
     private Cost cost = new Cost();
@@ -87,8 +90,7 @@ public class SaleBean implements IConfigurable {
 
     @PostConstruct
     void init() {
-        seat.clear();
-        seat = seatService.getRepository().findAllAvailable();
+
     }
 
     /**
@@ -96,7 +98,7 @@ public class SaleBean implements IConfigurable {
      */
     public void findItinearies() {
         itineraryCost.clear();
-         
+
         itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
 
         List<ItineraryCost> itineraryCostTemp = saleService.getSaleRepository().findItineraryDetailCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
@@ -115,9 +117,8 @@ public class SaleBean implements IConfigurable {
             cal.setTime(this.sale.getTripDate());
 
             for (int i = 0; i < itineraryCost.size(); i++) {
-                Calendar calTime = calTime = (Calendar) cal.clone();
+                Calendar calTime = (Calendar) cal.clone();
                 Calendar calTimeTmp = Calendar.getInstance();
-                calTime = (Calendar) cal.clone();
 
                 calTimeTmp.setTime(itineraryCost.get(i).getItinerary().getDepartureTime());
                 calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
@@ -130,7 +131,7 @@ public class SaleBean implements IConfigurable {
 
             sale.setExistRoutes(itineraryCost.size() > 0);
             sale.setAvailability(false);
-        }else{
+        } else {
             GrowlBean.simplyErrorMessage("No se encontro", "Rutas no encontradas");
         }
 
@@ -157,34 +158,97 @@ public class SaleBean implements IConfigurable {
     /**
      * buscando disponibilidad
      */
-    public void findAvailability() {
+    public void findAvailability(Vendor vendor) throws CloneNotSupportedException {
 
         if (selected != null) {
+
+            //Asignamos la fecha de la venta
             this.sale.setTripDate(this.selected.getDepartureTime());
 
-            if (selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {
-                guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
-                        selected.getItinerary().getDestiny().getId(),
-                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
-            } else if (selected.getAlternateItinerary() != null) {
+            Long ori = selected.getCost().getOrigin().getId();
+            Long des = selected.getCost().getDestiny().getId();
+            Long route = selected.getItinerary().getRoute().getId();
 
-                guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
-                        selected.getAlternateItinerary().getDestiny().getId(),
-                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
-            } else {
-                guide = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
-                        selected.getItinerary().getDestiny().getId(),
-                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
+            //Obtenemos el itinerario padre
+            Itinerary rootItinerary
+                    = itineraryService.getItineraryRepository().findOne(route);
+
+            Calendar cal = Calendar.getInstance();
+            Calendar calTime = (Calendar) cal.clone();
+            Calendar calTimeTmp = Calendar.getInstance();
+
+            calTimeTmp.setTime(sale.getTripDate());
+            calTime.setTime(rootItinerary.getDepartureTime());
+            calTime.set(calTimeTmp.get(Calendar.YEAR), calTimeTmp.get(Calendar.MONTH), calTimeTmp.get(Calendar.DAY_OF_MONTH));
+            rootItinerary.setDepartureTime(calTime.getTime());
+
+            /*
+             -- Validacion del cambio de dia --
+            
+             cal = Calendar.getInstance();
+             cal.setTime(this.sale.getTripDate());
+
+             if (selected.isNormalMode()) {
+             calTime = (Calendar) cal.clone();
+             calTimeTmp = Calendar.getInstance();
+
+             calTimeTmp.setTime(rootItinerary.getDepartureTime());
+             calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
+             calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
+             calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
+             rootItinerary.setDepartureTime(calTime.getTime());
+             } else {
+             calTime = (Calendar) cal.clone();
+             calTimeTmp = Calendar.getInstance();
+
+             calTimeTmp.setTime(rootItinerary.getDepartureTime());
+             calTime.add(Calendar.SECOND, -calTimeTmp.get(Calendar.SECOND));
+             calTime.add(Calendar.MINUTE, -calTimeTmp.get(Calendar.MINUTE));
+             calTime.add(Calendar.HOUR, -calTimeTmp.get(Calendar.HOUR));
+             rootItinerary.setDepartureTime(calTime.getTime());
+             }
+            
+             */
+            //Validamos la guia padre
+            guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
+            if (guideRoot == null) {
+                guideRoot = new Guide();
+                guideRoot.setVendor(vendor);
+                guideRoot.setCreateDate(new Date());
+                guideRoot.setStatus(_GUIDE_TYPE_OPEN);
+                guideRoot.setGuideReference("Sin Referencia");
+                guideRoot.setDepartureDate(sale.getTripDate());
+                guideRoot = this.createRootGuide(guideRoot, rootItinerary);
             }
+
+            guide = guideService.getRepository().findByItineraryAndDate(ori, des, sale.getTripDate(), route);
 
             if (guide != null) {
                 // Validación de asientos
-                guide = new Guide(false);
-                //seat = seatService.getRepository().findAllAvailable();
+                guide.setNewGuide(false);
+                seat.clear();
+                seat = seatService.getRepository().findAllAvailable();
+                Seat occupiedPattern = seatService.getRepository().findOccupiedSeatPattern();
                 List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guide.getRootGuide(), guide.getRootRoute());
+
+                for (ReservedSeats reserved : reservedSeats) {
+
+                    if (seat.contains(reserved.getSeat())) {
+                        int index = seat.indexOf(reserved.getSeat());
+                        //Parten del mismo origen                            
+                        if (selected.getItinerary().getSequence() == reserved.getInitialSequence()) {
+                            seat.set(index, occupiedPattern);
+                        } else if (selected.getAlternateItinerary().getSequence() > reserved.getInitialSequence()) {
+                            seat.set(index, occupiedPattern);
+                        }
+
+                    }
+                }
 
                 this.sale.setAvailability(true);
             } else {
+                seat.clear();
+                seat = seatService.getRepository().findAllAvailable();
                 this.sale.setAvailability(true);
                 guide = new Guide(true);
             }
@@ -200,12 +264,12 @@ public class SaleBean implements IConfigurable {
      * @param vendor
      * @return
      */
-    public String save(Vendor vendor) throws CloneNotSupportedException {
+    public void save(Vendor vendor, List<PayType> payTypeList) throws CloneNotSupportedException {
 
         sale.setVendor(vendor);
         sale.setCreateDate(new Date());
-        sale.setOrigin(this.selected.getItinerary().getOrigin());
-        sale.setOrigin(this.selected.getItinerary().getDestiny());
+        sale.setOrigin(this.selected.getCost().getOrigin());
+        sale.setOrigin(this.selected.getCost().getDestiny());
         sale.setType(_SALE_TYPE_PUBLIC);
 
         if (sale.isPartner()) {
@@ -228,12 +292,12 @@ public class SaleBean implements IConfigurable {
             guide.setGuideReference("Sin Referencia");
             guide.setDepartureDate(sale.getTripDate());
 
-            if (this.selected.getItinerary().getTypeOfRoute().equals(_LOCAL)) {
+            if (this.selected.isNormalMode()) {
 
                 guide.setRootGuide(0L);
                 guide.setRootRoute(this.selected.getItinerary().getId());
-                guide.setOrigin(this.selected.getItinerary().getOrigin());
-                guide.setDestiny(this.selected.getItinerary().getDestiny());
+                guide.setOrigin(this.selected.getCost().getOrigin());
+                guide.setDestiny(this.selected.getCost().getDestiny());
 
                 guideService.getRepository().save(guide);
                 guide.setRootGuide(guide.getId());
@@ -241,16 +305,8 @@ public class SaleBean implements IConfigurable {
                 guide = guideService.getRepository().save(guide);
             } else {
 
-                Guide guideRoot = guideService.getRepository().findByItineraryAndDate(selected.getItinerary().getOrigin().getId(),
-                        selected.getItinerary().getDestiny().getId(),
-                        sale.getTripDate(), selected.getItinerary().getRoute().getId());
-
-                if (guideRoot == null) {
-                    guideRoot = this.createRootGuide((Guide) guide.clone(), selected.getItinerary());
-                }
-
-                guide.setOrigin(this.selected.getItinerary().getOrigin());
-                guide.setDestiny(this.selected.getAlternateItinerary().getDestiny());
+                guide.setOrigin(this.selected.getCost().getOrigin());
+                guide.setDestiny(this.selected.getCost().getDestiny());
                 guide.setRootRoute(guideRoot.getRootRoute());
                 guide.setRootGuide(guideRoot.getId());
                 guideService.getRepository().save(guide);
@@ -268,15 +324,18 @@ public class SaleBean implements IConfigurable {
         }
 
         //Guardamos el detalle de la venta
-        ReservedSeats reservedSeat = new ReservedSeats();
-        reservedSeat.setGuideId(guide.getRootGuide());
-        reservedSeat.setRouteId(guide.getRootRoute());
-        reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
-
         for (SaleDetail dtSale : this.saleDetail) {
 
+            //Guardamos el detalle de venta
             dtSale.setSale(sale);
             saleService.getDetailRepository().save(dtSale);
+
+            //Guardamos los asientos ocupados            
+            ReservedSeats reservedSeat = new ReservedSeats();
+            reservedSeat.setGuideId(guide.getRootGuide());
+            reservedSeat.setRouteId(guide.getRootRoute());
+            reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
+
             if (reservedSeat.getRouteType().equals(_LOCAL)) {
                 reservedSeat.setInitialSequence(0);
                 reservedSeat.setFinalSequence(0);
@@ -284,15 +343,52 @@ public class SaleBean implements IConfigurable {
                 reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
                 reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
             }
-            reservedSeat.setSeatId(dtSale.getSeat().getId());
+            reservedSeat.setSeat(dtSale.getSeat());
 
-            //
             saleService.getReservedSeatsRepository().save(reservedSeat);
+        }
+
+        for (PayType payType : payTypeList) {
+            if (payType.getAmount() > 0.0) {
+                Payment payment = new Payment(payType, sale);
+                saleService.getPaymentRepository().save(payment);
+            }
+
         }
 
         GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
         this.clearSale();
-        return "toSale";
+
+    }
+
+    /**
+     * Validamos lo necesario para la venta
+     *
+     * @param vendor
+     * @param payTypeList
+     * @return
+     * @throws CloneNotSupportedException
+     */
+    public String validateSale(Vendor vendor, List<PayType> payTypeList) throws CloneNotSupportedException {
+        Double amountPayed = 0.0;
+        String msgNav = "toSale";
+
+        for (PayType payType : payTypeList) {
+            amountPayed = amountPayed + payType.getAmount();
+        }
+
+        //Validamos el monto recibido
+        if (amountPayed < sale.getAmount()) {
+            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto indresado");
+            msgNav = "toSaleConfirm";
+        } else if (amountPayed > sale.getAmount()) {
+            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
+            msgNav = "toSaleConfirm";
+        } else {
+            this.save(vendor, payTypeList);
+        }
+
+        return msgNav;
     }
 
     /**
@@ -302,27 +398,36 @@ public class SaleBean implements IConfigurable {
      * @param rootRoute
      * @return
      */
-    private Guide createRootGuide(Guide guide, Itinerary rootRoute) {
+    private Guide createRootGuide(Guide rootGuide, Itinerary rootRoute) {
 
-        guide.setDestiny(rootRoute.getDestiny());
-        guide.setOrigin(rootRoute.getOrigin());
-        guide.setRootRoute(rootRoute.getId());
+        rootGuide.setDestiny(rootRoute.getDestiny());
+        rootGuide.setOrigin(rootRoute.getOrigin());
+        rootGuide.setRootRoute(rootRoute.getRoute().getId());
 
-        guide = guideService.getRepository().save(guide);
-        guide.setRootGuide(guide.getId());
-        guide.update(guide);
-        guide = guideService.getRepository().save(guide);
+        rootGuide = guideService.getRepository().save(rootGuide);
+        rootGuide.setRootGuide(rootGuide.getId());
+        rootGuide.update(rootGuide);
+        rootGuide = guideService.getRepository().save(rootGuide);
 
-        return guide;
+        return rootGuide;
     }
 
     public void clearSale() {
-        this.sale.clear();
-        this.saleDetail.clear();
+        this.sale = new Sale();
+        this.saleDetail = new ArrayList<SaleDetail>();
+        this.guide = new Guide();
+        this.guideRoot = new Guide();
+        this.selected = new ItineraryCost();
     }
 
     public String toSaleConfirm() {
-
+        Double amount = selected.getCost().getCost() * this.saleDetail.size();
+        sale.setAmount(amount);
+        
+        if(sale.isPartner()){
+            saleDetail.get(0).setCustomerName(associate.getFullName());
+        }
+        
         return "toSaleConfirm";
     }
 

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.simphony.entities;
 
 import java.io.Serializable;
@@ -12,37 +11,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author Administrador
- */@Entity(name="ReservedSeats")
-@Table(name="AsientosReservados")
+ */
+@Entity(name = "ReservedSeats")
+@Table(name = "AsientosReservados")
 public class ReservedSeats implements Serializable, Cloneable {
+
     @Column(name = "id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "guia")
     private Long guideId;
-    
-    @Column(name = "asiento")
-    private Long seatId;
-    
+
+    @ManyToOne(targetEntity = Seat.class)
+    private Seat seat;
+
     @Column(name = "ruta")
     private Long routeId;
-    
+
     @Column(name = "tipoRuta")
     private String routeType;
-    
+
     @Column(name = "inicio")
     private Integer initialSequence;
-    
+
     @Column(name = "final")
     private Integer finalSequence;
-    
 
     public Long getId() {
         return id;
@@ -60,12 +61,12 @@ public class ReservedSeats implements Serializable, Cloneable {
         this.guideId = guideId;
     }
 
-    public Long getSeatId() {
-        return seatId;
+    public Seat getSeat() {
+        return seat;
     }
 
-    public void setSeatId(Long seatId) {
-        this.seatId = seatId;
+    public void setSeat(Seat seat) {
+        this.seat = seat;
     }
 
     public Long getRouteId() {
@@ -102,7 +103,7 @@ public class ReservedSeats implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "ReservedSeats{" + "id=" + id + ", guideId=" + guideId + ", seatId=" + seatId + ", routeId=" + routeId + ", routeType=" + routeType + ", initialSequence=" + initialSequence + ", finalSequence=" + finalSequence + '}';
+        return "ReservedSeats{" + "id=" + id + ", guideId=" + guideId + ", seatId=" + seat.getSeat() + ", routeId=" + routeId + ", routeType=" + routeType + ", initialSequence=" + initialSequence + ", finalSequence=" + finalSequence + '}';
     }
 
     @Override
@@ -126,7 +127,5 @@ public class ReservedSeats implements Serializable, Cloneable {
         }
         return true;
     }
-    
-    
-    
+
 }

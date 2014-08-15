@@ -15,182 +15,155 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
-@Entity(name="Sale")
-@Table(name="Ventas")
-public  class Sale implements Serializable, IConfigurable {
+@Entity(name = "Sale")
+@Table(name = "Ventas")
+public class Sale implements Serializable, IConfigurable {
 
-    @Column(name="id")
+    @Column(name = "id")
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @OneToOne(targetEntity=Vendor.class)
+    @OneToOne(targetEntity = Vendor.class)
     private Vendor cancelVendor;
 
-
-    @ManyToOne(targetEntity=Vendor.class)
+    @ManyToOne(targetEntity = Vendor.class)
     private Vendor vendor;
-    
-    
 
-    @ManyToOne(targetEntity=PayType.class)
-    private PayType payType;
-
-    @Column(name="fechaSalida")
+    @Column(name = "fechaSalida")
     @Basic
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date tripDate;
-    
-    @Column(name="informacionPago")
-    @Basic
-    private String paymentInfo;
 
-    @ManyToOne(targetEntity=Population.class)
+    @ManyToOne(targetEntity = Population.class)
     private Population origin;
-    
-    @ManyToOne(targetEntity=Population.class)
+
+    @ManyToOne(targetEntity = Population.class)
     private Population destiny;
-    
-    @Column(name="tipo",length=2)
+
+    @Column(name = "tipo", length = 2)
     @Basic
     private String type;
 
-    @Column(name="fechaCreacion")
+    @Column(name = "fechaCreacion")
     @Basic
     private Date createDate;
 
-
-    @ManyToOne(targetEntity=Associate.class)
+    @ManyToOne(targetEntity = Associate.class)
     private Associate associate;
+
+    @Column(name = "montoVenta")
+    @Basic
+    private Double amount;
 
     @Transient
     private boolean partner;
-    
+
     @Transient
     private boolean availability;
-    
-     @Transient
+
+    @Transient
     private boolean existRoutes;
-    
-    public Sale(){
+
+    public Sale() {
         this.setPartner(false);
         this.setAvailability(false);
         this.setExistRoutes(false);
         this.associate = new Associate();
-        this.payType = new PayType();
-        this.paymentInfo = "";
-        
+        this.amount = 0.0;
+
     }
 
-    public void clear(){
+    public void clear() {
         this.setPartner(false);
         this.setAvailability(false);
         this.setExistRoutes(false);
-        
+
         this.associate = new Associate();
         this.type = _SALE_TYPE_PUBLIC;
-        
+
     }
 
-   public Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-
-  public void setId (Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-
-
-   public Vendor getCancelVendor() {
+    public Vendor getCancelVendor() {
         return this.cancelVendor;
     }
 
-
-  public void setCancelVendor (Vendor cancelVendor) {
-      if(cancelVendor != null){
-        this.cancelVendor = cancelVendor;
-      }
+    public void setCancelVendor(Vendor cancelVendor) {
+        if (cancelVendor != null) {
+            this.cancelVendor = cancelVendor;
+        }
     }
 
-
-
-   public Vendor getVendor() {
+    public Vendor getVendor() {
         return this.vendor;
     }
 
-
-  public void setVendor (Vendor vendor) {
+    public void setVendor(Vendor vendor) {
         this.vendor = vendor;
     }
 
-
-
-   public Population getOrigin() {
+    public Population getOrigin() {
         return this.origin;
     }
 
-
-  public void setOrigin (Population origin) {
+    public void setOrigin(Population origin) {
         this.origin = origin;
     }
 
-    public PayType getPayType() {
-        return payType;
-    }
-
-    public void setPayType(PayType payType) {
-        this.payType = payType;
-    }
-
-   public Date getTripDate() {
+    public Date getTripDate() {
         return this.tripDate;
     }
 
-
-  public void setTripDate (Date tripDate) {
+    public void setTripDate(Date tripDate) {
         this.tripDate = tripDate;
     }
 
-   public Population getDestiny() {
+    public Population getDestiny() {
         return this.destiny;
     }
 
-  public void setDestiny (Population destiny) {
+    public void setDestiny(Population destiny) {
         this.destiny = destiny;
     }
 
-   public String getType() {
+    public String getType() {
         return this.type;
     }
 
-
-  public void setType (String type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-
-
-   public Date getCreateDate() {
+    public Date getCreateDate() {
         return this.createDate;
     }
 
-
-  public void setCreateDate (Date createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-
-
-   public Associate getAssociate() {
+    public Associate getAssociate() {
         return this.associate;
     }
 
-
-  public void setAssociate (Associate associate) {
+    public void setAssociate(Associate associate) {
         this.associate = associate;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -224,22 +197,24 @@ public  class Sale implements Serializable, IConfigurable {
         this.existRoutes = existRoutes;
     }
 
-    public String getPaymentInfo() {
-        return paymentInfo;
+    public String getFormatTripTime() {
+        if (this.tripDate != null) {
+            return _SDT.format(this.tripDate);
+        } else {
+            return "";
+        }
+
     }
 
-    public void setPaymentInfo(String paymentInfo) {
-        this.paymentInfo = paymentInfo;
+    public String getFormatDateTime() {
+        if (this.tripDate != null) {
+            return _DMA.format(this.tripDate);
+        } else {
+            return "";
+        }
+
     }
-    
-    public String getFormatTripTime(){
-        if(this.tripDate != null){
-            return _SDT.format(this.tripDate);
-        }else return "";
-        
-    }
-    
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -254,8 +229,5 @@ public  class Sale implements Serializable, IConfigurable {
         }
         return true;
     }
-  
-  
 
 }
-

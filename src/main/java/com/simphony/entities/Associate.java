@@ -141,6 +141,13 @@ public  class Associate extends Person implements Serializable, Cloneable {
   public void setCity (String city) {
         this.city = city;
     }
+  
+  public String getFullName(){
+      String fullName = super.getFirstLastName().trim() + " "+ super.getSecondLastName().trim() + " " + super.getName().trim();
+      return fullName;
+  }
+  
+  
 
     @Override
     public int hashCode() {
