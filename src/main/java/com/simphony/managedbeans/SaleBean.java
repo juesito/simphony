@@ -423,6 +423,11 @@ public class SaleBean implements IConfigurable {
     public String toSaleConfirm() {
         Double amount = selected.getCost().getCost() * this.saleDetail.size();
         sale.setAmount(amount);
+        
+        if(sale.isPartner()){
+            saleDetail.get(0).setCustomerName(associate.getFullName());
+        }
+        
         return "toSaleConfirm";
     }
 

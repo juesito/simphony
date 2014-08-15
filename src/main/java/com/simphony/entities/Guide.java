@@ -82,7 +82,7 @@ public class Guide implements Serializable, Cloneable {
     
     @Column(name="cupo")
     @Basic
-    private int quota;
+    private Integer quota;
 
     @OneToOne(targetEntity = Vendor.class)
     private Person vendor;
@@ -99,6 +99,7 @@ public class Guide implements Serializable, Cloneable {
     private String action;
 
     public Guide() {
+        quota = 40;
     }
 
     public Guide(boolean newGuide) {
@@ -243,11 +244,11 @@ public class Guide implements Serializable, Cloneable {
         return lastUpdate;
     }
   
-    public int getQuota() {
+    public Integer getQuota() {
         return quota;
     }
 
-    public void setQuota(int quota) {
+    public void setQuota(Integer quota) {
         this.quota = quota;
     }
 

@@ -33,7 +33,7 @@
                                         <p:outputLabel value="Agremiado:" />
                                     </p:column>
                                     <p:column>
-                                        <p:outputLabel value="#{saleBean.sale.associate.firstLastName} #{saleBean.sale.associate.name}" />
+                                        <p:outputLabel value="#{saleBean.sale.associate.firstLastName} #{saleBean.associate.fullName}" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -110,7 +110,7 @@
                                                 <p:outputLabel value=" Nombre pasajero:" />
                                             </p:column>
                                             <p:column>
-                                                <p:inputText value="#{seat.customerName}" />
+                                                <p:inputText value="#{seat.customerName}" size="40" />
                                             </p:column>
 
                                         </p:dataGrid>
