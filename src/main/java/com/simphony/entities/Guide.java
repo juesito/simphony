@@ -5,6 +5,7 @@
  */
 package com.simphony.entities;
 
+import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._DMA;
 import static com.simphony.interfases.IConfigurable._SHM;
 import java.io.Serializable;
@@ -28,7 +29,7 @@ import javax.persistence.Transient;
  */
 @Entity(name = "Guide")
 @Table(name = "Guias")
-public class Guide implements Serializable, Cloneable {
+public class Guide implements Serializable, Cloneable, IConfigurable {
 
     @Column(name = "id")
     @Id
@@ -99,10 +100,11 @@ public class Guide implements Serializable, Cloneable {
     private String action;
 
     public Guide() {
-        quota = 40;
+        quota = _DEFAULT_SEAT_NUMBER;
     }
 
     public Guide(boolean newGuide) {
+        this.quota = _DEFAULT_SEAT_NUMBER;
         this.newGuide = newGuide;
     }
 
@@ -312,5 +314,19 @@ public class Guide implements Serializable, Cloneable {
             return _DMA.format(this.departureDate);
         }else return "";
    }
+
+    public String getFullName1(){
+        if(this.driverMan1 != null){
+            String fullName = this.driverMan1.getName().trim() + " "+ this.driverMan1.getFirstLastName().trim() + " " + this.driverMan1.getSecondLastName().trim();
+            return fullName;
+        }else return "";
+    }
+
+    public String getFullName2(){
+        if(this.driverMan1 != null){
+            String fullName = this.driverMan2.getName().trim() + " "+ this.driverMan2.getFirstLastName().trim() + " " + this.driverMan2.getSecondLastName().trim();
+            return fullName;
+        }else return "";
+    }
 
 }

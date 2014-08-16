@@ -84,14 +84,15 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:inputText size="5" />
+                                            <p:inputText size="5" value="#{saleBean.sale.passengers}"
+                                                         maxlength="2" required="true" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column>
                                             <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
                                                              ajax="true" styleClass="button-rounded" 
-                                                             update=":saleForm:sale-panel "  >
+                                                             update=":saleForm:sale-panel :main-form:growl"   >
 
                                             </p:commandButton>
                                         </p:column>
@@ -230,6 +231,7 @@
                                     <p:row>
                                         <p:column colspan="2">
                                             <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
+                                                             update=":main-form:growl"
                                                              action="#{saleBean.toSaleConfirm()}"  ajax="true">
                                                 <f:actionListener  binding="#{payTypeBean.fillPayType()}"/>
                                             </p:commandButton>
