@@ -22,7 +22,7 @@
                         <p:dataTable value="#{payTypeBean.list}" var="payType" style="font-size: 12px;"
                                      selectionMode="single" selection="#{payTypeBean.selected}" 
                                      rowKey="#{payType.id}" id="payTypeDT"
-                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     emptyMessage="#{msgs.no_records_found}" rows="20"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                     >
@@ -32,7 +32,7 @@
                             </p:column>
                             <p:column headerText="#{msgs.cat_reference}" >
                                 <p:outputLabel value="#{payType.formatRef}" />
-                            </p:column>
+                            </p:column>                            
                             <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{payType.formatStatus}" />
                             </p:column>

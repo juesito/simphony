@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/Symphony">
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="simphony/jdbc" password="jeargaqu" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/simphonybd?zeroDateTimeBehavior=convertToNull" username="root"/>
- <!-- 
+  <!-- 
   <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" maxActive="20" maxIdle="10" maxWait="-1" name="simphonysql/jdbc" password="jeargaqu" type="javax.sql.DataSource" url="jdbc:sqlserver://localhost:1433;databaseName=simphonybd" username="root"/>
-  -->   
-  </Context>
+  -->
+  <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" maxActive="20" maxIdle="10" maxWait="-1" name="sqlserver/jdbc" password="jeargaqu" type="javax.sql.DataSource" url="jdbc:sqlserver://localhost:1433;databaseName=simphonybd" username="root"/>
+</Context>

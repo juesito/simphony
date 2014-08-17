@@ -27,6 +27,7 @@ import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.models.ItineraryCostModel;
 import com.simphony.pojos.ItineraryCost;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -38,6 +39,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -96,8 +99,16 @@ public class SaleBean implements IConfigurable {
     /**
      * Buscamos itinerarios
      */
-    public void findItinearies() {
-        if (this.sale.getPassengers() > 0) {
+    public void findItinearies() throws ParseException {
+        Calendar now = Calendar.getInstance();
+        
+        if(_SDF.parse(_SDF.format(this.sale.getTripDate())).compareTo(_SDF.parse(_SDF.format(now.getTime()))) < 0 ){
+            GrowlBean.simplyErrorMessage("Error de fechas", "Rutas fuera de calendario");
+            return;
+        }
+        
+        
+        if (this.sale.getPassengers() + this.sale.getRetirees() > 0) {
             itineraryCost.clear();
 
             itineraryCost = saleService.getSaleRepository().findItineraryCost(this.sale.getOrigin().getId(), this.sale.getDestiny().getId());
@@ -117,15 +128,15 @@ public class SaleBean implements IConfigurable {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(this.sale.getTripDate());
 
-                for (int i = 0; i < itineraryCost.size(); i++) {
+                for (ItineraryCost itineraryCost1 : itineraryCost) {
+
                     Calendar calTime = (Calendar) cal.clone();
                     Calendar calTimeTmp = Calendar.getInstance();
-
-                    calTimeTmp.setTime(itineraryCost.get(i).getItinerary().getDepartureTime());
+                    calTimeTmp.setTime(itineraryCost1.getItinerary().getDepartureTime());
                     calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
                     calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
                     calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
-                    itineraryCost.get(i).setDepartureTime(calTime.getTime());
+                    itineraryCost1.setDepartureTime(calTime.getTime());
                 }
 
                 model = new ItineraryCostModel(itineraryCost);
@@ -145,7 +156,7 @@ public class SaleBean implements IConfigurable {
      * Buscamos al agremiado
      */
     public void findAssociate() {
-        Associate temp = associateService.getRepository().findByKey(this.associate.getKeyId());
+        Associate temp = associateService.getRepository().findByKey(associate.getKeyId());
 
         if (temp != null) {
             try {
@@ -234,7 +245,17 @@ public class SaleBean implements IConfigurable {
                 // Validación de asientos
                 guide.setNewGuide(false);
                 seat.clear();
-                seat = seatService.getRepository().findAllAvailable();
+
+                //Obtenemos el limite de pasajeros en esa guia
+                Integer maxLimitCarrie = guide.getQuota();
+
+                if (maxLimitCarrie > 0) {
+                    //seat = seatService.getRepository().findAllAvailable(new PageRequest(1, maxLimitCarrie));
+                    seat = seatService.getRepository().findAllAvailable();
+                } else {
+                    seat = seatService.getRepository().findAllAvailable();
+                }
+
                 Seat occupiedPattern = seatService.getRepository().findOccupiedSeatPattern();
                 List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guide.getRootGuide(), guide.getRootRoute());
 
@@ -267,10 +288,10 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
+     * *
      *
      * @param vendor
      * @param payTypeList
-     * @return
      * @throws java.lang.CloneNotSupportedException
      */
     public void save(Vendor vendor, List<PayType> payTypeList) throws CloneNotSupportedException {
@@ -312,6 +333,7 @@ public class SaleBean implements IConfigurable {
                 guide.setRootGuide(guide.getId());
                 guide.update(guide);
                 guide = guideService.getRepository().save(guide);
+
             } else {
 
                 guide.setOrigin(this.selected.getCost().getOrigin());
@@ -319,6 +341,7 @@ public class SaleBean implements IConfigurable {
                 guide.setRootRoute(guideRoot.getRootRoute());
                 guide.setRootGuide(guideRoot.getId());
                 guideService.getRepository().save(guide);
+
             }
         }
 
@@ -326,10 +349,12 @@ public class SaleBean implements IConfigurable {
          * Guardamos el detalle de la guia
          */
         if (guide != null) {
+
             GuideDetail guideDetail = new GuideDetail();
             guideDetail.setGuide(guide);
             guideDetail.setSale(sale);
             guideService.getDetailRepository().save(guideDetail);
+
         }
 
         //Guardamos el detalle de la venta
@@ -431,8 +456,20 @@ public class SaleBean implements IConfigurable {
 
     public String toSaleConfirm() {
         String msgNav = "toSaleConfirm";
-        if (this.sale.getPassengers() == saleDetail.size()) {
-            Double amount = selected.getCost().getCost() * this.saleDetail.size();
+        if (this.sale.getPassengers() + this.sale.getRetirees() == saleDetail.size()) {
+
+            //Calculamos el total de la venta considerando los descuentos por jubilados
+            Double subTotal = selected.getCost().getCost() * this.saleDetail.size();
+            Double discount = 0.0;
+
+            if (this.sale.getRetirees() > 0) {
+                discount = (selected.getCost().getCost() * this.sale.getRetirees()) * _RETIREE_DISCOUNT;
+            } //Hay jubilados en el viaje?
+
+            Double amount = subTotal - discount;
+
+            sale.setSubTotal(subTotal);
+            sale.setDiscount(discount);
             sale.setAmount(amount);
 
             if (sale.isPartner()) {
@@ -450,7 +487,7 @@ public class SaleBean implements IConfigurable {
      * Agregamos el asiento seleccionado
      */
     public void addSeat() {
-        if (saleDetail.size() < this.sale.getPassengers() ) {
+        if (saleDetail.size() < this.sale.getPassengers() + this.sale.getRetirees()) {
             if (this.selectedSeat != null) {
                 SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer());
                 if (!saleDetail.contains(saleDetailTmp)) {

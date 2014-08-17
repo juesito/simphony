@@ -27,14 +27,14 @@ public class PayType extends Catalog implements Serializable, Cloneable, IConfig
     @Column(name="referencia")
     @Basic
     private String reference;
-    
+        
     @Transient
     private Double amount;
     
     @Transient
     private String paymentInfo;
     
-    public PayType(){        
+    public PayType(){      
         this.reference = _NO;
         this.paymentInfo = "";
         this.amount = 0.0;
@@ -97,9 +97,10 @@ public class PayType extends Catalog implements Serializable, Cloneable, IConfig
     public void setPaymentInfo(String paymentInfo) {
         this.paymentInfo = paymentInfo;
     }
-    
-    
-     
-     
+
+    @Override
+    public String toString() {
+        return "PayType{" + "reference=" + reference + ",amount=" + amount + ", paymentInfo=" + paymentInfo + '}';
+    }
      
 }
