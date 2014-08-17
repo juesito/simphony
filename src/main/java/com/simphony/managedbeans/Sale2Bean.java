@@ -25,6 +25,11 @@ import com.simphony.entities.SaleDetail;
 import com.simphony.entities.Seat;
 import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
+import static com.simphony.interfases.IConfigurable._BLANK;
+import static com.simphony.interfases.IConfigurable._GUIDE_TYPE_OPEN;
+import static com.simphony.interfases.IConfigurable._LOCAL;
+import static com.simphony.interfases.IConfigurable._SALE_TYPE_ASSOCIATE;
+import static com.simphony.interfases.IConfigurable._SALE_TYPE_PUBLIC;
 import com.simphony.models.ItineraryCostModel;
 import com.simphony.pojos.ItineraryCost;
 import java.util.ArrayList;
@@ -45,7 +50,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class SaleBean implements IConfigurable {
+public class Sale2Bean implements IConfigurable {
 
     private Guide guide = new Guide();
     private Guide guideRoot = new Guide();
@@ -85,7 +90,7 @@ public class SaleBean implements IConfigurable {
     /**
      * Creates a new instance of SaleBean
      */
-    public SaleBean() {
+    public Sale2Bean() {
     }
 
     @PostConstruct
@@ -631,6 +636,52 @@ public class SaleBean implements IConfigurable {
         }
 
         return customClass;
+    }
+
+    
+        /**
+     * Buscamos asiento
+     */
+    public String findSeat(String seat) {
+
+        unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
+
+            if (unSelectedDetail != null) {
+                this.sale.setSeat(seat);
+            } else {
+                GrowlBean.simplyErrorMessage("No se encontro", "Asiento no encontrado");
+            }
+            return "toCancel";
+    }
+
+    
+    public void cancelSeat(Vendor vendor) throws CloneNotSupportedException {
+
+        sale.setVendor(vendor);
+        sale.setCreateDate(new Date());
+        sale.setOrigin(this.selected.getCost().getOrigin());
+        sale.setOrigin(this.selected.getCost().getDestiny());
+        sale.setType(_SALE_TYPE_PUBLIC);
+        sale.setAmount(-1.0);
+
+         //Guardamos la cancelación
+        sale = saleService.getSaleRepository().save(sale);
+
+        GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelad0 con exito!");
+        this.clearSale();
+
+    }
+
+    public String toCancel() {
+        String msgNav = "toSale";
+        if (this.sale.getSeat() != "") {
+            msgNav = "toCancel";        
+        } else {
+            GrowlBean.simplyWarmMessage("Asientos incompletos", "No Se han asigando los asientos solicitados");
+            msgNav = "toCancel";
+        }
+
+        return msgNav;
     }
 
 }

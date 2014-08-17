@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:body>
+            <ui:composition template="./WEB-INF/templates/catalog.xhtml">
+
+                <ui:define name="content"> 
+                    <h:form id="saleForm">
+                        <div class="box-content-sale" >
+                            <!-- choice your origin and destiny -->
+                            <p:panel id="sale-input" rendered="#{not sale2Bean.sale.availability}">
+                                <p:panelGrid styleClass="sale-schedule-panel" 
+                                             >
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_origin}:" />
+                                        </p:column>                                    
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+
+                                            <p:selectOneMenu id="origin" value="#{sale2Bean.sale.origin}" 
+                                                             converter="populationConverter" 
+                                                             style="width:160px" required="true" 
+                                                             requiredMessage="Origen Requerido">
+                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                <f:selectItems value="#{boxPopulationService.populationList}" />
+                                                <p:ajax event="change" update=":saleForm:destiny" 
+                                                        />
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_destiny}:" />
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:selectOneMenu id="destiny" value="#{sale2Bean.sale.destiny}" 
+                                                             converter="populationConverter" 
+                                                             style="width:160px" required="true" 
+                                                             requiredMessage="Destino requerido">
+                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                <f:selectItems value="#{boxPopulationService.populationList}" />
+
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Fecha de salida:" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                                        pages="2" showOn="button" value="#{sale2Bean.sale.tripDate}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_seat}:" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:inputText size="2" value="#{saleBean.sale.seat}"
+                                                         maxlength="2" required="true" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton value="buscar" actionListener="#{sale2Bean.findSeat(saleBean.sale.seat)}" 
+                                                             ajax="true" styleClass="button-rounded" 
+                                                             update=":saleForm:sale-panel :main-form:growl"   >
+
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:row>                            
+                                </p:panelGrid>
+                            </p:panel>
+
+                        </div>
+
+                        <div class="box-content-sale-detail" >
+                            <!-- Itinerario Grid -->
+                            <p:panel id="sale-panel">
+                                <!-- first phase -->
+                                <p:panelGrid id="sale-detail-grid" rendered="#{sale2Bean.sale.seat != null}">
+                                     <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_seat}:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{sale2Bean.sale.seat}" />
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"
+                                                             actionListener="#{sale2Bean.cancelSeat(vendorBean.current)}"
+                                                             ajax="true" 
+                                                             update=":saleForm:sale-detail-grid">
+                                             </p:commandButton>
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </p:panel>
+                       </div>
+                    </h:form>
+                </ui:define>
+
+            </ui:composition>
+        </h:body>
+
+    </f:view>
+</html>

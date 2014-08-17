@@ -7,7 +7,9 @@
 package com.simphony.repositories;
 
 import com.simphony.entities.Sale;
+import com.simphony.entities.SaleDetail;
 import com.simphony.pojos.ItineraryCost;
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -44,5 +46,13 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
            "   AND c.destiny.id = (:destinyId)" +
            "   AND c.status = 'A'")
     public List<ItineraryCost> findItineraryDetailCost(@Param("originId")Long originId,@Param("destinyId") Long destinyId);
-    
+ 
+ 
+    @Query("SELECT d FROM SaleDetail d " +
+         "  WHERE d.seat.id = :seat AND d.sale.id IN ( SELECT s.id FROM Sale s WHERE s.origin.id = :origin " +
+         "    AND s.destiny.id = :destiny " +
+         "    AND s.tripDate = :tripDate)" )
+    public SaleDetail findSeat(@Param("origin")Long origin, @Param("destiny")Long destiny, 
+            @Param("tripDate")Date tripDate, @Param("seat")String seat);
+
 }

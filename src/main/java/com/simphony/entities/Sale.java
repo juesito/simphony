@@ -69,6 +69,9 @@ public class Sale implements Serializable, IConfigurable {
     @Transient
     private boolean existRoutes;
 
+    @Transient
+    private String seat;
+
     public Sale() {
         this.setPartner(false);
         this.setAvailability(false);
@@ -240,6 +243,14 @@ public class Sale implements Serializable, IConfigurable {
             return false;
         }
         return true;
+    }
+
+    public String getSeat() {
+        return this.seat;
+    }
+
+    public void setSeat(String seat) {
+        this.seat = seat;
     }
 
 }
