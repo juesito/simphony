@@ -235,6 +235,10 @@ public class AssociateBean implements IConfigurable {
         associate = new Associate();
         return toAssociates();
     }
+    
+   
+    
+    
 
     /**
      * Controlador listar Associate

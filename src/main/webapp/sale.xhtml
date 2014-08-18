@@ -79,6 +79,17 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
+                                            <p:outputLabel value="Pasajeros jubilados:" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:inputText size="5" value="#{saleBean.sale.retirees}"
+                                                         maxlength="2" required="true" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
                                             <p:outputLabel value="Pasajeros:" />
                                         </p:column>
                                     </p:row>
@@ -108,6 +119,11 @@
                                 <!-- first phase -->
                                 <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
                                     <p:row>
+                                        <p:column colspan="3">
+                                            <p:message for="associateKey" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
                                         <p:column>
                                             <p:outputLabel value="Fecha de salida:" />
                                         </p:column>
@@ -121,7 +137,11 @@
                                             <p:outputLabel value="Agremiado:"  />
                                         </p:column>
                                         <p:column>
-                                            <p:inputText value="#{saleBean.associate.keyId}" />
+                                            <p:inputText id="associateKey" value="#{saleBean.associate.keyId}" size="10" required="true"
+                                                         requiredMessage="Error en el valor del campo Agremiado">
+                                                <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
+                                            </p:inputText>
+                                            
                                             <p:commandButton icon="ui-icon-search" actionListener="#{saleBean.findAssociate()}"
                                                              ajax="true" update=":saleForm:sale-detail-grid">
 
@@ -144,7 +164,7 @@
                                                          selectionMode="single" selection="#{saleBean.selected}" 
                                                          rowKey="#{ic.rowId}" emptyMessage="Sin tarifas registradas"  >
                                                 <p:column headerText="Tipo ruta">                                                    
-                                                    <p:outputLabel value="#{ic.itinerary.typeOfRoute}" />
+                                                    <p:outputLabel value="#{ic.itinerary.formatTypeOfRoute}" />
                                                 </p:column>
                                                 <p:column headerText="hr Salida"> 
                                                     <p:outputLabel value="#{ic.formatDepartureHourTime}" />

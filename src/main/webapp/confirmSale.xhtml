@@ -23,17 +23,35 @@
                                     <p:column>
                                         <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
                                     </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="Costo:" />
+                                    <p:column colspan="2">
+                                        
                                     </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="#{saleBean.sale.amount}" style="color:red !important;" />
-                                    </p:column>
+                                    
                                     <p:column>
                                         <p:outputLabel value="Agremiado:" />
                                     </p:column>
                                     <p:column>
                                         <p:outputLabel value="#{saleBean.sale.associate.firstLastName} #{saleBean.associate.fullName}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Sub total:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
+                                    </p:column>
+                                     <p:column>
+                                        <p:outputLabel value="Descuento:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
+                                    </p:column>
+                                     <p:column>
+                                        <p:outputLabel value="Total a cobrar:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="$#{saleBean.sale.amount}" style="color:red !important;" />
                                     </p:column>
                                 </p:row>
                                 <p:row>

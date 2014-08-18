@@ -60,6 +60,10 @@ public class Sale implements Serializable, IConfigurable {
     @Basic
     private Integer passengers;
     
+    @Column(name = "jubilados")
+    @Basic
+    private Integer retirees;
+    
     @Transient
     private boolean partner;
 
@@ -68,6 +72,12 @@ public class Sale implements Serializable, IConfigurable {
 
     @Transient
     private boolean existRoutes;
+    
+    @Column(name = "subtotal")
+    private Double subTotal;
+    
+    @Column(name = "descuento")
+    private Double discount;
 
     @Transient
     private String seat;
@@ -79,6 +89,9 @@ public class Sale implements Serializable, IConfigurable {
         this.associate = new Associate();
         this.passengers = 0;
         this.amount = 0.0;
+        this.retirees = 0;
+        this.subTotal = 0.0;
+        this.discount = 0.0;
 
     }
 
@@ -87,6 +100,10 @@ public class Sale implements Serializable, IConfigurable {
         this.setAvailability(false);
         this.setExistRoutes(false);
 
+        this.amount = 0.0;
+        this.retirees = 0;
+        this.subTotal = 0.0;
+        this.discount = 0.0;
         this.associate = new Associate();
         this.type = _SALE_TYPE_PUBLIC;
 
@@ -221,6 +238,15 @@ public class Sale implements Serializable, IConfigurable {
     public void setPassengers(Integer passengers) {
         this.passengers = passengers;
     }
+
+    public Integer getRetirees() {
+        return retirees;
+    }
+
+    public void setRetirees(Integer retirees) {
+        this.retirees = retirees;
+    }
+    
     
     public String getFormatDateTime() {
         if (this.tripDate != null) {
@@ -230,6 +256,22 @@ public class Sale implements Serializable, IConfigurable {
         }
     }
 
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

@@ -2,39 +2,39 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="catalogs/salePoints/list.xhtml" x="900" y="750" zoom="true"/>
-        <Node id="catalogs/associates/list.xhtml" x="1400" y="300" zoom="true"/>
-        <Node id="include/login.xhtml" x="650" y="150" zoom="true"/>
-        <Node id="catalogs/workCenters/add.xhtml" x="1650" y="300" zoom="true"/>
-        <Node id="catalogs/userTypes/add.xhtml" x="650" y="450" zoom="true"/>
-        <Node id="include/top-band.xhtml" x="1150" y="600" zoom="true"/>
-        <Node id="catalogs/associates/add.xhtml" x="311" y="896" zoom="true"/>
-        <Node id="catalogs/users/add.xhtml" x="1150" y="150" zoom="true"/>
-        <Node id="catalogs/vendors/add.xhtml" x="900" y="300" zoom="true"/>
-        <Node id="catalogs/populations/add.xhtml" x="150" y="1050" zoom="true"/>
         <Node id="catalogs/driverMen/add.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="catalogs/workCenters/add.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="catalogs/buses/list.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="catalogs/salePoints/add.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="catalogs/vendors/add.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="catalogs/userTypes/list.xhtml" x="1900" y="150" zoom="true"/>
         <Node id="catalogs/itineraries/list.xhtml" x="150" y="600" zoom="true"/>
-        <Node id="include/footer.xhtml" x="400" y="450" zoom="true"/>
         <Node id="catalogs/itineraries/detailList.xhtml" x="26" y="687" zoom="true"/>
-        <Node id="catalogs/workCenters/list.xhtml" x="650" y="600" zoom="true"/>
-        <Node id="index.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="include/info.xhtml" x="650" y="750" zoom="true"/>
-        <Node id="catalogs/buses/add.xhtml" x="728" y="900" zoom="true"/>
-        <Node id="catalogs/itineraries/add.xhtml" x="400" y="600" zoom="true"/>
-        <Node id="catalogs/populations/list.xhtml" x="1150" y="450" zoom="true"/>
-        <Node id="*" x="1150" y="300" zoom="true"/>
         <Node id="include/menu.xhtml" x="66" y="787" zoom="true"/>
         <Node id="catalogs/costs/add.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="catalogs/buses/add.xhtml" x="728" y="900" zoom="true"/>
+        <Node id="catalogs/costs/list.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="catalogs/itineraries/add.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="catalogs/populations/add.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="catalogs/users/list.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="catalogs/salePoints/list.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="include/header.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="*" x="1150" y="300" zoom="true"/>
+        <Node id="include/info.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="catalogs/associates/list.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="include/login.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="catalogs/userTypes/add.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="include/top-band.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="include/top-band2.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="catalogs/workCenters/list.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="catalogs/associates/add.xhtml" x="311" y="896" zoom="true"/>
         <Node id="catalogs/vendors/list.xhtml" x="150" y="300" zoom="true"/>
         <Node id="catalogs/driverMen/list.xhtml" x="900" y="450" zoom="true"/>
-        <Node id="include/top-band2.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="include/footer.xhtml" x="400" y="450" zoom="true"/>
         <Node id="sale.xhtml" x="650" y="300" zoom="true"/>
-        <Node id="catalogs/buses/list.xhtml" x="400" y="300" zoom="true"/>
-        <Node id="catalogs/userTypes/list.xhtml" x="1900" y="150" zoom="true"/>
-        <Node id="catalogs/costs/list.xhtml" x="1650" y="150" zoom="true"/>
-        <Node id="catalogs/users/list.xhtml" x="150" y="450" zoom="true"/>
-        <Node id="catalogs/salePoints/add.xhtml" x="900" y="150" zoom="true"/>
-        <Node id="include/header.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="catalogs/populations/list.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="catalogs/users/add.xhtml" x="1150" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

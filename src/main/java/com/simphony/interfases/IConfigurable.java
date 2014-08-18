@@ -40,6 +40,8 @@ public interface IConfigurable {
     // Simple Yes or NO
     final String _YES = "S";
     final String _NO = "N";
+    
+    final Double _RETIREE_DISCOUNT = 0.5;
 
     //Casos de navegación general
     final String _NAV_TO_INDEX = "toindex";
