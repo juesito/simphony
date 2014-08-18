@@ -48,7 +48,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
     public List<ItineraryCost> findItineraryDetailCost(@Param("originId")Long originId,@Param("destinyId") Long destinyId);
  
  
-    @Query("SELECT d.* FROM SaleDetail d " +
+    @Query("SELECT d FROM SaleDetail d " +
          "  WHERE d.seat.seat = :seat AND d.sale.id IN ( SELECT s.id FROM Sale s WHERE s.origin.id = :origin " +
          "    AND s.destiny.id = :destiny " +
          "    AND s.tripDate = :tripDate)" )
