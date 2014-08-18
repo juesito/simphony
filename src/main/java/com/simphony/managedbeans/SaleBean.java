@@ -675,7 +675,7 @@ public class SaleBean implements IConfigurable {
      * Buscamos asiento
      */
     public String findSeat(String seat) {
-
+        System.out.println("Fecha " + this.sale.getTripDate());
         unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
 
             if (unSelectedDetail != null) {
