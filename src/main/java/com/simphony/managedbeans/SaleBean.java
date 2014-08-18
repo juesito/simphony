@@ -670,4 +670,51 @@ public class SaleBean implements IConfigurable {
         return customClass;
     }
 
+    
+            /**
+     * Buscamos asiento
+     */
+    public String findSeat(String seat) {
+
+        unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
+
+            if (unSelectedDetail != null) {
+                this.sale.setSeat(seat);
+            } else {
+                 this.sale.setSeat(null);
+                 GrowlBean.simplyErrorMessage("Error", "Asiento no encontrado");
+            }
+            return "toCancel";
+    }
+
+    
+    public void cancelSeat(Vendor vendor) throws CloneNotSupportedException {
+
+        sale.setVendor(vendor);
+        sale.setCreateDate(new Date());
+        sale.setOrigin(this.selected.getCost().getOrigin());
+        sale.setOrigin(this.selected.getCost().getDestiny());
+        sale.setType(_SALE_TYPE_PUBLIC);
+        sale.setAmount(-1.0);
+
+         //Guardamos la cancelación
+        sale = saleService.getSaleRepository().save(sale);
+
+        GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelad0 con exito!");
+        this.clearSale();
+
+    }
+
+    public String toCancel() {
+        String msgNav = "";
+        if (this.sale.getSeat() != "") {
+            msgNav = "toCancel";        
+        } else {
+            GrowlBean.simplyWarmMessage("Asiento no capturado", "No Se ha capturado el asiento solicitado");
+            msgNav = "toCancel";
+        }
+
+        return msgNav;
+    }
+
 }

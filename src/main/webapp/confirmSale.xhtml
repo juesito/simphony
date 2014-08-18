@@ -23,7 +23,7 @@
                                     <p:column>
                                         <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
                                     </p:column>
-                                    <p:column colspan="2">
+                                    <p:column colspan="6">
                                         
                                     </p:column>
                                     
@@ -36,22 +36,19 @@
                                 </p:row>
                                 <p:row>
                                     <p:column>
-                                        <p:outputLabel value="Sub total:" />
+                                        <p:outputLabel value="Hora de salida:" />
                                     </p:column>
                                     <p:column>
-                                        <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
+                                        <p:outputLabel value="#{saleBean.sale.formatTime}" />
+                                    </p:column>
+                                    <p:column colspan="6">
+                                        
                                     </p:column>
                                      <p:column>
                                         <p:outputLabel value="Descuento:" />
                                     </p:column>
                                     <p:column>
                                         <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
-                                    </p:column>
-                                     <p:column>
-                                        <p:outputLabel value="Total a cobrar:" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="$#{saleBean.sale.amount}" style="color:red !important;" />
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -61,56 +58,36 @@
                                     <p:column>
                                         <p:outputLabel value="#{saleBean.selected.itinerary.origin.description}" />
                                     </p:column>
+                                    <p:column colspan="6">
+                                        
+                                    </p:column>
+                                     <p:column>
+                                        <p:outputLabel value="Sub total:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
+                                    </p:column>
+                                </p:row>  
+                                <p:row>
                                     <p:column>
                                         <p:outputLabel value="Destino:" />
                                     </p:column>
                                     <p:column>
                                         <p:outputLabel value="#{saleBean.selected.itinerary.destiny.description}" />
                                     </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="Distancia:" />
+                                    <p:column colspan="6">
+                                        
+                                    </p:column>
+                                     <p:column>
+                                        <p:outputLabel value="Total a cobrar:" />
                                     </p:column>
                                     <p:column>
-                                        <p:outputLabel value="#{saleBean.selected.cost.kms}"  />
+                                        <p:outputLabel value="$#{saleBean.sale.amount}" style="color:red !important;" />
                                     </p:column>
                                 </p:row>                                
                             </p:panelGrid>
-                            <!-- Captura de pagos -->
-                            <p:panelGrid id="sale-payment-grid"  
-                                         style="margin-top: 15px; border: 1px solid #225A01; width: 100%;">
-                                <p:row>
-                                    <p:column>
-                                        <p:dataGrid var="payment" value="#{payTypeBean.list}" columns="2" 
-                                                    rows="4" paginator="false" id="payment" styleClass="grid-seats-main">
-                                            <p:panelGrid>
-                                                <p:row>
-                                                    <p:column colspan="2"> 
-                                                        <p:outputLabel value="#{payment.description}" />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:outputLabel value="Información de Pago:"  />
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column>
-                                                        <p:outputLabel value=" monto:" />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:inputText value="#{payment.amount}" size="10" />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:inputText value="#{payment.paymentInfo}" size="20" rendered="#{payment.reference eq 'S'}" />
-                                                    </p:column>
-                                                </p:row>
-                                            </p:panelGrid>
-
-                                        </p:dataGrid>
-                                    </p:column>
-                                </p:row>                                        
-
-                            </p:panelGrid>
-
-                            <!-- Seats Grid -->
+                            
+                           <!-- Seats Grid -->
                             <p:panelGrid id="sale-seat-grid" 
                                          style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
                                 <p:row>
@@ -138,6 +115,35 @@
 
                             </p:panelGrid>
 
+                            <!-- Captura de pagos -->
+                            <p:panelGrid id="sale-payment-grid"  
+                                         style="margin-top: 15px; border: 1px solid #225A01; width: 100%;">
+                                <p:row>
+                                    <p:column>
+                                        <p:dataGrid var="payment" value="#{payTypeBean.list}" columns="2" 
+                                                    rows="4" paginator="false" id="payment" styleClass="grid-seats-main">
+                                            <p:panelGrid>
+                                                <p:row>
+                                                    <p:column colspan="2"> 
+                                                        <p:outputLabel value="#{payment.description}" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:inputText value="#{payment.amount}" size="10" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:inputText id="payInfo" value="#{payment.paymentInfo}" size="20" rendered="#{payment.reference eq 'S'}" />
+                                                        <p:watermark for="payInfo" value="Información de Pago" />
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+
+                                        </p:dataGrid>
+                                    </p:column>
+                                </p:row>                                        
+
+                            </p:panelGrid>
+
+ 
                             <!-- botones de control -->
                             <p:panelGrid style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
                                 <p:row>

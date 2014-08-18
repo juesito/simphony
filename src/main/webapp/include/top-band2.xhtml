@@ -30,8 +30,8 @@
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                     <f:actionListener  binding="#{boxPayTypeService.fillBox()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Cancelación" action="#{sale2Bean.toCancel()}" ajax="false">
-                                    <f:actionListener  binding="#{boxPopulationService.fillBox()}"/>
+                                <p:menuitem value="Cancelación" action="#{saleBean.toCancel()}" ajax="false">
+                                    <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
                             </p:submenu>
                             <p:submenu label="   Operación   " rendered="#{userBean.current.looged}" >

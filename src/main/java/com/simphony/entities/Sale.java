@@ -224,7 +224,7 @@ public class Sale implements Serializable, IConfigurable {
 
     public String getFormatTripTime() {
         if (this.tripDate != null) {
-            return _SDT.format(this.tripDate);
+            return _DMA.format(this.tripDate);
         } else {
             return "";
         }
@@ -255,6 +255,12 @@ public class Sale implements Serializable, IConfigurable {
             return "";
         }
     }
+
+    public String getFormatTime(){
+        if(this.tripDate != null){
+            return _SHM.format(this.tripDate.getTime());
+        }else return "";
+   }
 
     public Double getSubTotal() {
         return subTotal;

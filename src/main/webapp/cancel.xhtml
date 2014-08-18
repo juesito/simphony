@@ -14,7 +14,7 @@
                     <h:form id="saleForm">
                         <div class="box-content-sale" >
                             <!-- choice your origin and destiny -->
-                            <p:panel id="sale-input" rendered="#{not sale2Bean.sale.availability}">
+                            <p:panel id="sale-input" rendered="#{not saleBean.sale.availability}">
                                 <p:panelGrid styleClass="sale-schedule-panel" 
                                              >
                                     <p:row>
@@ -25,14 +25,14 @@
                                     <p:row>
                                         <p:column>
 
-                                            <p:selectOneMenu id="origin" value="#{sale2Bean.sale.origin}" 
+                                            <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
                                                              converter="populationConverter" 
                                                              style="width:160px" required="true" 
                                                              requiredMessage="Origen Requerido">
                                                 <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                                <f:selectItems value="#{boxPopulationService.populationList}" />
+                                                <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
                                                 <p:ajax event="change" update=":saleForm:destiny" 
-                                                        />
+                                                        listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
                                             </p:selectOneMenu>
                                         </p:column>
 
@@ -45,12 +45,12 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:selectOneMenu id="destiny" value="#{sale2Bean.sale.destiny}" 
+                                            <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
                                                              converter="populationConverter" 
                                                              style="width:160px" required="true" 
                                                              requiredMessage="Destino requerido">
                                                 <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                                <f:selectItems value="#{boxPopulationService.populationList}" />
+                                                <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
 
                                             </p:selectOneMenu>
                                         </p:column>
@@ -64,7 +64,7 @@
                                     <p:row>
                                         <p:column>
                                             <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                                        pages="2" showOn="button" value="#{sale2Bean.sale.tripDate}"/>
+                                                        pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -80,7 +80,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:commandButton value="buscar" actionListener="#{sale2Bean.findSeat(saleBean.sale.seat)}" 
+                                            <p:commandButton value="buscar" actionListener="#{saleBean.findSeat(saleBean.sale.seat)}" 
                                                              ajax="true" styleClass="button-rounded" 
                                                              update=":saleForm:sale-panel :main-form:growl"   >
 
@@ -96,20 +96,36 @@
                             <!-- Itinerario Grid -->
                             <p:panel id="sale-panel">
                                 <!-- first phase -->
-                                <p:panelGrid id="sale-detail-grid" rendered="#{sale2Bean.sale.seat != null}">
+                                <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.seat != null}">
                                      <p:row>
                                         <p:column>
                                             <p:outputLabel value="#{msgs.cat_seat}:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{sale2Bean.sale.seat}" />
+                                            <p:outputLabel value="#{saleBean.sale.seat}" />
+                                        </p:column>
+                                    </p:row>
+                                     <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_name}:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.unSelectedDetail.customerName}" />
+                                        </p:column>
+                                    </p:row>
+                                     <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Costo:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.sale.amount}" />
                                         </p:column>
                                     </p:row>
 
                                     <p:row>
                                         <p:column>
                                             <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"
-                                                             actionListener="#{sale2Bean.cancelSeat(vendorBean.current)}"
+                                                             actionListener="#{saleBean.cancelSeat(vendorBean.current)}"
                                                              ajax="true" 
                                                              update=":saleForm:sale-detail-grid">
                                              </p:commandButton>
