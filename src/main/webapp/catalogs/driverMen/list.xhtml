@@ -25,6 +25,9 @@
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}">
                            
+                            <p:column headerText="#{msgs.cat_id}" >
+                                <p:outputLabel value="#{driverMan.id}" />
+                            </p:column>
                             <p:column headerText="#{msgs.cat_name}" filterBy="#{driverMan.name}"
                                       filterMatchMode="contains" >
                                 <p:outputLabel value="#{driverMan.name}"  />
@@ -75,7 +78,10 @@
                             <p:outputPanel id="driverManDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty driverManBean.selected}" columnClasses="label,value" >
                                     
-                                     <h:outputText value="#{msgs.cat_name}:" />
+                                     <h:outputText value="#{msgs.cat_id}:" />
+                                     <h:outputText value="#{driverManBean.selected.id}" />
+
+                                    <h:outputText value="#{msgs.cat_name}:" />
                                     <h:outputText value="#{driverManBean.selected.name}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_firstLastName}:" />

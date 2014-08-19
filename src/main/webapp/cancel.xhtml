@@ -14,7 +14,7 @@
                     <h:form id="saleForm">
                         <div class="box-content-sale" >
                             <!-- choice your origin and destiny -->
-                            <p:panel id="sale-input" rendered="#{not saleBean.sale.availability}">
+                            <p:panel id="sale-input" >
                                 <p:panelGrid styleClass="sale-schedule-panel" 
                                              >
                                     <p:row>
@@ -63,9 +63,9 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:calendar mode="popup" size="13" locale="mx"  
+                                            <p:calendar mode="popup" size="14" locale="mx"  
                                                         pages="2" showOn="button" value="#{saleBean.sale.tripDate}"
-                                                        pattern="dd/MM/yyyy HH:mm:ss"/>
+                                                        pattern="dd/MM/yyyy HH:mm"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>

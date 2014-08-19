@@ -1,6 +1,7 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name="SaleDetail")
@@ -33,6 +35,10 @@ public  class SaleDetail implements Serializable {
     @ManyToOne(targetEntity=Sale.class)
     private Sale sale;
 
+    @Column(name="status")
+    @Basic
+    private String status;
+
     public SaleDetail(){
 
     }
@@ -42,6 +48,10 @@ public  class SaleDetail implements Serializable {
         this.seat = seat;
     }
     
+    public void update(SaleDetail saleDetail){
+        this.status = saleDetail.getStatus();
+     }
+
     /**
      * Limpiamos el detalle de la venta.
      */
@@ -51,6 +61,7 @@ public  class SaleDetail implements Serializable {
         this.customerName = "";
         this.seat = new Seat();
         this.sale = new Sale();
+        this.status = "V";
     }
 
    public double getAmount() {
@@ -91,6 +102,14 @@ public  class SaleDetail implements Serializable {
 
   public void setSale (Sale sale) {
         this.sale = sale;
+    }
+
+  public String getStatus() {
+        return status;
+    }
+
+  public void setStatus(String status) {
+        this.status = status;
     }
 
 }

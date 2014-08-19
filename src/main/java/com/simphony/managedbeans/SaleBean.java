@@ -39,9 +39,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 /**
  *
  * @author Administrador
@@ -362,6 +359,7 @@ public class SaleBean implements IConfigurable {
 
             //Guardamos el detalle de venta
             dtSale.setSale(sale);
+            dtSale.setStatus("V");
             saleService.getDetailRepository().save(dtSale);
 
             //Guardamos los asientos ocupados            
@@ -688,20 +686,20 @@ public class SaleBean implements IConfigurable {
     }
 
     
-    public void cancelSeat(Vendor vendor) throws CloneNotSupportedException {
+    public String cancelSeat(Vendor vendor) throws CloneNotSupportedException {
 
-        sale.setVendor(vendor);
-        sale.setCreateDate(new Date());
-        sale.setOrigin(this.selected.getCost().getOrigin());
-        sale.setOrigin(this.selected.getCost().getDestiny());
-        sale.setType(_SALE_TYPE_PUBLIC);
-        sale.setAmount(-1.0);
-
-         //Guardamos la cancelación
+        unSelectedDetail.setStatus("C");
+        unSelectedDetail = saleService.getDetailRepository().save(unSelectedDetail);
+        sale = unSelectedDetail.getSale();
+        sale.setCancelVendor(vendor);
+        sale.setAmount(sale.getAmount() - unSelectedDetail.getAmount());
+        sale.setSubTotal(sale.getSubTotal() - unSelectedDetail.getAmount());
+        sale.setPassengers(sale.getPassengers() - 1);
         sale = saleService.getSaleRepository().save(sale);
-
         GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelad0 con exito!");
-        this.clearSale();
+        this.sale.setSeat(null);
+    
+        return "toCancel";
 
     }
 

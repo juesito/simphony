@@ -17,7 +17,7 @@
                 <p:outputLabel value="#{userBean.current.name}" rendered="#{userBean.current.name ne ''}" style="color:#FFF;"/>
 
                 <p:outputLabel value="#{vendorBean.current.name}" 
-                rendered="#{vendorBean.current.name ne ''}" style="color:#FFF;" />   |  <script type="text/javascript"> var d = new Date();
+                rendered="#{vendorBean.current.name ne ''}" style="color: #0000;" />   |  <script type="text/javascript"> var d = new Date();
                     document.write(d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear());</script> <div id="txt"></div>  |
                 <script type="text/javascript" src="http://l2.io/ip.js?var=myip"></script>
                 <script>document.write(myip);</script><p:commandLink value="|   Cerrar sesión" rendered="#{userBean.current.name ne '' or vendorBean.current.name ne ''}"
