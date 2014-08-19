@@ -1,19 +1,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:body>        
-         <div id="marco-bot-title">
-<!--             <p id="footer_text"><k><b>Autobuses del Golfo </b></k><br />
-                Sección 47.<br />
-                Cd del Carmen<br />
-                Tel. 01(xxx)xxx-xxxx</p>
--->
+        <div id="marco-bot-title">
+
+            <!--             <p id="footer_text"><k><b>Autobuses del Golfo </b></k><br />
+                            Sección 47.<br />
+                            Cd del Carmen<br />
+                            Tel. 01(xxx)xxx-xxxx</p>
+            -->
         </div>
-        
+
         <div id="marco-bot-img">
-<!--            <img src="#{facesContext.externalContext.requestContextPath}/images/company/escudoGolfo.jpg" alt="Golfo Seccion 47"
-                 style="border: 0px; width:80px; height:80px;" />
--->        </div>
-       
+            <h:form>
+                <p:outputLabel value="Fuera de linea" rendered="#{userBean.current.name eq '' and vendorBean.current.name eq ''}" style="color:#FFF;"/>
+                <p:outputLabel value="#{userBean.current.name}" rendered="#{userBean.current.name ne ''}" style="color:#FFF;"/>
+
+                <p:outputLabel value="#{vendorBean.current.name}" 
+                rendered="#{vendorBean.current.name ne ''}" style="color:#FFF;" />   |  <script type="text/javascript"> var d = new Date();
+                    document.write(d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear());</script> <div id="txt"></div>  |
+                <script type="text/javascript" src="http://l2.io/ip.js?var=myip"></script>
+                <script>document.write(myip);</script><p:commandLink value="|   Cerrar sesión" rendered="#{userBean.current.name ne '' or vendorBean.current.name ne ''}"
+                                                                            action="#{vendorBean.logout()}" styleClass="salirCSS" />
+            </h:form>
+        </div>
+
 
     </h:body>
 </html>

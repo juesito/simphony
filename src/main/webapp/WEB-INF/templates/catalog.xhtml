@@ -16,9 +16,10 @@
         <link id="page_favicon" type="image/x-icon" rel="icon" href="#{facesContext.externalContext.requestContextPath}/images/company/favicon.ico" />
         <link href="#{facesContext.externalContext.requestContextPath}/resources/css/global.css" rel="stylesheet" type="text/css" />
         <title>Symphony</title>
+        <script language="javascript" src="#{facesContext.externalContext.requestContextPath}/resources/css/clock.js"></script>
     </h:head>
 
-    <h:body>
+    <h:body onload="startTime()">
         <div id="wrapper">
             <div id="container">
 

@@ -1,15 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:body>
         <ui:composition>
             <div id="user-band">
-                <p:outputLabel value="Fuera de linea" rendered="#{userBean.current.name eq '' and vendorBean.current.name eq ''}" style="color:#FFF;"/>
-                <p:outputLabel value="En linea #{userBean.current.name}" rendered="#{userBean.current.name ne ''}" style="color:#FFF;"/>
-                <p:outputLabel value="En linea #{vendorBean.current.name}" rendered="#{vendorBean.current.name ne ''}" style="color:#FFF;" />
+                
             </div>
         </ui:composition>
     </h:body>

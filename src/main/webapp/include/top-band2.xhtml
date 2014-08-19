@@ -18,7 +18,7 @@
                                 <p:menuitem value="   Inicio   " action="toindex"/>
                                 <p:menuitem value="Administrar" action="toLogin" rendered="#{!userBean.current.looged}"
                                             ajax="false"/>
-                                <p:menuitem value="Salir" action="#{vendorBean.logout()}" styleClass="salirCSS" />
+                                
                             </p:submenu>
                             <p:submenu label="#{userBean.current.name}" rendered="#{userBean.current.name ne ''}">
                                 <p:menuitem value="Inicio" action="toindex" />

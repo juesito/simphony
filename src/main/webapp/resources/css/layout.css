@@ -15,8 +15,8 @@
 
 #footer{
     overflow: auto;
-    min-height:35px;
-    max-height: 37px;
+    min-height:50px;
+    max-height: 55px;
     position: relative;
     width: 100%;
     border-top:1px solid rgba(27,71,48,1);
@@ -124,11 +124,12 @@
 }
 
 #logo{
-    margin-top: 2px;
-    margin-left: 30px;
+    margin-top: 1px;
+    margin-left: 420px;
+    margin-bottom: 100px;
     border: 0px; 
-    width:330px; 
-    height:150px;
+    width:350px; 
+    height:100px;
 }
 
 #top-band2{
@@ -208,10 +209,28 @@
 #marco-bot-img{
     display: inline-block;
     vertical-align: top;
-    min-width: 90px;
-    min-height:90px;
-    margin: 5px 25px 3px 560px;
+    min-width: 400px;
+    min-height:20px;
+    margin: 2px 5px 0px 750px;
     border:none;
+    float: right;
+    
+    
+}
+
+#marco-bot-img a {
+    text-decoration: none;
+}
+#marco-bot-img a:link {
+    color: #FFF;
+}
+
+#marco-bot-img a:hover {
+    color: #000;
+}
+
+#marco-bot-img a:visited {
+    color: #378B1B;
 }
 
 #contentGallery{ border: none !important; }
@@ -448,4 +467,9 @@ div{ display:block; }
     
 }
 
-
+#txt{
+    display: inline-block;
+    vertical-align: top;    
+    font-size: 10px;
+    margin-top: 1px;
+}
