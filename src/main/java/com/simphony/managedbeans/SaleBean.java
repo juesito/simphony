@@ -127,13 +127,14 @@ public class SaleBean implements IConfigurable {
 
                 for (ItineraryCost itineraryCost1 : itineraryCost) {
 
-                    Calendar calTime = (Calendar) cal.clone();
+                    //Calendar calTime = (Calendar) cal.clone();
                     Calendar calTimeTmp = Calendar.getInstance();
                     calTimeTmp.setTime(itineraryCost1.getItinerary().getDepartureTime());
-                    calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
-                    calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
-                    calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
-                    itineraryCost1.setDepartureTime(calTime.getTime());
+                    //calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
+                    //calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
+                    //calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
+                    itineraryCost1.setDepartureTime(new Date(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+                            calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND)));
                 }
 
                 model = new ItineraryCostModel(itineraryCost);

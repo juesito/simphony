@@ -258,7 +258,7 @@ public class Sale implements Serializable, IConfigurable {
 
     public String getFormatTime(){
         if(this.tripDate != null){
-            return _SHM.format(this.tripDate.getTime());
+            return _SHM.format(this.tripDate);
         }else return "";
    }
 

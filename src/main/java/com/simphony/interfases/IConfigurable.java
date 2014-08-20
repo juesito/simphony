@@ -8,7 +8,8 @@ public interface IConfigurable {
     final SimpleDateFormat _SDFCHARTLEGEND = new SimpleDateFormat("MMM yyyy");
     final SimpleDateFormat _SDF = new SimpleDateFormat("yyyyMMdd");
     final SimpleDateFormat _SHF = new SimpleDateFormat("hhmmss");
-    final SimpleDateFormat _SHM = new SimpleDateFormat("kk:mm");
+    final SimpleDateFormat _SHM = new SimpleDateFormat("k:mm");
+    final SimpleDateFormat _SHHM = new SimpleDateFormat("kk:mm");
     final SimpleDateFormat _SGF = new SimpleDateFormat("yyyyMMdd hhmmss");
     final SimpleDateFormat _DMA = new SimpleDateFormat("dd-MM-yyyy");
     final SimpleDateFormat _SDT = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
