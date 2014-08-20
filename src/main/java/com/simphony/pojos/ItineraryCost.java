@@ -102,5 +102,12 @@ public class ItineraryCost implements IConfigurable {
     public void setRowId(Integer rowId) {        
         this.rowId = rowId;
     }
+    
+    public String getFormatDepartureTime(){
+        if(this.departureTime != null){
+            return _SHM.format(this.departureTime);
+        }else return "";
+        
+    }
 
 }
