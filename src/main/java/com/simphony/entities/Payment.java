@@ -18,11 +18,14 @@ import javax.persistence.Table;
 /**
  *
  * @author Administrador
+ * Tabla para guardar los tipos de pago con que pagan, pueden ser
+ * varios en una sola venta, combinado Efectivo y Nómina.
  */
 @Entity(name="Payment")
 @Table(name="PagosVenta")
 public class Payment {
-    @Id@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
     @ManyToOne(targetEntity = PayType.class)

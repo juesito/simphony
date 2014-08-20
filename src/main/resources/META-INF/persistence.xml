@@ -24,6 +24,7 @@
     <class>com.simphony.entities.GuideDetail</class>
     <class>com.simphony.entities.ReservedSeats</class>
     <class>com.simphony.entities.Payment</class>
+    <class>com.simphony.entities.PayRoll</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- 
@@ -42,7 +43,6 @@
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
       <property name="hibernate.show_sql" value="true"/>
-
     </properties>
   </persistence-unit>
 </persistence>
