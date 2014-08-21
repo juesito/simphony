@@ -110,11 +110,13 @@
                                             </p:column>
                                             <p:column>
                                                 <p:inputText id="associateKey" value="#{associate.keyId}" size="8"  >
-                                                <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
+                                                    <p:watermark for="associateKey" value="Tirilla" />
+                                                    <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
                                                 </p:inputText>
-                                            
+                                            </p:column>                                            
+                                            <p:column>
                                                 <p:commandButton icon="ui-icon-search" actionListener="#{saleBean.findAssociate()}"
-                                                              update=":confirmSaleForm:sale-seat-grid">
+                                                               ajax="true" update=":confirmSaleForm:sale-seat-grid">
 
                                                 </p:commandButton>
                                             </p:column>

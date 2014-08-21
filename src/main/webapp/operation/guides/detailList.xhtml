@@ -118,7 +118,7 @@
                             <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
-                                                     id="cancelAdd" process="@this"  partialSubmit="true"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
                             </f:facet>
                         </p:dataTable>
 
