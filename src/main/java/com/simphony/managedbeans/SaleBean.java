@@ -298,15 +298,6 @@ public class SaleBean implements IConfigurable {
         sale.setCreateDate(new Date());
         sale.setOrigin(this.selected.getCost().getOrigin());
         sale.setDestiny(this.selected.getCost().getDestiny());
-        sale.setType(_SALE_TYPE_PUBLIC);
-
-        if (sale.isPartner()) {
-            sale.setAssociate(associate);
-            sale.setType(_SALE_TYPE_ASSOCIATE);
-        } else {
-            sale.setAssociate(associateService.getRepository().getOne(1L));
-            sale.setType(_SALE_TYPE_PUBLIC);
-        }
 
         //Guardamos la venta
         sale = saleService.getSaleRepository().save(sale);
@@ -377,6 +368,17 @@ public class SaleBean implements IConfigurable {
                 reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
             }
             reservedSeat.setSeat(dtSale.getSeat());
+            
+            dtSale.setType(_SALE_TYPE_PUBLIC);
+
+            if (sale.isPartner()) {
+                dtSale.setAssociate(associate);
+                dtSale.setType(_SALE_TYPE_ASSOCIATE);
+            } else {
+                dtSale.setAssociate(associateService.getRepository().getOne(1L));
+                dtSale.setType(_SALE_TYPE_PUBLIC);
+            }
+
 
             saleService.getReservedSeatsRepository().save(reservedSeat);
         }
@@ -468,7 +470,7 @@ public class SaleBean implements IConfigurable {
             Double amount = subTotal - discount;
 
             sale.setSubTotal(subTotal);
-            sale.setDiscount(discount);
+//            sale.setDiscount(discount);
             sale.setAmount(amount);
 
             if (sale.isPartner()) {
@@ -486,9 +488,10 @@ public class SaleBean implements IConfigurable {
      * Agregamos el asiento seleccionado
      */
     public void addSeat() {
+        String bolType = "";
         if (saleDetail.size() < this.sale.getPassengers() + this.sale.getRetirees()) {
             if (this.selectedSeat != null) {
-                SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer());
+                SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer(), associate, bolType );
                 if (!saleDetail.contains(saleDetailTmp)) {
                     saleDetail.add(saleDetailTmp);
                 }

@@ -41,16 +41,12 @@ public class Sale implements Serializable, IConfigurable {
     @ManyToOne(targetEntity = Population.class)
     private Population destiny;
 
-    @Column(name = "tipo", length = 2)
-    @Basic
-    private String type;
-
     @Column(name = "fechaCreacion")
     @Basic
     private Date createDate;
-
-    @ManyToOne(targetEntity = Associate.class)
-    private Associate associate;
+    
+    @Column(name = "descuento")
+    private Double discount;
 
     @Column(name = "montoVenta")
     @Basic
@@ -59,10 +55,6 @@ public class Sale implements Serializable, IConfigurable {
     @Column(name = "pasajeros")
     @Basic
     private Integer passengers;
-    
-    @Column(name = "jubilados")
-    @Basic
-    private Integer retirees;
     
     @Transient
     private boolean partner;
@@ -76,8 +68,9 @@ public class Sale implements Serializable, IConfigurable {
     @Column(name = "subtotal")
     private Double subTotal;
     
-    @Column(name = "descuento")
-    private Double discount;
+    @Column(name = "jubilados")
+    @Basic
+    private Integer retirees;
 
     @Transient
     private String seat;
@@ -86,12 +79,10 @@ public class Sale implements Serializable, IConfigurable {
         this.setPartner(false);
         this.setAvailability(false);
         this.setExistRoutes(false);
-        this.associate = new Associate();
         this.passengers = 0;
         this.amount = 0.0;
         this.retirees = 0;
         this.subTotal = 0.0;
-        this.discount = 0.0;
 
     }
 
@@ -103,10 +94,7 @@ public class Sale implements Serializable, IConfigurable {
         this.amount = 0.0;
         this.retirees = 0;
         this.subTotal = 0.0;
-        this.discount = 0.0;
-        this.associate = new Associate();
-        this.type = _SALE_TYPE_PUBLIC;
-
+ 
     }
 
     public Long getId() {
@@ -159,28 +147,12 @@ public class Sale implements Serializable, IConfigurable {
         this.destiny = destiny;
     }
 
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public Date getCreateDate() {
         return this.createDate;
     }
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
-    }
-
-    public Associate getAssociate() {
-        return this.associate;
-    }
-
-    public void setAssociate(Associate associate) {
-        this.associate = associate;
     }
 
     public Double getAmount() {
@@ -277,6 +249,7 @@ public class Sale implements Serializable, IConfigurable {
     public void setDiscount(Double discount) {
         this.discount = discount;
     }
+
     
     @Override
     public boolean equals(Object obj) {

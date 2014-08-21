@@ -50,8 +50,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{payTypeBean.cancelPayType()}"
-                                                     id="cancelAdd" process="@this"
-                                                     partialSubmit="true"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -96,8 +95,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{payTypeBean.cancelPayType()}"
-                                                     id="cancelAdd" process="@this"
-                                                     partialSubmit="true"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

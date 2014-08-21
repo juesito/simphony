@@ -217,7 +217,7 @@ public class ItineraryBean implements IConfigurable {
 
                     Calendar calCost = Calendar.getInstance();
                     calCost.setTime(c.getRouteTime());
-                    calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
+                    calItinerary.add(Calendar.HOUR_OF_DAY, calCost.get(Calendar.HOUR_OF_DAY));
                     this.itinerary.setCheckTime(calItinerary.getTime());
                     if (itinerary.getRoute() == null){
                         this.itinerary.setTypeOfRoute("L");
@@ -259,7 +259,7 @@ public class ItineraryBean implements IConfigurable {
 
             Calendar calCost = Calendar.getInstance();
             calCost.setTime(c.getRouteTime());
-            calItinerary.add(Calendar.HOUR, calCost.get(Calendar.HOUR));
+            calItinerary.add(Calendar.HOUR_OF_DAY, calCost.get(Calendar.HOUR_OF_DAY));
             Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(this.itinerary.getId());
 
             if (itineraryUpdated == null) {

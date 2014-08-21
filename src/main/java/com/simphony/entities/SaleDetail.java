@@ -1,7 +1,6 @@
 package com.simphony.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity(name="SaleDetail")
@@ -39,13 +37,29 @@ public  class SaleDetail implements Serializable {
     @Basic
     private String status;
 
+    @Column(name = "tipoVta", length = 2)
+    @Basic
+    private String type;
+
+    @Column(name = "tipoBol", length = 1)
+    @Basic
+    private String bolType;
+
+    @ManyToOne(targetEntity = Associate.class)
+    private Associate associate;
+
+    @Column(name = "descuento")
+    private Double discount;
+
     public SaleDetail(){
 
     }
 
-    public SaleDetail(double amount, Seat seat, Customer customer) {
+    public SaleDetail(double amount, Seat seat, Customer customer, Associate associate, String bolType) {
         this.amount = amount;
         this.seat = seat;
+        this.associate = associate;
+        this.bolType = bolType;
     }
     
     public void update(SaleDetail saleDetail){
@@ -112,5 +126,38 @@ public  class SaleDetail implements Serializable {
         this.status = status;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Associate getAssociate() {
+        return associate;
+    }
+
+    public void setAssociate(Associate associate) {
+        this.associate = associate;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public String getBolType() {
+        return bolType;
+    }
+
+    public void setBolType(String bolType) {
+        this.bolType = bolType;
+    }
+
+  
 }
 
