@@ -78,12 +78,15 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
 
     @Column(name = "estatus")
     @Basic
-    private String status;
-    
+    private String status;    
     
     @Column(name="cupo")
     @Basic
     private Integer quota;
+    
+    @Column(name="tipoGuia")
+    @Basic
+    private String guideType;
 
     @OneToOne(targetEntity = Vendor.class)
     private Person vendor;
@@ -276,6 +279,15 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
         }
         return obj;
     }
+
+    public String getGuideType() {
+        return guideType;
+    }
+
+    public void setGuideType(String guideType) {
+        this.guideType = guideType;
+    }
+    
     
     
     @Override
