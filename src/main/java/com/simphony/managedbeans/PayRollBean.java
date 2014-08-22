@@ -8,21 +8,11 @@ package com.simphony.managedbeans;
 import com.simphony.beans.PayRollService;
 import com.simphony.entities.PayRoll;
 import com.simphony.entities.Population;
-import com.simphony.entities.User;
-import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
-import static com.simphony.interfases.IConfigurable._ADD;
-import static com.simphony.interfases.IConfigurable._DISABLE;
-import static com.simphony.interfases.IConfigurable._ENABLED;
-import static com.simphony.interfases.IConfigurable._MODIFY;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -41,7 +31,6 @@ public class PayRollBean implements IConfigurable {
     private PayRoll current = new PayRoll();
     private PayRoll selected = new PayRoll();
     private List<PayRoll> list = new ArrayList<PayRoll>();
-    private Population population = new Population();
     private Calendar cal = Calendar.getInstance();
 
     @ManagedProperty(value = "#{payRollService}")
@@ -94,11 +83,6 @@ public class PayRollBean implements IConfigurable {
         this.current = current;
     }
 
-    public String addPayRoll() {
-        payRoll = new PayRoll();
-        return "addPayRoll";
-    }
-    
     /**
      * boton de cancelar
      *
@@ -109,10 +93,21 @@ public class PayRollBean implements IConfigurable {
         return "toPayRolls";
     }
 
-    public String save(User user) {
+    public String save() {
  
-         Boolean exist = true;
-         PayRoll payRollTmp;
+        this.payRollService.getRepository().save(payRoll);
+        payRoll = new PayRoll();
+
+        return "";
+    }
+
+    public void fillPayRolls(){
+        list.clear();
+    }
+ 
+    public void addPayRoll(){
+        Boolean exist = true;
+        PayRoll payRollTmp;
 
         try {
             payRollTmp = this.payRollService.getRepository().findByKey(this.payRoll.getIdPayRoll());
@@ -123,41 +118,21 @@ public class PayRollBean implements IConfigurable {
             System.out.println("Error");
             exist = false;
         }
-        if (!exist) {
-                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.payRoll.getIdPayRoll()+" "+mp.getValue("msj_record_save") );
-        } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.payRoll.getIdPayRoll()+""+this.payRoll.getAmount()+" "+this.payRoll.getSale().getCreateDate()+" "+mp.getValue("error_keyId_Detail"));
+         if (exist) {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: "+this.payRoll.getIdPayRoll()+
+                                        " Importe: "+this.payRoll.getAmount()+" Fecha:"+this.payRoll.getSale().getCreateDate()+
+                                        " "+mp.getValue("error_keyId_Detail"));
         }
-        this.payRollService.getRepository().save(payRoll);
-        payRoll = new PayRoll();
 
-        return "";
-    }
-
-    private void fillPayRolls(){
-        list.clear();
-        Iterable<PayRoll> c = this.getPayRollService().getRepository().findAll(sortByKeyId());
-        Iterator<PayRoll> cu = c.iterator();
-        while (cu.hasNext()) {
-            list.add(cu.next());
+        if (this.payRoll.getIdPayRoll() != null) {
+            payRollTmp = new PayRoll(this.payRoll.getIdPayRoll(), this.payRoll.getAmount() );
+            list.add(payRollTmp);
         }
     }
-    /**
-     * Controlador listar tarifas
-     *
-     * @return
-     */
+
     public String toPayRolls() {
         fillPayRolls();
         return "toPayRolls";
-    }
-
-    public Population getPopulation() {
-        return population;
-    }
-
-    public void setPopulation(Population population) {
-        this.population = population;
     }
 
     private Sort sortByKeyId(){

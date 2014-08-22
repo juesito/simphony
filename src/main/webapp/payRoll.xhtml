@@ -8,16 +8,15 @@
 
     <body>
 
-        <ui:composition template="./WEB-INF/templates/catalog.xhtml">
+       <ui:composition template="./WEB-INF/templates/catalog.xhtml">
 
             <ui:define name="content">
                 <!-- panel para agregar -->
                 <h:form id="form">
-
                     <!-- div header detail -->
-                    <div id="payRoll-header" class="payRoll-header">
+                    <div id="guide-header-detail" class="guide-header-detail">
                         <!-- Grid para agregar entidad -->                    
-                        <p:panelGrid  styleClass="payRoll-header">
+                        <p:panelGrid  styleClass="guide-header">
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_payRoll}:" />
@@ -35,39 +34,38 @@
                                 <p:column>
                                     <p:inputText id="amount" value="#{payRollBean.payRoll.amount}" maxlength="10" required="true" 
                                                   requiredMessage="Importe requerido" />
+                                    <p:message for="amount" />
                                 </p:column>
                             </p:row>
                                     <p:row>
-                                        <p:column>
-                                            <p:commandButton icon="ui-icon-star" value="#{msgs.but_add}"
-                                                             actionListener="#{payRollBean.addPayRoll()}"
-                                                             ajax="true" 
-                                                             >
-                                             </p:commandButton>
-                                        </p:column>
+                                <p:column>
+                                           <p:commandButton value="Agregar" actionListener="#{payRollBean.addPayRoll()}"
+                                        ajax="true" update=":form:payRollDetailDT">
+
+                                  </p:commandButton>
+                                 </p:column>
                                     </p:row>
 
                         </p:panelGrid>
                     </div>
 
-                    <div id="payRoll-detail" class="payRoll-detail">
-                        <!-- Data table de payRoll -->
-                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail" style="font-size: 12px;"
-                                     id="payRollDT"
-                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                    <div id="guide-detail-detail" class="guide-detail-detail">
+                        <!-- Data table de itinetarios -->
+                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail" style="font-size: 12px;"                                   
+                                     id="payRollDetailDT" rowKey="#{payRoll.idPayRoll}" 
+                                     emptyMessage="#{msgs.no_records_found}" rows="3"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
-                             >
+                                     >
                             <p:column headerText="#{msgs.cat_payRoll}" >
-                                <p:outputLabel value="#{payRoll.idPayRoll}" />
+                                <p:outputLabel value="#{payRollBean.payRoll.idPayRoll}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_amount}" >
-                                <p:outputLabel value="#{payRoll.amount}" />
+                                <p:outputLabel value="#{payRollBean.payRoll.amount}" />
                             </p:column>
-
                         </p:dataTable>
 
-                     </div>
+                    </div>
                 </h:form>
             </ui:define>
 
