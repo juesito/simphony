@@ -24,9 +24,9 @@
                                         <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
                                     </p:column>
                                     <p:column colspan="6">
-                                        
+
                                     </p:column>
-                                    
+
                                     <p:column>
                                         <p:outputLabel value="Agremiado:" />
                                     </p:column>
@@ -42,9 +42,9 @@
                                         <p:outputLabel value="#{saleBean.sale.formatTime}" />
                                     </p:column>
                                     <p:column colspan="6">
-                                        
+
                                     </p:column>
-                                     <p:column>
+                                    <p:column>
                                         <p:outputLabel value="Descuento:" />
                                     </p:column>
                                     <p:column>
@@ -59,9 +59,9 @@
                                         <p:outputLabel value="#{saleBean.selected.itinerary.origin.description}" />
                                     </p:column>
                                     <p:column colspan="6">
-                                        
+
                                     </p:column>
-                                     <p:column>
+                                    <p:column>
                                         <p:outputLabel value="Sub total:" />
                                     </p:column>
                                     <p:column>
@@ -76,9 +76,9 @@
                                         <p:outputLabel value="#{saleBean.selected.itinerary.destiny.description}" />
                                     </p:column>
                                     <p:column colspan="6">
-                                        
+
                                     </p:column>
-                                     <p:column>
+                                    <p:column>
                                         <p:outputLabel value="Total a cobrar:" />
                                     </p:column>
                                     <p:column>
@@ -86,45 +86,63 @@
                                     </p:column>
                                 </p:row>                                
                             </p:panelGrid>
-                            
-                           <!-- Seats Grid -->
+
+                            <!-- Seats Grid -->
                             <p:panelGrid id="sale-seat-grid" 
                                          style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
                                 <p:row>
                                     <p:column>
-                                        <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="1" 
-                                                    rows="40" paginator="false" id="seats" 
-                                                    styleClass="grid-seats-main" >
+                                        <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="2" 
+                                                    rows="40" paginator="true" id="seats" 
+                                                    styleClass="grid-seats-main" paginatorPosition="bottom" >
 
                                             <f:facet name="header">
-                                                Datos del pasajero
+                                                Datos del pasajeros
                                             </f:facet>
-                                            <p:column>
-                                                <p:outputLabel value="#{seat.seat.seat}" />
-                                            </p:column>
-                                            <p:column> 
-                                            </p:column>
-                                            <p:column>
-                                                <p:inputText id="name" value="#{seat.customerName}" size="40"  />
-                                                <p:watermark for="name" value="Nombre" />
-                                            </p:column>
-                                            <p:column>
-                                                <p:inputText id="associateKey" value="#{associate.keyId}" size="8"  >
-                                                <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
-                                                </p:inputText>
-                                            
-                                                <p:commandButton icon="ui-icon-search" actionListener="#{saleBean.findAssociate()}"
-                                                              update=":confirmSaleForm:sale-seat-grid">
-
-                                                </p:commandButton>
-                                            </p:column>
-                                            <p:column>
-                                                <p:outputLabel value="Jubilado" />
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectBooleanCheckbox value="#{bolType}" />
-                                            </p:column>
-
+                                            <p:panelGrid styleClass="inner-seat-grid">
+                                                <p:row>
+                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                        <p:outputLabel value="Asiento:" style="font-weight: bold;" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:outputLabel value="#{seat.seat.seat}" />
+                                                    </p:column>
+                                                </p:row>
+                                                
+                                                <p:row>
+                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                        <p:outputLabel value="Agremiado:" style="font-weight: bold;"  />
+                                                    </p:column>
+                                                    <p:column >
+                                                        <p:inputText id="associateKey" value="#{seat.associateKey}" size="8"   >
+                                                            <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
+                                                        </p:inputText>
+                                                        <p:commandButton title="Buscar Agremiado" action="#{saleBean.findAssociate(seat)}"
+                                                                         icon="ui-icon-search" ajax="false" >
+                                                        </p:commandButton>
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                        <p:outputLabel value="Nombre:" style="font-weight: bold;" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:inputText id="name" value="#{seat.customerName}" size="40"  />
+                                                        <p:watermark for="name" value="Nombre" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                        <p:outputLabel value="Tipo boleto:" style="font-weight: bold;"  />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:selectOneRadio id="console" value="#{seat.bolType}">
+                                                            <f:selectItem itemLabel="Jubilado" itemValue="J" />
+                                                            <f:selectItem itemLabel="No jubilado" itemValue="P" />                                                    
+                                                        </p:selectOneRadio>
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
                                         </p:dataGrid>
                                     </p:column>
                                 </p:row>                                        
@@ -159,7 +177,7 @@
 
                             </p:panelGrid>
 
- 
+
                             <!-- botones de control -->
                             <p:panelGrid style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
                                 <p:row>

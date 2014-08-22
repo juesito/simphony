@@ -473,3 +473,8 @@ div{ display:block; }
     font-size: 10px;
     margin-top: 1px;
 }
+
+.inner-seat-grid{
+    border: 1px solid;
+    border-color: #225A01;
+}

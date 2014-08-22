@@ -48,5 +48,8 @@ public interface IConfigurable {
     final String _NAV_TO_INDEX = "toindex";
     
     final Integer _DEFAULT_SEAT_NUMBER = 40;
+    
+    final String _PASSENGER = "P";
+    final String _RETIREE = "J";
 
 }

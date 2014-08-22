@@ -1,7 +1,7 @@
 package com.simphony.entities;
 
+import com.simphony.interfases.IConfigurable;
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity(name="SaleDetail")
 @Table(name="DetalleVenta")
-public  class SaleDetail implements Serializable {
+public  class SaleDetail implements Serializable, IConfigurable {
 
     @Column(name="importe")
     @Basic
@@ -48,10 +49,13 @@ public  class SaleDetail implements Serializable {
     @ManyToOne(targetEntity = Associate.class)
     private Associate associate;
 
-    @Column(name = "descuento")
-    private Double discount;
-
+    
+    @Transient
+    private String associateKey;
+    
     public SaleDetail(){
+        associate = new Associate();
+        this.bolType = _PASSENGER;
 
     }
 
@@ -60,6 +64,8 @@ public  class SaleDetail implements Serializable {
         this.seat = seat;
         this.associate = associate;
         this.bolType = bolType;
+        associate = new Associate();
+        this.bolType = _PASSENGER;
     }
     
     public void update(SaleDetail saleDetail){
@@ -142,14 +148,7 @@ public  class SaleDetail implements Serializable {
         this.associate = associate;
     }
 
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
+    
     public String getBolType() {
         return bolType;
     }
@@ -158,6 +157,15 @@ public  class SaleDetail implements Serializable {
         this.bolType = bolType;
     }
 
+    public String getAssociateKey() {
+        return associateKey;
+    }
+
+    public void setAssociateKey(String associateKey) {
+        this.associateKey = associateKey;
+    }
+
+    
   
 }
 

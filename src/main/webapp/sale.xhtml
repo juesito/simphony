@@ -69,16 +69,6 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Es agremiado?" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:selectBooleanCheckbox value="#{saleBean.sale.partner}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
                                             <p:outputLabel value="Pasajeros jubilados:" />
                                         </p:column>
                                     </p:row>
@@ -119,41 +109,11 @@
                                 <!-- first phase -->
                                 <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
                                     <p:row>
-                                        <p:column colspan="3">
-                                            <p:message for="associateKey" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
                                         <p:column>
                                             <p:outputLabel value="Fecha de salida:" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel id="tripDate" value="#{saleBean.sale.formatDateTime}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row rendered="#{saleBean.sale.partner}">
-
-                                        <p:column>
-                                            <p:outputLabel value="Agremiado:"  />
-                                        </p:column>
-                                        <p:column>
-                                            <p:inputText id="associateKey" value="#{saleBean.associate.keyId}" size="10" required="true"
-                                                         requiredMessage="Error en el valor del campo Agremiado">
-                                                <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
-                                            </p:inputText>
-                                            
-                                            <p:commandButton icon="ui-icon-search" actionListener="#{saleBean.findAssociate()}"
-                                                             ajax="true" update=":saleForm:sale-detail-grid">
-
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row rendered="#{saleBean.sale.partner}">
-                                        <p:column>
-                                            <p:outputLabel value="Agremiado" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.associate.firstLastName} #{saleBean.associate.name}" />
                                         </p:column>
                                     </p:row>
 
@@ -190,7 +150,7 @@
                                         <p:column>
                                             <p:commandButton icon="ui-icon-star" value="Disponibilidad"
                                                              actionListener="#{saleBean.findAvailability(vendorBean.current)}"
-                                                             ajax="true" 
+                                                             ajax="false" 
                                                              update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
                                                              :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel :saleForm:seatsForBook">
                                                 <f:actionListener  binding="#{saleBean.fillSeats()}"/> 
