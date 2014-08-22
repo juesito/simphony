@@ -250,37 +250,52 @@ public class ItineraryBean implements IConfigurable {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws ItineraryException {
-
-        Cost c = this.costService.getCostRepository().findByOriDes(this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
-
-        if (c != null) {
-            Calendar calItinerary = Calendar.getInstance();
-            calItinerary.setTime(this.itinerary.getDepartureTime());
-
-            Calendar calCost = Calendar.getInstance();
-            calCost.setTime(c.getRouteTime());
-            calItinerary.add(Calendar.HOUR_OF_DAY, calCost.get(Calendar.HOUR_OF_DAY));
-            Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(this.itinerary.getId());
-
-            if (itineraryUpdated == null) {
-                throw new ItineraryException(mp.getValue("cat_itinerary") + " " + mp.getValue("not_founded"));
+        Boolean exist = true;
+        Itinerary itineratyTemp = new Itinerary() ;
+        try {
+            itineratyTemp = this.itineraryService.getItineraryRepository().findByOriginAndDestiny(
+                    this.itinerary.getDepartureTime(),this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
+            if(itineratyTemp == null){
+                exist = false;
             }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
 
-            this.itinerary.setUser(user);
-            this.itinerary.setCheckTime(calItinerary.getTime());
-            if (itinerary.getRoute() == null){
-                this.itinerary.setTypeOfRoute("L");
-            }else this.itinerary.setTypeOfRoute("P");
-            itineraryUpdated.update(this.itinerary);
-            this.itineraryService.getItineraryRepository().save(itineraryUpdated);
+        }
+        if (!exist || itineratyTemp.getId() == this.itinerary.getId() ) {
 
-            GrowlBean.simplyInfoMessage(mp.getValue("msj_modified"), mp.getValue("msj_record_modified") + this.itinerary.getOrigin().getDescription());
-      
-            itinerary = new Itinerary();
-        } else {        //Existe tarifa?
-            GrowlBean.simplyErrorMessage(mp.getValue("error_cost_title"), mp.getValue("error_cost"));
-        } 
-        return toItineraries();
+            Cost c = this.costService.getCostRepository().findByOriDes(this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
+
+            if (c != null) {
+                Calendar calItinerary = Calendar.getInstance();
+                calItinerary.setTime(this.itinerary.getDepartureTime());
+
+                Calendar calCost = Calendar.getInstance();
+                calCost.setTime(c.getRouteTime());
+                calItinerary.add(Calendar.HOUR_OF_DAY, calCost.get(Calendar.HOUR_OF_DAY));
+                Itinerary itineraryUpdated = this.itineraryService.getItineraryRepository().findOne(this.itinerary.getId());
+
+                this.itinerary.setUser(user);
+                this.itinerary.setCheckTime(calItinerary.getTime());
+                itineraryUpdated.update(this.itinerary);
+                this.itineraryService.getItineraryRepository().save(itineraryUpdated);
+                if (this.itinerary.getTypeOfRoute().equals("L")){
+                    itinerary.setRoute(itinerary);
+                    this.itineraryService.getItineraryRepository().save(itinerary);
+                }
+
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_modified"), mp.getValue("msj_record_modified") + this.itinerary.getOrigin().getDescription());
+
+                itinerary = new Itinerary();
+                boxItineraryService.fillBox();
+            } else {        //Existe tarifa?
+                GrowlBean.simplyErrorMessage(mp.getValue("error_cost_title"), mp.getValue("error_cost"));
+            } 
+       } else {
+              GrowlBean.simplyErrorMessage(mp.getValue("error_keyId"), mp.getValue("error_keyId_Detail"));
+           }
+       return toItineraries();          
     }
 
     /**

@@ -88,8 +88,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{itineraryBean.cancelItinerary()}"
-                                                     id="cancelAdd" process="@this" immediate="true"
-                                                     partialSubmit="true" tabindex="6"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false" 
+                                                     tabindex="6"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -178,8 +178,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{itineraryBean.cancelItinerary()}"
-                                                     id="cancelAdd" process="@this"
-                                                     partialSubmit="true"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
