@@ -43,6 +43,30 @@ public class PayRoll implements Serializable {
         this.id = id;
     }
 
+    public String getIdPayRoll() {
+        return idPayRoll;
+    }
+
+    public void setIdPayRoll(String idPayRoll) {
+        this.idPayRoll = idPayRoll;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

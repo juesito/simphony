@@ -183,6 +183,11 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+
+        <navigation-case>
+            <from-outcome>toPayRoll</from-outcome>
+            <to-view-id>payRoll.xhtml</to-view-id>
+        </navigation-case>
     
     <navigation-rule>
         <description>Nos dirigimos a confirmar venta</description>
