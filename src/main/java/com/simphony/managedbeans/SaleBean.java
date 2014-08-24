@@ -9,6 +9,7 @@ import com.simphony.beans.AssociateService;
 import com.simphony.beans.CostService;
 import com.simphony.beans.GuideService;
 import com.simphony.beans.ItineraryService;
+import com.simphony.beans.PayRollService;
 import com.simphony.beans.SaleService;
 import com.simphony.beans.SeatService;
 import com.simphony.entities.Associate;
@@ -83,6 +84,9 @@ public class SaleBean implements IConfigurable {
 
     @ManagedProperty(value = "#{itineraryService}")
     private ItineraryService itineraryService;
+    
+    @ManagedProperty(value = "#{payRollService}")
+    private PayRollService payRollService;
 
     /**
      * Creates a new instance of SaleBean
@@ -744,4 +748,13 @@ public class SaleBean implements IConfigurable {
         this.saleDetailSelected = saleDetailSelected;
     }
 
+    public PayRollService getPayRollService() {
+        return payRollService;
+    }
+
+    public void setPayRollService(PayRollService payRollService) {
+        this.payRollService = payRollService;
+    }
+
+    
 }

@@ -5,65 +5,85 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html">
+        <h:body>
 
-    <body>
+            <ui:composition>
 
-        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
-
-            <ui:define name="content">
                 <!-- panel para agregar -->
-                <h:form id="form">
-
+                <h:form id="formPayRoll">
                     <!-- div header detail -->
-                    <div id="payRoll-header" class="payRoll-header">
+                    <div id="guide-header-detail" class="guide-header-detail">
                         <!-- Grid para agregar entidad -->                    
-                        <p:panelGrid  styleClass="payRoll-header">
+                        <p:panelGrid  styleClass="guide-header">
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_payRoll}:" />
                                 </p:column>
-                                <p:inputText id="payRoll" value="#{payRollBean.payRoll.idPayRoll}" maxlength="10" required="true" 
+                                <p:column>
+                                    <p:inputText id="payRoll" value="#{payRollBean.payRoll.idPayRoll}" maxlength="10" required="true" 
                                                  requiredMessage="Folio requerido"/>
                                     <p:message for="payRoll" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Total a cobrar:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.sale.amount}" />
+                                </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_amount}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="origin" value="#{payRollBean.payRoll.amount}" maxlength="10" required="true" 
-                                                  requiredMessage="Folio requerido" />
+                                    <p:inputText id="amount" value="#{payRollBean.payRoll.amount}" maxlength="10" required="true" 
+                                                 requiredMessage="Importe requerido" />
+                                    <p:message for="amount" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Total en folios:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel id="payRollSum" value="#{payRollBean.sumAmount}" />
                                 </p:column>
                             </p:row>
-                            <p:commandButton value="#{msgs.but_add}" action="#{payRollBean.addPayRoll()}"
-                                         styleClass="catalog-button" ajax="false"/>
+                            <p:row>
+                                <p:column>
+                                    
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Agregar" action="#{payRollBean.addPayRoll(saleBean.sale.amount)}"
+                                                     ajax="true" update=":formPayRoll:payRollDetailDT :formPayRoll:payRollSum">
+
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
 
                         </p:panelGrid>
                     </div>
 
-                    <div id="payRoll-detail" class="payRoll-detail">
-                        <!-- Data table de payRoll -->
-                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail" style="font-size: 12px;"
-                                     selectionMode="single" selection="#{payRollBean.selected}" 
-                                     rowKey="#{payRoll.idPayRoll}" id="payRollDT"
-                                    emptyMessage="#{msgs.no_records_found}" rows="4"
+                    <div id="guide-detail-detail" class="guide-detail-detail">
+                        <!-- Data table de itinetarios -->
+                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail" style="font-size: 12px;"                                   
+                                     id="payRollDetailDT" rowKey="#{payRoll.idPayRoll}" 
+                                     emptyMessage="#{msgs.no_records_found}" rows="3"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
-                             >
+                                     >
                             <p:column headerText="#{msgs.cat_payRoll}" >
-                                <p:outputLabel value="#{payRoll.idPayRoll}" />
+                                <p:outputLabel value="#{payRollBean.payRoll.idPayRoll}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_amount}" >
-                                <p:outputLabel value="#{payRoll.amount}" />
+                                <p:outputLabel value="#{payRollBean.payRoll.amount}" />
                             </p:column>
-
                         </p:dataTable>
 
-                     </div>
+                    </div>
                 </h:form>
-            </ui:define>
 
-        </ui:composition>
+            </ui:composition>
 
-    </body>
+        </h:body>
+    </f:view>
 </html>

@@ -35,6 +35,16 @@ public class PayRoll implements Serializable {
     @ManyToOne(targetEntity = Sale.class)
     private Sale sale;
 
+    public PayRoll() {
+
+    }
+    
+    public PayRoll(String folio, Double amount) {
+        this.idPayRoll = folio;
+        this.amount = amount;
+    }
+
+
     public Long getId() {
         return id;
     }

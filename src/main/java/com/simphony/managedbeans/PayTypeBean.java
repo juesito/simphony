@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -27,7 +28,7 @@ import org.springframework.data.domain.Sort;
  */
 @ManagedBean
 @SessionScoped
-public class PayTypeBean {
+public class PayTypeBean implements IConfigurable{
 
     private final MessageProvider mp;
     private List<PayType> list = new ArrayList();
@@ -35,7 +36,7 @@ public class PayTypeBean {
     private PayType payType = new PayType();
     private PayType selected = new PayType();
     private Calendar cal = Calendar.getInstance();
-    
+    private boolean existNominalPayType = false;
 
     @ManagedProperty(value = "#{payTypeService}")
     PayTypeService payTypeService;
@@ -45,6 +46,14 @@ public class PayTypeBean {
      */
     public PayTypeBean() {
        mp = new MessageProvider();
+    }
+    
+    @PostConstruct
+    public void init(){
+        //Validamos que exista el tipo de pago nominal
+        if(payTypeService.getPayTypeRepository().countByDescription(_NOMINAL_REFERENCE) > 0){
+            this.existNominalPayType = true;
+        }
     }
 
     public List<PayType> getList() {
@@ -93,6 +102,19 @@ public class PayTypeBean {
         return "addPayType";
     }
 
+    public boolean isExistNominalPayType() {
+        return existNominalPayType;
+    }
+
+    public void setExistNominalPayType(boolean existNominalPayType) {
+        this.existNominalPayType = existNominalPayType;
+    }
+    
+    /**
+     * Guardamos el tipo de pago
+     * @param user
+     * @return
+     */
     public String save(User user) {
          Boolean exist = true;
          PayType payTypeTmp;
