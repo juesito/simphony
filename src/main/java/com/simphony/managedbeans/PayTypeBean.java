@@ -1,6 +1,7 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.PayTypeService;
+import com.simphony.entities.PayRoll;
 import com.simphony.entities.PayType;
 import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
@@ -28,15 +29,18 @@ import org.springframework.data.domain.Sort;
  */
 @ManagedBean
 @SessionScoped
-public class PayTypeBean implements IConfigurable{
+public class PayTypeBean implements IConfigurable {
 
     private final MessageProvider mp;
-    private List<PayType> list = new ArrayList();
+
     private PayType current = new PayType();
     private PayType payType = new PayType();
     private PayType selected = new PayType();
-    private Calendar cal = Calendar.getInstance();
+    private PayType nominalPayType = new PayType();
+
     private boolean existNominalPayType = false;
+
+    private List<PayType> list = new ArrayList();
 
     @ManagedProperty(value = "#{payTypeService}")
     PayTypeService payTypeService;
@@ -45,14 +49,15 @@ public class PayTypeBean implements IConfigurable{
      * Creates a new instance of PayType
      */
     public PayTypeBean() {
-       mp = new MessageProvider();
+        mp = new MessageProvider();
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         //Validamos que exista el tipo de pago nominal
-        if(payTypeService.getPayTypeRepository().countByDescription(_NOMINAL_REFERENCE) > 0){
+        if (payTypeService.getPayTypeRepository().countByDescription(_NOMINAL_REFERENCE) > 0) {
             this.existNominalPayType = true;
+            this.nominalPayType = payTypeService.getPayTypeRepository().findByDes(_NOMINAL_REFERENCE);
         }
     }
 
@@ -109,19 +114,28 @@ public class PayTypeBean implements IConfigurable{
     public void setExistNominalPayType(boolean existNominalPayType) {
         this.existNominalPayType = existNominalPayType;
     }
-    
+
+    public PayType getNominalPayType() {
+        return nominalPayType;
+    }
+
+    public void setNominalPayType(PayType nominalPayType) {
+        this.nominalPayType = nominalPayType;
+    }
+
     /**
      * Guardamos el tipo de pago
+     *
      * @param user
      * @return
      */
     public String save(User user) {
-         Boolean exist = true;
-         PayType payTypeTmp;
+        Boolean exist = true;
+        PayType payTypeTmp;
 
         try {
             payTypeTmp = this.payTypeService.getPayTypeRepository().findByDes(this.payType.getDescription().trim());
-            if(payTypeTmp == null){
+            if (payTypeTmp == null) {
                 exist = false;
             }
         } catch (Exception ex) {
@@ -132,33 +146,34 @@ public class PayTypeBean implements IConfigurable{
 
         if (!exist) {
             if (this.payType.getDescription() != null) {
-            payType.setUser(user);
-            payType.setCreateDate(cal.getTime());
-            payType.setStatus(IConfigurable._ENABLED);
-            this.payTypeService.getPayTypeRepository().save(payType);
-            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.payType.getDescription() + " " + mp.getValue("msj_record_save") );
-            payType = new PayType();
+                Calendar cal = Calendar.getInstance();
+                payType.setUser(user);
+                payType.setCreateDate(cal.getTime());
+                payType.setStatus(IConfigurable._ENABLED);
+                this.payTypeService.getPayTypeRepository().save(payType);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.payType.getDescription() + " " + mp.getValue("msj_record_save"));
+                payType = new PayType();
 
             }
         } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.payType.getDescription() + " " + mp.getValue("error_keyId_Detail") );
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.payType.getDescription() + " " + mp.getValue("error_keyId_Detail"));
         }
 
         return "";
-      }
+    }
 
     public String toPayType() {
         this.fillPayType();
         return "toPayType";
     }
-    
-       /**
+
+    /**
      * Controlador para modificar PayType
      *
      * @return
      */
     public String modifyPayType() {
-        if (this.selected != null ) {
+        if (this.selected != null) {
             this.current.setAction(_MODIFY);
             try {
                 this.payType = (PayType) this.selected.clone();
@@ -166,8 +181,9 @@ public class PayTypeBean implements IConfigurable{
                 Logger.getLogger(PayTypeBean.class.getName()).log(Level.SEVERE, null, ex);
             }
             return "addPayType";
-        }else
+        } else {
             return "toPayType";
+        }
     }
 
     /**
@@ -197,7 +213,7 @@ public class PayTypeBean implements IConfigurable{
     }
 
     /**
-     * Llenamos lista de agremiados
+     * Llenamos lista de tipos de pago
      */
     public void fillPayType() {
         list.clear();
@@ -207,29 +223,30 @@ public class PayTypeBean implements IConfigurable{
             list.add(cu.next());
         }
     }
-    
+
     /**
-     * Actualizamos el autobús
+     * Actualizamos el tipo de pago
      *
+     * @param user
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws PersonException {
-        
+
         PayType payTypeUpdated = this.payTypeService.getPayTypeRepository().findOne(this.payType.getId());
-        
-        if(payTypeUpdated == null){
-            throw new PersonException("Tipo de pago no existente"); 
-        } 
+
+        if (payTypeUpdated == null) {
+            throw new PersonException("Tipo de pago no existente");
+        }
         this.payType.setUser(user);
         payTypeUpdated.update(this.payType);
         this.payTypeService.getPayTypeRepository().save(payTypeUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.payType.getDescription() + " " + mp.getValue("msj_record_update") );
+        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.payType.getDescription() + " " + mp.getValue("msj_record_update"));
         payType = new PayType();
         return toPayType();
     }
 
-      /**
+    /**
      * habilitamos PayType
      */
     public void enabledPayType() {
@@ -244,8 +261,43 @@ public class PayTypeBean implements IConfigurable{
 
     }
 
-        private Sort sortByDes(){
+    private Sort sortByDes() {
         return new Sort(Sort.Direction.ASC, "Description");
+    }
+
+    /**
+     * Actualizamos el monto del tipo de pago nominal en la lista
+     *
+     * @param payRollList
+     */
+    public void updateAmountForNominalPay(List<PayRoll> payRollList) {
+        Double amount = 0.0;
+
+        for (PayRoll pr : payRollList) {
+            amount += pr.getAmount();
+        }
+        nominalPayType.setAmount(amount);
+
+    }
+
+    public void updateOther() {
+        for (PayType pt : list) {
+            if (pt.getDescription().trim().equals(_NOMINAL_REFERENCE)) {
+                pt.setAmount(nominalPayType.getAmount());
+                Integer index = list.indexOf(pt);
+                list.set(index, pt);
+            }
+        }
+    }
+
+    /**
+     * Validamos si la descripcion del pago es de tipo nominal
+     *
+     * @param description
+     * @return
+     */
+    public boolean isNominalPayType(String description) {
+        return (description.trim().equals(_NOMINAL_REFERENCE));
     }
 
 }

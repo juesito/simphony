@@ -111,7 +111,8 @@
                                                             <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
                                                         </p:inputText>
                                                         <p:commandButton title="Buscar Agremiado" action="#{saleBean.findAssociate(seat)}"
-                                                                         icon="ui-icon-search" ajax="false" >
+                                                                         icon="ui-icon-search" ajax="true" 
+                                                                         update=":confirmSaleForm:sale-seat-grid :main-form:growl" >
                                                         </p:commandButton>
                                                     </p:column>
                                                 </p:row>
@@ -155,7 +156,7 @@
                                                         <p:outputLabel value="#{payment.description}" />
                                                     </p:column>
                                                     <p:column>
-                                                        <p:inputText value="#{payment.amount}" size="10" />
+                                                        <p:inputText value="#{payment.amount}" size="10" disabled="#{payTypeBean.isNominalPayType(payment.description)}" />
                                                     </p:column>
                                                     <p:column>
                                                         <p:inputText id="payInfo" value="#{payment.paymentInfo}" size="20" rendered="#{payment.reference eq 'S'}" />
@@ -185,7 +186,7 @@
                                                          action="toSale" style="float: right;" >
                                             <f:actionListener  binding="#{saleBean.clearSale()}"/>
                                         </p:commandButton>
-                                        <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list)}"
+                                        <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list, payRollBean.list)}"
                                                          style="float: right;">
                                             <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>                                
                                         </p:commandButton>
