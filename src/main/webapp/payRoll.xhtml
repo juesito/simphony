@@ -5,14 +5,13 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html">
+        <h:body>
 
-    <body>
+            <ui:composition>
 
-       <ui:composition template="./WEB-INF/templates/catalog.xhtml">
-
-            <ui:define name="content">
                 <!-- panel para agregar -->
-                <h:form id="form">
+                <h:form id="formPayRoll">
                     <!-- div header detail -->
                     <div id="guide-header-detail" class="guide-header-detail">
                         <!-- Grid para agregar entidad -->                    
@@ -22,9 +21,15 @@
                                     <p:outputLabel value="#{msgs.cat_payRoll}:" />
                                 </p:column>
                                 <p:column>
-                                <p:inputText id="payRoll" value="#{payRollBean.payRoll.idPayRoll}" maxlength="10" required="true" 
+                                    <p:inputText id="payRoll" value="#{payRollBean.payRoll.idPayRoll}" maxlength="10" required="true" 
                                                  requiredMessage="Folio requerido"/>
                                     <p:message for="payRoll" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Total a cobrar:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.sale.amount}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -33,18 +38,27 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="amount" value="#{payRollBean.payRoll.amount}" maxlength="10" required="true" 
-                                                  requiredMessage="Importe requerido" />
+                                                 requiredMessage="Importe requerido" />
                                     <p:message for="amount" />
                                 </p:column>
-                            </p:row>
-                                    <p:row>
                                 <p:column>
-                                           <p:commandButton value="Agregar" actionListener="#{payRollBean.addPayRoll()}"
-                                        ajax="true" update=":form:payRollDetailDT">
+                                    <p:outputLabel value="Total en folios:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel id="payRollSum" value="#{payRollBean.sumAmount}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Agregar" action="#{payRollBean.addPayRoll(saleBean.sale.amount)}"
+                                                     ajax="true" update=":formPayRoll:payRollDetailDT :formPayRoll:payRollSum">
 
-                                  </p:commandButton>
-                                 </p:column>
-                                    </p:row>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
 
                         </p:panelGrid>
                     </div>
@@ -67,9 +81,9 @@
 
                     </div>
                 </h:form>
-            </ui:define>
 
-        </ui:composition>
+            </ui:composition>
 
-    </body>
+        </h:body>
+    </f:view>
 </html>

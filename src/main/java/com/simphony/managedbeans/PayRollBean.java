@@ -7,7 +7,6 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.PayRollService;
 import com.simphony.entities.PayRoll;
-import com.simphony.entities.Population;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
@@ -36,12 +35,15 @@ public class PayRollBean implements IConfigurable {
     @ManagedProperty(value = "#{payRollService}")
     private PayRollService payRollService;
 
+    
     /**
      * Creates a new instance of PayRollBean
      */
     public PayRollBean() {
-       mp = new MessageProvider();
+        mp = new MessageProvider();
     }
+    
+    
 
     public PayRoll getPayRoll() {
         return payRoll;
@@ -83,6 +85,14 @@ public class PayRollBean implements IConfigurable {
         this.current = current;
     }
 
+    public Double getSumAmount() {
+        Double amount = 0.0;
+        for (PayRoll pr : list) {
+            amount += pr.getAmount();
+        }
+        return amount;
+    }
+
     /**
      * boton de cancelar
      *
@@ -94,39 +104,49 @@ public class PayRollBean implements IConfigurable {
     }
 
     public String save() {
- 
+
         this.payRollService.getRepository().save(payRoll);
         payRoll = new PayRoll();
 
         return "";
     }
 
-    public void fillPayRolls(){
+    public void fillPayRolls() {
         list.clear();
     }
- 
-    public void addPayRoll(){
+
+    /**
+     * agregamos un rol de pago
+     *
+     * @param saleAmount
+     */
+    public void addPayRoll(Double saleAmount) {
         Boolean exist = true;
         PayRoll payRollTmp;
 
-        try {
-            payRollTmp = this.payRollService.getRepository().findByKey(this.payRoll.getIdPayRoll());
-            if(payRollTmp == null){
+        if (saleAmount >= getSumAmount() + this.payRoll.getAmount()) {
+
+            try {
+                payRollTmp = this.payRollService.getRepository().findByKey(this.payRoll.getIdPayRoll());
+                if (payRollTmp == null) {
+                    exist = false;
+                }
+            } catch (Exception ex) {
                 exist = false;
             }
-        } catch (Exception ex) {
-            System.out.println("Error");
-            exist = false;
-        }
-         if (exist) {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: "+this.payRoll.getIdPayRoll()+
-                                        " Importe: "+this.payRoll.getAmount()+" Fecha:"+this.payRoll.getSale().getCreateDate()+
-                                        " "+mp.getValue("error_keyId_Detail"));
-        }
+            if (exist) {
+                GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
+                        + " Importe: " + this.payRoll.getAmount() + " Fecha:" + this.payRoll.getSale().getCreateDate()
+                        + " " + mp.getValue("error_keyId_Detail"));
+            }
 
-        if (this.payRoll.getIdPayRoll() != null) {
-            payRollTmp = new PayRoll(this.payRoll.getIdPayRoll(), this.payRoll.getAmount() );
-            list.add(payRollTmp);
+            if (this.payRoll.getIdPayRoll() != null) {
+                payRollTmp = new PayRoll(this.payRoll.getIdPayRoll(), this.payRoll.getAmount());
+                list.add(payRollTmp);
+            }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), " Importe: " + this.payRoll.getAmount() + 
+                    " Mayor a la venta:" + saleAmount);
         }
     }
 
@@ -135,7 +155,7 @@ public class PayRollBean implements IConfigurable {
         return "toPayRolls";
     }
 
-    private Sort sortByKeyId(){
+    private Sort sortByKeyId() {
         return new Sort(Sort.Direction.ASC, "IdPayRoll");
     }
 
