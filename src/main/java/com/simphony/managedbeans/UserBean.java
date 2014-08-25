@@ -266,9 +266,11 @@ public class UserBean implements IConfigurable {
         current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
             current.setLooged(true);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_welcome"), this.user.getNick() );
             return "toindex";
         } else {
             current = new User();
+            GrowlBean.simplyFatalMessage(mp.getValue("error_login"), mp.getValue("error_user"));
             return "toLogin";
         }
     }

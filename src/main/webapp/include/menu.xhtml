@@ -27,7 +27,8 @@
                             <p:column colspan="2">
                                 <p:inputText id="vendorId" value="#{vendorBean.current.nick}" 
                                              maxlength="15" required="true" size="15"
-                                             tabindex="1" styleClass="login-input" >
+                                             tabindex="1" styleClass="login-input"
+                                             requiredMessage="#{msgs.req_nick}">
                                     <f:validateLength minimum="2" />
                                 </p:inputText>
                                 <p:watermark for="vendorId" value="Vendedor" />
@@ -39,7 +40,8 @@
                                 
                                 <p:password id="vpassword" value="#{vendorBean.current.password}" 
                                             maxlength="15" size="15"  
-                                            tabindex="2" required="true"  />
+                                            tabindex="2" required="true"  
+                                            requiredMessage="#{msgs.req_password}"/>
                                 <p:watermark for="vpassword" value="Contraseña" />
                                 <h:message for="vpassword" showSummary="false"/>
                             </p:column>

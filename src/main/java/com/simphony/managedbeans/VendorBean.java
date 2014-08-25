@@ -256,9 +256,11 @@ public class VendorBean implements IConfigurable {
         current = this.vendorService.getVendorRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
             current.setLooged(true);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_welcome"), this.vendor.getNick() );
             return "toSale";
         } else {
             current = new Vendor();
+            GrowlBean.simplyFatalMessage(mp.getValue("error_login"), mp.getValue("error_user"));
             return "toindex";
         }
     }
