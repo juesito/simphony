@@ -26,7 +26,7 @@
                                     <p:message for="payRoll" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="Total a cobrar:" />
+                                    <p:outputLabel value="Total Venta:" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{saleBean.sale.amount}" />
@@ -54,7 +54,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Agregar" action="#{payRollBean.addPayRoll(saleBean.sale.amount)}"
-                                                     ajax="true" update=":formPayRoll:payRollDetailDT :formPayRoll:payRollSum">
+                                                     ajax="true" update=":formPayRoll:payRollDetailDT :formPayRoll:payRollSum
+                                                     :formPayRoll:payRoll :formPayRoll:amount">
 
                                     </p:commandButton>
                                 </p:column>
@@ -65,18 +66,25 @@
 
                     <div id="guide-detail-detail" class="guide-detail-detail">
                         <!-- Data table de itinetarios -->
-                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail" style="font-size: 12px;"                                   
-                                     id="payRollDetailDT" rowKey="#{payRoll.idPayRoll}" 
-                                     emptyMessage="#{msgs.no_records_found}" rows="3"
+                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail"                              
+                                     id="payRollDetailDT" rowKey="#{payRollDetail.idPayRoll}" 
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
                                      paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{PageLinks}"
-                                     >
+                                     paginatorTemplate="{PageLinks}">
+                            
                             <p:column headerText="#{msgs.cat_payRoll}" >
-                                <p:outputLabel value="#{payRollBean.payRoll.idPayRoll}" />
+                                <p:outputLabel value="#{payRollDetail.idPayRoll}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_amount}" >
-                                <p:outputLabel value="#{payRollBean.payRoll.amount}" />
+                                <p:outputLabel value="#{payRollDetail.amount}" />
                             </p:column>
+                            <f:facet name="footer">
+                                
+                                <p:commandButton value="Guardar" action="#{payTypeBean.updateOther()}"
+                                                    update=":confirmSaleForm:sale-payment-grid" ajax="true" oncomplete="PF('payRollVar').hide()" >
+
+                                    </p:commandButton>
+                            </f:facet>
                         </p:dataTable>
 
                     </div>

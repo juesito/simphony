@@ -18,6 +18,7 @@ import com.simphony.entities.Customer;
 import com.simphony.entities.Guide;
 import com.simphony.entities.GuideDetail;
 import com.simphony.entities.Itinerary;
+import com.simphony.entities.PayRoll;
 import com.simphony.entities.PayType;
 import com.simphony.entities.Payment;
 import com.simphony.entities.ReservedSeats;
@@ -49,23 +50,23 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class SaleBean implements IConfigurable {
 
-    private Guide guide = new Guide();
-    private Guide guideRoot = new Guide();
-    private Associate associate = new Associate();
     private Sale sale = new Sale();
     private Cost cost = new Cost();
+    private Guide guide = new Guide();
+    private Guide guideRoot = new Guide();
     private Seat selectedSeat = new Seat();
+    private Associate associate = new Associate();
+    private ItineraryCost selected = new ItineraryCost();
+    private SaleDetail unSelectedDetail = new SaleDetail();
     private SaleDetail saleDetailSelected = new SaleDetail();
+    private ItineraryCostModel model = new ItineraryCostModel();
 
     private List<Seat> seat = new ArrayList();
     private List<Sale> list = new ArrayList();
-    private ItineraryCost selected = new ItineraryCost();
-    private ItineraryCostModel model = new ItineraryCostModel();
+    private List<PayRoll> payRollList = new ArrayList();
     private List<Seat> selectedSeats = new ArrayList<Seat>();
-    private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
-
-    private SaleDetail unSelectedDetail = new SaleDetail();
     private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
+    private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
 
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
@@ -84,7 +85,7 @@ public class SaleBean implements IConfigurable {
 
     @ManagedProperty(value = "#{itineraryService}")
     private ItineraryService itineraryService;
-    
+
     @ManagedProperty(value = "#{payRollService}")
     private PayRollService payRollService;
 
@@ -101,6 +102,8 @@ public class SaleBean implements IConfigurable {
 
     /**
      * Buscamos itinerarios
+     *
+     * @throws java.text.ParseException
      */
     public void findItinearies() throws ParseException {
         Calendar now = Calendar.getInstance();
@@ -153,26 +156,24 @@ public class SaleBean implements IConfigurable {
 
     /**
      * Buscamos al agremiado
+     *
+     * @param innerSaleDetail
      */
     public void findAssociate(SaleDetail innerSaleDetail) {
         Associate temp = associateService.getRepository().findByKey(innerSaleDetail.getAssociateKey());
+        Integer index = 0;
+        if (this.saleDetail.contains(innerSaleDetail)) {
+            index = this.saleDetail.indexOf(innerSaleDetail);
+        }
 
         if (temp != null) {
-            try {
-                associate = (Associate) temp.clone();
-                innerSaleDetail.setAssociate(associate);
-                innerSaleDetail.setCustomerName(associate.getName());
-                Integer index = 0;
-                if (this.saleDetail.contains(innerSaleDetail)) {
-                    index = this.saleDetail.indexOf(innerSaleDetail);
-                    this.saleDetail.set(index, innerSaleDetail);
+            innerSaleDetail.setAssociate(temp);
+            innerSaleDetail.setCustomerName(temp.getName());
+            this.saleDetail.set(index, innerSaleDetail);
 
-                }
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(SaleBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
         } else {
-            this.associate.setKeyId(_BLANK);
+            innerSaleDetail.setCustomerName(_BLANK);
+            this.saleDetail.set(index, innerSaleDetail);
             GrowlBean.simplyErrorMessage("No se encontro", "Asociado no encontrado");
         }
     }
@@ -301,9 +302,10 @@ public class SaleBean implements IConfigurable {
      *
      * @param vendor
      * @param payTypeList
+     * @param payRollList
      * @throws java.lang.CloneNotSupportedException
      */
-    public void save(Vendor vendor, List<PayType> payTypeList) throws CloneNotSupportedException {
+    public void save(Vendor vendor, List<PayType> payTypeList, List<PayRoll> payRollList) throws CloneNotSupportedException {
 
         sale.setVendor(vendor);
         sale.setCreateDate(new Date());
@@ -392,12 +394,20 @@ public class SaleBean implements IConfigurable {
             saleService.getReservedSeatsRepository().save(reservedSeat);
         }
 
+        //Guardamos los pagos
         for (PayType payType : payTypeList) {
             if (payType.getAmount() > 0.0) {
                 Payment payment = new Payment(payType, sale);
                 saleService.getPaymentRepository().save(payment);
             }
-
+        }
+        
+        //Guardamos el tipo de pago nominal en caso de existir
+        for(PayRoll pr : payRollList){
+            if(pr.getAmount() > 0.0){
+                pr.setSale(this.sale);
+                this.saleService.getPayrollRepository().save(pr);
+            }
         }
 
         GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
@@ -410,10 +420,11 @@ public class SaleBean implements IConfigurable {
      *
      * @param vendor
      * @param payTypeList
+     * @param payRollList
      * @return
      * @throws CloneNotSupportedException
      */
-    public String validateSale(Vendor vendor, List<PayType> payTypeList) throws CloneNotSupportedException {
+    public String validateSale(Vendor vendor, List<PayType> payTypeList, List<PayRoll> payRollList) throws CloneNotSupportedException {
         Double amountPayed = 0.0;
         String msgNav = "toSale";
 
@@ -428,7 +439,7 @@ public class SaleBean implements IConfigurable {
                     retireeSelected++;
                 }
             }
-            if (this.sale.getRetirees() == retireeSelected) {
+            if (retireeSelected == this.sale.getRetirees()) {
                 GrowlBean.simplyWarmMessage("Sin seleccion de jubilados", "No se han seleccionado los jubilados solicitados");
                 msgNav = "toSaleConfirm";
             }
@@ -443,7 +454,7 @@ public class SaleBean implements IConfigurable {
             GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
             msgNav = "toSaleConfirm";
         } else {
-            this.save(vendor, payTypeList);
+            this.save(vendor, payTypeList, payRollList);
         }
 
         return msgNav;
@@ -470,6 +481,9 @@ public class SaleBean implements IConfigurable {
         return rootGuide;
     }
 
+    /**
+     * Limpiamos la venta
+     */
     public void clearSale() {
         this.sale = new Sale();
         this.saleDetail = new ArrayList<SaleDetail>();
@@ -478,6 +492,11 @@ public class SaleBean implements IConfigurable {
         this.selected = new ItineraryCost();
     }
 
+    /**
+     * Confirmamos la venta
+     *
+     * @return
+     */
     public String toSaleConfirm() {
         String msgNav = "toSaleConfirm";
         if (this.sale.getPassengers() + this.sale.getRetirees() == saleDetail.size()) {
@@ -681,6 +700,12 @@ public class SaleBean implements IConfigurable {
         this.list = list;
     }
 
+    /**
+     * Formateamos los asientos
+     *
+     * @param value
+     * @return
+     */
     public String columnClass(int value) {
         Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42};
         Integer[] arraLeft = new Integer[]{3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43};
@@ -697,9 +722,11 @@ public class SaleBean implements IConfigurable {
 
     /**
      * Buscamos asiento
+     *
+     * @param seat
+     * @return
      */
     public String findSeat(String seat) {
-        System.out.println("Fecha " + this.sale.getTripDate());
         unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
 
         if (unSelectedDetail != null) {
@@ -711,6 +738,13 @@ public class SaleBean implements IConfigurable {
         return "toCancel";
     }
 
+    /**
+     * Cancelamos el asiento
+     *
+     * @param vendor
+     * @return
+     * @throws CloneNotSupportedException
+     */
     public String cancelSeat(Vendor vendor) throws CloneNotSupportedException {
 
         unSelectedDetail.setStatus("C");
@@ -721,16 +755,21 @@ public class SaleBean implements IConfigurable {
         sale.setSubTotal(sale.getSubTotal() - unSelectedDetail.getAmount());
         sale.setPassengers(sale.getPassengers() - 1);
         sale = saleService.getSaleRepository().save(sale);
-        GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelad0 con exito!");
-        this.sale.setSeat(null);
+        GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");
+        this.sale.setSeat("");
 
         return "toCancel";
 
     }
 
+    /**
+     * A cancelar
+     *
+     * @return
+     */
     public String toCancel() {
-        String msgNav = "";
-        if (this.sale.getSeat() != "") {
+        String msgNav;
+        if (this.sale.getSeat().isEmpty()) {
             msgNav = "toCancel";
         } else {
             GrowlBean.simplyWarmMessage("Asiento no capturado", "No Se ha capturado el asiento solicitado");
@@ -738,6 +777,12 @@ public class SaleBean implements IConfigurable {
         }
 
         return msgNav;
+    }
+
+    //Pendiente
+    public void confirmPayRoll(List<PayRoll> list) {
+        this.payRollList = list;
+
     }
 
     public SaleDetail getSaleDetailSelected() {
@@ -756,5 +801,12 @@ public class SaleBean implements IConfigurable {
         this.payRollService = payRollService;
     }
 
-    
+    public List<PayRoll> getPayRollList() {
+        return payRollList;
+    }
+
+    public void setPayRollList(List<PayRoll> payRollList) {
+        this.payRollList = payRollList;
+    }
+
 }

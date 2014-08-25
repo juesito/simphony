@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity(name="PayRoll")
 @Table(name="Nomina")
-public class PayRoll implements Serializable {
+public class PayRoll implements Serializable, Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -95,6 +95,17 @@ public class PayRoll implements Serializable {
             return false;
         }
         return true;
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
     }
 
     @Override

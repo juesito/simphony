@@ -6,6 +6,7 @@
 
 package com.simphony.beans;
 
+import com.simphony.repositories.PayRollRepository;
 import com.simphony.repositories.PaymentRepository;
 import com.simphony.repositories.ReservedSeatsRepository;
 import com.simphony.repositories.SaleDetailRepository;
@@ -31,6 +32,9 @@ public class SaleService {
     
     @Autowired
     PaymentRepository paymentRepository;
+    
+    @Autowired
+    PayRollRepository payrollRepository;
     
     public SaleRepository getSaleRepository() {
         return saleRepository;
@@ -63,5 +67,12 @@ public class SaleService {
     public void setPaymentRepository(PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
     }
-    
+
+    public PayRollRepository getPayrollRepository() {
+        return payrollRepository;
+    }
+
+    public void setPayrollRepository(PayRollRepository payrollRepository) {
+        this.payrollRepository = payrollRepository;
+    }
 }

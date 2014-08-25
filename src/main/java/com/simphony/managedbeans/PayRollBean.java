@@ -30,20 +30,16 @@ public class PayRollBean implements IConfigurable {
     private PayRoll current = new PayRoll();
     private PayRoll selected = new PayRoll();
     private List<PayRoll> list = new ArrayList<PayRoll>();
-    private Calendar cal = Calendar.getInstance();
 
     @ManagedProperty(value = "#{payRollService}")
     private PayRollService payRollService;
 
-    
     /**
      * Creates a new instance of PayRollBean
      */
     public PayRollBean() {
         mp = new MessageProvider();
     }
-    
-    
 
     public PayRoll getPayRoll() {
         return payRoll;
@@ -120,34 +116,41 @@ public class PayRollBean implements IConfigurable {
      *
      * @param saleAmount
      */
-    public void addPayRoll(Double saleAmount) {
+    public void addPayRoll(Double saleAmount) throws CloneNotSupportedException {
         Boolean exist = true;
         PayRoll payRollTmp;
 
-        if (saleAmount >= getSumAmount() + this.payRoll.getAmount()) {
+        if (this.payRoll.getIdPayRoll() != null && this.payRoll.getAmount() > 0) {
+            if (saleAmount >= getSumAmount() + this.payRoll.getAmount()) {
 
-            try {
-                payRollTmp = this.payRollService.getRepository().findByKey(this.payRoll.getIdPayRoll());
-                if (payRollTmp == null) {
+                try {
+
+                    payRollTmp = this.payRollService.getRepository().findByKey(this.payRoll.getIdPayRoll());
+                    if (payRollTmp == null) {
+                        exist = false;
+                    }
+                } catch (Exception ex) {
                     exist = false;
                 }
-            } catch (Exception ex) {
-                exist = false;
-            }
-            if (exist) {
-                GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
-                        + " Importe: " + this.payRoll.getAmount() + " Fecha:" + this.payRoll.getSale().getCreateDate()
-                        + " " + mp.getValue("error_keyId_Detail"));
-            }
+                if (exist) {
+                    
+                    GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
+                            + " Importe: " + this.payRoll.getAmount() + " Fecha:" + this.payRoll.getSale().getCreateDate()
+                            + " " + mp.getValue("error_keyId_Detail"));
+                    
+                } else {
 
-            if (this.payRoll.getIdPayRoll() != null) {
-                payRollTmp = new PayRoll(this.payRoll.getIdPayRoll(), this.payRoll.getAmount());
-                list.add(payRollTmp);
+                    payRollTmp = (PayRoll) this.payRoll.clone();
+                    list.add(payRollTmp);
+                }
+            } else {
+                GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), " Importe: " + this.payRoll.getAmount()
+                        + " Mayor a la venta:" + saleAmount);
             }
-        } else {
-            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), " Importe: " + this.payRoll.getAmount() + 
-                    " Mayor a la venta:" + saleAmount);
+            this.payRoll.setIdPayRoll("");
+            this.payRoll.setAmount(0.0);
         }
+
     }
 
     public String toPayRolls() {
