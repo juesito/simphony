@@ -401,10 +401,10 @@ public class SaleBean implements IConfigurable {
                 saleService.getPaymentRepository().save(payment);
             }
         }
-        
+
         //Guardamos el tipo de pago nominal en caso de existir
-        for(PayRoll pr : payRollList){
-            if(pr.getAmount() > 0.0){
+        for (PayRoll pr : payRollList) {
+            if (pr.getAmount() > 0.0) {
                 pr.setSale(this.sale);
                 this.saleService.getPayrollRepository().save(pr);
             }
@@ -492,6 +492,28 @@ public class SaleBean implements IConfigurable {
         this.selected = new ItineraryCost();
     }
 
+    public void calculateRetireeDiscount(List<SaleDetail> saleDetail) {
+        Integer countRetiree = 0;
+        Double subTotal = selected.getCost().getCost() * saleDetail.size();
+        for (SaleDetail sl : saleDetail) {
+            if (sl.getBolType().equals(_RETIREE)) {
+                countRetiree++;
+            }
+        }
+        if (countRetiree > 0) {
+            this.sale.setDiscount((selected.getCost().getCost() * countRetiree) * _RETIREE_DISCOUNT);
+            Double amount = subTotal - this.sale.getDiscount();
+
+            sale.setSubTotal(subTotal);
+            sale.setAmount(amount);
+        } else {
+            this.sale.setDiscount(0.0);
+            sale.setSubTotal(subTotal);
+            sale.setAmount(subTotal);
+        } //Hay jubilados en el viaje?
+
+    }
+
     /**
      * Confirmamos la venta
      *
@@ -499,15 +521,11 @@ public class SaleBean implements IConfigurable {
      */
     public String toSaleConfirm() {
         String msgNav = "toSaleConfirm";
-        if (this.sale.getPassengers() + this.sale.getRetirees() == saleDetail.size()) {
+        if (this.sale.getPassengers() == saleDetail.size()) {
 
             //Calculamos el total de la venta considerando los descuentos por jubilados
             Double subTotal = selected.getCost().getCost() * this.saleDetail.size();
             Double discount = 0.0;
-
-            if (this.sale.getRetirees() > 0) {
-                discount = (selected.getCost().getCost() * this.sale.getRetirees()) * _RETIREE_DISCOUNT;
-            } //Hay jubilados en el viaje?
 
             Double amount = subTotal - discount;
 
@@ -515,9 +533,6 @@ public class SaleBean implements IConfigurable {
             sale.setDiscount(discount);
             sale.setAmount(amount);
 
-            if (sale.isPartner()) {
-                saleDetail.get(0).setCustomerName(associate.getFullName());
-            }
         } else {
             GrowlBean.simplyWarmMessage("Asientos incompletos", "No Se han asigando los asientos solicitados");
             msgNav = "toSale";

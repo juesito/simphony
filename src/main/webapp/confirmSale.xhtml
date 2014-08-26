@@ -130,9 +130,11 @@
                                                         <p:outputLabel value="Tipo boleto:" style="font-weight: bold;"  />
                                                     </p:column>
                                                     <p:column>
-                                                        <p:selectOneRadio id="console" value="#{seat.bolType}">
+                                                        <p:selectOneRadio id="console" value="#{seat.bolType}" 
+                                                                          >
                                                             <f:selectItem itemLabel="Jubilado" itemValue="J" />
-                                                            <f:selectItem itemLabel="No jubilado" itemValue="P" />                                                    
+                                                            <f:selectItem itemLabel="No jubilado" itemValue="P" />
+                                                            <p:ajax event="change" update=":confirmSaleForm:payGrid-content" listener="#{saleBean.calculateRetireeDiscount(saleBean.saleDetail)}" />
                                                         </p:selectOneRadio>
                                                     </p:column>
                                                 </p:row>
@@ -156,7 +158,8 @@
                                                         <p:outputLabel value="#{payment.description}" />
                                                     </p:column>
                                                     <p:column>
-                                                        <p:inputText value="#{payment.amount}" size="10" disabled="#{payTypeBean.isNominalPayType(payment.description)}" />
+                                                        <p:inputText value="#{payment.amount}" size="10" rendered="#{not payTypeBean.isNominalPayType(payment.description)}" />
+                                                        <p:outputLabel value="#{payment.amount}" rendered="#{payTypeBean.isNominalPayType(payment.description)}" />
                                                     </p:column>
                                                     <p:column>
                                                         <p:inputText id="payInfo" value="#{payment.paymentInfo}" size="20" rendered="#{payment.reference eq 'S'}" />

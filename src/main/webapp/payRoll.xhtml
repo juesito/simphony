@@ -55,7 +55,7 @@
                                 <p:column>
                                     <p:commandButton value="Agregar" action="#{payRollBean.addPayRoll(saleBean.sale.amount)}"
                                                      ajax="true" update=":formPayRoll:payRollDetailDT :formPayRoll:payRollSum
-                                                     :formPayRoll:payRoll :formPayRoll:amount">
+                                                     :formPayRoll:payRoll :formPayRoll:amount" >
 
                                     </p:commandButton>
                                 </p:column>
@@ -80,8 +80,8 @@
                             </p:column>
                             <f:facet name="footer">
                                 
-                                <p:commandButton value="Guardar" action="#{payTypeBean.updateOther()}"
-                                                    update=":confirmSaleForm:sale-payment-grid" ajax="true" oncomplete="PF('payRollVar').hide()" >
+                                <p:commandButton value="Guardar" action="#{payTypeBean.updateAmountForNominalPay(payRollBean.list)}" immediate="true"
+                                                 ajax="false"   update=":confirmSaleForm:sale-payment-grid" oncomplete="PF('payRollVar').hide()" >
 
                                     </p:commandButton>
                             </f:facet>

@@ -278,9 +278,6 @@ public class PayTypeBean implements IConfigurable {
         }
         nominalPayType.setAmount(amount);
 
-    }
-
-    public void updateOther() {
         for (PayType pt : list) {
             if (pt.getDescription().trim().equals(_NOMINAL_REFERENCE)) {
                 pt.setAmount(nominalPayType.getAmount());
