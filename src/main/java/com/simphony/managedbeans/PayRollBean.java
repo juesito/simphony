@@ -115,6 +115,7 @@ public class PayRollBean implements IConfigurable {
      * agregamos un rol de pago
      *
      * @param saleAmount
+     * @throws java.lang.CloneNotSupportedException
      */
     public void addPayRoll(Double saleAmount) throws CloneNotSupportedException {
         Boolean exist = true;
