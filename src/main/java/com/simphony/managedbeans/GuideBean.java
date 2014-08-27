@@ -23,6 +23,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.springframework.data.domain.Sort;
 
 /**
  *
@@ -132,7 +133,8 @@ public class GuideBean implements IConfigurable {
      */
     private void fillGuide() {
         list.clear();
-        Iterable<Guide> c = this.guideService.getRepository().findAll();
+//        Iterable<Guide> c = this.guideService.getRepository().findAllLocal();
+        Iterable<Guide> c = this.guideService.getRepository().findAll(sortByDate());
         if (c != null ){
             Iterator<Guide> cu = c.iterator();
             while (cu.hasNext()) {
@@ -149,6 +151,7 @@ public class GuideBean implements IConfigurable {
     public String guideDetail() {
         if (this.selected != null) {
             listDetail.clear();
+//            listDetail = guideService.getRepository().qryGuideDetailLocal(this.selected.getDepartureDate(), this.selected.getOrigin().getId());
             listDetail = guideService.getRepository().qryGuideDetail(this.selected.getId());
             return "toGuideDetail";
         } else {
@@ -208,6 +211,10 @@ public class GuideBean implements IConfigurable {
     public String toGuide() {
         this.fillGuide();
         return "toGuide";
+    }
+
+    private Sort sortByDate() {
+    return new Sort(Sort.Direction.ASC, "departureDate");
     }
 
 }

@@ -10,7 +10,6 @@ import com.simphony.entities.PayRoll;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -159,6 +158,13 @@ public class PayRollBean implements IConfigurable {
         return "toPayRolls";
     }
 
+    
+    public void deleteRowTable() {
+
+        this.list.remove(this.selected);
+ 
+    }
+    
     private Sort sortByKeyId() {
         return new Sort(Sort.Direction.ASC, "IdPayRoll");
     }
