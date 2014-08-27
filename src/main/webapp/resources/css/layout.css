@@ -99,7 +99,7 @@
 #marco-izq-img{
     float: left;
     width: 17%;
-    max-height:100px;
+    max-height:90px;
     position: relative;
     clear: right;
 }
@@ -124,12 +124,11 @@
 }
 
 #logo{
-    margin-top: 18px;
+    margin-top: 30px;
     margin-left: 400px;
-    margin-bottom: 100px;
     border: 0px; 
     width:400px; 
-    height:90px;
+    height:80px;
 }
 
 #top-band2{
