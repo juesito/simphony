@@ -22,7 +22,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="payRoll" value="#{payRollBean.payRoll.idPayRoll}" maxlength="10" required="true" 
-                                                 requiredMessage="Folio requerido"/>
+                                                 requiredMessage="Folio requerido" style="width: 60px;"/>
                                     <p:message for="payRoll" />
                                 </p:column>
                                 <p:column>
@@ -38,7 +38,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="amount" value="#{payRollBean.payRoll.amount}" maxlength="10" required="true" 
-                                                 requiredMessage="Importe requerido" />
+                                                 requiredMessage="Importe requerido" style="width: 60px;"/>
                                     <p:message for="amount" />
                                 </p:column>
                                 <p:column>
@@ -55,7 +55,7 @@
                                 <p:column>
                                     <p:commandButton value="Agregar" action="#{payRollBean.addPayRoll(saleBean.sale.amount)}"
                                                      ajax="true" update=":formPayRoll:payRollDetailDT :formPayRoll:payRollSum
-                                                     :formPayRoll:payRoll :formPayRoll:amount" >
+                                                     :formPayRoll:payRoll :formPayRoll:amount ">
 
                                     </p:commandButton>
                                 </p:column>
@@ -66,11 +66,13 @@
 
                     <div id="guide-detail-detail" class="guide-detail-detail">
                         <!-- Data table de itinetarios -->
-                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail"                              
-                                     id="payRollDetailDT" rowKey="#{payRollDetail.idPayRoll}" 
-                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail" 
+                                     selectionMode="single" selection="#{payRollBean.selected}" 
+                                     rowKey="#{payRoll.idPayRoll}" id="payRollDetailDT"
+                                     emptyMessage="#{msgs.no_records_found}" rows="5"
                                      paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{PageLinks}">
+                                     paginatorTemplate="{PageLinks}"
+                                    >
                             
                             <p:column headerText="#{msgs.cat_payRoll}" >
                                 <p:outputLabel value="#{payRollDetail.idPayRoll}" />
@@ -80,13 +82,15 @@
                             </p:column>
                             <f:facet name="footer">
                                 
+                                <p:commandButton value="Eliminar" action="#{payRollBean.deleteRowTable()}"
+                                                     ajax="false" immediate="true" update=":formPayRoll:payRollDetailDT">
+                                </p:commandButton>
                                 <p:commandButton value="Guardar" action="#{payTypeBean.updateAmountForNominalPay(payRollBean.list)}" immediate="true"
                                                  ajax="false"   update=":confirmSaleForm:sale-payment-grid" oncomplete="PF('payRollVar').hide()" >
 
                                     </p:commandButton>
                             </f:facet>
                         </p:dataTable>
-
                     </div>
                 </h:form>
 
