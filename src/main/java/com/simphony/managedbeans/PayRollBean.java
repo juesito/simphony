@@ -135,7 +135,7 @@ public class PayRollBean implements IConfigurable {
                 if (exist) {
                     
                     GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
-                            + " Importe: " + this.payRoll.getAmount() + " " + mp.getValue("error_keyId_Detail"));
+                            + " Importe: " + this.payRoll.getAmount() + " Fecha: " + this.payRoll.getSale().getFormatDateTime() + mp.getValue("error_keyId_Detail"));
                     
                 } else {
 

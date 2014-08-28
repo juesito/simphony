@@ -79,12 +79,6 @@
                                 <p:outputLabel value="#{payRollDetail.amount}" />
                             </p:column>
 
-                            <p:column style="width:32px;text-align: center">
-                                <p:commandButton update=":main-form:growl payRollDetailDT" icon="ui-icon-search" immediate="true"
-                                                 title="Delete" action="#{payRollBean.deleteRowTable(payRollDetail)}">                                    
-                                </p:commandButton>
-                            </p:column>
-
                             <f:facet name="footer">
 
                                 <p:commandButton value="Guardar" action="#{payTypeBean.updateAmountForNominalPay(payRollBean.list)}" immediate="true"

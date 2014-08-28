@@ -171,7 +171,7 @@ public class SaleBean implements IConfigurable {
 
         if (temp != null) {
             innerSaleDetail.setAssociate(temp);
-            innerSaleDetail.setCustomerName(temp.getName());
+            innerSaleDetail.setCustomerName(temp.getFirstLastName().trim() + " "+ temp.getSecondLastName().trim() + " " + temp.getName().trim());
             this.saleDetail.set(index, innerSaleDetail);
 
         } else {
