@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -137,8 +138,10 @@ public class SaleBean implements IConfigurable {
 
                     Calendar calTimeTmp = Calendar.getInstance();
                     calTimeTmp.setTime(itineraryCost1.getItinerary().getDepartureTime());
-                    itineraryCost1.setDepartureTime(new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
-                            calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND)));
+                    
+                    Calendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+                            calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND));
+                    itineraryCost1.setDepartureTime(calendar.getTime());
                 }
 
                 model = new ItineraryCostModel(itineraryCost);
@@ -282,10 +285,11 @@ public class SaleBean implements IConfigurable {
                         seat.set(index, occupiedPattern);
                     } else if (selected.getItinerary().getSequence() == reserved.getInitialSequence()) {
                         seat.set(index, occupiedPattern);
-                    } else if (selected.getAlternateItinerary().getSequence() > reserved.getInitialSequence()) {
+                        //Alt 10  -  Initial 0
+                    }else if (selected.getItinerary().getSequence() > reserved.getInitialSequence() && 
+                            selected.getAlternateItinerary().getSequence() < reserved.getFinalSequence()) {
                         seat.set(index, occupiedPattern);
                     }
-
                 }
             }
 
@@ -742,14 +746,19 @@ public class SaleBean implements IConfigurable {
      * @return
      */
     public String findSeat(String seat) {
-        unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
+        if (!seat.isEmpty()) {
+           unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
 
-        if (unSelectedDetail != null) {
-            this.sale.setSeat(seat);
+           if (unSelectedDetail != null) {
+                this.sale.setSeat(seat);
+            } else {
+                this.sale.setSeat(null);
+                GrowlBean.simplyErrorMessage("Error", "Asiento no encontrado");
+            }
         } else {
-            this.sale.setSeat(null);
-            GrowlBean.simplyErrorMessage("Error", "Asiento no encontrado");
+            GrowlBean.simplyWarmMessage("Asiento no capturado", "No Se ha capturado el asiento solicitado");
         }
+
         return "toCancel";
     }
 
@@ -783,15 +792,8 @@ public class SaleBean implements IConfigurable {
      * @return
      */
     public String toCancel() {
-        String msgNav;
-        if (this.sale.getSeat().isEmpty()) {
-            msgNav = "toCancel";
-        } else {
-            GrowlBean.simplyWarmMessage("Asiento no capturado", "No Se ha capturado el asiento solicitado");
-            msgNav = "toCancel";
-        }
 
-        return msgNav;
+        return "toCancel";
     }
 
     //Pendiente

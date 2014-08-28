@@ -115,6 +115,12 @@
                             <p:column headerText="#{msgs.cat_name}" >
                                 <p:outputLabel value="#{guideDetail.customerName}" />
                             </p:column>
+                            <p:column headerText="#{msgs.cat_origin}" >
+                                <p:outputLabel value="#{guideDetail.sale.origin.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_destiny}" >
+                                <p:outputLabel value="#{guideDetail.sale.destiny.description}" />
+                            </p:column>
                             <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"

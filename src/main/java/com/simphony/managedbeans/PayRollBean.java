@@ -10,7 +10,6 @@ import com.simphony.entities.PayRoll;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -136,8 +135,7 @@ public class PayRollBean implements IConfigurable {
                 if (exist) {
                     
                     GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
-                            + " Importe: " + this.payRoll.getAmount() + " Fecha:" + this.payRoll.getSale().getCreateDate()
-                            + " " + mp.getValue("error_keyId_Detail"));
+                            + " Importe: " + this.payRoll.getAmount() + " " + mp.getValue("error_keyId_Detail"));
                     
                 } else {
 
@@ -159,6 +157,18 @@ public class PayRollBean implements IConfigurable {
         return "toPayRolls";
     }
 
+    
+    public void deleteRowTable(PayRoll pr) {
+
+        for(PayRoll payRollList : this.list){
+            if(pr.getIdPayRoll().equals(payRollList.getIdPayRoll().trim())){
+                int index = this.list.indexOf(payRollList);
+                this.list.remove(index);
+            }
+        }
+ 
+    }
+    
     private Sort sortByKeyId() {
         return new Sort(Sort.Direction.ASC, "IdPayRoll");
     }
