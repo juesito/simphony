@@ -50,11 +50,11 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    
+
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Agregar" action="#{payRollBean.addPayRoll(saleBean.sale.amount)}"
-                                                     ajax="true" update=":formPayRoll:payRollDetailDT :formPayRoll:payRollSum
+                                                     ajax="true" update=":main-form:growl :formPayRoll:payRollDetailDT :formPayRoll:payRollSum
                                                      :formPayRoll:payRoll :formPayRoll:amount ">
 
                                     </p:commandButton>
@@ -66,29 +66,31 @@
 
                     <div id="guide-detail-detail" class="guide-detail-detail">
                         <!-- Data table de itinetarios -->
-                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail" 
-                                     selectionMode="single" selection="#{payRollBean.selected}" 
-                                     rowKey="#{payRoll.idPayRoll}" id="payRollDetailDT"
+                        <p:dataTable value="#{payRollBean.list}" var="payRollDetail"                                      
+                                     id="payRollDetailDT"
                                      emptyMessage="#{msgs.no_records_found}" rows="5"
                                      paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{PageLinks}"
-                                    >
-                            
+                                     paginatorTemplate="{PageLinks}"  >
+
                             <p:column headerText="#{msgs.cat_payRoll}" >
                                 <p:outputLabel value="#{payRollDetail.idPayRoll}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_amount}" >
                                 <p:outputLabel value="#{payRollDetail.amount}" />
                             </p:column>
-                            <f:facet name="footer">
-                                
-                                <p:commandButton value="Eliminar" action="#{payRollBean.deleteRowTable()}"
-                                                     ajax="false" immediate="true" update=":formPayRoll:payRollDetailDT">
+
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton update=":main-form:growl payRollDetailDT" icon="ui-icon-search" immediate="true"
+                                                 title="Delete" action="#{payRollBean.deleteRowTable(payRollDetail)}">                                    
                                 </p:commandButton>
+                            </p:column>
+
+                            <f:facet name="footer">
+
                                 <p:commandButton value="Guardar" action="#{payTypeBean.updateAmountForNominalPay(payRollBean.list)}" immediate="true"
                                                  ajax="false"   update=":confirmSaleForm:sale-payment-grid" oncomplete="PF('payRollVar').hide()" >
 
-                                    </p:commandButton>
+                                </p:commandButton>
                             </f:facet>
                         </p:dataTable>
                     </div>

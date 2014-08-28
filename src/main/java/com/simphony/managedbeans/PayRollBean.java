@@ -135,8 +135,7 @@ public class PayRollBean implements IConfigurable {
                 if (exist) {
                     
                     GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
-                            + " Importe: " + this.payRoll.getAmount() + " Fecha:" + this.payRoll.getSale().getCreateDate()
-                            + " " + mp.getValue("error_keyId_Detail"));
+                            + " Importe: " + this.payRoll.getAmount() + " " + mp.getValue("error_keyId_Detail"));
                     
                 } else {
 
@@ -159,9 +158,14 @@ public class PayRollBean implements IConfigurable {
     }
 
     
-    public void deleteRowTable() {
+    public void deleteRowTable(PayRoll pr) {
 
-        this.list.remove(this.selected);
+        for(PayRoll payRollList : this.list){
+            if(pr.getIdPayRoll().equals(payRollList.getIdPayRoll().trim())){
+                int index = this.list.indexOf(payRollList);
+                this.list.remove(index);
+            }
+        }
  
     }
     
