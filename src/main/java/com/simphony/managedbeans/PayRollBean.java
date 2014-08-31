@@ -143,7 +143,7 @@ public class PayRollBean implements IConfigurable {
                     list.add(payRollTmp);
                 }
             } else {
-                GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), " Importe: " + this.payRoll.getAmount()
+                GrowlBean.simplyFatalMessage(mp.getValue("error_amount"), " Importe: " + this.payRoll.getAmount()
                         + " Mayor a la venta:" + saleAmount);
             }
             this.payRoll.setIdPayRoll("");

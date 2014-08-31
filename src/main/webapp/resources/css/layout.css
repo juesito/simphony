@@ -287,6 +287,17 @@ div{ display:block; }
     min-height: 350px;
     border-radius: 25px;
 }
+.box-content-sale2{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px; 
+    margin-right: 20px;
+    border: 1px solid rgba(27,71,48,1);
+    padding: 10px 40px;     
+    width: 300px;
+    min-height: 350px;
+    border-radius: 25px;
+}
 
 .box-content-sale-detail{
     display: inline-block;
@@ -296,6 +307,16 @@ div{ display:block; }
     padding: 10px 40px;     
     width: 60%;
     border-radius: 25px;
+    min-height: 500px;
+}
+.box-content-sale-detail2{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+ //   border: 1px solid rgba(27,71,48,1);
+    padding: 10px 40px;     
+    width: 60%;
+ //   border-radius: 25px;
     min-height: 500px;
 }
 

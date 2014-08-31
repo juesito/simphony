@@ -242,7 +242,7 @@ public class SaleBean implements IConfigurable {
             guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
             if (guideRoot == null) {
                 guideRoot = new Guide();
-                guideRoot.setVendor(vendor);
+                guideRoot.setUsrModify(vendor.getNick());
                 guideRoot.setGuideType(_LOCAL);
                 guideRoot.setCreateDate(new Date());
                 guideRoot.setStatus(_GUIDE_TYPE_OPEN);
@@ -322,7 +322,7 @@ public class SaleBean implements IConfigurable {
         // Guardamos la guia
         if (guide.isNewGuide()) {
 
-            guide.setVendor(vendor);
+            guide.setUsrModify(vendor.getNick());
             guide.setCreateDate(new Date());
             guide.setStatus(_GUIDE_TYPE_OPEN);
             guide.setGuideType(_FOREING);
@@ -452,7 +452,7 @@ public class SaleBean implements IConfigurable {
 
         //Validamos el monto recibido
         if (amountPayed < sale.getAmount()) {
-            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto indresado");
+            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto ingresado");
             msgNav = "toSaleConfirm";
         } else if (amountPayed > sale.getAmount()) {
             GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
