@@ -780,7 +780,8 @@ public class SaleBean implements IConfigurable {
         sale.setPassengers(sale.getPassengers() - 1);
         sale = saleService.getSaleRepository().save(sale);
         GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");
-        this.sale.setSeat("");
+        this.sale = new Sale();
+       
 
         return "toCancel";
 
@@ -792,7 +793,7 @@ public class SaleBean implements IConfigurable {
      * @return
      */
     public String toCancel() {
-
+        
         return "toCancel";
     }
 

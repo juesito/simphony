@@ -18,6 +18,16 @@
                                 <p:panelGrid styleClass="sale-schedule-panel" 
                                              >
                                     <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                    </p:column>
+                                    </p:row>
+                                    <p:row>
+                                    <p:column>
+                                        <p:outputLabel value=" " />
+                                    </p:column>
+                                    </p:row>
+                                    <p:row>
                                         <p:column>
                                             <p:outputLabel value="#{msgs.cat_origin}:" />
                                         </p:column>                                    
@@ -83,7 +93,7 @@
                                         <p:column>
                                             <p:commandButton value="buscar" actionListener="#{saleBean.findSeat(saleBean.sale.seat)}" 
                                                              ajax="true" styleClass="button-rounded" 
-                                                             update=":saleForm:sale-panel :main-form:growl"   >
+                                                             update=":saleForm:sale-seat-grid :main-form:growl"   >
 
                                             </p:commandButton>
                                         </p:column>
@@ -94,47 +104,64 @@
                         </div>
 
                         <div class="box-content-sale-detail" >
-                            <!-- Itinerario Grid -->
-                            <p:panel id="sale-panel">
-                                <!-- first phase -->
-                                <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.seat != null}">
+                            <p:panelGrid id="sale-seat-grid" 
+                                         style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
+                                <p:row>
+                                    <p:column>
+                                            <p:panelGrid styleClass="inner-seat-grid"  rendered="#{saleBean.sale.seat != null}" >
+                                                <p:row>
+                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                        <p:outputLabel value="Asiento:" style="font-weight: bold;" />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:outputLabel value="#{saleBean.sale.seat}" />
+                                                    </p:column>
+                                                </p:row>
+
+                                                <p:row>
+                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                        <p:outputLabel value="Nombre:" style="font-weight: bold;"  />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:outputLabel value="#{saleBean.unSelectedDetail.customerName}"  />
+                                                    </p:column>
+                                                </p:row>
                                      <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{msgs.cat_seat}:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.seat}" />
-                                        </p:column>
-                                    </p:row>
-                                     <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{msgs.cat_name}:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.unSelectedDetail.customerName}" />
-                                        </p:column>
-                                    </p:row>
-                                     <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Costo:" />
+                                        <p:column style="background-color: #6DAD65; color:#FFF;">
+                                            <p:outputLabel value="Costo:" style="font-weight: bold;" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{saleBean.unSelectedDetail.amount}" />
                                         </p:column>
                                     </p:row>
-
+                                            </p:panelGrid>
+                                    </p:column>
+                                </p:row>                                        
                                     <p:row>
                                         <p:column>
-                                            <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"
+                                            <p:outputLabel value="" />
+                                       </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  rendered="#{saleBean.sale.seat != null}"
                                                              actionListener="#{saleBean.cancelSeat(vendorBean.current)}"
                                                              ajax="true" 
-                                                             update=":saleForm:sale-detail-grid">
+                                                             update=":saleForm:sale-seat-grid :main-form:growl" >
                                              </p:commandButton>
                                         </p:column>
                                     </p:row>
-
-                                </p:panelGrid>
-                            </p:panel>
+                                
+                            </p:panelGrid>
+ 
+                        
+                        
+                        
                        </div>
                     </h:form>
                 </ui:define>
