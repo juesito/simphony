@@ -46,6 +46,10 @@
                             </p:submenu>
                             <p:submenu label="   Reportes   " rendered="#{userBean.current.looged}">  
                                 <p:menuitem value="Por definir" /> 
+                                <p:menuitem value="Venta diaria" action="toDailySales" icon="ui-icon-document" ajax="false"
+                                            styleClass="miMenuItem">
+                                    <f:actionListener  binding="#{boxVendorService.fillBox()}"/>
+                                </p:menuitem>
                             </p:submenu>
                             <p:submenu label="   Catalogos   " rendered="#{userBean.current.looged}">
                                 <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false"

@@ -11,61 +11,76 @@
         <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
 
             <ui:define name="content">
-                <div class="catalog-table">
-                    <h:form id="form">
+                <!-- panel para agregar -->
+                <h:form id="form">
+                    <p:outputLabel value="Ventas diarias" class="welcome-title"  />
+                    <br/><br/>
 
-                        <p:outputLabel value="#{msgs.cat_vendors}" class="welcome-title" />
-                        <br />
+                    <!-- div header detail -->
+                    <div id="guide-header-detail" class="guide-header-detail">
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid  styleClass="guide-header">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_vendor}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="vendor" value="#{saleBean.sale.vendor}" 
+                                                     converter="vendorConverter" 
+                                                     style="width:300px" required="true" 
+                                                     tabindex="1" >
+                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_vendor}"  />
+                                        <f:selectItems value="#{boxVendorService.vendorList}"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="vendor" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                               <p:column>
+                                   <p:outputLabel value="Fecha:" />
+                              </p:column>
+                               <p:column>
+                                   <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                               pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
+                               </p:column>
+                             </p:row>
+                            <p:row>
+                                <p:column>
+                                   <p:commandButton value="Procesar" actionListener="#{saleBean.findItinearies()}" 
+                                                    ajax="true" styleClass="button-rounded" 
+                                                    update=":form:saleDetailDT :main-form:growl"   >
+                                   </p:commandButton>
+                                </p:column>
+                            </p:row>
 
-                        <!-- Data table de usuarios -->
-                        <p:dataTable value="#{vendorBean.list}" var="vendor" style="font-size: 12px;"
-                                     selectionMode="single" selection="#{vendorBean.selected}" 
-                                     rowKey="#{vendor.id}" id="vendorDT"
+                        </p:panelGrid>
+                    </div>
+
+                    <div id="guide-detail-detail" class="guide-detail-detail">
+                        <!-- Data table -->
+                        <p:dataTable value="#{saleBean.list}" var="saleDetail" style="font-size: 12px;"                                   
+                                     id="saleDetailDT"
                                      emptyMessage="#{msgs.no_records_found}" rows="10"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                      >
-                            <p:column headerText="#{msgs.cat_nick}" filterBy="#{vendor.nick}"
-                                      filterMatchMode="contains" >
-                                <p:outputLabel value="#{vendor.nick}" />
+                            <p:column headerText="#{msgs.cat_origin}" >
+                                <p:outputLabel value="#{sale.origin.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_destiny}" >
+                                <p:outputLabel value="#{sale.destiny.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_payType}" >
+                                <p:outputLabel value="#{sale.type}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_amount}" >
+                                <p:outputLabel value="#{sale.amount}" />
                             </p:column>
 
-                            <p:column headerText="#{msgs.cat_name}" >
-                                <p:outputLabel value="#{vendor.name}" />
-                            </p:column>
-
-                            <p:column headerText="#{msgs.cat_firstLastName}" >
-                                <p:outputLabel value="#{vendor.firstLastName}" />
-                            </p:column>
-
-                            <p:column headerText="#{msgs.cat_secondLastName}" >
-                                <p:outputLabel value="#{vendor.secondLastName}" />
-                            </p:column>
-
-                            <p:column headerText="#{msgs.cat_salePoint}">
-                                <p:outputLabel value="#{vendor.salePoint.description}" />
-                            </p:column>
-
-                            <p:column headerText="#{msgs.cat_population}">
-                                <p:outputLabel value="#{vendor.population.description}" />
-                            </p:column>
-
-                            <p:column headerText="#{msgs.cat_workCenter}">
-                                <p:outputLabel value="#{vendor.workCenter.description}" />
-                            </p:column>
-                            <p:column headerText="#{msgs.cat_status}"  style="width: 50px;">
-                                <p:outputLabel value="#{vendor.formatStatus}" />
-                            </p:column>
-
-                            <!-- Footer -->
-                            <f:facet name="footer">
-                               <p:commandButton process="vendorDT" 
-                                                 icon="ui-icon-search" ajax="false"
-                                                 value="venta diaria" action="#{vendorBean.modifyVendor()}" />
-                            </f:facet>
                         </p:dataTable>
-                    </h:form>
-                </div>
+
+                    </div>
+                </h:form>
             </ui:define>
 
         </ui:composition>
