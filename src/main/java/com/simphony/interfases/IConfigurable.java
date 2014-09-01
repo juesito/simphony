@@ -51,6 +51,6 @@ public interface IConfigurable {
     
     final String _PASSENGER = "P";
     final String _RETIREE = "J";
-    final String _NOMINAL_REFERENCE = "Folios Nominales";
+    final String _NOMINAL_REFERENCE = "Nomina";
 
 }

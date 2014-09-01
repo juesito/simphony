@@ -831,6 +831,11 @@ public class SaleBean implements IConfigurable {
         return "toCancel";
     }
 
+    public String toDailySales() {
+        
+        return "toDailySales";
+    }
+
     //Pendiente
     public void confirmPayRoll(List<PayRoll> list) {
         this.payRollList = list;
