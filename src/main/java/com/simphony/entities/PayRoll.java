@@ -36,12 +36,12 @@ public class PayRoll implements Serializable, Cloneable {
     private Sale sale;
 
     public PayRoll() {
-
     }
     
     public PayRoll(String folio, Double amount) {
         this.idPayRoll = folio;
         this.amount = amount;
+        this.id = 0L;
     }
 
 

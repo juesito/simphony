@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+
+                        <p:outputLabel value="#{msgs.cat_vendors}" class="welcome-title" />
+                        <br />
+
+                        <!-- Data table de usuarios -->
+                        <p:dataTable value="#{vendorBean.list}" var="vendor" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{vendorBean.selected}" 
+                                     rowKey="#{vendor.id}" id="vendorDT"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
+                                     >
+                            <p:column headerText="#{msgs.cat_nick}" filterBy="#{vendor.nick}"
+                                      filterMatchMode="contains" >
+                                <p:outputLabel value="#{vendor.nick}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_name}" >
+                                <p:outputLabel value="#{vendor.name}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_firstLastName}" >
+                                <p:outputLabel value="#{vendor.firstLastName}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_secondLastName}" >
+                                <p:outputLabel value="#{vendor.secondLastName}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_salePoint}">
+                                <p:outputLabel value="#{vendor.salePoint.description}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_population}">
+                                <p:outputLabel value="#{vendor.population.description}" />
+                            </p:column>
+
+                            <p:column headerText="#{msgs.cat_workCenter}">
+                                <p:outputLabel value="#{vendor.workCenter.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_status}"  style="width: 50px;">
+                                <p:outputLabel value="#{vendor.formatStatus}" />
+                            </p:column>
+
+                            <!-- Footer -->
+                            <f:facet name="footer">
+                               <p:commandButton process="vendorDT" 
+                                                 icon="ui-icon-search" ajax="false"
+                                                 value="venta diaria" action="#{vendorBean.modifyVendor()}" />
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

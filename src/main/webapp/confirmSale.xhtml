@@ -14,6 +14,7 @@
                     <h:form id="confirmSaleForm">
 
                         <div class="box-content-sale-confirm" >
+                            
                             <!-- Informacion general de la venta -->
                             <p:panelGrid id="payGrid-content">
                                 <p:row>
@@ -82,7 +83,7 @@
 
                             <!-- Seats Grid -->
                             <p:panelGrid id="sale-seat-grid" 
-                                         style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
+                                         style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
                                 <p:row>
                                     <p:column>
                                         <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="2" 
@@ -147,11 +148,12 @@
 
                             <!-- Captura de pagos -->
                             <p:panelGrid id="sale-payment-grid"  
-                                         style="margin-top: 15px; border: 1px solid #225A01; width: 100%;">
+                                         style="margin-top: 15px; border: 0px solid #225A01; width: 100%;">
                                 <p:row>
                                     <p:column>
                                         <p:dataGrid var="payment" value="#{payTypeBean.list}" columns="2" 
                                                     rows="4" paginator="false" id="payment" styleClass="grid-seats-main">
+                                            
                                             <p:panelGrid>
                                                 <p:row>
                                                     <p:column colspan="2"> 
@@ -173,7 +175,8 @@
                                 </p:row>                
                                 <p:row>
                                     <p:column>
-                                        <p:commandButton oncomplete="PF('payRollVar').show()" rendered="#{payTypeBean.existNominalPayType}"
+                                        <p:commandButton rendered="#{payTypeBean.existNominalPayType}" update=":main-form:growl"
+                                                         action="#{saleBean.validateAssociates()}" ajax="true"
                                                          value="Folios nomina"/>
                                     </p:column>
                                 </p:row>
@@ -182,7 +185,7 @@
 
 
                             <!-- botones de control -->
-                            <p:panelGrid style="margin-top: 15px;border: 1px solid #225A01; width: 100%;">
+                            <p:panelGrid style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
                                 <p:row>
                                     <p:column>
                                         <p:commandButton value="Cancelar" ajax="false" immediate="true" 
@@ -192,16 +195,19 @@
                                         <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list, payRollBean.list)}"
                                                          style="float: right;">
                                             <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>                                
+                                            <f:actionListener  binding="#{payRollBean.fillPayRolls()}"/>                                
                                         </p:commandButton>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
 
+                            
                         </div>
+                        
                     </h:form>
 
-                    <p:dialog id="idPayRoll" widgetVar="payRollVar"
-                              width="500" height="400" header="Folios de nomina">
+                    <p:dialog id="idPayRoll" widgetVar="payRollVar" 
+                              width="500" height="400" header="Nomina">
                         <ui:include src="./payRoll.xhtml" ></ui:include>
                     </p:dialog>
                 </ui:define>

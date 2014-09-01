@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +42,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -67,6 +69,8 @@ public class SaleBean implements IConfigurable {
     private List<Seat> selectedSeats = new ArrayList<Seat>();
     private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
+    
+    private boolean existSelectedAssociates = false;
 
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
@@ -137,8 +141,10 @@ public class SaleBean implements IConfigurable {
 
                     Calendar calTimeTmp = Calendar.getInstance();
                     calTimeTmp.setTime(itineraryCost1.getItinerary().getDepartureTime());
-                    itineraryCost1.setDepartureTime(new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
-                            calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND)));
+
+                    Calendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+                            calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND));
+                    itineraryCost1.setDepartureTime(calendar.getTime());
                 }
 
                 model = new ItineraryCostModel(itineraryCost);
@@ -168,7 +174,7 @@ public class SaleBean implements IConfigurable {
 
         if (temp != null) {
             innerSaleDetail.setAssociate(temp);
-            innerSaleDetail.setCustomerName(temp.getName());
+            innerSaleDetail.setCustomerName(temp.getFirstLastName().trim() + " " + temp.getSecondLastName().trim() + " " + temp.getName().trim());
             this.saleDetail.set(index, innerSaleDetail);
 
         } else {
@@ -239,7 +245,7 @@ public class SaleBean implements IConfigurable {
             guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
             if (guideRoot == null) {
                 guideRoot = new Guide();
-                guideRoot.setVendor(vendor);
+                guideRoot.setUsrModify(vendor.getNick());
                 guideRoot.setGuideType(_LOCAL);
                 guideRoot.setCreateDate(new Date());
                 guideRoot.setStatus(_GUIDE_TYPE_OPEN);
@@ -282,10 +288,11 @@ public class SaleBean implements IConfigurable {
                         seat.set(index, occupiedPattern);
                     } else if (selected.getItinerary().getSequence() == reserved.getInitialSequence()) {
                         seat.set(index, occupiedPattern);
-                    } else if (selected.getAlternateItinerary().getSequence() > reserved.getInitialSequence()) {
+                        //Alt 10  -  Initial 0
+                    } else if (selected.getItinerary().getSequence() > reserved.getInitialSequence()
+                            && selected.getAlternateItinerary().getSequence() < reserved.getFinalSequence()) {
                         seat.set(index, occupiedPattern);
                     }
-
                 }
             }
 
@@ -318,7 +325,7 @@ public class SaleBean implements IConfigurable {
         // Guardamos la guia
         if (guide.isNewGuide()) {
 
-            guide.setVendor(vendor);
+            guide.setUsrModify(vendor.getNick());
             guide.setCreateDate(new Date());
             guide.setStatus(_GUIDE_TYPE_OPEN);
             guide.setGuideType(_FOREING);
@@ -448,7 +455,7 @@ public class SaleBean implements IConfigurable {
 
         //Validamos el monto recibido
         if (amountPayed < sale.getAmount()) {
-            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto indresado");
+            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto ingresado");
             msgNav = "toSaleConfirm";
         } else if (amountPayed > sale.getAmount()) {
             GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
@@ -546,10 +553,16 @@ public class SaleBean implements IConfigurable {
      */
     public void addSeat() {
         String bolType = "";
+        boolean exist = false;
         if (saleDetail.size() < this.sale.getPassengers() + this.sale.getRetirees()) {
             if (this.selectedSeat != null) {
-                SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer(), associate, bolType);
-                if (!saleDetail.contains(saleDetailTmp)) {
+                for (SaleDetail sl : saleDetail) {
+                    if (this.selectedSeat.getSeat().trim().equals(sl.getSeat().getSeat().trim())) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer(), associate, bolType);
                     saleDetail.add(saleDetailTmp);
                 }
             }
@@ -569,6 +582,30 @@ public class SaleBean implements IConfigurable {
 
     public void fillSeats() {
         init();
+    }
+
+    /**
+     * Validamos que se haya tecleado algu id del asociado
+     *
+     */
+    public void validateAssociates() {
+        
+        boolean exist = false;
+        for (SaleDetail sl : saleDetail) {
+            if (!sl.getAssociateKey().trim().isEmpty()) {
+                exist = true;
+                break;
+            }
+        }
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        
+        if (!exist) {
+            GrowlBean.simplyInfoMessage("Solo agremiados.","No existen agremiados seleccionados.");
+        } else {
+            context.execute("PF('payRollVar').show()");
+        }
+
     }
 
     public List<Seat> getSeat() {
@@ -742,14 +779,20 @@ public class SaleBean implements IConfigurable {
      * @return
      */
     public String findSeat(String seat) {
-        unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
+        if (!seat.isEmpty()) {
+            unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), 
+                    this.sale.getTripDate(), seat);
 
-        if (unSelectedDetail != null) {
-            this.sale.setSeat(seat);
+            if (unSelectedDetail != null) {
+                this.sale.setSeat(seat);
+            } else {
+                this.sale.setSeat(null);
+                GrowlBean.simplyErrorMessage("Error", "Asiento no encontrado");
+            }
         } else {
-            this.sale.setSeat(null);
-            GrowlBean.simplyErrorMessage("Error", "Asiento no encontrado");
+            GrowlBean.simplyWarmMessage("Asiento no capturado", "No Se ha capturado el asiento solicitado");
         }
+
         return "toCancel";
     }
 
@@ -771,7 +814,8 @@ public class SaleBean implements IConfigurable {
         sale.setPassengers(sale.getPassengers() - 1);
         sale = saleService.getSaleRepository().save(sale);
         GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");
-        this.sale.setSeat("");
+        this.sale = new Sale();
+       
 
         return "toCancel";
 
@@ -783,15 +827,8 @@ public class SaleBean implements IConfigurable {
      * @return
      */
     public String toCancel() {
-        String msgNav;
-        if (this.sale.getSeat().isEmpty()) {
-            msgNav = "toCancel";
-        } else {
-            GrowlBean.simplyWarmMessage("Asiento no capturado", "No Se ha capturado el asiento solicitado");
-            msgNav = "toCancel";
-        }
-
-        return msgNav;
+        
+        return "toCancel";
     }
 
     //Pendiente
@@ -824,4 +861,13 @@ public class SaleBean implements IConfigurable {
         this.payRollList = payRollList;
     }
 
+    public boolean isExistSelectedAssociates() {
+        return existSelectedAssociates;
+    }
+
+    public void setExistSelectedAssociates(boolean existSelectedAssociates) {
+        this.existSelectedAssociates = existSelectedAssociates;
+    }
+
+    
 }
