@@ -780,7 +780,8 @@ public class SaleBean implements IConfigurable {
      */
     public String findSeat(String seat) {
         if (!seat.isEmpty()) {
-            unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
+            unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), 
+                    this.sale.getTripDate(), seat);
 
             if (unSelectedDetail != null) {
                 this.sale.setSeat(seat);
