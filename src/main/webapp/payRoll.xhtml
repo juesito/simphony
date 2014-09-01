@@ -78,6 +78,11 @@
                             <p:column headerText="#{msgs.cat_amount}" >
                                 <p:outputLabel value="#{payRollDetail.amount}" />
                             </p:column>
+                            <p:column headerText="Eliminar" style="width:40px;text-align: center">
+                                <p:commandButton update=":main-form:growl payRollDetailDT" icon="ui-icon-delete" immediate="true"
+                                                 title="Delete" action="#{payRollBean.deleteRowTable(payRollDetail)}">                                    
+                                </p:commandButton>
+                            </p:column>
 
                             <f:facet name="footer">
 
