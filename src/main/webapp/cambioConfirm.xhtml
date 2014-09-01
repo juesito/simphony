@@ -15,57 +15,56 @@
                         <div class="box-content-sale" >
                             <!-- choice your origin and destiny -->
                             <p:panel id="sale-input" >
-                                <p:panelGrid styleClass="sale-schedule-panel" 
-                                             >
+                                <p:panelGrid styleClass="sale-schedule-panel" >
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Resumen" style=" font-size:20px " />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Resumen" style=" font-size:20px " />
+                                        </p:column>
                                     </p:row>
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value=" "  />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value=" "  />
+                                        </p:column>
                                     </p:row>
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value=" "  />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value=" "  />
+                                        </p:column>
                                     </p:row>
-                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Origen:" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="#{saleBean.selected.itinerary.origin.description}" />
-                                    </p:column>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Origen:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.selected.itinerary.origin.description}" />
+                                        </p:column>
 
                                     </p:row>
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Destino:" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="#{saleBean.selected.itinerary.destiny.description}" />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Destino:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.selected.itinerary.destiny.description}" />
+                                        </p:column>
                                     </p:row>
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Fecha:" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Fecha:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
+                                        </p:column>
                                     </p:row>
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Hora:" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="#{saleBean.selected.formatDepartureTime}" />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Hora:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.selected.formatDepartureTime}" />
+                                        </p:column>
                                     </p:row>
-                                   <p:row>
+                                    <p:row>
                                         <p:column>
                                             <p:outputLabel value="Pasajeros:" />
                                         </p:column>
@@ -76,38 +75,38 @@
                                     <p:row>
                                     </p:row>
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value=" "  />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value=" "  />
+                                        </p:column>
                                     </p:row>
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value=" "  />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value=" "  />
+                                        </p:column>
                                     </p:row>
                                     <p:row>
-                                   <p:column>
-                                        <p:outputLabel value="Descuento:" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Descuento:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
+                                        </p:column>
                                     </p:row>
                                     <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Sub total:" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Sub total:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
+                                        </p:column>
                                     </p:row>
                                     <p:row>
-                                   <p:column>
-                                        <p:outputLabel value="Total:" />
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="$#{saleBean.sale.amount}" style="color:red !important;" />
-                                    </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="Total:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="$#{saleBean.sale.amount}" style="color:red !important;" />
+                                        </p:column>
                                     </p:row>
                                 </p:panelGrid>
                             </p:panel>
@@ -183,14 +182,14 @@
                             <!-- Captura de pagos -->
                             <p:panelGrid id="sale-payment-grid"  
                                          style="margin-top: 15px; border: 0px solid #225A01; width: 100%;">
-                               <p:outputLabel value="#{msgs.but_add} #{msgs.cat_cost}" class="welcome-title" />
-                               <p:row>
-                                <p:column>
-                                   <p:outputLabel value="Pago:" class="welcome-title" />
-                                </p:column>
+                                <p:outputLabel value="#{msgs.but_add} #{msgs.cat_cost}" class="welcome-title" />
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Pago:" class="welcome-title" />
+                                    </p:column>
                                 </p:row>                                        
-                               <p:row>
-                                  <p:column>
+                                <p:row>
+                                    <p:column>
                                         <p:dataGrid var="payment" value="#{payTypeBean.list}" columns="2" 
                                                     rows="4" paginator="false" id="payment" styleClass="grid-seats-main">
                                             <p:panelGrid>
@@ -215,7 +214,8 @@
                                 </p:row>                
                                 <p:row>
                                     <p:column>
-                                        <p:commandButton oncomplete="PF('payRollVar').show()" rendered="#{payTypeBean.existNominalPayType}"
+                                        <p:commandButton rendered="#{payTypeBean.existNominalPayType}" update=":main-form:growl"
+                                                         action="#{saleBean.validateAssociates()}" ajax="true"
                                                          value="Folios nomina"/>
                                     </p:column>
                                 </p:row>

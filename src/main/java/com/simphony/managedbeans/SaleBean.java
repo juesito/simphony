@@ -42,6 +42,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -68,6 +69,8 @@ public class SaleBean implements IConfigurable {
     private List<Seat> selectedSeats = new ArrayList<Seat>();
     private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
+    
+    private boolean existSelectedAssociates = false;
 
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
@@ -138,8 +141,8 @@ public class SaleBean implements IConfigurable {
 
                     Calendar calTimeTmp = Calendar.getInstance();
                     calTimeTmp.setTime(itineraryCost1.getItinerary().getDepartureTime());
-                    
-                    Calendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+
+                    Calendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
                             calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND));
                     itineraryCost1.setDepartureTime(calendar.getTime());
                 }
@@ -171,7 +174,7 @@ public class SaleBean implements IConfigurable {
 
         if (temp != null) {
             innerSaleDetail.setAssociate(temp);
-            innerSaleDetail.setCustomerName(temp.getFirstLastName().trim() + " "+ temp.getSecondLastName().trim() + " " + temp.getName().trim());
+            innerSaleDetail.setCustomerName(temp.getFirstLastName().trim() + " " + temp.getSecondLastName().trim() + " " + temp.getName().trim());
             this.saleDetail.set(index, innerSaleDetail);
 
         } else {
@@ -286,8 +289,8 @@ public class SaleBean implements IConfigurable {
                     } else if (selected.getItinerary().getSequence() == reserved.getInitialSequence()) {
                         seat.set(index, occupiedPattern);
                         //Alt 10  -  Initial 0
-                    }else if (selected.getItinerary().getSequence() > reserved.getInitialSequence() && 
-                            selected.getAlternateItinerary().getSequence() < reserved.getFinalSequence()) {
+                    } else if (selected.getItinerary().getSequence() > reserved.getInitialSequence()
+                            && selected.getAlternateItinerary().getSequence() < reserved.getFinalSequence()) {
                         seat.set(index, occupiedPattern);
                     }
                 }
@@ -550,10 +553,16 @@ public class SaleBean implements IConfigurable {
      */
     public void addSeat() {
         String bolType = "";
+        boolean exist = false;
         if (saleDetail.size() < this.sale.getPassengers() + this.sale.getRetirees()) {
             if (this.selectedSeat != null) {
-                SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer(), associate, bolType);
-                if (!saleDetail.contains(saleDetailTmp)) {
+                for (SaleDetail sl : saleDetail) {
+                    if (this.selectedSeat.getSeat().trim().equals(sl.getSeat().getSeat().trim())) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer(), associate, bolType);
                     saleDetail.add(saleDetailTmp);
                 }
             }
@@ -573,6 +582,30 @@ public class SaleBean implements IConfigurable {
 
     public void fillSeats() {
         init();
+    }
+
+    /**
+     * Validamos que se haya tecleado algu id del asociado
+     *
+     */
+    public void validateAssociates() {
+        
+        boolean exist = false;
+        for (SaleDetail sl : saleDetail) {
+            if (!sl.getAssociateKey().trim().isEmpty()) {
+                exist = true;
+                break;
+            }
+        }
+
+        RequestContext context = RequestContext.getCurrentInstance();
+        
+        if (!exist) {
+            GrowlBean.simplyInfoMessage("Solo agremiados.","No existen agremiados seleccionados.");
+        } else {
+            context.execute("PF('payRollVar').show()");
+        }
+
     }
 
     public List<Seat> getSeat() {
@@ -747,9 +780,9 @@ public class SaleBean implements IConfigurable {
      */
     public String findSeat(String seat) {
         if (!seat.isEmpty()) {
-           unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
+            unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), this.sale.getTripDate(), seat);
 
-           if (unSelectedDetail != null) {
+            if (unSelectedDetail != null) {
                 this.sale.setSeat(seat);
             } else {
                 this.sale.setSeat(null);
@@ -826,4 +859,13 @@ public class SaleBean implements IConfigurable {
         this.payRollList = payRollList;
     }
 
+    public boolean isExistSelectedAssociates() {
+        return existSelectedAssociates;
+    }
+
+    public void setExistSelectedAssociates(boolean existSelectedAssociates) {
+        this.existSelectedAssociates = existSelectedAssociates;
+    }
+
+    
 }

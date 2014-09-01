@@ -63,7 +63,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:calendar mode="popup" size="14" locale="mx"  
+                                            <p:calendar mode="popup" size="16" locale="mx"  
                                                         pages="2" showOn="button" value="#{saleBean.sale.tripDate}"
                                                         pattern="dd/MM/yyyy HH:mm"/>
                                         </p:column>
@@ -83,7 +83,7 @@
                                         <p:column>
                                             <p:commandButton value="buscar" actionListener="#{saleBean.findSeat(saleBean.sale.seat)}" 
                                                              ajax="true" styleClass="button-rounded" 
-                                                             update=":saleForm:sale-panel :main-form:growl"   >
+                                                             update=":saleForm:sale-panel :main-form:growl">
 
                                             </p:commandButton>
                                         </p:column>
