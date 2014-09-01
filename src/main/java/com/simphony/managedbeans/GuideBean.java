@@ -194,7 +194,7 @@ public class GuideBean implements IConfigurable {
         if (guideUpdated == null) {
             throw new PersonException("Guía no existente");
         }
-        guide.setVendor(user);
+        guide.setUsrModify(user.getNick());
         guide.setLastUpdate(cal.getTime());
         guideUpdated.update(this.guide);
         this.guideService.getRepository().save(guideUpdated);

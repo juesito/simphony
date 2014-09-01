@@ -99,7 +99,7 @@
 #marco-izq-img{
     float: left;
     width: 17%;
-    max-height:100px;
+    max-height:90px;
     position: relative;
     clear: right;
 }
@@ -124,12 +124,11 @@
 }
 
 #logo{
-    margin-top: 18px;
+    margin-top: 20px;
     margin-left: 400px;
-    margin-bottom: 100px;
     border: 0px; 
     width:400px; 
-    height:90px;
+    height:80px;
 }
 
 #top-band2{
@@ -288,6 +287,17 @@ div{ display:block; }
     min-height: 350px;
     border-radius: 25px;
 }
+.box-content-sale2{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px; 
+    margin-right: 20px;
+    border: 1px solid rgba(27,71,48,1);
+    padding: 10px 40px;     
+    width: 300px;
+    min-height: 350px;
+    border-radius: 25px;
+}
 
 .box-content-sale-detail{
     display: inline-block;
@@ -297,6 +307,16 @@ div{ display:block; }
     padding: 10px 40px;     
     width: 60%;
     border-radius: 25px;
+    min-height: 500px;
+}
+.box-content-sale-detail2{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+ //   border: 1px solid rgba(27,71,48,1);
+    padding: 10px 40px;     
+    width: 60%;
+ //   border-radius: 25px;
     min-height: 500px;
 }
 

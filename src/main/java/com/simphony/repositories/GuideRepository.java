@@ -42,10 +42,10 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
        " AND d.status = 'V' ORDER BY d.seat.id"  )
     public List<SaleDetail> qryGuideDetail(@Param("guideId")Long guideId);
 
-    @Query("SELECT d from SaleDetail d " +
-       " WHERE d.sale.tripDate = :departureDate AND d.sale.origin.id = :origin " +
-       " AND d.status = 'V' ORDER BY d.seat.id"  )
-    public List<SaleDetail> qryGuideDetailLocal(@Param("departureDate")Date departureDate, @Param("origin")Long origin);
+//    @Query("SELECT d from SaleDetail d " +
+//       " WHERE d.sale.tripDate = :departureDate AND d.sale.idRoute = :idRoute " +
+//       " AND d.status = 'V' ORDER BY d.seat.id"  )
+//    public List<SaleDetail> qryGuideDetailLocal(@Param("departureDate")Date departureDate, @Param("idRoute")Long id);
        
     @Query("SELECT g FROM Guide g " +
          "  WHERE g.rootRoute = :routeId " +

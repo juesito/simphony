@@ -88,10 +88,11 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
     @Basic
     private String guideType;
 
-    @OneToOne(targetEntity = Vendor.class)
-    private Person vendor;
+    @Column(name="usuarioMod")
+    @Basic
+    private String usrModify;
     
-    @Column(name="ultimaModificacion")
+    @Column(name="ultimatipoGuiaModificacion")
     @Basic
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastUpdate;
@@ -118,7 +119,7 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
 
     public void update(Guide guideUpdated) {
         this.id = guideUpdated.getId();
-        this.vendor = guideUpdated.getVendor();
+        this.usrModify = guideUpdated.getUsrModify();
         this.rootGuide = guideUpdated.getRootGuide();
         this.rootRoute = guideUpdated.getRootRoute();
         this.origin = guideUpdated.getOrigin();
@@ -237,12 +238,12 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
         this.status = status;
     }
 
-    public Person getVendor() {
-        return vendor;
+    public String getUsrModify() {
+        return usrModify;
     }
 
-    public void setVendor(Person vendor) {
-        this.vendor = vendor;
+    public void setUsrModify(String usrModify) {
+        this.usrModify = usrModify;
     }
 
     public Date getLastUpdate() {

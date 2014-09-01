@@ -14,7 +14,7 @@
                     <h:form id="saleForm">
                         <div class="box-content-sale" >
                             <!-- choice your origin and destiny -->
-                            <p:panel id="sale-input" rendered="#{not saleBean.sale.availability}">
+                            <p:panel id="sale-input" >
                                 <p:panelGrid styleClass="sale-schedule-panel" 
                                              >
                                     <p:row>
@@ -93,21 +93,29 @@
                         </div>
 
                         <div class="box-content-sale-detail" >
+                            
                             <!-- Itinerario Grid -->
                             <p:panel id="sale-panel">
                                 <!-- first phase -->
                                 <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
-                                    <p:row>
+  <!--                                   <p:row>
                                         <p:column>
                                             <p:outputLabel value="Fecha de salida:" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel id="tripDate" value="#{saleBean.sale.formatDateTime}" />
                                         </p:column>
-                                    </p:row>
-
+                                   </p:row>
+                                   disponibilidad de itinerarios -->
                                     <p:row>
-                                        <!-- disponibilidad de itinerarios -->
+                                     <p:row>
+                                        <p:column colspan="2">
+                                         </p:column>
+                                   </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                         </p:column>
+                                   </p:row>
                                         <p:column colspan="2">
                                             <p:dataTable id="dic" value="#{saleBean.model}" var="ic" 
                                                          selectionMode="single" selection="#{saleBean.selected}" 
