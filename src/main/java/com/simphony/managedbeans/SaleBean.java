@@ -29,6 +29,7 @@ import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.models.ItineraryCostModel;
 import com.simphony.pojos.ItineraryCost;
+import com.simphony.pojos.ReservedSeatInDetailSale;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,9 +68,10 @@ public class SaleBean implements IConfigurable {
     private List<Sale> list = new ArrayList();
     private List<PayRoll> payRollList = new ArrayList();
     private List<Seat> selectedSeats = new ArrayList<Seat>();
+    List<ReservedSeatInDetailSale> reservedSeatInDetailSale = new ArrayList();
     private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
-    
+
     private boolean existSelectedAssociates = false;
 
     @ManagedProperty(value = "#{costService}")
@@ -589,7 +591,7 @@ public class SaleBean implements IConfigurable {
      *
      */
     public void validateAssociates() {
-        
+
         boolean exist = false;
         for (SaleDetail sl : saleDetail) {
             if (!sl.getAssociateKey().trim().isEmpty()) {
@@ -599,9 +601,9 @@ public class SaleBean implements IConfigurable {
         }
 
         RequestContext context = RequestContext.getCurrentInstance();
-        
+
         if (!exist) {
-            GrowlBean.simplyInfoMessage("Solo agremiados.","No existen agremiados seleccionados.");
+            GrowlBean.simplyInfoMessage("Solo agremiados.", "No existen agremiados seleccionados.");
         } else {
             context.execute("PF('payRollVar').show()");
         }
@@ -780,7 +782,7 @@ public class SaleBean implements IConfigurable {
      */
     public String findSeat(String seat) {
         if (!seat.isEmpty()) {
-            unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(), 
+            unSelectedDetail = saleService.getSaleRepository().findSeat(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(),
                     this.sale.getTripDate(), seat);
 
             if (unSelectedDetail != null) {
@@ -815,10 +817,25 @@ public class SaleBean implements IConfigurable {
         sale = saleService.getSaleRepository().save(sale);
         GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");
         this.sale = new Sale();
-       
 
         return "toCancel";
 
+    }
+
+    /**
+     * Buscamos asiento
+     *
+     * @param seat
+     * @return
+     */
+    public String findSale() {
+        Sale tmp = new Sale();
+        tmp = saleService.getSaleRepository().findSale(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(),
+                this.sale.getTripDate());
+
+        reservedSeatInDetailSale = saleService.getDetailRepository().findSeatsBySale(tmp.getId());
+        
+        return "toCancel";
     }
 
     /**
@@ -827,7 +844,7 @@ public class SaleBean implements IConfigurable {
      * @return
      */
     public String toCancel() {
-        
+
         return "toCancel";
     }
 
@@ -869,5 +886,14 @@ public class SaleBean implements IConfigurable {
         this.existSelectedAssociates = existSelectedAssociates;
     }
 
+    public List<ReservedSeatInDetailSale> getReservedSeatInDetailSale() {
+        return reservedSeatInDetailSale;
+    }
+
+    public void setReservedSeatInDetailSale(List<ReservedSeatInDetailSale> reservedSeatInDetailSale) {
+        this.reservedSeatInDetailSale = reservedSeatInDetailSale;
+    }
     
+    
+
 }

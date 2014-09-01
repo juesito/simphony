@@ -6,8 +6,13 @@
 
 package com.simphony.repositories;
 
+import com.simphony.entities.ReservedSeats;
 import com.simphony.entities.SaleDetail;
+import com.simphony.pojos.ReservedSeatInDetailSale;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -15,4 +20,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface SaleDetailRepository extends JpaRepository<SaleDetail, Long>{
     
+     @Query("SELECT NEW com.simphony.pojos.ReservedSeatInDetailSale(dv, ar.id) " +
+            "  FROM GuideDetail dg,  ReservedSeats ar , Guide g, " +
+            "    SaleDetail dv " +
+            "   WHERE dg.guide.id = g.id " +
+            "     AND g.rootGuide = ar.guideId " +
+            "     AND dv.sale.id = dg.sale.id " +
+            "     AND dv.seat.id = ar.seat.id" +
+            "     AND dg.sale.id = :saleId")
+    public List<ReservedSeatInDetailSale> findSeatsBySale(@Param("saleId") Long saleId);
 }
