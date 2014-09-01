@@ -53,6 +53,11 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
          "    AND s.destiny.id = :destiny " +
          "    AND s.tripDate = :tripDate) AND d.status = 'V' " )
     public SaleDetail findSeat(@Param("origin")Long origin, @Param("destiny")Long destiny, 
-            @Param("tripDate")Date tripDate, @Param("seat")String seat);
+                               @Param("tripDate")Date tripDate, @Param("seat")String seat);
+ 
+//    @Query("DELETE FROM ReservedSeat r WHERE r.idGuia = (SELECT g.id FROM Guide g " +
+//         "  WHERE g.origin.id = :origin " +
+//         "  AND s.tripDate = :tripDate AND d.status = 'OP') AND r.seat = :seat " )
+//    public Long deleteReservedSeat(@Param("origin")Long origin, @Param("tripDate")Date tripDate, @Param("seat")String seat);
 
 }
