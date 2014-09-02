@@ -12,100 +12,128 @@
 
                 <ui:define name="content"> 
                     <h:form id="saleForm">
-                        <div class="box-content-sale" >
-                            <!-- choice your origin and destiny -->
-                            <p:panel id="sale-input" >
-                                <p:panelGrid styleClass="sale-schedule-panel" 
-                                             >
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Cancelación" style=" font-size:20px " />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value=" " />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{msgs.cat_origin}:" />
-                                        </p:column>                                    
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
+                        <div class="box-content-saleCancel" >
+                            <p:tabView orientation="left" id="tabViewCancel" dynamic="true" cache="true">
+                                <p:tab title="Por itinerario">
+                                    <!-- choice your origin and destiny -->
+                                    <p:panel id="sale-input" >
+                                        <p:panelGrid styleClass="sale-schedule-panel">
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value=" " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="#{msgs.cat_origin}:" />
+                                                </p:column>                                    
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
 
-                                            <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
-                                                             converter="populationConverter" 
-                                                             style="width:160px" required="true" 
-                                                             requiredMessage="Origen Requerido">
-                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                                <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
-                                                <p:ajax event="change" update=":saleForm:destiny" 
-                                                        listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
-                                            </p:selectOneMenu>
-                                        </p:column>
+                                                    <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
+                                                                     converter="populationConverter" 
+                                                                     style="width:160px" required="true" 
+                                                                     requiredMessage="Origen Requerido">
+                                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                        <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
+                                                        <p:ajax event="change" update=":saleForm:tabViewCancel:destiny" 
+                                                                listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
+                                                    </p:selectOneMenu>
+                                                </p:column>
 
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{msgs.cat_destiny}:" />
-                                        </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="#{msgs.cat_destiny}:" />
+                                                </p:column>
 
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
-                                                             converter="populationConverter" 
-                                                             style="width:160px" required="true" 
-                                                             requiredMessage="Destino requerido">
-                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                                <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
+                                                                     converter="populationConverter" 
+                                                                     style="width:160px" required="true" 
+                                                                     requiredMessage="Destino requerido">
+                                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                        <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
 
-                                            </p:selectOneMenu>
-                                        </p:column>
+                                                    </p:selectOneMenu>
+                                                </p:column>
 
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Fecha y hora de salida:" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:calendar mode="popup" size="16" locale="mx"  
-                                                        pages="2" showOn="button" value="#{saleBean.sale.tripDate}"
-                                                        pattern="dd/MM/yyyy HH:mm"/>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{msgs.cat_seat}:" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputText size="2" value="#{saleBean.sale.seat}"
-                                                         maxlength="2" required="true" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:commandButton value="Buscar" actionListener="#{saleBean.findSale()}" 
-                                                             ajax="true" styleClass="button-rounded" 
-                                                             update=":main-form:growl saleForm:reservedSeatsBySale">
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Fecha y hora de salida:" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:calendar mode="popup" size="16" locale="mx"  
+                                                                pages="2" showOn="button" value="#{saleBean.sale.tripDate}"
+                                                                pattern="dd/MM/yyyy HH:mm"/>
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:commandButton value="Buscar" action="#{saleBean.findSale(0)}" 
+                                                                     ajax="true" styleClass="button-rounded" 
+                                                                     update=":main-form:growl :saleForm:reservedSeatsBySale">
 
-                                            </p:commandButton>
-                                        </p:column>
-                                    </p:row>                            
-                                </p:panelGrid>
-                            </p:panel>
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:row>                            
+                                        </p:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+                                <p:tab title="Por Folio de venta">
+                                    <p:panel id="sale-input-II" >
+                                        <p:panelGrid styleClass="sale-schedule-panel">
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value=" " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Folio Venta:" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:inputText size="4" value="#{saleBean.cancelledSale.id}"
+                                                                 maxlength="5" required="true" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:commandButton value="Buscar" action="#{saleBean.findSale(1)}" 
+                                                                     ajax="true" styleClass="button-rounded" partialSubmit="true"
+                                                                     process="@this"
+                                                                     update=":main-form:growl :saleForm:reservedSeatsBySale">
+
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:row>                            
+                                        </p:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+                            </p:tabView>
 
                         </div>
 
-                        <div class="box-content-sale-detail" >
-                            
-                            
+                        <div class="box-content-saleCancel-detail" >
+
                             <p:dataTable value="#{saleBean.reservedSeatInDetailSale}" var="reservedSeat" 
                                          id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}">
                                 <p:column headerText="Venta No." >
@@ -118,7 +146,7 @@
                                     <p:outputLabel value="#{reservedSeat.saleDetail.customerName}" />
                                 </p:column>
                             </p:dataTable>
-                            
+
                             <p:panelGrid id="sale-seat-grid" 
                                          style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
                                 <p:row>

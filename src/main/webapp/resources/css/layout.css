@@ -504,3 +504,27 @@ div{ display:block; }
     color:#FFF;
     font-size: 13px !important;
 }
+
+
+.box-content-saleCancel-detail{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px;    
+    border: 1px solid rgba(27,71,48,1);
+    padding: 10px 10px;     
+    width: 55%;
+    border-radius: 25px;
+    min-height: 400px;
+}
+
+.box-content-saleCancel{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 15px; 
+    margin-right: 1px;
+    border: none;
+    padding: 10px 10px;     
+    width: 400px;
+    min-height: 350px;
+    border-radius: 25px;
+}

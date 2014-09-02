@@ -54,6 +54,7 @@ import org.primefaces.context.RequestContext;
 public class SaleBean implements IConfigurable {
 
     private Sale sale = new Sale();
+    private Sale cancelledSale = new Sale();
     private Cost cost = new Cost();
     private Guide guide = new Guide();
     private Guide guideRoot = new Guide();
@@ -825,16 +826,32 @@ public class SaleBean implements IConfigurable {
     /**
      * Buscamos asiento
      *
-     * @param seat
      * @return
      */
-    public String findSale() {
-        Sale tmp = new Sale();
-        tmp = saleService.getSaleRepository().findSale(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(),
-                this.sale.getTripDate());
+    public String findSale(Integer mode) {
+        boolean saleExist = false;
+        if (mode == 0) {
+            cancelledSale = saleService.getSaleRepository().findSale(this.sale.getOrigin().getId(), this.sale.getDestiny().getId(),
+                    this.sale.getTripDate());
+            if (cancelledSale != null) {
+                saleExist = true;
+            }
+        } else if (mode == 1) {
+            if (cancelledSale != null) {
+                Sale tmp = saleService.getSaleRepository().findOne(cancelledSale.getId());
+                if (cancelledSale != null) {
+                    saleExist = true;
+                }
+            }
+        }
 
-        reservedSeatInDetailSale = saleService.getDetailRepository().findSeatsBySale(tmp.getId());
-        
+        if (saleExist) {
+            reservedSeatInDetailSale = saleService.getDetailRepository().findSeatsBySale(cancelledSale.getId());
+        } else {
+            GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una venta con esos datos");
+            cancelledSale = new Sale();
+        }
+
         return "toCancel";
     }
 
@@ -849,7 +866,7 @@ public class SaleBean implements IConfigurable {
     }
 
     public String toDailySales() {
-        
+
         return "toDailySales";
     }
 
@@ -898,7 +915,13 @@ public class SaleBean implements IConfigurable {
     public void setReservedSeatInDetailSale(List<ReservedSeatInDetailSale> reservedSeatInDetailSale) {
         this.reservedSeatInDetailSale = reservedSeatInDetailSale;
     }
-    
-    
+
+    public Sale getCancelledSale() {
+        return cancelledSale;
+    }
+
+    public void setCancelledSale(Sale cancelledSale) {
+        this.cancelledSale = cancelledSale;
+    }
 
 }
