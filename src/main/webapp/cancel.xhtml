@@ -14,6 +14,9 @@
                     <h:form id="saleForm">
                         <div class="box-content-saleCancel" >
                             <p:tabView orientation="left" id="tabViewCancel" dynamic="true" cache="true">
+                                <p:ajax event="tabChange" listener="#{saleBean.onTabChange}"
+                                        update=":saleForm:tabViewCancel :saleForm:reservedSeatsBySale"/>
+
                                 <p:tab title="Por itinerario">
                                     <!-- choice your origin and destiny -->
                                     <p:panel id="sale-input" >
@@ -74,7 +77,7 @@
                                             </p:row>
                                             <p:row>
                                                 <p:column>
-                                                    <p:calendar mode="popup" size="16" locale="mx"  
+                                                    <p:calendar mode="popup" size="18" locale="mx"  
                                                                 pages="2" showOn="button" value="#{saleBean.sale.tripDate}"
                                                                 pattern="dd/MM/yyyy HH:mm"/>
                                                 </p:column>
@@ -82,7 +85,8 @@
                                             <p:row>
                                                 <p:column>
                                                     <p:commandButton value="Buscar" action="#{saleBean.findSale(0)}" 
-                                                                     ajax="true" styleClass="button-rounded" 
+                                                                     ajax="true" styleClass="button-rounded"  partialSubmit="true"
+                                                                     process=":saleForm:tabViewCancel:sale-input"
                                                                      update=":main-form:growl :saleForm:reservedSeatsBySale">
 
                                                     </p:commandButton>
@@ -119,7 +123,44 @@
                                                 <p:column>
                                                     <p:commandButton value="Buscar" action="#{saleBean.findSale(1)}" 
                                                                      ajax="true" styleClass="button-rounded" partialSubmit="true"
-                                                                     process="@this"
+                                                                     process=":saleForm:tabViewCancel:sale-input-II"
+                                                                     update=":main-form:growl :saleForm:reservedSeatsBySale">
+
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:row>                            
+                                        </p:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+                                <p:tab title="Por Nombre Cliente">
+                                    <p:panel id="sale-input-III" >
+                                        <p:panelGrid styleClass="sale-schedule-panel">
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value=" " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Nombre Cliente:" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:inputText size="20" value="#{saleBean.unSelectedDetail.customerName}"
+                                                                 maxlength="30" required="true" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:commandButton value="Buscar" action="#{saleBean.findSale(2)}" 
+                                                                     ajax="true" styleClass="button-rounded" partialSubmit="true"
+                                                                     process=":saleForm:tabViewCancel:sale-input-III"
                                                                      update=":main-form:growl :saleForm:reservedSeatsBySale">
 
                                                     </p:commandButton>
@@ -135,7 +176,8 @@
                         <div class="box-content-saleCancel-detail" >
 
                             <p:dataTable value="#{saleBean.reservedSeatInDetailSale}" var="reservedSeat" 
-                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}">
+                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}"
+                                         selectionMode="single" selection="#{saleBean.selectedReservedSeatInDetailSale}">
                                 <p:column headerText="Venta No." >
                                     <p:outputLabel value="#{reservedSeat.saleDetail.sale.id}" />
                                 </p:column>
@@ -145,25 +187,14 @@
                                 <p:column headerText="Cliente">
                                     <p:outputLabel value="#{reservedSeat.saleDetail.customerName}" />
                                 </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
+                                                     actionListener="#{saleBean.cancelSeat(vendorBean.current)}"
+                                                     ajax="true" 
+                                                     update=":saleForm:reservedSeatsBySale :main-form:growl" >
+                                    </p:commandButton>
+                                </f:facet>
                             </p:dataTable>
-
-                            <p:panelGrid id="sale-seat-grid" 
-                                         style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
-                                <p:row>
-                                    <p:column>
-                                        <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  rendered="#{saleBean.sale.seat != null}"
-                                                         actionListener="#{saleBean.cancelSeat(vendorBean.current)}"
-                                                         ajax="true" 
-                                                         update=":saleForm:sale-seat-grid :main-form:growl" >
-                                        </p:commandButton>
-                                    </p:column>
-                                </p:row>
-
-                            </p:panelGrid>
-
-
-
-
                         </div>
                     </h:form>
                 </ui:define>

@@ -55,11 +55,14 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
     public SaleDetail findSeat(@Param("origin")Long origin, @Param("destiny")Long destiny, 
             @Param("tripDate")Date tripDate, @Param("seat")String seat);
     
+    /*
+    * Buscamos una venta por itinerario
+    */
     @Query("SELECT s FROM Sale s " +
          "  WHERE  s.origin.id = :origin " +
          "    AND s.destiny.id = :destiny " +
          "    AND s.tripDate = :tripDate) " )
-    public Sale findSale(@Param("origin")Long origin, @Param("destiny")Long destiny, 
+    public List<Sale> findSale(@Param("origin")Long origin, @Param("destiny")Long destiny, 
             @Param("tripDate")Date tripDate);
 
 }
