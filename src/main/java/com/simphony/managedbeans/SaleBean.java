@@ -217,35 +217,12 @@ public class SaleBean implements IConfigurable {
             calTimeTmp.setTime(sale.getTripDate());
             calTime.setTime(rootItinerary.getDepartureTime());
             calTime.set(calTimeTmp.get(Calendar.YEAR), calTimeTmp.get(Calendar.MONTH), calTimeTmp.get(Calendar.DAY_OF_MONTH));
+            
+            if(calTime.getTime().compareTo(this.sale.getTripDate()) > 0){
+                calTime.add(Calendar.DAY_OF_MONTH, -1);
+            }
             rootItinerary.setDepartureTime(calTime.getTime());
 
-            /*
-             -- Validacion del cambio de dia --
-            
-             cal = Calendar.getInstance();
-             cal.setTime(this.sale.getTripDate());
-
-             if (selected.isNormalMode()) {
-             calTime = (Calendar) cal.clone();
-             calTimeTmp = Calendar.getInstance();
-
-             calTimeTmp.setTime(rootItinerary.getDepartureTime());
-             calTime.add(Calendar.HOUR, calTimeTmp.get(Calendar.HOUR));
-             calTime.add(Calendar.MINUTE, calTimeTmp.get(Calendar.MINUTE));
-             calTime.add(Calendar.SECOND, calTimeTmp.get(Calendar.SECOND));
-             rootItinerary.setDepartureTime(calTime.getTime());
-             } else {
-             calTime = (Calendar) cal.clone();
-             calTimeTmp = Calendar.getInstance();
-
-             calTimeTmp.setTime(rootItinerary.getDepartureTime());
-             calTime.add(Calendar.SECOND, -calTimeTmp.get(Calendar.SECOND));
-             calTime.add(Calendar.MINUTE, -calTimeTmp.get(Calendar.MINUTE));
-             calTime.add(Calendar.HOUR, -calTimeTmp.get(Calendar.HOUR));
-             rootItinerary.setDepartureTime(calTime.getTime());
-             }
-            
-             */
             //Validamos la guia padre
             guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
             if (guideRoot == null) {
