@@ -93,29 +93,12 @@
                         </div>
 
                         <div class="box-content-sale-detail" >
-                            
+
                             <!-- Itinerario Grid -->
                             <p:panel id="sale-panel">
                                 <!-- first phase -->
                                 <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
-  <!--                                   <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Fecha de salida:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel id="tripDate" value="#{saleBean.sale.formatDateTime}" />
-                                        </p:column>
-                                   </p:row>
-                                   disponibilidad de itinerarios -->
                                     <p:row>
-                                     <p:row>
-                                        <p:column colspan="2">
-                                         </p:column>
-                                   </p:row>
-                                    <p:row>
-                                        <p:column colspan="2">
-                                         </p:column>
-                                   </p:row>
                                         <p:column colspan="2">
                                             <p:dataTable id="dic" value="#{saleBean.model}" var="ic" 
                                                          selectionMode="single" selection="#{saleBean.selected}" 
@@ -147,10 +130,9 @@
                                         <p:column>
                                             <p:commandButton icon="ui-icon-star" value="Disponibilidad"
                                                              actionListener="#{saleBean.findAvailability(vendorBean.current)}"
-                                                             ajax="false" 
+                                                             ajax="true" partialSubmit="true" process=":saleForm:sale-panel" 
                                                              update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
                                                              :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel :saleForm:seatsForBook">
-                                                <f:actionListener  binding="#{saleBean.fillSeats()}"/> 
                                             </p:commandButton>
                                         </p:column>
                                     </p:row>
@@ -181,7 +163,7 @@
                                                         <p:outputLabel value="#{seat.seat}" />
                                                         <f:setPropertyActionListener value="#{seat}" target="#{saleBean.selectedSeat}" />
                                                     </p:commandLink>
-                                                    
+
 
                                                 </p:panel>
                                                 <p:outputLabel value="#{seat.seat}" rendered="#{seat.seat eq 'OC'}" />

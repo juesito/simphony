@@ -53,5 +53,9 @@ public interface IConfigurable {
     final String _PASSENGER = "P";
     final String _RETIREE = "J";
     final String _NOMINAL_REFERENCE = "Nomina";
+    
+    //Status for sale
+    final String _CANCELLED = "C";
+    final String _SALED = "V";
 
 }

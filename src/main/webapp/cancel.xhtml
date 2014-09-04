@@ -39,7 +39,7 @@
                                             <p:row>
                                                 <p:column>
 
-                                                    <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
+                                                    <p:selectOneMenu id="origin" value="#{saleBean.cancelledSale.origin}" 
                                                                      converter="populationConverter" 
                                                                      style="width:160px" required="true" 
                                                                      requiredMessage="Origen Requerido">
@@ -59,7 +59,7 @@
                                             </p:row>
                                             <p:row>
                                                 <p:column>
-                                                    <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
+                                                    <p:selectOneMenu id="destiny" value="#{saleBean.cancelledSale.destiny}" 
                                                                      converter="populationConverter" 
                                                                      style="width:160px" required="true" 
                                                                      requiredMessage="Destino requerido">
@@ -78,7 +78,7 @@
                                             <p:row>
                                                 <p:column>
                                                     <p:calendar mode="popup" size="18" locale="mx"  
-                                                                pages="2" showOn="button" value="#{saleBean.sale.tripDate}"
+                                                                pages="2" showOn="button" value="#{saleBean.cancelledSale.tripDate}"
                                                                 pattern="dd/MM/yyyy HH:mm"/>
                                                 </p:column>
                                             </p:row>

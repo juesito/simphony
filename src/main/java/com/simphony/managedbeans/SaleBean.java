@@ -199,7 +199,7 @@ public class SaleBean implements IConfigurable {
 
         if (selected != null) {
 
-            //Asignamos la fecha de la venta
+            //Asignamos la fecha de la venta            
             this.sale.setTripDate(this.selected.getDepartureTime());
 
             Long ori = selected.getCost().getOrigin().getId();
@@ -217,8 +217,8 @@ public class SaleBean implements IConfigurable {
             calTimeTmp.setTime(sale.getTripDate());
             calTime.setTime(rootItinerary.getDepartureTime());
             calTime.set(calTimeTmp.get(Calendar.YEAR), calTimeTmp.get(Calendar.MONTH), calTimeTmp.get(Calendar.DAY_OF_MONTH));
-            
-            if(calTime.getTime().compareTo(this.sale.getTripDate()) > 0){
+
+            if (calTime.getTime().compareTo(this.sale.getTripDate()) > 0) {
                 calTime.add(Calendar.DAY_OF_MONTH, -1);
             }
             rootItinerary.setDepartureTime(calTime.getTime());
@@ -297,9 +297,8 @@ public class SaleBean implements IConfigurable {
     public void save(Vendor vendor, List<PayType> payTypeList, List<PayRoll> payRollList) throws CloneNotSupportedException {
 
         sale.setVendor(vendor);
+        sale.setStatus(_SALED);
         sale.setCreateDate(new Date());
-        sale.setOrigin(this.selected.getCost().getOrigin());
-        sale.setDestiny(this.selected.getCost().getDestiny());
 
         //Guardamos la venta
         sale = saleService.getSaleRepository().save(sale);
@@ -354,7 +353,7 @@ public class SaleBean implements IConfigurable {
 
             //Guardamos el detalle de venta
             dtSale.setSale(sale);
-            dtSale.setStatus("V");
+            dtSale.setStatus(_SALED);
 
             if (dtSale.getAssociateKey().isEmpty()) {
                 dtSale.setAssociate(associateService.getRepository().getOne(1L));
@@ -471,16 +470,9 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * Limpiamos la venta
+     * Calculamos el descuento por jubilado
+     * @param saleDetail
      */
-    public void clearSale() {
-        this.sale = new Sale();
-        this.saleDetail = new ArrayList<SaleDetail>();
-        this.guide = new Guide();
-        this.guideRoot = new Guide();
-        this.selected = new ItineraryCost();
-    }
-
     public void calculateRetireeDiscount(List<SaleDetail> saleDetail) {
         Integer countRetiree = 0;
         Double subTotal = selected.getCost().getCost() * saleDetail.size();
@@ -511,6 +503,10 @@ public class SaleBean implements IConfigurable {
     public String toSaleConfirm() {
         String msgNav = "toSaleConfirm";
         if (this.sale.getPassengers() == saleDetail.size()) {
+            
+            this.sale.setTripDate(this.selected.getDepartureTime());
+            sale.setOrigin(this.selected.getCost().getOrigin());
+            sale.setDestiny(this.selected.getCost().getDestiny());
 
             //Calculamos el total de la venta considerando los descuentos por jubilados
             Double subTotal = selected.getCost().getCost() * this.saleDetail.size();
@@ -528,6 +524,17 @@ public class SaleBean implements IConfigurable {
         }
 
         return msgNav;
+    }
+    
+    /**
+     * Limpiamos la venta
+     */
+    public void clearSale() {
+        this.sale = new Sale();
+        this.saleDetail = new ArrayList<SaleDetail>();
+        this.guide = new Guide();
+        this.guideRoot = new Guide();
+        this.selected = new ItineraryCost();
     }
 
     /**
@@ -551,10 +558,6 @@ public class SaleBean implements IConfigurable {
         } else {
             GrowlBean.simplyWarmMessage("Asientos completos", "Se han asigando todos los asientos solicitados");
         }
-    }
-
-    public void fillSeats() {
-        init();
     }
 
     /**
@@ -754,22 +757,37 @@ public class SaleBean implements IConfigurable {
      */
     public String cancelSeat(Vendor vendor) throws CloneNotSupportedException {
 
+        
         if (selectedReservedSeatInDetailSale != null) {
-
+            
+            SaleDetail saleDetailCancelled = selectedReservedSeatInDetailSale.getSaleDetail();
+            
             //Cancelamos el detalle de la venta
-            unSelectedDetail.setStatus("C");
-            unSelectedDetail = saleService.getDetailRepository().save(unSelectedDetail);
+            selectedReservedSeatInDetailSale.getSaleDetail().setStatus(_SALED);
+            
+            saleDetailCancelled.update(selectedReservedSeatInDetailSale.getSaleDetail());
+            
+            unSelectedDetail = saleService.getDetailRepository().save(saleDetailCancelled);
 
             //Borramos el asiento reservado
             saleService.getReservedSeatsRepository().delete(selectedReservedSeatInDetailSale.getReservedSeatId());
+            
+            Integer countDetailLeft = saleService.getDetailRepository().countDetailBySale(sale.getId());
 
             //Cancelamos el monto de la venta
-            sale = unSelectedDetail.getSale();
-            sale.setCancelVendor(vendor);
-            sale.setAmount(sale.getAmount() - unSelectedDetail.getAmount());
-            sale.setSubTotal(sale.getSubTotal() - unSelectedDetail.getAmount());
+            if(countDetailLeft == 0){
+                sale.setStatus(_CANCELLED);
+                
+            }
+            sale = saleDetailCancelled.getSale();
+            sale.setCancelVendor(vendor);            
+            sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
+            sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getAmount());
             sale.setPassengers(sale.getPassengers() - 1);
-            sale = saleService.getSaleRepository().save(sale);
+            
+            //Actualizamos la venta
+            sale.update(sale);
+            saleService.getSaleRepository().save(sale);
 
             //Borramos el elmento de la lista
             this.reservedSeatInDetailSale.remove(selectedReservedSeatInDetailSale);
@@ -794,9 +812,9 @@ public class SaleBean implements IConfigurable {
 
         if (mode == 0) {
 
-            for (Sale saleTmp : saleService.getSaleRepository().findSale(this.sale.getOrigin().getId(),
-                    this.sale.getDestiny().getId(),
-                    this.sale.getTripDate())) {
+            for (Sale saleTmp : saleService.getSaleRepository().findSale(this.cancelledSale.getOrigin().getId(),
+                    this.cancelledSale.getDestiny().getId(),
+                    this.cancelledSale.getTripDate())) {
                 for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().findSeatsBySale(saleTmp.getId())) {
                     reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
                     saleExist = true;

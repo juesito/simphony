@@ -17,25 +17,16 @@
                             <p:panel id="sale-input" >
                                 <p:panelGrid styleClass="sale-schedule-panel" >
                                     <p:row>
-                                        <p:column>
+                                        <p:column colspan="2">
                                             <p:outputLabel value="Resumen" style=" font-size:20px " />
                                         </p:column>
                                     </p:row>
+                                    
                                     <p:row>
-                                        <p:column>
-                                            <p:outputLabel value=" "  />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value=" "  />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
+                                        <p:column style="padding-top: 20px;">
                                             <p:outputLabel value="Origen:" />
                                         </p:column>
-                                        <p:column>
+                                        <p:column style="padding-top: 20px;">
                                             <p:outputLabel value="#{saleBean.selected.itinerary.origin.description}" />
                                         </p:column>
 
@@ -72,23 +63,12 @@
                                             <p:outputLabel value="#{saleBean.sale.passengers}" />
                                         </p:column>
                                     </p:row>
+                                    
                                     <p:row>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value=" "  />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value=" "  />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
+                                        <p:column style="padding-top: 20px;">
                                             <p:outputLabel value="Descuento:" />
                                         </p:column>
-                                        <p:column>
+                                        <p:column style="padding-top: 20px;">
                                             <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
                                         </p:column>
                                     </p:row>
