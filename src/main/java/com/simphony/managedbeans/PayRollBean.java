@@ -132,16 +132,17 @@ public class PayRollBean implements IConfigurable {
                 } catch (Exception ex) {
                     exist = false;
                 }
+                payRollTmp = (PayRoll) this.payRoll.clone();
+                list.add(payRollTmp);
+                this.payRoll.setIdPayRoll("");
+               this.payRoll.setAmount(0.0);
                 if (exist) {
+                GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), " Ya utilizado con: " + payRollTmp.getAmount());
+                      
+//                    GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
+//                            + " Importe: " + this.payRoll.getAmount() + " Fecha: " + this.payRoll.getSale().getFormatDateTime() + mp.getValue("error_keyId_Detail"));
                     
-                    GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
-                            + " Importe: " + this.payRoll.getAmount() + " Fecha: " + this.payRoll.getSale().getFormatDateTime() + mp.getValue("error_keyId_Detail"));
-                    
-                } else {
-
-                    payRollTmp = (PayRoll) this.payRoll.clone();
-                    list.add(payRollTmp);
-                }
+                } 
             } else {
                 GrowlBean.simplyFatalMessage(mp.getValue("error_amount"), " Importe: " + this.payRoll.getAmount()
                         + " Mayor a la venta:" + saleAmount);
