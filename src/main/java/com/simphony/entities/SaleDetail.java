@@ -81,7 +81,7 @@ public  class SaleDetail implements Serializable, IConfigurable {
         this.customerName = "";
         this.seat = new Seat();
         this.sale = new Sale();
-        this.status = "V";
+        this.status = _SALED;
     }
 
    public double getAmount() {

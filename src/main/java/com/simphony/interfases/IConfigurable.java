@@ -8,7 +8,8 @@ public interface IConfigurable {
     final SimpleDateFormat _SDFCHARTLEGEND = new SimpleDateFormat("MMM yyyy");
     final SimpleDateFormat _SDF = new SimpleDateFormat("yyyyMMdd");
     final SimpleDateFormat _SHF = new SimpleDateFormat("hhmmss");
-    final SimpleDateFormat _SHM = new SimpleDateFormat("k:mm");
+    //final SimpleDateFormat _SHM = new SimpleDateFormat("k:mm");
+    final SimpleDateFormat _SHM = new SimpleDateFormat("HH:mm");
     final SimpleDateFormat _SHHM = new SimpleDateFormat("kk:mm");
     final SimpleDateFormat _SGF = new SimpleDateFormat("yyyyMMdd hhmmss");
     final SimpleDateFormat _DMA = new SimpleDateFormat("dd-MM-yyyy");
@@ -52,5 +53,9 @@ public interface IConfigurable {
     final String _PASSENGER = "P";
     final String _RETIREE = "J";
     final String _NOMINAL_REFERENCE = "Nomina";
+    
+    //Status for sale
+    final String _CANCELLED = "C";
+    final String _SALED = "V";
 
 }

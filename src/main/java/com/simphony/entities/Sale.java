@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -43,7 +44,13 @@ public class Sale implements Serializable, IConfigurable {
 
     @Column(name = "fechaCreacion")
     @Basic
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date createDate;
+    
+    @Column(name = "fechaModificacion")
+    @Basic
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date modifyDate;
     
     @Column(name = "descuento")
     private Double discount;
@@ -56,6 +63,17 @@ public class Sale implements Serializable, IConfigurable {
     @Basic
     private Integer passengers;
     
+    @Column(name = "subtotal")
+    private Double subTotal;
+    
+    @Column(name = "jubilados")
+    @Basic
+    private Integer retirees;
+    
+    @Column(name = "estatus")
+    @Basic
+    private String status;
+    
     @Transient
     private boolean partner;
 
@@ -65,13 +83,6 @@ public class Sale implements Serializable, IConfigurable {
     @Transient
     private boolean existRoutes;
     
-    @Column(name = "subtotal")
-    private Double subTotal;
-    
-    @Column(name = "jubilados")
-    @Basic
-    private Integer retirees;
-
     @Transient
     private String seat;
 
@@ -83,6 +94,7 @@ public class Sale implements Serializable, IConfigurable {
         this.amount = 0.0;
         this.retirees = 0;
         this.subTotal = 0.0;
+        this.status = _SALED;
 
     }
 
@@ -96,7 +108,28 @@ public class Sale implements Serializable, IConfigurable {
         this.subTotal = 0.0;
  
     }
+    
+    /**
+     * Campos a actualizar
+     * @param saleUpdated 
+     */
+    public void update(Sale saleUpdated){
+        this.amount = saleUpdated.getAmount();
+        this.retirees = saleUpdated.getRetirees();
+        this.subTotal = saleUpdated.getSubTotal();
+        this.cancelVendor = saleUpdated.getCancelVendor();
+        this.vendor = saleUpdated.getVendor();
+        this.tripDate = saleUpdated.getTripDate();
+        this.passengers = saleUpdated.getPassengers();
+        this.origin = saleUpdated.getOrigin();
+        this.status = saleUpdated.getStatus();
+     }
 
+    @PreUpdate
+    public void preUpdate() {
+        this.modifyDate = new Date();
+    }
+    
     public Long getId() {
         return this.id;
     }
@@ -274,4 +307,21 @@ public class Sale implements Serializable, IConfigurable {
         this.seat = seat;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+    
+        
 }
