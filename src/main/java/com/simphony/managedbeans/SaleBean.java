@@ -272,7 +272,7 @@ public class SaleBean implements IConfigurable {
                         seat.set(index, occupiedPattern);
                         //Alt 10  -  Initial 0
                     } else if (selected.getItinerary().getSequence() > reserved.getInitialSequence()
-                            && selected.getAlternateItinerary().getSequence() < reserved.getFinalSequence()) {
+                            && selected.getAlternateItinerary().getSequence() <= reserved.getFinalSequence()) {
                         seat.set(index, occupiedPattern);
                     }
                 }

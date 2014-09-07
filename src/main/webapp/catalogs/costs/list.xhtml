@@ -21,7 +21,7 @@
                         <p:dataTable value="#{costBean.list}" var="cost" style="font-size: 12px;"
                                      selectionMode="single" selection="#{costBean.selected}" 
                                      rowKey="#{cost.id}" id="costDT"
-                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     emptyMessage="#{msgs.no_records_found}" rows="20"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                     >
@@ -30,7 +30,8 @@
                                       filterMatchMode="contains" >
                                 <p:outputLabel value="#{cost.origin.description}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_destiny}" >
+                            <p:column headerText="#{msgs.cat_destiny}" filterBy="#{cost.destiny.description}"
+                                      filterMatchMode="contains">
                                 <p:outputLabel value="#{cost.destiny.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_cost}" >
