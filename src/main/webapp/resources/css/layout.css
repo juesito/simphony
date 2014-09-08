@@ -247,8 +247,12 @@ div{ display:block; }
 
 .borderPanelGrid tr, .borderPanelGrid td{
     border: none;
+    background-color: #DDF0C2;
 }
-
+.borderPanelGrid{
+    background-color: #DDF0C2;
+    border: 1px solid;
+}
 .itinerary-header-detail{
     float: left;    
 }
