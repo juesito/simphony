@@ -213,8 +213,7 @@
                                         </p:commandButton>
                                         <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list, payRollBean.list)}"
                                                          style="float: right;">
-                                             <f:actionListener  binding="#{payRollBean.fillPayRolls()}"/>                                
-                                       </p:commandButton>
+                               </p:commandButton>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
@@ -222,7 +221,7 @@
                         </div>
                     </h:form>
                     <p:dialog id="idPayRoll" widgetVar="payRollVar"
-                              width="500" height="400" header="Nomina">
+                              width="500" height="500" header="Nomina">
                         <ui:include src="./payRoll.xhtml" ></ui:include>
                     </p:dialog>
                 </ui:define>

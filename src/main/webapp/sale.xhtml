@@ -83,7 +83,7 @@
                                             <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
                                                              ajax="true" styleClass="button-rounded" 
                                                              update=":saleForm:sale-panel :main-form:growl"   >
-
+                                             <f:actionListener  binding="#{payRollBean.fillPayRolls()}"/>                                
                                             </p:commandButton>
                                         </p:column>
                                     </p:row>                            

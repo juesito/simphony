@@ -319,6 +319,7 @@ public class SaleBean implements IConfigurable {
                 guide.setRootRoute(this.selected.getItinerary().getId());
                 guide.setOrigin(this.selected.getCost().getOrigin());
                 guide.setDestiny(this.selected.getCost().getDestiny());
+                guide.setFinaDestiny(guideRoot.getDestiny());
 
                 guideService.getRepository().save(guide);
                 guide.setRootGuide(guide.getId());
@@ -331,6 +332,7 @@ public class SaleBean implements IConfigurable {
                 guide.setDestiny(this.selected.getCost().getDestiny());
                 guide.setRootRoute(guideRoot.getRootRoute());
                 guide.setRootGuide(guideRoot.getId());
+                guide.setFinaDestiny(guideRoot.getDestiny());
                 guideService.getRepository().save(guide);
 
             }
@@ -458,6 +460,7 @@ public class SaleBean implements IConfigurable {
     private Guide createRootGuide(Guide rootGuide, Itinerary rootRoute) {
 
         rootGuide.setDestiny(rootRoute.getDestiny());
+        rootGuide.setFinaDestiny(rootRoute.getDestiny());
         rootGuide.setOrigin(rootRoute.getOrigin());
         rootGuide.setRootRoute(rootRoute.getRoute().getId());
 

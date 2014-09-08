@@ -17,7 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -55,6 +54,9 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
 
     @ManyToOne(targetEntity = Population.class)
     private Population destiny;
+
+    @ManyToOne(targetEntity = Population.class)
+    private Population finalDestiny;
 
     @ManyToOne(targetEntity = Bus.class)
     private Bus bus;
@@ -124,6 +126,7 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
         this.rootRoute = guideUpdated.getRootRoute();
         this.origin = guideUpdated.getOrigin();
         this.destiny = guideUpdated.getDestiny();
+        this.finalDestiny = guideUpdated.getFinalDestiny();
         this.departureDate = guideUpdated.getDepartureDate();
         this.guideReference = guideUpdated.getGuideReference();
         this.status = guideUpdated.getStatus();
@@ -196,6 +199,14 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
 
     public void setDestiny(Population destiny) {
         this.destiny = destiny;
+    }
+
+    public Population getFinalDestiny() {
+        return finalDestiny;
+    }
+
+    public void setFinaDestiny(Population finalDestiny) {
+        this.finalDestiny = finalDestiny;
     }
 
     public Long getRootRoute() {

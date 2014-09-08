@@ -7,6 +7,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.GuideService;
 import com.simphony.entities.Guide;
+import com.simphony.entities.Population;
 import com.simphony.entities.SaleDetail;
 import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
@@ -15,6 +16,7 @@ import static com.simphony.interfases.IConfigurable._MODIFY;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,6 +41,7 @@ public class GuideBean implements IConfigurable {
     private Guide selected = new Guide();
     private List<Guide> list = new ArrayList<Guide>();
     private List<SaleDetail> listDetail = new ArrayList<SaleDetail>();
+    private List<Guide> listTemporal = new ArrayList<Guide>();
 
     @ManagedProperty(value = "#{guideService}")
     private GuideService guideService;
@@ -134,11 +137,27 @@ public class GuideBean implements IConfigurable {
     private void fillGuide() {
         list.clear();
 //        Iterable<Guide> c = this.guideService.getRepository().findAllLocal();
-        Iterable<Guide> c = this.guideService.getRepository().findAll(sortByDate());
-        if (c != null ){
-            Iterator<Guide> cu = c.iterator();
-            while (cu.hasNext()) {
-                list.add(cu.next());
+//        Iterable<Guide> c = this.guideService.getRepository().findAll(sortByDate());
+//        if (c != null ){
+//            Iterator<Guide> cu = c.iterator();
+//            while (cu.hasNext()) {
+//                list.add(cu.next());
+//            }
+//        }
+        List<Guide> c = this.guideService.getRepository().findAll(sortByDate());
+        listTemporal = c;
+        if (c.size() > 0) {
+            Date depDate = new Date();
+            Long idOrigin = (long) 0 ;
+            Long idRoute  = (long) 0;
+            for (Guide gd : c) {
+                if(gd.getDepartureDate().equals(depDate)&& gd.getOrigin().getId().equals(idOrigin) && gd.getRootRoute().equals(idRoute)){
+                }else{
+                    depDate = gd.getDepartureDate();
+                    idOrigin = gd.getOrigin().getId();
+                    idRoute = gd.getRootRoute();
+                    list.add(gd);
+                }
             }
         }
     }
@@ -152,7 +171,19 @@ public class GuideBean implements IConfigurable {
         if (this.selected != null) {
             listDetail.clear();
 //            listDetail = guideService.getRepository().qryGuideDetailLocal(this.selected.getDepartureDate(), this.selected.getOrigin().getId());
-            listDetail = guideService.getRepository().qryGuideDetail(this.selected.getId());
+//            listDetail = guideService.getRepository().qryGuideDetail(this.selected.getId());
+        for (Guide gd : listTemporal) {
+                if(gd.getDepartureDate().equals(this.selected.getDepartureDate())&& 
+                   gd.getOrigin().getId().equals(this.selected.getOrigin().getId()) && 
+                   gd.getRootRoute().equals(this.selected.getRootRoute())){
+                    Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getId());
+                    Iterator<SaleDetail> cu = c.iterator();
+                    while (cu.hasNext()) {
+                        listDetail.add(cu.next());
+                    }
+                }
+            }
+
             return "toGuideDetail";
         } else {
             return "toGuide";
@@ -162,13 +193,19 @@ public class GuideBean implements IConfigurable {
     /**
      * Llenamos lista
      */
-    private void fillDetail(Long guideId) {
+    private void fillDetail(Date depDate, Long idOrigin, Long idRoute) {
         listDetail.clear();
-        Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(guideId);
-        Iterator<SaleDetail> cu = c.iterator();
-        while (cu.hasNext()) {
-            listDetail.add(cu.next());
-        }
+        for (Guide gd : listTemporal) {
+                if(gd.getDepartureDate().equals(depDate)&& gd.getOrigin().getId().equals(idOrigin) && gd.getRootRoute().equals(idRoute)){
+                    Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getId());
+                    Iterator<SaleDetail> cu = c.iterator();
+                    while (cu.hasNext()) {
+                        listDetail.add(cu.next());
+                    }
+                }
+            }
+   
+        
     }
 
     /**
@@ -177,7 +214,7 @@ public class GuideBean implements IConfigurable {
      * @return
      */
     public String toGuideDetail() {
-        this.fillDetail(this.selected.getId());
+        this.fillDetail(this.selected.getDepartureDate(),this.selected.getOrigin().getId(),this.selected.getRootRoute());
         return "toGuideDetail";
     }
 
@@ -214,7 +251,7 @@ public class GuideBean implements IConfigurable {
     }
 
     private Sort sortByDate() {
-    return new Sort(Sort.Direction.ASC, "departureDate");
+    return new Sort(Sort.Direction.ASC, "departureDate","rootRoute");
     }
 
 }

@@ -29,7 +29,10 @@ public class PayRollBean implements IConfigurable {
     private PayRoll current = new PayRoll();
     private PayRoll selected = new PayRoll();
     private List<PayRoll> list = new ArrayList<PayRoll>();
-
+    private List<PayRoll> listDupli = new ArrayList<PayRoll>();
+    private Boolean existD = false;
+    private Double suma =  (double) 0;
+    
     @ManagedProperty(value = "#{payRollService}")
     private PayRollService payRollService;
 
@@ -64,8 +67,30 @@ public class PayRollBean implements IConfigurable {
         this.list = list;
     }
 
+    public List<PayRoll> getListDupli() {
+        return listDupli;
+    }
+
+    public void setListDupli(List<PayRoll> list) {
+        this.listDupli = list;
+    }
+    public Boolean getExistD() {
+        return existD;
+    }
+
+    public void setExist(Boolean existD) {
+        this.existD = existD;
+    }
     public PayRoll getSelected() {
         return selected;
+    }
+
+    public Double getSuma() {
+        return suma;
+    }
+
+    public void setSuma(Double suma) {
+        this.suma = suma;
     }
 
     public void setSelected(PayRoll selected) {
@@ -107,6 +132,9 @@ public class PayRollBean implements IConfigurable {
     }
 
     public void fillPayRolls() {
+        suma = 0.0;
+        existD = false;
+        listDupli.clear();
         list.clear();
     }
 
@@ -117,8 +145,9 @@ public class PayRollBean implements IConfigurable {
      * @throws java.lang.CloneNotSupportedException
      */
     public void addPayRoll(Double saleAmount) throws CloneNotSupportedException {
-        Boolean exist = true;
-        PayRoll payRollTmp;
+        Boolean exist = false;
+        PayRoll payRollTmp2;
+        List<PayRoll> payRollTmp = new ArrayList<PayRoll>();
 
         if (this.payRoll.getIdPayRoll() != null && this.payRoll.getAmount() > 0) {
             if (saleAmount >= getSumAmount() + this.payRoll.getAmount()) {
@@ -126,22 +155,24 @@ public class PayRollBean implements IConfigurable {
                 try {
 
                     payRollTmp = this.payRollService.getRepository().findByKey(this.payRoll.getIdPayRoll());
-                    if (payRollTmp == null) {
-                        exist = false;
-                    }
+                    if (!payRollTmp.isEmpty()) {
+                        exist = true;
+                        this.setExist(true);
+                        this.existD = true;
+                   }
                 } catch (Exception ex) {
                     exist = false;
                 }
-                payRollTmp = (PayRoll) this.payRoll.clone();
-                list.add(payRollTmp);
+                payRollTmp2 = (PayRoll) this.payRoll.clone();
+                list.add(payRollTmp2);
                 this.payRoll.setIdPayRoll("");
                this.payRoll.setAmount(0.0);
                 if (exist) {
-                GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), " Ya utilizado con: " + payRollTmp.getAmount());
-                      
-//                    GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), "Folio: " + this.payRoll.getIdPayRoll()
-//                            + " Importe: " + this.payRoll.getAmount() + " Fecha: " + this.payRoll.getSale().getFormatDateTime() + mp.getValue("error_keyId_Detail"));
-                    
+                    for (PayRoll pr : payRollTmp) {
+                        listDupli.add(pr);
+                        suma += pr.getAmount();
+                    }
+                   GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), " Folio ya utilizado anteriormente. " );
                 } 
             } else {
                 GrowlBean.simplyFatalMessage(mp.getValue("error_amount"), " Importe: " + this.payRoll.getAmount()
@@ -160,12 +191,13 @@ public class PayRollBean implements IConfigurable {
 
     
     public void deleteRowTable(PayRoll pr) {
-
+        int index = 0;
         for(PayRoll payRollList : this.list){
             if(pr.getIdPayRoll().equals(payRollList.getIdPayRoll().trim())){
-                int index = this.list.indexOf(payRollList);
+ //               int index = this.list.indexOf(pr);
                 this.list.remove(index);
             }
+        index += 1;
         }
  
     }
