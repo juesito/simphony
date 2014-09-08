@@ -942,4 +942,13 @@ public class SaleBean implements IConfigurable {
         this.selectedReservedSeatInDetailSale = selectedReservedSeatInDetailSale;
     }
 
+    /**
+     * Removemos el asiento seleccionado
+     */
+    public void removeSeat() {
+        if (unSelectedDetail != null) {
+            saleDetail.remove(unSelectedDetail);
+        }
+    }
+    
 }

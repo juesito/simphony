@@ -55,7 +55,7 @@
                                 <p:column>
                                     <p:commandButton value="Agregar" action="#{payRollBean.addPayRoll(saleBean.sale.amount)}"
                                                      ajax="true" update=":main-form:growl :formPayRoll:payRollDetailDT :formPayRoll:payRollSum
-                                                     :formPayRoll:payRoll :formPayRoll:amount :formPayRoll:payRollDupliDT ">
+                                                     :formPayRoll:payRoll :formPayRoll:amount :formPayRoll:panel-dupli  :formPayRoll:payRollDupliDT">
 
                                     </p:commandButton>
                                 </p:column>
@@ -93,35 +93,33 @@
                             </f:facet>
                         </p:dataTable>
                     </div>
-                    <div id="guide-detail-dupli" class="guide-detail-detail" >
-                        <!-- Data table de itinetarios -->
-                         <p:row>
-                            <p:outputLabel value=" " />
-                         </p:row>
-                         <p:row>
-                            <p:outputLabel value=" " />
-                         </p:row>
-                        <p:outputLabel value="Folios ya utilizados" style=" font-size:15px " rendered="#{payRollBean.existD}" />
-                         <p:dataTable value="#{payRollBean.listDupli}" var="payRollDetail"                                      
-                                      id="payRollDupliDT" rendered="#{payRollBean.existD}"
-                                     emptyMessage="#{msgs.no_records_found}" rows="5"
-                                     paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{PageLinks}"  >
+                    <!-- Data table de itinetarios -->
 
-                            <p:column headerText="#{msgs.cat_payRoll}" >
-                                <p:outputLabel value="#{payRollDetail.idPayRoll}" />
-                            </p:column>
-                            <p:column headerText="#{msgs.cat_amount}" >
-                                <p:outputLabel value="#{payRollDetail.amount}" />
-                            </p:column>
-                            <p:column headerText="Fecha" >
-                                <p:outputLabel value="#{payRollDetail.sale.formatTripTime}" />
-                            </p:column>
-                            <f:facet name="footer">
-                                <p:outputLabel value="Total: #{payRollBean.suma}" />
-                            </f:facet>
-                         </p:dataTable>
-                    </div>
+                    <p:panel  header="Folios ya utilizados" style="padding-top: 25px; font-size:15px " 
+                              id="panel-dupli" >
+
+                        <p:panel rendered="#{payRollBean.existD}">
+                            <p:dataTable value="#{payRollBean.listDupli}" var="payRollDetail"                                      
+                                         id="payRollDupliDT" 
+                                         emptyMessage="#{msgs.no_records_found}" rows="5"
+                                         paginator="true" paginatorPosition="bottom"
+                                         paginatorTemplate="{PageLinks}"   >
+
+                                <p:column headerText="#{msgs.cat_payRoll}" >
+                                    <p:outputLabel value="#{payRollDetail.idPayRoll}" />
+                                </p:column>
+                                <p:column headerText="#{msgs.cat_amount}" >
+                                    <p:outputLabel value="#{payRollDetail.amount}" />
+                                </p:column>
+                                <p:column headerText="Fecha" >
+                                    <p:outputLabel value="#{payRollDetail.sale.formatTripTime}" />
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:outputLabel value="Total: #{payRollBean.suma}" />
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </p:panel>
                 </h:form>
 
             </ui:composition>
