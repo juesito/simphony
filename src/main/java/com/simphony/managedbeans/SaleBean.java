@@ -766,7 +766,7 @@ public class SaleBean implements IConfigurable {
             SaleDetail saleDetailCancelled = selectedReservedSeatInDetailSale.getSaleDetail();
             
             //Cancelamos el detalle de la venta
-            selectedReservedSeatInDetailSale.getSaleDetail().setStatus(_SALED);
+            selectedReservedSeatInDetailSale.getSaleDetail().setStatus(_CANCELLED);
             
             saleDetailCancelled.update(selectedReservedSeatInDetailSale.getSaleDetail());
             

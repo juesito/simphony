@@ -12,7 +12,7 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
-                <p:panel rendered="#{payTypeBean.current.action eq 'A'}">
+                <p:panel rendered="#{payTypeBean.current.action eq 'A'}" style="padding-top: 25px; ">
                     <h:form id="add">
                         <p:outputLabel value="#{msgs.but_add} #{msgs.cat_payType}" class="welcome-title" />
                         <br/><br/>
@@ -58,7 +58,7 @@
                     </h:form>
                 </p:panel>
                 <!-- panel para modificar -->
-                <p:panel rendered="#{payTypeBean.current.action eq 'M'}">
+                <p:panel rendered="#{payTypeBean.current.action eq 'M'}" style="padding-top: 25px; ">
                     <h:form id="modify">
                         <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_payType}" class="welcome-title" />
                         <br/><br/>

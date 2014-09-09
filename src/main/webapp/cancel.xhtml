@@ -176,15 +176,25 @@
                         <div class="box-content-saleCancel-detail" >
 
                             <p:dataTable value="#{saleBean.reservedSeatInDetailSale}" var="reservedSeat" 
-                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}"
+                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top: 25px; "
                                          selectionMode="single" selection="#{saleBean.selectedReservedSeatInDetailSale}">
-                                <p:column headerText="Venta No." >
-                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.id}" />
+                                <p:column headerText="Fecha" style="width:75px">  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.formatTripTime}"/>
                                 </p:column>
-                                <p:column headerText="Asiento" >
-                                    <p:outputLabel value="#{reservedSeat.saleDetail.seat.seat}" />
+                                <p:column headerText="Hora" style="width:35px" >  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.formatTime}" />
                                 </p:column>
-                                <p:column headerText="Cliente">
+                                <p:column headerText="Origen" >  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.origin.description}" />
+                                </p:column>
+                                <p:column headerText="Destino" >  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.destiny.description}" />
+                                </p:column>
+                                <p:column headerText="Asi" style="width:20px">
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.seat.seat}" 
+                                                    />
+                                </p:column>
+                                <p:column headerText="Cliente" style="width:157px">
                                     <p:outputLabel value="#{reservedSeat.saleDetail.customerName}" />
                                 </p:column>
                                 <f:facet name="footer">

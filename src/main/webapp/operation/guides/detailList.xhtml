@@ -16,6 +16,7 @@
                     <p:commandButton value="Print" type="button" icon="ui-icon-print">  
                         <p:printer target=":form:guide-complete" />  
                     </p:commandButton>  
+                <h:form id="form" style="padding-top: 25px; ">
                     <p:outputLabel value="#{msgs.cat_detail} de la #{msgs.cat_guide}" class="welcome-title" />
                     <br/><br/>
 
@@ -101,6 +102,29 @@
                                 <!-- Footer -->
                                 <f:facet name="footer">
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
+                    <div id="guide-detail-detail" class="guide-detail-detail">
+                        <!-- Data table de itinetarios -->
+                        <p:dataTable value="#{guideBean.listDetail}" var="guideDetail" style="font-size: 12px;padding-top: 25px;"                                   
+                                     id="guideDetailDT"
+                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
+                                     >
+                            <p:column headerText="#{msgs.cat_seat}" >
+                                <p:outputLabel value="#{guideDetail.seat.seat}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_name}" >
+                                <p:outputLabel value="#{guideDetail.customerName}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_origin}" >
+                                <p:outputLabel value="#{guideDetail.sale.origin.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_destiny}" >
+                                <p:outputLabel value="#{guideDetail.sale.destiny.description}" />
+                            </p:column>
+                            <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
                                                      id="cancelAdd" process="@this" immediate="true" ajax="false"/>
                                 </f:facet>
                             </p:dataTable>
