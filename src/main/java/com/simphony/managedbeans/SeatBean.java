@@ -31,6 +31,7 @@ public class SeatBean implements IConfigurable {
 
     private final MessageProvider mp;
     private Seat seat = new Seat();
+    private Seat current = new Seat();
     private Seat selected = new Seat();
     private List<Seat> list = new ArrayList();
 
@@ -44,9 +45,18 @@ public class SeatBean implements IConfigurable {
         mp = new MessageProvider();
     }
 
+    public Seat getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Seat current) {
+        this.current = current;
+    }
+
+    
     public String addSeat() {
         seat = new Seat();
-        this.seat.setAction(_ADD);
+        this.current.setAction(_ADD);
         return "addSeat";
     }
 
@@ -99,7 +109,7 @@ public class SeatBean implements IConfigurable {
     
     public String modifySeat() {
         if (this.selected != null) {
-            this.seat.setAction(_MODIFY);
+            this.current.setAction(_MODIFY);
             try {
                 this.seat = (Seat) this.selected.clone();
             } catch (CloneNotSupportedException ex) {

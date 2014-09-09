@@ -12,14 +12,14 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
-                <h:form id="form" style="padding-top: 25px; ">
+                <h:form id="form">
                     <p:outputLabel value="Ventas diarias" class="welcome-title"  />
                     <br/><br/>
 
                     <!-- div header detail -->
-                    <div id="guide-header-detail" class="guide-header-detail" style="padding-top: 25px; ">
+                    <div id="guide-header-detail" class="guide-header-detail">
                         <!-- Grid para agregar entidad -->                    
-                        <p:panelGrid  styleClass="guide-header" >
+                        <p:panelGrid  styleClass="guide-header">
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_vendor}:" />
@@ -56,7 +56,7 @@
                         </p:panelGrid>
                     </div>
 
-                    <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
+                    <div id="guide-detail-detail" class="guide-detail-detail">
                         <!-- Data table -->
                         <p:dataTable value="#{saleBean.list}" var="saleDetail" style="font-size: 12px;"                                   
                                      id="saleDetailDT"
@@ -64,8 +64,28 @@
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                      >
-                            <p:column>
+                            <p:column headerText="Folio" >
+                                <p:outputLabel value="#{sale.id}" />
                             </p:column>
+                            <p:column headerText="#{msgs.cat_origin}" >
+                                <p:outputLabel value="#{sale.origin.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_destiny}" >
+                                <p:outputLabel value="#{sale.destiny.description}" />
+                            </p:column>
+                            <p:column headerText="Tipo Venta" >
+                                <p:outputLabel value="#{sale.saleDetail.tipoVta}" />
+                            </p:column> 
+                            <p:column headerText="Tipo Boleto" >
+                                <p:outputLabel value="#{sale.saleDetail.tipoBol}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_payType}" >
+                                <p:outputLabel value="#{sale.type}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_amount}" >
+                                <p:outputLabel value="#{sale.amount}" />
+                            </p:column>
+
                         </p:dataTable>
 
                     </div>
