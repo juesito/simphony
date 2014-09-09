@@ -95,10 +95,10 @@
                     </div>
                     <!-- Data table de itinetarios -->
 
-                    <p:panel  header="Folios ya utilizados" style="padding-top: 25px; font-size:15px " 
-                              id="panel-dupli" >
+                    <p:panel  style="padding-top: 25px; " id="panel-dupli" >
 
                         <p:panel rendered="#{payRollBean.existD}">
+                            <p:outputLabel value="Folios ya utilizados" style=" font-size:13px " />
                             <p:dataTable value="#{payRollBean.listDupli}" var="payRollDetail"                                      
                                          id="payRollDupliDT" 
                                          emptyMessage="#{msgs.no_records_found}" rows="5"
