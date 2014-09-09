@@ -259,8 +259,8 @@ public class VendorBean implements IConfigurable {
             GrowlBean.simplyInfoMessage(mp.getValue("msj_welcome"), this.vendor.getNick() );
             return "toSale";
         } else {
-            current = new Vendor();
             GrowlBean.simplyFatalMessage(mp.getValue("error_login"), mp.getValue("error_user"));
+            current = new Vendor();
             return "toindex";
         }
     }

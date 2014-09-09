@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings id="_14102921930561" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:ns4="http://nbmodeler.java.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <jpa:entity class="Operadores" minimized="true" id="_14102921930594">
+        <jpa:table name="operadores"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141029219307624">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="operadores"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="apellidoMaterno" optional="true" attribute-type="java.lang.String" id="_141029219307725">
+                <jpa:column name="apellidoMaterno" unique="false" nullable="true" insertable="true" updatable="true" table="operadores" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_141029219307726">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="operadores"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="email" optional="true" attribute-type="java.lang.String" id="_141029219307827">
+                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" table="operadores" length="200"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_141029219307828">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="operadores"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141029219307829">
+                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="operadores" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="apellidoPaterno" optional="true" attribute-type="java.lang.String" id="_141029219307830">
+                <jpa:column name="apellidoPaterno" unique="false" nullable="true" insertable="true" updatable="true" table="operadores" length="40"/>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_141029219307831">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="operadores" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="tipoOperador" optional="true" attribute-type="java.lang.String" id="_141029219307832">
+                <jpa:column name="TipoOperador" unique="false" nullable="true" insertable="true" updatable="true" table="operadores" length="1"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307974" id="_141029219307833">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="guiasCollection" target-entity="Guias" mapped-by="driverMan2id" connected-entity-id="_141029219306114" connected-attribute-id="_1410292193079159" id="_141029219307834"/>
+            <jpa:one-to-many name="guiasCollection1" target-entity="Guias" mapped-by="driverMan1id" connected-entity-id="_141029219306114" connected-attribute-id="_1410292193079160" id="_141029219307835"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Tarifas" minimized="true" id="_14102921930605">
+        <jpa:table name="tarifas"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141029219307836">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="tarifas"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_141029219307837">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="tarifas"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" id="_141029219307838">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" table="tarifas" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_141029219307839">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="tarifas"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_141029219307840">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="tarifas" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="cost" optional="true" attribute-type="java.lang.Double" id="_141029219307841">
+                <jpa:column name="cost" unique="false" nullable="true" insertable="true" updatable="true" table="tarifas" precision="22"/>
+            </jpa:basic>
+            <jpa:basic name="kms" optional="true" attribute-type="java.lang.Integer" id="_141029219307842">
+                <jpa:column name="kms" unique="false" nullable="true" insertable="true" updatable="true" table="tarifas"/>
+            </jpa:basic>
+            <jpa:basic name="routeTime" optional="true" attribute-type="java.util.Date" id="_141029219307843">
+                <jpa:column name="routeTime" unique="false" nullable="true" insertable="true" updatable="true" table="tarifas"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:many-to-one name="originId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080205" id="_141029219307844">
+                <jpa:join-column name="origin_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="destinyId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080206" id="_141029219307845">
+                <jpa:join-column name="destiny_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307975" id="_141029219307846">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Asientosreservados" minimized="true" id="_14102921930606">
+        <jpa:table name="asientosreservados"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141029219307947">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="asientosreservados"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="final1" optional="true" attribute-type="java.lang.Integer" id="_141029219307948">
+                <jpa:column name="final" unique="false" nullable="true" insertable="true" updatable="true" table="asientosreservados"/>
+            </jpa:basic>
+            <jpa:basic name="guia" optional="true" attribute-type="java.math.BigInteger" id="_141029219307949">
+                <jpa:column name="guia" unique="false" nullable="true" insertable="true" updatable="true" table="asientosreservados"/>
+            </jpa:basic>
+            <jpa:basic name="inicio" optional="true" attribute-type="java.lang.Integer" id="_141029219307950">
+                <jpa:column name="inicio" unique="false" nullable="true" insertable="true" updatable="true" table="asientosreservados"/>
+            </jpa:basic>
+            <jpa:basic name="ruta" optional="true" attribute-type="java.math.BigInteger" id="_141029219307951">
+                <jpa:column name="ruta" unique="false" nullable="true" insertable="true" updatable="true" table="asientosreservados"/>
+            </jpa:basic>
+            <jpa:basic name="tipoRuta" optional="true" attribute-type="java.lang.String" id="_141029219307952">
+                <jpa:column name="tipoRuta" unique="false" nullable="true" insertable="true" updatable="true" table="asientosreservados" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="seatId" target-entity="Asientos" primaryKey="false" connected-entity-id="_141029219306121" connected-attribute-id="_1410292193080222" id="_141029219307953">
+                <jpa:join-column name="seat_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Detalleventa" minimized="true" id="_14102921930607">
+        <jpa:table name="detalleventa"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141029219307954">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="detalleventa"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="importe" optional="true" attribute-type="java.lang.Double" id="_141029219307955">
+                <jpa:column name="importe" unique="false" nullable="true" insertable="true" updatable="true" table="detalleventa" precision="22"/>
+            </jpa:basic>
+            <jpa:basic name="tipoBol" optional="true" attribute-type="java.lang.String" id="_141029219307956">
+                <jpa:column name="tipoBol" unique="false" nullable="true" insertable="true" updatable="true" table="detalleventa" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="nombreCliente" optional="true" attribute-type="java.lang.String" id="_141029219307957">
+                <jpa:column name="nombreCliente" unique="false" nullable="true" insertable="true" updatable="true" table="detalleventa" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="descuento" optional="true" attribute-type="java.lang.Double" id="_141029219307958">
+                <jpa:column name="descuento" unique="false" nullable="true" insertable="true" updatable="true" table="detalleventa" precision="22"/>
+            </jpa:basic>
+            <jpa:basic name="status" optional="true" attribute-type="java.lang.String" id="_141029219307959">
+                <jpa:column name="status" unique="false" nullable="true" insertable="true" updatable="true" table="detalleventa" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="tipoVta" optional="true" attribute-type="java.lang.String" id="_141029219307960">
+                <jpa:column name="tipoVta" unique="false" nullable="true" insertable="true" updatable="true" table="detalleventa" length="2"/>
+            </jpa:basic>
+            <jpa:many-to-one name="seatId" target-entity="Asientos" primaryKey="false" connected-entity-id="_141029219306121" connected-attribute-id="_1410292193080223" id="_141029219307961">
+                <jpa:join-column name="seat_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="saleId" target-entity="Ventas" primaryKey="false" connected-entity-id="_141029219306122" connected-attribute-id="_1410292193080235" id="_141029219307962">
+                <jpa:join-column name="sale_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="associateId" target-entity="Agremiado" primaryKey="false" connected-entity-id="_141029219306112" connected-attribute-id="_1410292193079131" id="_141029219307963">
+                <jpa:join-column name="associate_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Usuarios" minimized="true" id="_14102921930608">
+        <jpa:table name="usuarios"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141029219307964">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="usuarios"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="apellidoMaterno" optional="true" attribute-type="java.lang.String" id="_141029219307965">
+                <jpa:column name="apellidoMaterno" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_141029219307966">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="email" optional="true" attribute-type="java.lang.String" id="_141029219307967">
+                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="200"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_141029219307968">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141029219307969">
+                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="apellidoPaterno" optional="true" attribute-type="java.lang.String" id="_141029219307970">
+                <jpa:column name="apellidoPaterno" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="40"/>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_141029219307971">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="nick" optional="true" attribute-type="java.lang.String" id="_141029219307972">
+                <jpa:column name="nick" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="10"/>
+            </jpa:basic>
+            <jpa:basic name="contrasena" optional="true" attribute-type="java.lang.String" id="_141029219307973">
+                <jpa:column name="contrasena" unique="false" nullable="true" insertable="true" updatable="true" table="usuarios" length="10"/>
+            </jpa:basic>
+            <jpa:one-to-many name="operadoresCollection" target-entity="Operadores" mapped-by="userId" connected-entity-id="_14102921930594" connected-attribute-id="_141029219307833" id="_141029219307974"/>
+            <jpa:one-to-many name="tarifasCollection" target-entity="Tarifas" mapped-by="userId" connected-entity-id="_14102921930605" connected-attribute-id="_141029219307846" id="_141029219307975"/>
+            <jpa:one-to-many name="itinerariosCollection" target-entity="Itinerarios" mapped-by="userId" connected-entity-id="_141029219306011" connected-attribute-id="_1410292193079115" id="_141029219307976"/>
+            <jpa:one-to-many name="agremiadoCollection" target-entity="Agremiado" mapped-by="userId" connected-entity-id="_141029219306112" connected-attribute-id="_1410292193079132" id="_141029219307977"/>
+            <jpa:one-to-many name="autobusesCollection" target-entity="Autobuses" mapped-by="userId" connected-entity-id="_141029219306113" connected-attribute-id="_1410292193079141" id="_141029219307978"/>
+            <jpa:one-to-many name="puntodeventaCollection" target-entity="Puntodeventa" mapped-by="userId" connected-entity-id="_141029219306115" connected-attribute-id="_1410292193080171" id="_141029219307979"/>
+            <jpa:one-to-many name="estacionestrabajoCollection" target-entity="Estacionestrabajo" mapped-by="userId" connected-entity-id="_141029219306117" connected-attribute-id="_1410292193080187" id="_141029219307980"/>
+            <jpa:one-to-many name="tiposdepagoCollection" target-entity="Tiposdepago" mapped-by="userId" connected-entity-id="_141029219306118" connected-attribute-id="_1410292193080194" id="_141029219307981"/>
+            <jpa:one-to-many name="poblacionesCollection" target-entity="Poblaciones" mapped-by="userId" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080213" id="_141029219307982"/>
+            <jpa:one-to-many name="asientosCollection" target-entity="Asientos" mapped-by="userId" connected-entity-id="_141029219306121" connected-attribute-id="_1410292193080224" id="_141029219307983"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Vendedores" minimized="true" id="_14102921930609">
+        <jpa:table name="vendedores"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141029219307984">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="vendedores"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="apellidoMaterno" optional="true" attribute-type="java.lang.String" id="_141029219307985">
+                <jpa:column name="apellidoMaterno" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_141029219307986">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="email" optional="true" attribute-type="java.lang.String" id="_141029219307987">
+                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores" length="200"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_141029219307988">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141029219307989">
+                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="apellidoPaterno" optional="true" attribute-type="java.lang.String" id="_141029219307990">
+                <jpa:column name="apellidoPaterno" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores" length="40"/>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_141029219307991">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="nick" optional="true" attribute-type="java.lang.String" id="_141029219307992">
+                <jpa:column name="nick" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores" length="10"/>
+            </jpa:basic>
+            <jpa:basic name="contrasena" optional="true" attribute-type="java.lang.String" id="_141029219307993">
+                <jpa:column name="contrasena" unique="false" nullable="true" insertable="true" updatable="true" table="vendedores" length="10"/>
+            </jpa:basic>
+            <jpa:many-to-one name="salePointid" target-entity="Puntodeventa" primaryKey="false" connected-entity-id="_141029219306115" connected-attribute-id="_1410292193080170" id="_141029219307994">
+                <jpa:join-column name="salePoint_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="populationId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080207" id="_141029219307995">
+                <jpa:join-column name="population_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="workCenterid" target-entity="Estacionestrabajo" primaryKey="false" connected-entity-id="_141029219306117" connected-attribute-id="_1410292193080186" id="_141029219307996">
+                <jpa:join-column name="workCenter_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="guiasCollection" target-entity="Guias" mapped-by="vendorId" connected-entity-id="_141029219306114" connected-attribute-id="_1410292193079158" id="_141029219307997"/>
+            <jpa:one-to-many name="ventasCollection" target-entity="Ventas" mapped-by="cancelVendorid" connected-entity-id="_141029219306122" connected-attribute-id="_1410292193080238" id="_141029219307998"/>
+            <jpa:one-to-many name="ventasCollection1" target-entity="Ventas" mapped-by="vendorId" connected-entity-id="_141029219306122" connected-attribute-id="_1410292193080241" id="_141029219307999"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Detalleguia" minimized="true" id="_141029219306010">
+        <jpa:table name="detalleguia"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193079100">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="detalleguia"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:many-to-one name="guideId" target-entity="Guias" primaryKey="false" connected-entity-id="_141029219306114" connected-attribute-id="_1410292193079156" id="_1410292193079101">
+                <jpa:join-column name="guide_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="saleId" target-entity="Ventas" primaryKey="false" connected-entity-id="_141029219306122" connected-attribute-id="_1410292193080236" id="_1410292193079102">
+                <jpa:join-column name="sale_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Itinerarios" minimized="true" id="_141029219306011">
+        <jpa:table name="itinerarios"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193079103">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="itinerarios"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193079104">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="itinerarios"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" id="_1410292193079105">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" table="itinerarios" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193079106">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="itinerarios"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193079107">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="itinerarios" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="horaLlegada" optional="true" attribute-type="java.util.Date" id="_1410292193079108">
+                <jpa:column name="horaLlegada" unique="false" nullable="true" insertable="true" updatable="true" table="itinerarios"/>
+                <jpa:temporal>TIME</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="horaSalida" optional="true" attribute-type="java.util.Date" id="_1410292193079109">
+                <jpa:column name="horaSalida" unique="false" nullable="true" insertable="true" updatable="true" table="itinerarios"/>
+                <jpa:temporal>TIME</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="secuencia" optional="true" attribute-type="java.lang.Integer" id="_1410292193079110">
+                <jpa:column name="secuencia" unique="false" nullable="true" insertable="true" updatable="true" table="itinerarios"/>
+            </jpa:basic>
+            <jpa:basic name="tipoRuta" optional="true" attribute-type="java.lang.String" id="_1410292193079111">
+                <jpa:column name="tipoRuta" unique="false" nullable="true" insertable="true" updatable="true" table="itinerarios" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="routeId" target-entity="Itinerarios" primaryKey="false" connected-entity-id="_141029219306011" connected-attribute-id="_1410292193079112" id="_1410292193079113">
+                <jpa:join-column name="route_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="originId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080208" id="_1410292193079114">
+                <jpa:join-column name="origin_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307976" id="_1410292193079115">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="destinyId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080209" id="_1410292193079116">
+                <jpa:join-column name="destiny_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="itinerariosCollection" target-entity="Itinerarios" mapped-by="routeId" connected-entity-id="_141029219306011" connected-attribute-id="_1410292193079113" id="_1410292193079112"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Agremiado" minimized="true" id="_141029219306112">
+        <jpa:table name="agremiado"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193079117">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="agremiado"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="apellidoMaterno" optional="true" attribute-type="java.lang.String" id="_1410292193079118">
+                <jpa:column name="apellidoMaterno" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193079119">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="email" optional="true" attribute-type="java.lang.String" id="_1410292193079120">
+                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="200"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193079121">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_1410292193079122">
+                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="apellidoPaterno" optional="true" attribute-type="java.lang.String" id="_1410292193079123">
+                <jpa:column name="apellidoPaterno" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="40"/>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193079124">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="ciudad" optional="true" attribute-type="java.lang.String" id="_1410292193079125">
+                <jpa:column name="ciudad" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="50"/>
+            </jpa:basic>
+            <jpa:basic name="noFicha" optional="true" attribute-type="java.lang.String" id="_1410292193079126">
+                <jpa:column name="NoFicha" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="10"/>
+            </jpa:basic>
+            <jpa:basic name="telefono" optional="true" attribute-type="java.lang.String" id="_1410292193079127">
+                <jpa:column name="telefono" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="10"/>
+            </jpa:basic>
+            <jpa:basic name="plataforma" optional="true" attribute-type="java.lang.String" id="_1410292193079128">
+                <jpa:column name="plataforma" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="25"/>
+            </jpa:basic>
+            <jpa:basic name="seccion" optional="true" attribute-type="java.lang.String" id="_1410292193079129">
+                <jpa:column name="seccion" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="15"/>
+            </jpa:basic>
+            <jpa:basic name="estado" optional="true" attribute-type="java.lang.String" id="_1410292193079130">
+                <jpa:column name="estado" unique="false" nullable="true" insertable="true" updatable="true" table="agremiado" length="50"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307977" id="_1410292193079132">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="detalleventaCollection" target-entity="Detalleventa" mapped-by="associateId" connected-entity-id="_14102921930607" connected-attribute-id="_141029219307963" id="_1410292193079131"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Autobuses" minimized="true" id="_141029219306113">
+        <jpa:table name="autobuses"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193079133">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="autobuses"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193079134">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="autobuses"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" id="_1410292193079135">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" table="autobuses" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193079136">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="autobuses"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193079137">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="autobuses" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="numeroEconomico" optional="true" attribute-type="java.lang.String" id="_1410292193079138">
+                <jpa:column name="numeroEconomico" unique="false" nullable="true" insertable="true" updatable="true" table="autobuses" length="10"/>
+            </jpa:basic>
+            <jpa:basic name="cupo" optional="true" attribute-type="java.lang.Integer" id="_1410292193079139">
+                <jpa:column name="cupo" unique="false" nullable="true" insertable="true" updatable="true" table="autobuses"/>
+            </jpa:basic>
+            <jpa:basic name="tipo" optional="true" attribute-type="java.lang.String" id="_1410292193079140">
+                <jpa:column name="tipo" unique="false" nullable="true" insertable="true" updatable="true" table="autobuses" length="7"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307978" id="_1410292193079141">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="guiasCollection" target-entity="Guias" mapped-by="busId" connected-entity-id="_141029219306114" connected-attribute-id="_1410292193080162" id="_1410292193079142"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Guias" minimized="true" id="_141029219306114">
+        <jpa:table name="guias"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193079143">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="guias"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193079144">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="guias"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="fechaSalida" optional="true" attribute-type="java.util.Date" id="_1410292193079145">
+                <jpa:column name="fechaSalida" unique="false" nullable="true" insertable="true" updatable="true" table="guias"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="horaSalida" optional="true" attribute-type="java.util.Date" id="_1410292193079146">
+                <jpa:column name="horaSalida" unique="false" nullable="true" insertable="true" updatable="true" table="guias"/>
+                <jpa:temporal>TIME</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="referencia" optional="true" attribute-type="java.lang.String" id="_1410292193079147">
+                <jpa:column name="referencia" unique="false" nullable="true" insertable="true" updatable="true" table="guias" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="tipoGuia" optional="true" attribute-type="java.lang.String" id="_1410292193079148">
+                <jpa:column name="tipoGuia" unique="false" nullable="true" insertable="true" updatable="true" table="guias" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193079149">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="guias"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="cupo" optional="true" attribute-type="java.lang.Integer" id="_1410292193079150">
+                <jpa:column name="cupo" unique="false" nullable="true" insertable="true" updatable="true" table="guias"/>
+            </jpa:basic>
+            <jpa:basic name="guiaPadre" optional="true" attribute-type="java.math.BigInteger" id="_1410292193079151">
+                <jpa:column name="guiaPadre" unique="false" nullable="true" insertable="true" updatable="true" table="guias"/>
+            </jpa:basic>
+            <jpa:basic name="rutaPadre" optional="true" attribute-type="java.math.BigInteger" id="_1410292193079152">
+                <jpa:column name="rutaPadre" unique="false" nullable="true" insertable="true" updatable="true" table="guias"/>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193079153">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="guias" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="ultimatipoGuiaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193079154">
+                <jpa:column name="ultimatipoGuiaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="guias"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="usuarioMod" optional="true" attribute-type="java.lang.String" id="_1410292193079155">
+                <jpa:column name="usuarioMod" unique="false" nullable="true" insertable="true" updatable="true" table="guias" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="destinyId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080210" id="_1410292193079157">
+                <jpa:join-column name="destiny_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="vendorId" target-entity="Vendedores" primaryKey="false" connected-entity-id="_14102921930609" connected-attribute-id="_141029219307997" id="_1410292193079158">
+                <jpa:join-column name="vendor_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="driverMan2id" target-entity="Operadores" primaryKey="false" connected-entity-id="_14102921930594" connected-attribute-id="_141029219307834" id="_1410292193079159">
+                <jpa:join-column name="driverMan2_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="driverMan1id" target-entity="Operadores" primaryKey="false" connected-entity-id="_14102921930594" connected-attribute-id="_141029219307835" id="_1410292193079160">
+                <jpa:join-column name="driverMan1_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="finalDestinyid" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080211" id="_1410292193079161">
+                <jpa:join-column name="finalDestiny_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="busId" target-entity="Autobuses" primaryKey="false" connected-entity-id="_141029219306113" connected-attribute-id="_1410292193079142" id="_1410292193080162">
+                <jpa:join-column name="bus_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="originId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080212" id="_1410292193080163">
+                <jpa:join-column name="origin_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="detalleguiaCollection" target-entity="Detalleguia" mapped-by="guideId" connected-entity-id="_141029219306010" connected-attribute-id="_1410292193079101" id="_1410292193079156"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Puntodeventa" minimized="true" id="_141029219306115">
+        <jpa:table name="puntodeventa"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080164">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="puntodeventa"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193080165">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="puntodeventa"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" id="_1410292193080166">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" table="puntodeventa" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193080167">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="puntodeventa"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193080168">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="puntodeventa" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="domicilio" optional="true" attribute-type="java.lang.String" id="_1410292193080169">
+                <jpa:column name="domicilio" unique="false" nullable="true" insertable="true" updatable="true" table="puntodeventa" length="100"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307979" id="_1410292193080171">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="vendedoresCollection" target-entity="Vendedores" mapped-by="salePointid" connected-entity-id="_14102921930609" connected-attribute-id="_141029219307994" id="_1410292193080170"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Cliente" minimized="true" id="_141029219306116">
+        <jpa:table name="cliente"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080172">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="cliente"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="apellidoMaterno" optional="true" attribute-type="java.lang.String" id="_1410292193080173">
+                <jpa:column name="apellidoMaterno" unique="false" nullable="true" insertable="true" updatable="true" table="cliente" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193080174">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="cliente"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="email" optional="true" attribute-type="java.lang.String" id="_1410292193080175">
+                <jpa:column name="email" unique="false" nullable="true" insertable="true" updatable="true" table="cliente" length="200"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193080176">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="cliente"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_1410292193080177">
+                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="cliente" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="apellidoPaterno" optional="true" attribute-type="java.lang.String" id="_1410292193080178">
+                <jpa:column name="apellidoPaterno" unique="false" nullable="true" insertable="true" updatable="true" table="cliente" length="40"/>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193080179">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="cliente" length="1"/>
+            </jpa:basic>
+            <jpa:basic name="nombreCompleto" optional="true" attribute-type="java.lang.String" id="_1410292193080180">
+                <jpa:column name="nombreCompleto" unique="false" nullable="true" insertable="true" updatable="true" table="cliente" length="50"/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Estacionestrabajo" minimized="true" id="_141029219306117">
+        <jpa:table name="estacionestrabajo"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080181">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="estacionestrabajo"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193080182">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="estacionestrabajo"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" id="_1410292193080183">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" table="estacionestrabajo" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193080184">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="estacionestrabajo"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193080185">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="estacionestrabajo" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307980" id="_1410292193080187">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="vendedoresCollection" target-entity="Vendedores" mapped-by="workCenterid" connected-entity-id="_14102921930609" connected-attribute-id="_141029219307996" id="_1410292193080186"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Tiposdepago" minimized="true" id="_141029219306118">
+        <jpa:table name="tiposdepago"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080188">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="tiposdepago"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193080189">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="tiposdepago"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" id="_1410292193080190">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" table="tiposdepago" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193080191">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="tiposdepago"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193080192">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="tiposdepago" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="referencia" optional="true" attribute-type="java.lang.String" id="_1410292193080193">
+                <jpa:column name="referencia" unique="false" nullable="true" insertable="true" updatable="true" table="tiposdepago" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307981" id="_1410292193080194">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="pagosventaCollection" target-entity="Pagosventa" mapped-by="payTypeid" connected-entity-id="_141029219306123" connected-attribute-id="_1410292193080246" id="_1410292193080195"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Nomina" minimized="true" id="_141029219306119">
+        <jpa:table name="nomina"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080196">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="nomina"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="monto" optional="true" attribute-type="java.lang.Double" id="_1410292193080197">
+                <jpa:column name="monto" unique="false" nullable="true" insertable="true" updatable="true" table="nomina" precision="22"/>
+            </jpa:basic>
+            <jpa:basic name="folio" optional="true" attribute-type="java.lang.String" id="_1410292193080198">
+                <jpa:column name="folio" unique="false" nullable="true" insertable="true" updatable="true" table="nomina" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="saleId" target-entity="Ventas" primaryKey="false" connected-entity-id="_141029219306122" connected-attribute-id="_1410292193080237" id="_1410292193080199">
+                <jpa:join-column name="sale_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Poblaciones" minimized="true" id="_141029219306120">
+        <jpa:table name="poblaciones"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080200">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="poblaciones"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193080201">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="poblaciones"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" id="_1410292193080202">
+                <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" table="poblaciones" length="60"/>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193080203">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="poblaciones"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193080204">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="poblaciones" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307982" id="_1410292193080213">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="tarifasCollection" target-entity="Tarifas" mapped-by="originId" connected-entity-id="_14102921930605" connected-attribute-id="_141029219307844" id="_1410292193080205"/>
+            <jpa:one-to-many name="tarifasCollection1" target-entity="Tarifas" mapped-by="destinyId" connected-entity-id="_14102921930605" connected-attribute-id="_141029219307845" id="_1410292193080206"/>
+            <jpa:one-to-many name="vendedoresCollection" target-entity="Vendedores" mapped-by="populationId" connected-entity-id="_14102921930609" connected-attribute-id="_141029219307995" id="_1410292193080207"/>
+            <jpa:one-to-many name="itinerariosCollection" target-entity="Itinerarios" mapped-by="originId" connected-entity-id="_141029219306011" connected-attribute-id="_1410292193079114" id="_1410292193080208"/>
+            <jpa:one-to-many name="itinerariosCollection1" target-entity="Itinerarios" mapped-by="destinyId" connected-entity-id="_141029219306011" connected-attribute-id="_1410292193079116" id="_1410292193080209"/>
+            <jpa:one-to-many name="guiasCollection" target-entity="Guias" mapped-by="destinyId" connected-entity-id="_141029219306114" connected-attribute-id="_1410292193079157" id="_1410292193080210"/>
+            <jpa:one-to-many name="guiasCollection1" target-entity="Guias" mapped-by="finalDestinyid" connected-entity-id="_141029219306114" connected-attribute-id="_1410292193079161" id="_1410292193080211"/>
+            <jpa:one-to-many name="guiasCollection2" target-entity="Guias" mapped-by="originId" connected-entity-id="_141029219306114" connected-attribute-id="_1410292193080163" id="_1410292193080212"/>
+            <jpa:one-to-many name="ventasCollection" target-entity="Ventas" mapped-by="destinyId" connected-entity-id="_141029219306122" connected-attribute-id="_1410292193080239" id="_1410292193080214"/>
+            <jpa:one-to-many name="ventasCollection1" target-entity="Ventas" mapped-by="originId" connected-entity-id="_141029219306122" connected-attribute-id="_1410292193080240" id="_1410292193080215"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Asientos" minimized="true" id="_141029219306121">
+        <jpa:table name="asientos"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080216">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="asientos"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193080217">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="asientos"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="ultimaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193080218">
+                <jpa:column name="ultimaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="asientos"/>
+                <jpa:temporal>DATE</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="referencia" optional="true" attribute-type="java.lang.String" id="_1410292193080219">
+                <jpa:column name="referencia" unique="false" nullable="true" insertable="true" updatable="true" table="asientos" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193080220">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="asientos" length="255"/>
+            </jpa:basic>
+            <jpa:basic name="asiento" optional="true" attribute-type="java.lang.String" id="_1410292193080221">
+                <jpa:column name="asiento" unique="false" nullable="true" insertable="true" updatable="true" table="asientos" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="userId" target-entity="Usuarios" primaryKey="false" connected-entity-id="_14102921930608" connected-attribute-id="_141029219307983" id="_1410292193080224">
+                <jpa:join-column name="user_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="asientosreservadosCollection" target-entity="Asientosreservados" mapped-by="seatId" connected-entity-id="_14102921930606" connected-attribute-id="_141029219307953" id="_1410292193080222"/>
+            <jpa:one-to-many name="detalleventaCollection" target-entity="Detalleventa" mapped-by="seatId" connected-entity-id="_14102921930607" connected-attribute-id="_141029219307961" id="_1410292193080223"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Ventas" minimized="true" id="_141029219306122">
+        <jpa:table name="ventas"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080225">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="ventas"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="montoVenta" optional="true" attribute-type="java.lang.Double" id="_1410292193080226">
+                <jpa:column name="montoVenta" unique="false" nullable="true" insertable="true" updatable="true" table="ventas" precision="22"/>
+            </jpa:basic>
+            <jpa:basic name="fechaCreacion" optional="true" attribute-type="java.util.Date" id="_1410292193080227">
+                <jpa:column name="fechaCreacion" unique="false" nullable="true" insertable="true" updatable="true" table="ventas"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="descuento" optional="true" attribute-type="java.lang.Double" id="_1410292193080228">
+                <jpa:column name="descuento" unique="false" nullable="true" insertable="true" updatable="true" table="ventas" precision="22"/>
+            </jpa:basic>
+            <jpa:basic name="pasajeros" optional="true" attribute-type="java.lang.Integer" id="_1410292193080229">
+                <jpa:column name="pasajeros" unique="false" nullable="true" insertable="true" updatable="true" table="ventas"/>
+            </jpa:basic>
+            <jpa:basic name="jubilados" optional="true" attribute-type="java.lang.Integer" id="_1410292193080230">
+                <jpa:column name="jubilados" unique="false" nullable="true" insertable="true" updatable="true" table="ventas"/>
+            </jpa:basic>
+            <jpa:basic name="subtotal" optional="true" attribute-type="java.lang.Double" id="_1410292193080231">
+                <jpa:column name="subtotal" unique="false" nullable="true" insertable="true" updatable="true" table="ventas" precision="22"/>
+            </jpa:basic>
+            <jpa:basic name="fechaSalida" optional="true" attribute-type="java.util.Date" id="_1410292193080232">
+                <jpa:column name="fechaSalida" unique="false" nullable="true" insertable="true" updatable="true" table="ventas"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="fechaModificacion" optional="true" attribute-type="java.util.Date" id="_1410292193080233">
+                <jpa:column name="fechaModificacion" unique="false" nullable="true" insertable="true" updatable="true" table="ventas"/>
+                <jpa:temporal>TIMESTAMP</jpa:temporal>
+            </jpa:basic>
+            <jpa:basic name="estatus" optional="true" attribute-type="java.lang.String" id="_1410292193080234">
+                <jpa:column name="estatus" unique="false" nullable="true" insertable="true" updatable="true" table="ventas" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="cancelVendorid" target-entity="Vendedores" primaryKey="false" connected-entity-id="_14102921930609" connected-attribute-id="_141029219307998" id="_1410292193080238">
+                <jpa:join-column name="cancelVendor_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="destinyId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080214" id="_1410292193080239">
+                <jpa:join-column name="destiny_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="originId" target-entity="Poblaciones" primaryKey="false" connected-entity-id="_141029219306120" connected-attribute-id="_1410292193080215" id="_1410292193080240">
+                <jpa:join-column name="origin_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="vendorId" target-entity="Vendedores" primaryKey="false" connected-entity-id="_14102921930609" connected-attribute-id="_141029219307999" id="_1410292193080241">
+                <jpa:join-column name="vendor_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:one-to-many name="detalleventaCollection" target-entity="Detalleventa" mapped-by="saleId" connected-entity-id="_14102921930607" connected-attribute-id="_141029219307962" id="_1410292193080235"/>
+            <jpa:one-to-many name="detalleguiaCollection" target-entity="Detalleguia" mapped-by="saleId" connected-entity-id="_141029219306010" connected-attribute-id="_1410292193079102" id="_1410292193080236"/>
+            <jpa:one-to-many name="nominaCollection" target-entity="Nomina" mapped-by="saleId" connected-entity-id="_141029219306119" connected-attribute-id="_1410292193080199" id="_1410292193080237"/>
+            <jpa:one-to-many name="pagosventaCollection" target-entity="Pagosventa" mapped-by="saleId" connected-entity-id="_141029219306123" connected-attribute-id="_1410292193080247" id="_1410292193080242"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity class="Pagosventa" minimized="true" id="_141029219306123">
+        <jpa:table name="pagosventa"/>
+        <jpa:attributes>
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_1410292193080243">
+                <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="pagosventa"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+            <jpa:basic name="monto" optional="true" attribute-type="java.lang.Double" id="_1410292193080244">
+                <jpa:column name="monto" unique="false" nullable="true" insertable="true" updatable="true" table="pagosventa" precision="22"/>
+            </jpa:basic>
+            <jpa:basic name="informacionPago" optional="true" attribute-type="java.lang.String" id="_1410292193080245">
+                <jpa:column name="informacionPago" unique="false" nullable="true" insertable="true" updatable="true" table="pagosventa" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="payTypeid" target-entity="Tiposdepago" primaryKey="false" connected-entity-id="_141029219306118" connected-attribute-id="_1410292193080195" id="_1410292193080246">
+                <jpa:join-column name="payType_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+            <jpa:many-to-one name="saleId" target-entity="Ventas" primaryKey="false" connected-entity-id="_141029219306122" connected-attribute-id="_1410292193080242" id="_1410292193080247">
+                <jpa:join-column name="sale_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
+            </jpa:many-to-one>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:diagram id="_14102921930572">
+        <plane elementRef="_14102921930561" id="_14102921930583_p">
+            <shape elementRef="_14102921930594" id="_14102921930594_gui">
+                <Bounds x="666.0" y="894.0" width="166.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_14102921930605" id="_14102921930605_gui">
+                <Bounds x="796.0" y="495.0" width="154.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_14102921930606" id="_14102921930606_gui">
+                <Bounds x="271.0" y="918.0" width="213.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_14102921930607" id="_14102921930607_gui">
+                <Bounds x="1566.0" y="495.0" width="168.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_14102921930608" id="_14102921930608_gui">
+                <Bounds x="856.0" y="682.0" width="213.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_14102921930609" id="_14102921930609_gui">
+                <Bounds x="832.0" y="159.0" width="167.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306010" id="_141029219306010_gui">
+                <Bounds x="1620.0" y="1775.0" width="161.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306011" id="_141029219306011_gui">
+                <Bounds x="589.0" y="1473.0" width="169.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306112" id="_141029219306112_gui">
+                <Bounds x="1340.0" y="739.0" width="180.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306113" id="_141029219306113_gui">
+                <Bounds x="1299.0" y="1547.0" width="159.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306114" id="_141029219306114_gui">
+                <Bounds x="1804.0" y="1547.0" width="200.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306115" id="_141029219306115_gui">
+                <Bounds x="1520.0" y="1718.0" width="179.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306116" id="_141029219306116_gui">
+                <Bounds x="1650.0" y="797.0" width="154.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306117" id="_141029219306117_gui">
+                <Bounds x="1085.0" y="495.0" width="201.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306118" id="_141029219306118_gui">
+                <Bounds x="950.0" y="1826.0" width="178.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306119" id="_141029219306119_gui">
+                <Bounds x="271.0" y="603.0" width="141.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306120" id="_141029219306120_gui">
+                <Bounds x="510.0" y="211.0" width="179.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306121" id="_141029219306121_gui">
+                <Bounds x="572.0" y="696.0" width="224.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306122" id="_141029219306122_gui">
+                <Bounds x="380.0" y="456.0" width="180.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_141029219306123" id="_141029219306123_gui">
+                <Bounds x="1205.0" y="1945.0" width="165.0" height="24.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

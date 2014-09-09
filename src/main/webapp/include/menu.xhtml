@@ -49,9 +49,9 @@
                         </p:row>
                         <p:row>
                             <p:column colspan="2">
-                                <p:commandButton update=":sform:growl" action="#{vendorBean.login()}"
+                                <p:commandButton update=":main-form:growl" action="#{vendorBean.login()}"
                                                  tabindex="3" styleClass="button-rounded"
-                                                 value="Entrar" ajax="ajax">
+                                                 value="Entrar" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:commandButton>
                             </p:column>
