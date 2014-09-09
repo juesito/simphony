@@ -12,95 +12,96 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
+                <h:form id="form">
+                    <p:commandButton value="Print" type="button" icon="ui-icon-print">  
+                        <p:printer target=":form:guide-complete" />  
+                    </p:commandButton>  
                 <h:form id="form" style="padding-top: 25px; ">
                     <p:outputLabel value="#{msgs.cat_detail} de la #{msgs.cat_guide}" class="welcome-title" />
                     <br/><br/>
 
-                    <!-- div header detail -->
-                    <div id="guide-header-detail" class="guide-header-detail">
-                        <!-- Grid para agregar entidad -->                    
-                        <p:panelGrid  styleClass="guide-header">
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_departureTime}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{guideBean.selected.formatDepartureTime}" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_bus}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{guideBean.selected.bus.number}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_origin}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel id="origin" value="#{guideBean.selected.origin.description}" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_driverMan}1:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{guideBean.selected.fullName1}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_destiny}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel id="destiny" value="#{guideBean.selected.destiny.description}" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value=" " />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_driverMan}2:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{guideBean.selected.fullName2}" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_date}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:outputLabel id="departureTime" value="#{guideBean.selected.formatDepartureDate}" />
-                                </p:column>
-                            </p:row>
+                    <p:panel id="guide-complete">
+                        <!-- div header detail -->
+                        <div id="guide-header-detail" class="guide-header-detail">
+                            <!-- Grid para agregar entidad -->                    
+                            <p:panelGrid id="guide-header" styleClass="guide-header">
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_departureTime}:" />
+                                    </p:column>
+                                    <p:column style="width: 120px;">
+                                        <p:outputLabel value="#{guideBean.selected.formatDepartureTime}" />
+                                    </p:column>                                   
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_bus}:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="#{guideBean.selected.bus.number}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_origin}:" />
+                                    </p:column>
+                                    <p:column style="width: 120px;">
+                                        <p:outputLabel id="origin" value="#{guideBean.selected.origin.description}" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_driverMan}1:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="#{guideBean.selected.fullName1}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_destiny}:" />
+                                    </p:column>
+                                    <p:column style="width: 120px;">
+                                        <p:outputLabel id="destiny" value="#{guideBean.selected.destiny.description}" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_driverMan}2:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="#{guideBean.selected.fullName2}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="#{msgs.cat_date}:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel id="departureTime" value="#{guideBean.selected.formatDepartureDate}" />
+                                    </p:column>
+                                </p:row>
 
-                        </p:panelGrid>
-                    </div>
+                            </p:panelGrid>
+                        </div>
 
+                        <div id="guide-detail-detail" class="guide-detail-detail">
+                            <!-- Data table de itinetarios -->
+                            <p:dataTable value="#{guideBean.listDetail}" var="guideDetail" style="font-size: 12px;"                                   
+                                         id="guideDetailDT"
+                                         emptyMessage="#{msgs.no_records_found}" rows="10"
+                                         paginator="true" paginatorPosition="bottom"
+                                         paginatorTemplate="{PageLinks}"
+                                         >
+                                <p:column headerText="#{msgs.cat_seat}" >
+                                    <p:outputLabel value="#{guideDetail.seat.seat}" />
+                                </p:column>
+                                <p:column headerText="#{msgs.cat_name}" >
+                                    <p:outputLabel value="#{guideDetail.customerName}" />
+                                </p:column>
+                                <p:column headerText="#{msgs.cat_origin}" >
+                                    <p:outputLabel value="#{guideDetail.sale.origin.description}" />
+                                </p:column>
+                                <p:column headerText="#{msgs.cat_destiny}" >
+                                    <p:outputLabel value="#{guideDetail.sale.destiny.description}" />
+                                </p:column>
+                                <!-- Footer -->
+                                <f:facet name="footer">
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
                     <div id="guide-detail-detail" class="guide-detail-detail">
                         <!-- Data table de itinetarios -->
                         <p:dataTable value="#{guideBean.listDetail}" var="guideDetail" style="font-size: 12px;padding-top: 25px;"                                   
@@ -125,10 +126,11 @@
                             <f:facet name="footer">
                                 <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
                                                      id="cancelAdd" process="@this" immediate="true" ajax="false"/>
-                            </f:facet>
-                        </p:dataTable>
+                                </f:facet>
+                            </p:dataTable>
 
-                    </div>
+                        </div>
+                    </p:panel>
                 </h:form>
             </ui:define>
 
