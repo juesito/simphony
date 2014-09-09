@@ -12,7 +12,7 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
-                <p:panel rendered="#{busBean.current.action eq 'A'}">
+                <p:panel rendered="#{busBean.current.action eq 'A'}" style="padding-top: 25px; ">
                     <h:form id="add">
                         <p:outputLabel value="#{msgs.but_add} #{msgs.cat_bus}" class="welcome-title" />
                         <br/><br/>
@@ -73,7 +73,7 @@
                     </h:form>
                 </p:panel>
                 <!-- panel para modificar -->
-                <p:panel rendered="#{busBean.current.action eq 'M'}">
+                <p:panel rendered="#{busBean.current.action eq 'M'}" style="padding-top: 25px; ">
                     <h:form id="modify">
                         <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_bus}" class="welcome-title" />
                         <br/><br/>

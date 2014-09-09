@@ -12,14 +12,14 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
-                <h:form id="form">
+                <h:form id="form" style="padding-top: 25px; ">
                     <p:outputLabel value="Ventas diarias" class="welcome-title"  />
                     <br/><br/>
 
                     <!-- div header detail -->
-                    <div id="guide-header-detail" class="guide-header-detail">
+                    <div id="guide-header-detail" class="guide-header-detail" style="padding-top: 25px; ">
                         <!-- Grid para agregar entidad -->                    
-                        <p:panelGrid  styleClass="guide-header">
+                        <p:panelGrid  styleClass="guide-header" >
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_vendor}:" />
@@ -56,7 +56,7 @@
                         </p:panelGrid>
                     </div>
 
-                    <div id="guide-detail-detail" class="guide-detail-detail">
+                    <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
                         <!-- Data table -->
                         <p:dataTable value="#{saleBean.list}" var="saleDetail" style="font-size: 12px;"                                   
                                      id="saleDetailDT"
