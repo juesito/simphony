@@ -45,6 +45,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -253,7 +255,8 @@ public class SaleBean implements IConfigurable {
 
             //Obtenemos el limite de pasajeros en esa guia
             if (maxLimitCarrie > 0) {
-                seat = seatService.getRepository().findAllAvailable();
+                Pageable topTen = new PageRequest(0, maxLimitCarrie);
+                seat = seatService.getRepository().findAllAvailable(topTen);
             } else {
                 seat = seatService.getRepository().findAllAvailable();
             }
