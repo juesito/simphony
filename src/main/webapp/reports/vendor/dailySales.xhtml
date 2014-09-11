@@ -12,13 +12,11 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
-                <h:form id="form">
-                    <p:outputLabel value="Ventas diarias" class="welcome-title"  />
-                    <br/><br/>
+                <h:form id="form" style="padding-top: 25px; " >
+                    <p:outputLabel value="Ventas diarias" class="welcome-title" />
 
-                    <!-- div header detail -->
-                    <div id="guide-header-detail" class="guide-header-detail">
-                        <!-- Grid para agregar entidad -->                    
+                    <div id="sale-daily" class="guide-header-detail" style="padding-top: 25px; ">
+
                         <p:panelGrid  styleClass="guide-header">
                             <p:row>
                                 <p:column>
@@ -31,8 +29,33 @@
                                                      tabindex="1" >
                                         <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_vendor}"  />
                                         <f:selectItems value="#{boxVendorService.vendorList}"/>
+                                        <p:ajax event="select" update=":form:sale-daily" /> 
                                     </p:selectOneMenu>
                                     <p:message for="vendor" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_salePoint}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.sale.vendor.salePoint.description}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_workCenter}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.sale.vendor.workCenter.description}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_population}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.sale.vendor.population.description}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -45,7 +68,7 @@
                                </p:column>
                              </p:row>
                             <p:row>
-                                <p:column>
+                                <p:column style="padding-top: 25px; ">
                                    <p:commandButton value="Procesar" actionListener="#{saleBean.findItinearies()}" 
                                                     ajax="true" styleClass="button-rounded" 
                                                     update=":form:saleDetailDT :main-form:growl"   >
@@ -56,10 +79,10 @@
                         </p:panelGrid>
                     </div>
 
-                    <div id="guide-detail-detail" class="guide-detail-detail">
+                    <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
                         <!-- Data table -->
                         <p:dataTable value="#{saleBean.list}" var="saleDetail" style="font-size: 12px;"                                   
-                                     id="saleDetailDT"
+                                     id="saleDetailDT" 
                                      emptyMessage="#{msgs.no_records_found}" rows="10"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
