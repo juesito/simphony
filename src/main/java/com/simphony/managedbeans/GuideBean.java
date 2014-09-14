@@ -7,7 +7,6 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.GuideService;
 import com.simphony.entities.Guide;
-import com.simphony.entities.Population;
 import com.simphony.entities.SaleDetail;
 import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
