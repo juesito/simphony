@@ -25,8 +25,9 @@ public class Sale implements Serializable, IConfigurable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(targetEntity = Vendor.class)
-    private Vendor cancelVendor;
+    @Column(name="usuarioCancel")
+    @Basic
+    private String cancelUser;
 
     @ManyToOne(targetEntity = Vendor.class)
     private Vendor vendor;
@@ -117,7 +118,7 @@ public class Sale implements Serializable, IConfigurable {
         this.amount = saleUpdated.getAmount();
         this.retirees = saleUpdated.getRetirees();
         this.subTotal = saleUpdated.getSubTotal();
-        this.cancelVendor = saleUpdated.getCancelVendor();
+        this.cancelUser = saleUpdated.getCancelUser();
         this.vendor = saleUpdated.getVendor();
         this.tripDate = saleUpdated.getTripDate();
         this.passengers = saleUpdated.getPassengers();
@@ -138,13 +139,13 @@ public class Sale implements Serializable, IConfigurable {
         this.id = id;
     }
 
-    public Vendor getCancelVendor() {
-        return this.cancelVendor;
+    public String getCancelUser() {
+        return this.cancelUser;
     }
 
-    public void setCancelVendor(Vendor cancelVendor) {
-        if (cancelVendor != null) {
-            this.cancelVendor = cancelVendor;
+    public void setCancelUser(String cancelUser) {
+        if (cancelUser != null) {
+            this.cancelUser= cancelUser;
         }
     }
 

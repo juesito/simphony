@@ -225,17 +225,37 @@ public class GuideBean implements IConfigurable {
      */
     public String update(User user) throws PersonException {
 
-        Guide guideUpdated = this.guideService.getRepository().findOne(this.guide.getId());
-
-        if (guideUpdated == null) {
-            throw new PersonException("Guía no existente");
+        // Verifica cuantos boletos tiene vendidos anets de modificar el cupo
+        int pasVend = 0;
+        for (Guide gd : listTemporal) {
+            if(gd.getDepartureDate().equals(this.selected.getDepartureDate())&& 
+                gd.getOrigin().getId().equals(this.selected.getOrigin().getId()) && 
+                gd.getRootRoute().equals(this.selected.getRootRoute())){
+                Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getId());
+                Iterator<SaleDetail> cu = c.iterator();
+                while (cu.hasNext()) {
+                    pasVend += 1;
+                    cu.next();
+                }
+            }
         }
-        guide.setUsrModify(user.getNick());
-        guide.setLastUpdate(cal.getTime());
-        guideUpdated.update(this.guide);
-        this.guideService.getRepository().save(guideUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " " + mp.getValue("msj_record_update"));
-        guide = new Guide();
+        if (pasVend <= this.guide.getQuota()) {
+            Guide guideUpdated = this.guideService.getRepository().findOne(this.guide.getId());
+
+            if (guideUpdated == null) {
+                throw new PersonException("Guía no existente");
+            }
+            guide.setUsrModify(user.getNick());
+            guide.setLastUpdate(cal.getTime());
+            guideUpdated.update(this.guide);
+            this.guideService.getRepository().updateGuide(guideUpdated.getRootGuide(), guideUpdated.getBus().getId(), 
+                    guideUpdated.getDriverMan1().getId(), guideUpdated.getDriverMan2().getId(), guideUpdated.getQuota(), 
+                    guideUpdated.getStatus(), guideUpdated.getDepartureDate());
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " " + mp.getValue("msj_record_update"));
+            guide = new Guide();
+        }else
+             GrowlBean.simplyErrorMessage("Error de cupo", "El cupo no puede ser menor a los boletos vendidos.");
+
         return toGuide();
     }
 
