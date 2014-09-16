@@ -134,7 +134,6 @@ public class SaleBean implements IConfigurable {
             if (itineraryCostTemp.size() > 0) {
 
                 for (ItineraryCost it : itineraryCostTemp) {
-                    it.getItinerary().setTypeOfRoute(it.getAlternateItinerary().getTypeOfRoute());
                     it.getItinerary().setRoute(it.getAlternateItinerary().getRoute());
                     itineraryCost.add(it);
                 }
@@ -375,13 +374,9 @@ public class SaleBean implements IConfigurable {
             reservedSeat.setRouteId(guide.getRootRoute());
             reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
 
-            if (reservedSeat.getRouteType().equals(_LOCAL)) {
-                reservedSeat.setInitialSequence(0);
-                reservedSeat.setFinalSequence(0);
-            } else {
-                reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
-                reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
-            }
+            ///Aqui modifique si es local la ruta antes tenia 0 0
+            reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
+            reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
             reservedSeat.setSeat(dtSale.getSeat());
 
             saleService.getReservedSeatsRepository().save(reservedSeat);
@@ -477,6 +472,7 @@ public class SaleBean implements IConfigurable {
 
     /**
      * Calculamos el descuento por jubilado
+     *
      * @param saleDetail
      */
     public void calculateRetireeDiscount(List<SaleDetail> saleDetail) {
@@ -509,7 +505,7 @@ public class SaleBean implements IConfigurable {
     public String toSaleConfirm() {
         String msgNav = "toSaleConfirm";
         if (this.sale.getPassengers() == saleDetail.size()) {
-            
+
             this.sale.setTripDate(this.selected.getDepartureTime());
             sale.setOrigin(this.selected.getCost().getOrigin());
             sale.setDestiny(this.selected.getCost().getDestiny());
@@ -531,7 +527,7 @@ public class SaleBean implements IConfigurable {
 
         return msgNav;
     }
-    
+
     /**
      * Limpiamos la venta
      */
@@ -763,34 +759,33 @@ public class SaleBean implements IConfigurable {
      */
     public String cancelSeat(Vendor vendor) throws CloneNotSupportedException {
 
-        
         if (selectedReservedSeatInDetailSale != null) {
-            
+
             SaleDetail saleDetailCancelled = selectedReservedSeatInDetailSale.getSaleDetail();
-            
+
             //Cancelamos el detalle de la venta
             selectedReservedSeatInDetailSale.getSaleDetail().setStatus(_CANCELLED);
-            
+
             saleDetailCancelled.update(selectedReservedSeatInDetailSale.getSaleDetail());
-            
+
             unSelectedDetail = saleService.getDetailRepository().save(saleDetailCancelled);
 
             //Borramos el asiento reservado
             saleService.getReservedSeatsRepository().delete(selectedReservedSeatInDetailSale.getReservedSeatId());
-            
+
             Integer countDetailLeft = saleService.getDetailRepository().countDetailBySale(sale.getId());
 
             //Cancelamos el monto de la venta
-            if(countDetailLeft == 0){
+            if (countDetailLeft == 0) {
                 sale.setStatus(_CANCELLED);
-                
+
             }
             sale = saleDetailCancelled.getSale();
-            sale.setCancelVendor(vendor);            
+            sale.setCancelVendor(vendor);
             sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
             sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getAmount());
             sale.setPassengers(sale.getPassengers() - 1);
-            
+
             //Actualizamos la venta
             sale.update(sale);
             saleService.getSaleRepository().save(sale);
@@ -953,5 +948,5 @@ public class SaleBean implements IConfigurable {
             saleDetail.remove(unSelectedDetail);
         }
     }
-    
+
 }
