@@ -138,7 +138,7 @@ public class SaleBean implements IConfigurable {
             if (itineraryCostTemp.size() > 0) {
 
                 for (ItineraryCost it : itineraryCostTemp) {
-                    it.getItinerary().setTypeOfRoute(it.getAlternateItinerary().getTypeOfRoute());
+//                    it.getItinerary().setTypeOfRoute(it.getAlternateItinerary().getTypeOfRoute());
                     it.getItinerary().setRoute(it.getAlternateItinerary().getRoute());
                     itineraryCost.add(it);
                 }
