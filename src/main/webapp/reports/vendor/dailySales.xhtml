@@ -29,7 +29,7 @@
                                                      tabindex="1" >
                                         <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_vendor}"  />
                                         <f:selectItems value="#{boxVendorService.vendorList}"/>
-                                        <p:ajax event="select" update=":form:sale-daily" /> 
+                                        <p:ajax event="click" update=":form:sale-daily" /> 
                                     </p:selectOneMenu>
                                     <p:message for="vendor" />
                                 </p:column>
@@ -64,12 +64,12 @@
                               </p:column>
                                <p:column>
                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                               pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
+                                               pages="2" showOn="button" value="#{saleBean.sale.createDate}"/>
                                </p:column>
                              </p:row>
                             <p:row>
                                 <p:column style="padding-top: 25px; ">
-                                   <p:commandButton value="Procesar" actionListener="#{saleBean.findItinearies()}" 
+                                    <p:commandButton value="Procesar" actionListener="#{saleBean.findDailySales()}" 
                                                     ajax="true" styleClass="button-rounded" 
                                                     update=":form:saleDetailDT :main-form:growl"   >
                                    </p:commandButton>
@@ -81,14 +81,11 @@
 
                     <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
                         <!-- Data table -->
-                        <p:dataTable value="#{saleBean.list}" var="saleDetail" style="font-size: 12px;"                                   
-                                     id="saleDetailDT" 
-                                     emptyMessage="#{msgs.no_records_found}" rows="10"
-                                     paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{PageLinks}"
-                                     >
+                        <p:dataTable id="saleDetailDT" value="#{saleBean.modelDS}" var="ic" 
+                                     selectionMode="single" selection="#{saleBean.selectedDS}" 
+                                     rowKey="#{ic.rowId}" emptyMessage="Sin ventas registradas"  >
                             <p:column headerText="Folio" >
-                                <p:outputLabel value="#{sale.id}" />
+                                <p:outputLabel value="#{ic.sale.id}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{sale.origin.description}" />
@@ -108,6 +105,7 @@
                             <p:column headerText="#{msgs.cat_amount}" >
                                 <p:outputLabel value="#{sale.amount}" />
                             </p:column>
+
 
                         </p:dataTable>
 

@@ -8,6 +8,8 @@ package com.simphony.repositories;
 
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
+import com.simphony.entities.Vendor;
+import com.simphony.pojos.DailySales;
 import com.simphony.pojos.ItineraryCost;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +46,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
            "   AND j.route.id = i.route.id " + 
            "   AND c.origin.id = (:originId) " +
            "   AND c.destiny.id = (:destinyId)" +
+           "   AND (i.sequence <= j.sequence ) " +
            "   AND c.status = 'A'")
     public List<ItineraryCost> findItineraryDetailCost(@Param("originId")Long originId,@Param("destinyId") Long destinyId);
  
@@ -64,5 +67,13 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
          "    AND s.tripDate = :tripDate) " )
     public List<Sale> findSale(@Param("origin")Long origin, @Param("destiny")Long destiny, 
             @Param("tripDate")Date tripDate);
+
+@Query("SELECT NEW com.simphony.pojos.DailySales(p, d, s) " +
+           " FROM Payment p, SaleDetail d, Sale s" +
+           " WHERE s.vendor.id = :idVendor  " +
+           " AND s.id = d.sale.id " +
+           " AND s.id = p.sale.id")
+    public List<DailySales> dailySales(@Param("idVendor") Long idVendor);
+    
 
 }

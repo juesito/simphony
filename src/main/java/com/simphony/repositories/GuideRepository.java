@@ -60,12 +60,8 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
     public List<Guide>findAllLocal();
     
     @Query("UPDATE Guide g " +
-         "SET g.bus.id = :idBus, g.driverMan1.id = :idDriverMan1, g.driverMan2.id = :idDriverMan2, g.quota = :quota, g.status = :status "+
-         "  WHERE g.rootGuide = :idRoute " +
-         "  AND g.departureDate = :departureDate")
-    public Guide updateGuide(@Param("idRoute")Long idRoot, @Param("idBus")Long idBus, @Param("idDriverMan1")Long idDriverMan1,
-            @Param("idDriverMan2")Long idDriverMan2, @Param("quota")Integer quota, @Param("status")String status,
-            @Param("departureDate") Date departureDate);
+         "SET  g.quota = :quota ")
+    public void updateGuide(@Param("quota")Integer quota);
     
 }
 

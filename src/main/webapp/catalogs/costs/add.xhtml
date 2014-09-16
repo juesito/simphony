@@ -177,6 +177,89 @@
 
                     </h:form>
                 </p:panel>
+
+                <p:panel rendered="#{costBean.current.action eq 'R'}" style="padding-top: 25px; ">
+                    <h:form id="addReturn">
+                        <p:outputLabel value="Agregar Tarifa de Regreso" class="welcome-title" />
+                        <br/><br/>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_origin}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="origin" value="#{costBean.cost.origin}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" requiredMessage="#{msgs.req_origin}"
+                                                     tabindex="1" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                        <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_destiny}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="destiny" value="#{costBean.cost.destiny}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" requiredMessage="#{msgs.req_destiny}"
+                                                     tabindex="2" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                        <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_cost}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="cost" value="#{costBean.cost.cost}" required="true" maxlength="4"
+                                                 tabindex="3" requiredMessage="#{msgs.req_cost}"  />
+                                    <p:message for="cost" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_routeTime}:" for="routeTime"/>
+                                </p:column>
+                                <p:column>
+                                    <p:calendar id="routeTime" value="#{costBean.cost.routeTime}" 
+                                                required="true" requiredMessage="#{msgs.req_routeTime}"
+                                                pattern="HH:mm" timeOnly="true" tabindex="4"/>
+                                    <p:message for="routeTime" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Kms:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="kms" value="#{costBean.cost.kms}" maxlength="4" tabindex="5" />
+                                    <p:message for="kms" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_save}" action="#{costBean.save(userBean.current)}"
+                                                     ajax="false"  update="main-form:growl" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{costBean.cancelCost()}"
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
             </ui:define>
 
         </ui:composition>

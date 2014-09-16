@@ -32,6 +32,7 @@ public interface IConfigurable {
     //Acciones 
     final String _ADD = "A";
     final String _MODIFY = "M";
+    final String _RETURN = "R";
 
     final String _GUIDE_TYPE_OPEN = "OP";
     final String _GUIDE_TYPE_CLOSED = "CL";
