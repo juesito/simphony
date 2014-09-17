@@ -364,6 +364,10 @@ public class SaleBean implements IConfigurable {
             } else {
                 dtSale.setType(_SALE_TYPE_ASSOCIATE);
             }
+            
+            if(dtSale.getBolType().equals(_RETIREE)){
+                dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
+            }
 
             saleService.getDetailRepository().save(dtSale);
 
