@@ -6,6 +6,8 @@
 
 package com.simphony.repositories;
 
+import com.simphony.entities.Bus;
+import com.simphony.entities.DriverMan;
 import com.simphony.entities.Guide;
 import com.simphony.entities.SaleDetail;
 import java.util.Date;
@@ -56,6 +58,14 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
     @Query("SELECT g FROM Guide g " +
          "  WHERE g.guideType = 'L' ")
     public List<Guide>findAllLocal();
+    
+    @Query("UPDATE Guide g " +
+         "SET g.bus.id = :idBus, g.driverMan1.id = :idDriverMan1, g.driverMan2.id = :idDriverMan2, g.quota = :quota, g.status = :status "+
+         "  WHERE g.rootGuide = :idRoute " +
+         "  AND g.departureDate = :departureDate")
+    public Guide updateGuide(@Param("idRoute")Long idRoot, @Param("idBus")Long idBus, @Param("idDriverMan1")Long idDriverMan1,
+            @Param("idDriverMan2")Long idDriverMan2, @Param("quota")Integer quota, @Param("status")String status,
+            @Param("departureDate") Date departureDate);
     
 }
 

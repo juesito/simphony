@@ -46,7 +46,7 @@
                                                         <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                                         <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
                                                         <p:ajax event="change" update=":saleForm:tabViewCancel:destiny" 
-                                                                listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
+                                                                listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.cancelledSale.origin.id)}"   />
                                                     </p:selectOneMenu>
                                                 </p:column>
 
@@ -199,7 +199,7 @@
                                 </p:column>
                                 <f:facet name="footer">
                                     <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
-                                                     actionListener="#{saleBean.cancelSeat(vendorBean.current)}"
+                                                     actionListener="#{saleBean.cancelSeat(userBean.current)}"
                                                      ajax="true" 
                                                      update=":saleForm:reservedSeatsBySale :main-form:growl" >
                                     </p:commandButton>

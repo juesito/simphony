@@ -25,6 +25,7 @@ import com.simphony.entities.ReservedSeats;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
 import com.simphony.entities.Seat;
+import com.simphony.entities.User;
 import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.models.ItineraryCostModel;
@@ -37,8 +38,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -757,7 +756,7 @@ public class SaleBean implements IConfigurable {
      * @return
      * @throws CloneNotSupportedException
      */
-    public String cancelSeat(Vendor vendor) throws CloneNotSupportedException {
+    public String cancelSeat(User user) throws CloneNotSupportedException {
 
         if (selectedReservedSeatInDetailSale != null) {
 
@@ -781,7 +780,7 @@ public class SaleBean implements IConfigurable {
 
             }
             sale = saleDetailCancelled.getSale();
-            sale.setCancelVendor(vendor);
+            sale.setCancelUser(user.getNick());            
             sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
             sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getAmount());
             sale.setPassengers(sale.getPassengers() - 1);

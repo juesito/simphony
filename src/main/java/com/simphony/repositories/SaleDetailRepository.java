@@ -39,7 +39,7 @@ public interface SaleDetailRepository extends JpaRepository<SaleDetail, Long>{
             "     AND dv.sale.id = dg.sale.id " +
             "     AND dv.seat.id = ar.seat.id" +
             "     AND dv.status = 'V' " +
-            "     AND dv.customerName LIKE CONCAT(:customerName, '%')" +
+            "     AND dv.customerName LIKE CONCAT('%', :customerName, '%')" +
             "  ORDER BY dv.sale.id, dv.seat.id")
     public List<ReservedSeatInDetailSale> findSeatsByCustomerName(@Param("customerName") String customerName);
     

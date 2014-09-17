@@ -135,7 +135,8 @@
                                                         <p:outputLabel value="Nombre:"  />
                                                     </p:column>
                                                     <p:column>
-                                                        <p:inputText id="name" value="#{seat.customerName}" size="30"  />
+                                                        <p:inputText id="name" value="#{seat.customerName}" size="30" required="true" 
+                                                                    requiredMessage="#{msgs.req_name}" />
                                                         <p:watermark for="name" value="Nombre" />
                                                     </p:column>
                                                 </p:row>
