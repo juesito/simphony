@@ -68,13 +68,10 @@ public class DailySales  {
         return "DailySales{" + "payMent=" + payment + ",  detail=" + saleDetail +", sale=" + sale + "}";
     }
 
-    public String getRowId() {
-
-        String id = rowId.toString();
-
-        return id;
+    public Integer getRowId() {
+        return rowId;
     }
-    
+
      public Boolean isNormalMode() {
         return normalMode;
     }

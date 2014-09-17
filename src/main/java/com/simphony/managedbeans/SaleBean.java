@@ -28,9 +28,7 @@ import com.simphony.entities.Seat;
 import com.simphony.entities.User;
 import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
-import com.simphony.models.DailySalesModel;
 import com.simphony.models.ItineraryCostModel;
-import com.simphony.pojos.DailySales;
 import com.simphony.pojos.ItineraryCost;
 import com.simphony.pojos.ReservedSeatInDetailSale;
 import java.text.ParseException;
@@ -65,11 +63,9 @@ public class SaleBean implements IConfigurable {
     private Seat selectedSeat = new Seat();
     private Associate associate = new Associate();
     private ItineraryCost selected = new ItineraryCost();
-    private DailySales selectedDS = new DailySales();
     private SaleDetail unSelectedDetail = new SaleDetail();
     private SaleDetail saleDetailSelected = new SaleDetail();
     private ItineraryCostModel model = new ItineraryCostModel();
-    private DailySalesModel modelDS = new DailySalesModel();
     ReservedSeatInDetailSale selectedReservedSeatInDetailSale = new ReservedSeatInDetailSale();
 
     private List<Seat> seat = new ArrayList();
@@ -79,7 +75,6 @@ public class SaleBean implements IConfigurable {
     List<ReservedSeatInDetailSale> reservedSeatInDetailSale = new ArrayList();
     private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
-    private List<DailySales> listDailySales = new ArrayList<DailySales>();
 
     private boolean existSelectedAssociates = false;
 
@@ -626,14 +621,6 @@ public class SaleBean implements IConfigurable {
         this.itineraryCost = itineraryCost;
     }
 
-    public List<DailySales> getListDailySales() {
-        return listDailySales;
-    }
-
-    public void setListDailySales(List<DailySales> listDailySales) {
-        this.listDailySales = listDailySales;
-    }
-
     public SaleService getSaleService() {
         return saleService;
     }
@@ -648,14 +635,6 @@ public class SaleBean implements IConfigurable {
 
     public void setSelected(ItineraryCost selected) {
         this.selected = selected;
-    }
-
-    public DailySales getSelectedDS() {
-        return selectedDS;
-    }
-
-    public void setSelectedDS(DailySales selectedDS) {
-        this.selectedDS = selectedDS;
     }
 
     public GuideService getGuideService() {
@@ -720,13 +699,6 @@ public class SaleBean implements IConfigurable {
 
     public void setModel(ItineraryCostModel model) {
         this.model = model;
-    }
-    public DailySalesModel getModelDS() {
-        return modelDS;
-    }
-
-    public void setModelDS(DailySalesModel modelDS) {
-        this.modelDS = modelDS;
     }
 
     public Associate getAssociate() {
@@ -898,11 +870,6 @@ public class SaleBean implements IConfigurable {
     public String toCancel() {
 
         return "toCancel";
-    }
-
-    public String toDailySales() {
-
-        return "toDailySales";
     }
 
     //Pendiente
