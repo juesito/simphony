@@ -43,7 +43,7 @@ public class VendorBox {
 
         for (Vendor vendor : optionList) {
             list.add(vendor);
-            String fullName = vendor.getFirstLastName()+" "+ vendor.getSecondLastName()+" "+vendor.getName();
+            String fullName = vendor.getNick()+"-"+vendor.getFirstLastName()+" "+ vendor.getSecondLastName()+" "+vendor.getName();
             vendorList.add(new SelectItem(vendor, fullName));
         }
 

@@ -27,7 +27,8 @@
                                      >
                             
                             <p:column headerText="#{msgs.cat_route}" style="width:270px" >
-                                <p:outputLabel value="#{itinerary.route.formatDepartureTime} #{itinerary.route.origin.description}-#{itinerary.route.destiny.description}"  />
+                                <p:outputLabel value="#{itinerary.route.formatDepartureTime} #{itinerary.route.origin.description}-#{itinerary.route.destiny.description}" 
+                                               style="text-align:left"/>
                             </p:column>
                             <p:column headerText="#{msgs.cat_departureTime}" style="width:50px" >
                                 <p:outputLabel value="#{itinerary.formatDepartureTime}" />

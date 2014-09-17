@@ -56,6 +56,9 @@
                                                  icon="ui-icon-search" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{costBean.modifyCost()}" />
                                 <p:commandButton process="costDT" 
+                                                 icon="ui-icon-add" ajax="false"
+                                                 value="Agregar Regreso" action="#{costBean.addReturnCost()}" />
+                                <p:commandButton process="costDT" 
                                                  update=":form:costDT" icon="ui-icon-trash" 
                                                  value="#{msgs.but_enable}" actionListener="#{costBean.enabledCost()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />

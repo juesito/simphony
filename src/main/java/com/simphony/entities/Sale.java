@@ -45,7 +45,7 @@ public class Sale implements Serializable, IConfigurable {
 
     @Column(name = "fechaCreacion")
     @Basic
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createDate;
     
     @Column(name = "fechaModificacion")

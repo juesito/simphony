@@ -195,6 +195,25 @@ public class CostBean implements IConfigurable {
     }
 
     /**
+     * Controlador para agregar regreso
+     *
+     * @return
+     */
+    public String addReturnCost() {
+        if (this.selected != null ) {
+             this.current.setAction(_RETURN);
+                this.cost = new Cost();
+                this.cost.setOrigin(this.selected.getDestiny());
+                this.cost.setDestiny(this.selected.getOrigin());
+                this.cost.setCost(this.selected.getCost());
+                this.cost.setRouteTime(this.selected.getRouteTime());
+                this.cost.setKms(this.selected.getKms());
+            return "addCost";
+        }else
+            return "toCosts";
+    }
+
+    /**
      * deshabilitamos Tarifas
      *
      */

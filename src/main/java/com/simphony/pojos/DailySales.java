@@ -14,22 +14,25 @@ import com.simphony.entities.SaleDetail;
  *
  * @author Administrador
  */
-public class DailySales {
+public class DailySales  {
     
     private Sale sale;
     private SaleDetail saleDetail;
     private Payment payment;
     private Integer rowId;
+    private Boolean normalMode;
 
     public DailySales() {
         rowId = (int) (Math.random()*5000+1);
     }
 
     
-    public DailySales(Sale sale, Payment payMent) {
+    public DailySales(Payment payMent, SaleDetail detail, Sale sale) {
         this.sale = sale;
         this.payment = payMent;
+        this.saleDetail = detail;
         rowId = (int) (Math.random()*5000+1);
+        normalMode = true;
     }
 
     public Sale getSale() {
@@ -56,14 +59,28 @@ public class DailySales {
         this.payment = payment;
     }
 
-    public Integer getRowId() {
-        return rowId;
-    }
-
     public void setRowId(Integer rowId) {
         this.rowId = rowId;
     }
+
+    @Override
+    public String toString() {
+        return "DailySales{" + "payMent=" + payment + ",  detail=" + saleDetail +", sale=" + sale + "}";
+    }
+
+    public String getRowId() {
+
+        String id = rowId.toString();
+
+        return id;
+    }
     
-    
-    
+     public Boolean isNormalMode() {
+        return normalMode;
+    }
+
+    public void setNormalMode(Boolean normalMode) {
+        this.normalMode = normalMode;
+    }
+   
 }
