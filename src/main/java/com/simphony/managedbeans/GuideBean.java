@@ -248,14 +248,14 @@ public class GuideBean implements IConfigurable {
             guide.setUsrModify(user.getNick());
             guide.setLastUpdate(cal.getTime());
             guideUpdated.update(this.guide);
-//            this.guideService.getRepository().save(guideUpdated);
+            this.guideService.getRepository().save(guideUpdated);
 //            this.guideService.getRepository().updateGuide(guideUpdated.getRootGuide(), guideUpdated.getBus().getId(), 
 //                    guideUpdated.getDriverMan1().getId(), guideUpdated.getDriverMan2().getId(), guideUpdated.getQuota(), 
 //                    guideUpdated.getStatus(), guideUpdated.getDepartureDate());
 
 //  Quité la actualización con todos los parámetros para ver si era alguno el del problema pero no, ni así sencillito funciona
  
-            this.guideService.getRepository().updateGuide(guideUpdated.getQuota());
+//            this.guideService.getRepository().updateGuide(guideUpdated.getQuota());
 
             GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " " + mp.getValue("msj_record_update"));
             guide = new Guide();
