@@ -19,6 +19,10 @@ public  class SaleDetail implements Serializable, IConfigurable {
     @Column(name="importe")
     @Basic
     private double amount;
+    
+    @Column(name="descuento")
+    @Basic
+    private double discount;
 
     @Column(name="id")
     @Id@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -55,6 +59,7 @@ public  class SaleDetail implements Serializable, IConfigurable {
     
     public SaleDetail(){
         associate = new Associate();
+        this.discount = 0.0;
         this.bolType = _PASSENGER;
 
     }
@@ -165,6 +170,15 @@ public  class SaleDetail implements Serializable, IConfigurable {
         this.associateKey = associateKey;
     }
 
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    
     
   
 }

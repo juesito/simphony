@@ -28,9 +28,7 @@ import com.simphony.entities.Seat;
 import com.simphony.entities.User;
 import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
-import com.simphony.models.DailySalesModel;
 import com.simphony.models.ItineraryCostModel;
-import com.simphony.pojos.DailySales;
 import com.simphony.pojos.ItineraryCost;
 import com.simphony.pojos.ReservedSeatInDetailSale;
 import java.text.ParseException;
@@ -65,11 +63,9 @@ public class SaleBean implements IConfigurable {
     private Seat selectedSeat = new Seat();
     private Associate associate = new Associate();
     private ItineraryCost selected = new ItineraryCost();
-    private DailySales selectedDS = new DailySales();
     private SaleDetail unSelectedDetail = new SaleDetail();
     private SaleDetail saleDetailSelected = new SaleDetail();
     private ItineraryCostModel model = new ItineraryCostModel();
-    private DailySalesModel modelDS = new DailySalesModel();
     ReservedSeatInDetailSale selectedReservedSeatInDetailSale = new ReservedSeatInDetailSale();
 
     private List<Seat> seat = new ArrayList();
@@ -79,7 +75,6 @@ public class SaleBean implements IConfigurable {
     List<ReservedSeatInDetailSale> reservedSeatInDetailSale = new ArrayList();
     private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
-    private List<DailySales> listDailySales = new ArrayList<DailySales>();
 
     private boolean existSelectedAssociates = false;
 
@@ -138,7 +133,6 @@ public class SaleBean implements IConfigurable {
             if (itineraryCostTemp.size() > 0) {
 
                 for (ItineraryCost it : itineraryCostTemp) {
-//                    it.getItinerary().setTypeOfRoute(it.getAlternateItinerary().getTypeOfRoute());
                     it.getItinerary().setRoute(it.getAlternateItinerary().getRoute());
                     itineraryCost.add(it);
                 }
@@ -370,6 +364,10 @@ public class SaleBean implements IConfigurable {
             } else {
                 dtSale.setType(_SALE_TYPE_ASSOCIATE);
             }
+            
+            if(dtSale.getBolType().equals(_RETIREE)){
+                dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
+            }
 
             saleService.getDetailRepository().save(dtSale);
 
@@ -379,13 +377,9 @@ public class SaleBean implements IConfigurable {
             reservedSeat.setRouteId(guide.getRootRoute());
             reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
 
-            if (reservedSeat.getRouteType().equals(_LOCAL)) {
-                reservedSeat.setInitialSequence(0);
-                reservedSeat.setFinalSequence(0);
-            } else {
-                reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
-                reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
-            }
+            ///Aqui modifique si es local la ruta antes tenia 0 0
+            reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
+            reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
             reservedSeat.setSeat(dtSale.getSeat());
 
             saleService.getReservedSeatsRepository().save(reservedSeat);
@@ -481,6 +475,7 @@ public class SaleBean implements IConfigurable {
 
     /**
      * Calculamos el descuento por jubilado
+     *
      * @param saleDetail
      */
     public void calculateRetireeDiscount(List<SaleDetail> saleDetail) {
@@ -513,7 +508,7 @@ public class SaleBean implements IConfigurable {
     public String toSaleConfirm() {
         String msgNav = "toSaleConfirm";
         if (this.sale.getPassengers() == saleDetail.size()) {
-            
+
             this.sale.setTripDate(this.selected.getDepartureTime());
             sale.setOrigin(this.selected.getCost().getOrigin());
             sale.setDestiny(this.selected.getCost().getDestiny());
@@ -535,7 +530,7 @@ public class SaleBean implements IConfigurable {
 
         return msgNav;
     }
-    
+
     /**
      * Limpiamos la venta
      */
@@ -626,14 +621,6 @@ public class SaleBean implements IConfigurable {
         this.itineraryCost = itineraryCost;
     }
 
-    public List<DailySales> getListDailySales() {
-        return listDailySales;
-    }
-
-    public void setListDailySales(List<DailySales> listDailySales) {
-        this.listDailySales = listDailySales;
-    }
-
     public SaleService getSaleService() {
         return saleService;
     }
@@ -648,14 +635,6 @@ public class SaleBean implements IConfigurable {
 
     public void setSelected(ItineraryCost selected) {
         this.selected = selected;
-    }
-
-    public DailySales getSelectedDS() {
-        return selectedDS;
-    }
-
-    public void setSelectedDS(DailySales selectedDS) {
-        this.selectedDS = selectedDS;
     }
 
     public GuideService getGuideService() {
@@ -721,13 +700,6 @@ public class SaleBean implements IConfigurable {
     public void setModel(ItineraryCostModel model) {
         this.model = model;
     }
-    public DailySalesModel getModelDS() {
-        return modelDS;
-    }
-
-    public void setModelDS(DailySalesModel modelDS) {
-        this.modelDS = modelDS;
-    }
 
     public Associate getAssociate() {
         return associate;
@@ -790,34 +762,33 @@ public class SaleBean implements IConfigurable {
      */
     public String cancelSeat(User user) throws CloneNotSupportedException {
 
-        
         if (selectedReservedSeatInDetailSale != null) {
-            
+
             SaleDetail saleDetailCancelled = selectedReservedSeatInDetailSale.getSaleDetail();
-            
+
             //Cancelamos el detalle de la venta
             selectedReservedSeatInDetailSale.getSaleDetail().setStatus(_CANCELLED);
-            
+
             saleDetailCancelled.update(selectedReservedSeatInDetailSale.getSaleDetail());
-            
+
             unSelectedDetail = saleService.getDetailRepository().save(saleDetailCancelled);
 
             //Borramos el asiento reservado
             saleService.getReservedSeatsRepository().delete(selectedReservedSeatInDetailSale.getReservedSeatId());
-            
+
             Integer countDetailLeft = saleService.getDetailRepository().countDetailBySale(sale.getId());
 
             //Cancelamos el monto de la venta
-            if(countDetailLeft == 0){
+            if (countDetailLeft == 0) {
                 sale.setStatus(_CANCELLED);
-                
+
             }
             sale = saleDetailCancelled.getSale();
             sale.setCancelUser(user.getNick());            
             sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
             sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getAmount());
             sale.setPassengers(sale.getPassengers() - 1);
-            
+
             //Actualizamos la venta
             sale.update(sale);
             saleService.getSaleRepository().save(sale);
@@ -901,11 +872,6 @@ public class SaleBean implements IConfigurable {
         return "toCancel";
     }
 
-    public String toDailySales() {
-
-        return "toDailySales";
-    }
-
     //Pendiente
     public void confirmPayRoll(List<PayRoll> list) {
         this.payRollList = list;
@@ -980,25 +946,5 @@ public class SaleBean implements IConfigurable {
             saleDetail.remove(unSelectedDetail);
         }
     }
- 
-    /**
-     * Buscamos Ventas Diarias
-     */
-    public void findDailySales() {
 
-        if (this.sale.getVendor() != null && this.sale.getCreateDate() != null) {
-        
-            listDailySales.clear();
-
-            listDailySales = saleService.getSaleRepository().dailySales(this.sale.getVendor().getId());
-             if (listDailySales.size() > 0) {   
-                modelDS = new DailySalesModel(listDailySales);
-             }
-
-        } else {
-            GrowlBean.simplyErrorMessage("Error de datos", "Falta Vendedor o Fecha...");
-        }
-
-    }
-  
 }

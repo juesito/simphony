@@ -68,12 +68,4 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
     public List<Sale> findSale(@Param("origin")Long origin, @Param("destiny")Long destiny, 
             @Param("tripDate")Date tripDate);
 
-@Query("SELECT NEW com.simphony.pojos.DailySales(p, d, s) " +
-           " FROM Payment p, SaleDetail d, Sale s" +
-           " WHERE s.vendor.id = :idVendor  " +
-           " AND s.id = d.sale.id " +
-           " AND s.id = p.sale.id")
-    public List<DailySales> dailySales(@Param("idVendor") Long idVendor);
-    
-
 }

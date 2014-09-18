@@ -23,7 +23,7 @@
                                     <p:outputLabel value="#{msgs.cat_vendor}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="vendor" value="#{saleBean.sale.vendor}" 
+                                    <p:selectOneMenu id="vendor" value="#{reportsBean.sale.vendor}" 
                                                      converter="vendorConverter" 
                                                      style="width:300px" required="true" 
                                                      tabindex="1" >
@@ -39,7 +39,7 @@
                                     <p:outputLabel value="#{msgs.cat_salePoint}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="#{saleBean.sale.vendor.salePoint.description}" />
+                                    <p:outputLabel value="#{reportsBean.sale.vendor.salePoint.description}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -47,7 +47,7 @@
                                     <p:outputLabel value="#{msgs.cat_workCenter}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="#{saleBean.sale.vendor.workCenter.description}" />
+                                    <p:outputLabel value="#{reportsBean.sale.vendor.workCenter.description}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -55,7 +55,7 @@
                                     <p:outputLabel value="#{msgs.cat_population}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="#{saleBean.sale.vendor.population.description}" />
+                                    <p:outputLabel value="#{reportsBean.sale.vendor.population.description}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -64,14 +64,14 @@
                               </p:column>
                                <p:column>
                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                               pages="2" showOn="button" value="#{saleBean.sale.createDate}"/>
+                                               pages="2" showOn="button" value="#{reportsBean.sale.createDate}"/>
                                </p:column>
                              </p:row>
                             <p:row>
                                 <p:column style="padding-top: 25px; ">
-                                    <p:commandButton value="Procesar" actionListener="#{saleBean.findDailySales()}" 
+                                    <p:commandButton value="Procesar" actionListener="#{reportsBean.findDailySales()}" 
                                                     ajax="true" styleClass="button-rounded" 
-                                                    update=":form:saleDetailDT :main-form:growl"   >
+                                                      >
                                    </p:commandButton>
                                 </p:column>
                             </p:row>
@@ -81,9 +81,8 @@
 
                     <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
                         <!-- Data table -->
-                        <p:dataTable id="saleDetailDT" value="#{saleBean.modelDS}" var="ic" 
-                                     selectionMode="single" selection="#{saleBean.selectedDS}" 
-                                     rowKey="#{ic.rowId}" emptyMessage="Sin ventas registradas"  >
+                        <p:dataTable id="saleDetailDT" value="#{reportsBean.modelDS}" var="ic" 
+                                      emptyMessage="Sin ventas registradas"  >
                             <p:column headerText="Folio" >
                                 <p:outputLabel value="#{ic.sale.id}" />
                             </p:column>
@@ -110,6 +109,7 @@
                         </p:dataTable>
 
                     </div>
+                   
                 </h:form>
             </ui:define>
 

@@ -44,7 +44,7 @@ public class DailySalesModel extends ListDataModel<DailySales> implements Select
         List<DailySales> dailySalesList = (List<DailySales>) getWrappedData();  
         
        for(DailySales ic : dailySalesList) {
-            if(ic.getRowId().equals(rowKey))  
+            if(ic.getRowId()== Integer.parseInt(rowKey))  
                 return ic;  
         }  
           
