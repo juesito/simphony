@@ -379,7 +379,11 @@ public class SaleBean implements IConfigurable {
 
             ///Aqui modifique si es local la ruta antes tenia 0 0
             reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
-            reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
+            if(this.selected.isNormalMode()){
+                reservedSeat.setFinalSequence(this.selected.getItinerary().getSequence());
+            }else{
+                reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
+            }
             reservedSeat.setSeat(dtSale.getSeat());
 
             saleService.getReservedSeatsRepository().save(reservedSeat);

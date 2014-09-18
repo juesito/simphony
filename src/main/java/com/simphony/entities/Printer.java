@@ -79,7 +79,25 @@ public class Printer extends Catalog{
         this.brand = brand;
     }
     
-    
+        public void update(Printer printerUpdated){
+        super.update(printerUpdated);
+        this.ipAddress = printerUpdated.getIpAddress();
+        this.type = printerUpdated.getType();
+        this.width = printerUpdated.getWidth();
+        this.height = printerUpdated.getHeight();
+        this.brand = printerUpdated.getBrand();
+    }
+
+    public String getFormatStatus(){
+    String texto = "";
+    if(this.getStatus() != null){
+        if (this.getStatus().equals("A")){
+            texto = "Activo";
+        }else texto = "Inactivo";
+       
+        return texto;
+    }else return texto;
+    }    
     
     
 }
