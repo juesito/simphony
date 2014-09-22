@@ -147,7 +147,7 @@ public class PrinterBean implements IConfigurable {
     }
 
     /**
-     * Llenamos lista de agremiados
+     * Llenamos lista de printers
      */
     private void fillPrinter() {
         list.clear();
@@ -175,7 +175,7 @@ public class PrinterBean implements IConfigurable {
     }
     
     /**
-     * Actualizamos el usuario
+     * Actualizamos el printer
      *
      * @return
      * @throws com.simphony.exceptions.PersonException
@@ -185,7 +185,7 @@ public class PrinterBean implements IConfigurable {
         Printer printerUpdated = this.printerService.getPrinterRepository().findOne(this.printer.getId());
         
         if(printerUpdated == null){
-            throw new PersonException("Estación de trabajo no existente"); 
+            throw new PersonException("Impresora no existente"); 
         }
         printer.setUser(user);
         printer.setLastUpdate(cal.getTime());
