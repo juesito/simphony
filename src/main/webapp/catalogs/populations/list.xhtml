@@ -25,10 +25,18 @@
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                      >
-
+                            <p:column headerText="Clave Corta" >
+                                <p:outputLabel value="#{population.cveCorta}" />
+                            </p:column>
                             <p:column headerText="#{msgs.cat_description}" filterBy="#{population.description}"
                                       filterMatchMode="contains" >
                                 <p:outputLabel value="#{population.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_state}" >
+                                <p:outputLabel value="#{population.state}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_zipCode}" >
+                                <p:outputLabel value="#{population.zipCode}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >                                
                                 <p:outputLabel value="#{population.formatStatus}" />
@@ -73,10 +81,34 @@
                                     <!-- Id, Nombre -->
                                     <p:row>
                                         <p:column>
+                                            <p:outputLabel value="Clave Corta:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.cveCorta}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
                                             <p:outputLabel value="#{msgs.cat_description}:" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{populationBean.selected.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_state}:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.state}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.zipCode}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>

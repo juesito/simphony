@@ -37,6 +37,10 @@ public class Itinerary extends Catalog implements IConfigurable, Serializable, C
     @Column(name = "tipoRuta")
     private String typeOfRoute;
 
+    @Basic
+    @Column(name = "via")
+    private String via;
+
     @Column(name = "horaLlegada")
     @Basic
     @Temporal(javax.persistence.TemporalType.TIME)
@@ -62,6 +66,7 @@ public class Itinerary extends Catalog implements IConfigurable, Serializable, C
         this.origin = itineraryUpdated.origin;
         this.typeOfRoute = itineraryUpdated.typeOfRoute;
         this.sequence = itineraryUpdated.sequence;
+        this.via = itineraryUpdated.via;
     }
 
     public Population getDestiny() {
@@ -118,6 +123,14 @@ public class Itinerary extends Catalog implements IConfigurable, Serializable, C
 
     public void setSequence(Integer sequence) {
         this.sequence = sequence;
+    }
+
+    public String getVia() {
+        return via;
+    }
+
+    public void setVia(String via) {
+        this.via = via;
     }
  
     public String getFormatDepartureTime(){

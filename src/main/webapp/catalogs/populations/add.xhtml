@@ -22,12 +22,42 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
+                                    <p:outputLabel value="Clave Corta:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="cveCorta" value="#{populationBean.population.cveCorta}" required="true" 
+                                                 requiredMessage="#{msgs.req_cveCorta}" maxlength="3" style="width:30px"/>
+                                    <p:message for="cveCorta" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="descripcion" value="#{populationBean.population.description}" required="true" 
                                                  requiredMessage="#{msgs.req_description}" maxlength="25" />
                                     <p:message for="descripcion" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_state}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="state" value="#{populationBean.population.state}" required="true" 
+                                                 requiredMessage="#{msgs.req_state}" maxlength="25" />
+                                    <p:message for="state" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="zipCode" value="#{populationBean.population.zipCode}" required="true" 
+                                                 requiredMessage="#{msgs.req_zipCode}" maxlength="5" style="width:50px"/>
+                                    <p:message for="zipCode" />
                                 </p:column>
                             </p:row>
                            <p:row>
@@ -53,6 +83,16 @@
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                           <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Clave Corta:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="cveCorta" value="#{populationBean.population.cveCorta}" required="true" 
+                                                 requiredMessage="#{msgs.req_cveCorta}" maxlength="3" style="width:30px"/>
+                                    <p:message for="cveCorta" />
+                                </p:column>
+                            </p:row>
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_description}:" />
@@ -62,7 +102,26 @@
                                                  requiredMessage="#{msgs.req_description}" maxlength="25" />
                                     <p:message for="descripcion" />
                                 </p:column>
-
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_state}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="state" value="#{populationBean.population.state}" required="true" 
+                                                 requiredMessage="#{msgs.req_state}" maxlength="25" />
+                                    <p:message for="state" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="zipCode" value="#{populationBean.population.zipCode}" required="true" 
+                                                 requiredMessage="#{msgs.req_zipCode}" maxlength="5" style="width:50px"/>
+                                    <p:message for="zipCode" />
+                                </p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="2"></p:column>

@@ -38,6 +38,7 @@ public class ItineraryBean implements IConfigurable {
     private Itinerary itinerary = new Itinerary();
     private Itinerary selected = new Itinerary();
     private List<Itinerary> list = new ArrayList<Itinerary>();
+    private List<Itinerary> listCaptura = new ArrayList<Itinerary>();
 
     @ManagedProperty(value = "#{itineraryService}")
     private ItineraryService itineraryService;
@@ -110,9 +111,18 @@ public class ItineraryBean implements IConfigurable {
         this.list = list;
     }
 
+    public List<Itinerary> getListCaptura() {
+        return listCaptura;
+    }
+
+    public void setListCaptura(List<Itinerary> listCaptura) {
+        this.listCaptura = listCaptura;
+    }
+
     public String addItinerary() {
         itinerary = new Itinerary();
         this.itinerary.setAction(_ADD);
+        this.listCaptura.clear();
         return "addItinerary";
     }
 
@@ -228,6 +238,7 @@ public class ItineraryBean implements IConfigurable {
                        itinerary.setRoute(itinerary);
                        this.itineraryService.getItineraryRepository().save(itinerary);
                      }
+                    listCaptura.add(this.itinerary);
                     GrowlBean.simplyInfoMessage(mp.getValue("msj_save"), mp.getValue("msj_record_save") + this.itinerary.getOrigin().getDescription());
                     itinerary = new Itinerary();
                     itinerary.setAction(_ADD);

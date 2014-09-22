@@ -74,8 +74,15 @@
                                     <p:column>
                                         <p:spinner id="sequence" value="#{itineraryBean.itinerary.sequence}" stepFactor="10" min="0" max="1000" 
                                                    tabindex="4"    required="true" requiredMessage="#{msgs.req_sequence}" />
-                                    </p:column>
                                     <p:message for="sequence" />
+                                    </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_via}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="via" value="#{itineraryBean.itinerary.via}"  maxlength="25" />
+                                    <p:message for="via" />
+                                </p:column>
                                 </p:row>
                             <p:row>
                             </p:row>
@@ -83,7 +90,7 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_save}" action="#{itineraryBean.save(userBean.current)}"
-                                                     ajax="false"  update="main-form:growl" />
+                                                     ajax="false"  update="main-form:growl :panel-captura "/>
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{itineraryBean.cancelItinerary()}"
@@ -95,6 +102,43 @@
 
                     </h:form>
                 </p:panel>
+                
+                <p:panel rendered="#{itineraryBean.itinerary.action eq 'A'}"  style="padding-top: 25px; " id="panel-captura" >
+
+                        <p:panel >
+                            <p:outputLabel value="Ruta Capturada" style=" font-size:13px " />
+                            <p:dataTable value="#{itineraryBean.listCaptura}" var="Captura"                                      
+                                         id="capturaDT" 
+                                         emptyMessage="#{msgs.no_records_found}" rows="5"
+                                         paginator="true" paginatorPosition="bottom"
+                                         paginatorTemplate="{PageLinks}"   >
+
+                        <p:column headerText="#{msgs.cat_route}" style="width:270px" >
+                                <p:outputLabel value="#{itinerary.route.formatDepartureTime} #{itinerary.route.origin.description}-#{itinerary.route.destiny.description}" 
+                                               style="text-align:left"/>
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_departureTime}" style="width:50px" >
+                                <p:outputLabel value="#{itinerary.formatDepartureTime}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_origin}" >
+                                <p:outputLabel value="#{itinerary.origin.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_destiny}" >
+                                <p:outputLabel value="#{itinerary.destiny.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_checkTime}" style="width:50px">
+                                <p:outputLabel value="#{itinerary.formatCheckTime}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_typeOfRoute}" style="width:70px" >
+                                <p:outputLabel value="#{itinerary.formatTypeOfRoute}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_sequence}" style="width:60px" >
+                                <p:outputLabel value="#{itinerary.sequence}" />
+                            </p:column>
+                            </p:dataTable>
+                    </p:panel>
+                </p:panel>
+
                 <!-- panel para modificar -->
                 <p:panel rendered="#{itineraryBean.itinerary.action eq 'M'}" style="padding-top: 25px; ">
                     <h:form id="modify">
@@ -169,6 +213,16 @@
                                         </p:selectOneMenu>
                                     </p:column>
                                 </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_via}:" />
+                                </p:column>
+                               <p:column>
+                                    <p:inputText id="via" value="#{itineraryBean.itinerary.via}" required="true" 
+                                                 requiredMessage="#{msgs.req_via}" maxlength="25" />
+                                    <p:message for="via" />
+                                </p:column>
+                            </p:row>
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
