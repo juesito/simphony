@@ -98,7 +98,7 @@ public class ReportsBean  {
                 modelDS = new DailySalesModel(listDailySales);
 
             } else {
-                GrowlBean.simplyErrorMessage("Error de datos", "Falta vendedor o fecha...");
+                GrowlBean.simplyErrorMessage("Error de datos", "Falta Asesor de VentaF o fecha...");
             }
 
     }
