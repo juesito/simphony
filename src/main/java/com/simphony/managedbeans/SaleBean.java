@@ -786,7 +786,7 @@ public class SaleBean implements IConfigurable {
             sale = saleDetailCancelled.getSale();
             sale.setCancelUser(user.getNick());            
             sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
-            sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getAmount());
+            sale.setSubTotal(sale.getSubTotal() - (saleDetailCancelled.getAmount() - saleDetailCancelled.getDiscount()));
             sale.setPassengers(sale.getPassengers() - 1);
 
             //Actualizamos la venta
