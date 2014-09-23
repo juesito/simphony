@@ -265,6 +265,27 @@ public class GuideBean implements IConfigurable {
         return toGuide();
     }
 
+        /**
+     * cerramos la Guía para su venta.
+     *
+     * @throws com.simphony.exceptions.PersonException
+     */
+    public void closeGuide() throws PersonException {
+        this.selected.setStatus(_GUIDE_TYPE_CLOSED);
+
+        Guide guideUpdated = this.guideService.getRepository().findOne(selected.getId());
+
+        if (guideUpdated == null) {
+            throw new PersonException("Guía no existente");
+        }
+
+        guideUpdated.update(selected);
+        this.guideService.getRepository().save(guideUpdated);
+
+        this.fillGuide();
+
+    }
+
     /**
      * Controlador listar Guide
      *

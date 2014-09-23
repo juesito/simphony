@@ -82,6 +82,7 @@
                                     <p:selectOneMenu  id="status" effect="blind" value="#{guideBean.guide.status}" 
                                                       style="width: 100px;" >
                                         <f:selectItem itemLabel="Abierta" itemValue="OP" />
+                                        <f:selectItem itemLabel="Cerrada" itemValue="CL" />                                        
                                         <f:selectItem itemLabel="Cancelada" itemValue="CA" />                                        
                                     </p:selectOneMenu>
                                     <p:message for="status" />
@@ -93,11 +94,12 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_save}" action="#{guideBean.update(userBean.current)}"
-                                                     ajax="false"  update="main-form:growl" />
+                                                     ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
-                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"
+                                                     icon="ui-icon-arrowreturnthick-1-w"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

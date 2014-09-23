@@ -74,11 +74,12 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_save}" action="#{printerBean.save(userBean.current)}"
-                                                     ajax="false" />
+                                                     ajax="false" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{printerBean.cancelPrinter()}"
-                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"
+                                                     icon="ui-icon-arrowreturnthick-1-w"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -92,7 +93,7 @@
                         <br/><br/>
 
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
-                            <p:row>
+                            <p:row >
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_ipAddress}:" />
                                 </p:column>

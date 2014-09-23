@@ -35,11 +35,12 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_save}" action="#{workCenterBean.save(userBean.current)}"
-                                                     ajax="false"  update="main-form:growl" />
+                                                     ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{workCenterBean.cancelWorkCenter()}"
-                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"
+                                                     icon="ui-icon-arrowreturnthick-1-w"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -72,11 +73,12 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_save}" action="#{workCenterBean.update(userBean.current)}"
-                                                     ajax="false"  update="main-form:growl" />
+                                                     ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{workCenterBean.cancelWorkCenter()}"
-                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"
+                                                     icon="ui-icon-arrowreturnthick-1-w"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

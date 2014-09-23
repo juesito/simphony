@@ -54,7 +54,7 @@
                                                  update=":form:printerDetail" icon="ui-icon-search" 
                                                  value="#{msgs.but_visualize}" oncomplete="PF('printerDialog').show()" />
                                 <p:commandButton process="printerDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{printerBean.modifyPrinter()}" />
                                 <p:commandButton process="printerDT" 
                                                  update=":form:printerDT" icon="ui-icon-trash" 
@@ -76,7 +76,7 @@
 
 
                         <p:commandButton value="#{msgs.but_add}" action="#{printerBean.addPrinter()}"
-                                         styleClass="catalog-button" ajax="false"/>
+                                         styleClass="catalog-button" ajax="false" icon="ui-icon-copy"/>
 
                         <!-- detalle poblaciones-->
                         <p:dialog header="#{msgs.cat_detail}" widgetVar="printerDialog" modal="true" 

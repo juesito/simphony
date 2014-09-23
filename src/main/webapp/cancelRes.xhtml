@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:body>
+            <ui:composition template="./WEB-INF/templates/catalog.xhtml">
+
+                <ui:define name="content"> 
+                    <h:form id="saleForm">
+                        <div class="box-content-saleCancel" >
+                            <p:tabView orientation="left" id="tabViewCancel" dynamic="true" cache="true">
+                                <p:ajax event="tabChange" listener="#{saleBean.onTabChange}"
+                                        update=":saleForm:tabViewCancel :saleForm:reservedSeatsBySale"/>
+
+                                <p:tab title="Por itinerario">
+                                    <!-- choice your origin and destiny -->
+                                    <p:panel id="sale-input" >
+                                        <p:panelGrid styleClass="sale-schedule-panel">
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Cancelación de Reservaciones" style=" font-size:20px " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value=" " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="#{msgs.cat_origin}:" />
+                                                </p:column>                                    
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+
+                                                    <p:selectOneMenu id="origin" value="#{saleBean.cancelledSale.origin}" 
+                                                                     converter="populationConverter" 
+                                                                     style="width:160px" required="true" 
+                                                                     requiredMessage="Origen Requerido">
+                                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                        <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
+                                                        <p:ajax event="change" update=":saleForm:tabViewCancel:destiny" 
+                                                                listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.cancelledSale.origin.id)}"   />
+                                                    </p:selectOneMenu>
+                                                </p:column>
+
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="#{msgs.cat_destiny}:" />
+                                                </p:column>
+
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:selectOneMenu id="destiny" value="#{saleBean.cancelledSale.destiny}" 
+                                                                     converter="populationConverter" 
+                                                                     style="width:160px" required="true" 
+                                                                     requiredMessage="Destino requerido">
+                                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                        <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
+
+                                                    </p:selectOneMenu>
+                                                </p:column>
+
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Fecha y hora de salida:" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:calendar mode="popup" size="18" locale="mx"  
+                                                                pages="2" showOn="button" value="#{saleBean.cancelledSale.tripDate}"
+                                                                pattern="dd/MM/yyyy HH:mm"/>
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:commandButton value="Buscar" action="#{saleBean.findReservations(0)}" 
+                                                                     ajax="true" styleClass="button-rounded"  partialSubmit="true"
+                                                                     process=":saleForm:tabViewCancel:sale-input"
+                                                                     update=":main-form:growl :saleForm:reservedSeatsBySale">
+
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:row>                            
+                                        </p:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+                                <p:tab title="Por Nombre Cliente">
+                                    <p:panel id="sale-input-III" >
+                                        <p:panelGrid styleClass="sale-schedule-panel">
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value=" " />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Nombre Cliente:" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:inputText size="20" value="#{saleBean.unSelectedDetail.customerName}"
+                                                                 maxlength="30" required="true" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:commandButton value="Buscar" action="#{saleBean.findReservations(2)}" 
+                                                                     ajax="true" styleClass="button-rounded" partialSubmit="true"
+                                                                     process=":saleForm:tabViewCancel:sale-input-III"
+                                                                     update=":main-form:growl :saleForm:reservedSeatsBySale">
+
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:row>                            
+                                        </p:panelGrid>
+                                    </p:panel>
+                                </p:tab>
+                            </p:tabView>
+
+                        </div>
+
+                        <div class="box-content-saleCancel-detail" >
+
+                            <p:dataTable value="#{saleBean.reservedSeatInDetailSale}" var="reservedSeat" 
+                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top: 25px; "
+                                         selectionMode="single" selection="#{saleBean.selectedReservedSeatInDetailSale}">
+                                <p:column headerText="Fecha" style="width:75px">  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.formatTripTime}"/>
+                                </p:column>
+                                <p:column headerText="Hora" style="width:35px" >  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.formatTime}" />
+                                </p:column>
+                                <p:column headerText="Origen" >  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.origin.description}" />
+                                </p:column>
+                                <p:column headerText="Destino" >  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.sale.destiny.description}" />
+                                </p:column>
+                                <p:column headerText="Asi" style="width:20px">
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.seat.seat}" 
+                                                    />
+                                </p:column>
+                                <p:column headerText="Cliente" style="width:157px">
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.customerName}" />
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
+                                                     actionListener="#{saleBean.cancelSeat(userBean.current, 'toCancelRes')}"
+                                                     ajax="true" 
+                                                     update=":saleForm:reservedSeatsBySale :main-form:growl" >
+                                    </p:commandButton>
+                                </f:facet>
+                            </p:dataTable>
+                        </div>
+                    </h:form>
+                </ui:define>
+
+            </ui:composition>
+        </h:body>
+
+    </f:view>
+</html>

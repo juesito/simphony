@@ -122,6 +122,9 @@
                                                 <p:column headerText="Tiempo recorrido">
                                                     <p:outputLabel value="#{ic.cost.formatRouteTime}" />
                                                 </p:column>
+                                                <p:column headerText="Vía">
+                                                    <p:outputLabel value="#{ic.itinerary.via}" />
+                                                </p:column>
 
                                             </p:dataTable>
                                         </p:column>
@@ -196,7 +199,7 @@
                                             </p:commandButton>
                                         </p:column>
                                         <p:column colspan="2">
-                                            <p:commandButton value="Cancelar" icon="ui-icon-cart"
+                                            <p:commandButton value="Cancelar" icon="ui-icon-arrowreturnthick-1-w"
                                                              action="toSale"  ajax="false" immediate="true">
                                                 <f:actionListener  binding="#{saleBean.clearSale()}"/>
                                             </p:commandButton>

@@ -23,7 +23,7 @@
                                         <p:panelGrid styleClass="sale-schedule-panel">
                                             <p:row>
                                                 <p:column>
-                                                    <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                                    <p:outputLabel value="Cancelación de Venta" style=" font-size:20px " />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
@@ -199,7 +199,7 @@
                                 </p:column>
                                 <f:facet name="footer">
                                     <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
-                                                     actionListener="#{saleBean.cancelSeat(userBean.current)}"
+                                                     actionListener="#{saleBean.cancelSeat(userBean.current, 'toCancel')}"
                                                      ajax="true" 
                                                      update=":saleForm:reservedSeatsBySale :main-form:growl" >
                                     </p:commandButton>

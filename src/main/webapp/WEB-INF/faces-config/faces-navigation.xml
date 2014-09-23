@@ -159,6 +159,14 @@
             <to-view-id>cancel.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>toReservations</from-outcome>
+            <to-view-id>/reservations.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>toCancelRes</from-outcome>
+            <to-view-id>/cancelRes.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>toDailySales</from-outcome>
             <to-view-id>/reports/vendor/dailySales.xhtml</to-view-id>
         </navigation-case>
@@ -209,5 +217,15 @@
             <to-view-id>cambioConfirm.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+     </navigation-rule>
+     <navigation-rule>
+        <description>Nos dirigimos a reservaciones</description>
+        <from-view-id>reservations.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>toReservationsConfirm</from-outcome>
+            <to-view-id>reservationsConfirm.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
     </navigation-rule>
+
 </faces-config>

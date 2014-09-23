@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -45,7 +44,7 @@ public class Sale implements Serializable, IConfigurable {
 
     @Column(name = "fechaCreacion")
     @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date createDate;
     
     @Column(name = "fechaModificacion")
@@ -96,6 +95,7 @@ public class Sale implements Serializable, IConfigurable {
         this.retirees = 0;
         this.subTotal = 0.0;
         this.status = _SALED;
+        this.createDate = new Date();
 
     }
 
