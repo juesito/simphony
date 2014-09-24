@@ -54,18 +54,25 @@
                              <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton process="guideDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{guideBean.modifyGuide()}" />
                                 <p:commandButton process="guideDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-note" ajax="false"
                                                  value="#{msgs.but_detail}" action="#{guideBean.guideDetail()}" />
                                 <p:commandButton process="guideDT" 
-                                                 icon="ui-icon-search" ajax="false"
-                                                 value="#{msgs.but_print}" action="#{guideBean.modifyGuide()}" />
+                                                 update=":form:guideDT" icon="ui-icon-locked" 
+                                                 value="#{msgs.but_close}" actionListener="#{guideBean.closeGuide()}" >
+                                    <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_close}" icon="ui-icon-alert" />
+                                </p:commandButton>
                             </f:facet>
 
                         </p:dataTable>
 
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                        
                     </h:form>
             </ui:define>
 

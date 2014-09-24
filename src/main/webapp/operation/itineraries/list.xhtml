@@ -58,15 +58,15 @@
                                                  update=":form:itineraryDetail" icon="ui-icon-search" 
                                                  value="#{msgs.but_visualize}" oncomplete="PF('itineraryDialog').show()" />
                                 <p:commandButton process="itineraryDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{itineraryBean.modifyItinerary()}" />
                                 <p:commandButton process="itineraryDT" 
-                                                 update=":form:itineraryDT" icon="ui-icon-trash" 
+                                                 update=":form:itineraryDT" icon="ui-icon-check" 
                                                  value="#{msgs.but_enable}" actionListener="#{itineraryBean.enabledItinerary()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="itineraryDT" 
-                                                 update=":form:itineraryDT" icon="ui-icon-trash" 
+                                                 update=":form:itineraryDT" icon="ui-icon-closethick" 
                                                  value="#{msgs.but_disable}" actionListener="#{itineraryBean.disableItinerary()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
@@ -80,7 +80,7 @@
 
 
                         <p:commandButton value="#{msgs.but_add}" action="#{itineraryBean.addItinerary()}"
-                                         styleClass="catalog-button" ajax="false"/>
+                                         styleClass="catalog-button" ajax="false" icon="ui-icon-copy"/>
 
                         <!-- detalle itinerarios-->
                         <p:dialog header="#{msgs.cat_detail} #{msgs.cat_itinerary}" widgetVar="itineraryDialog" modal="true" 
@@ -105,6 +105,9 @@
                                     
                                     <h:outputText value="#{msgs.cat_typeOfRoute}:" />
                                     <h:outputText value="#{itineraryBean.selected.typeOfRoute}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_via}:" />
+                                    <h:outputText value="#{itineraryBean.selected.via}" />
                                     
                                     <h:outputText value="#{msgs.cat_status}:" />
                                     <h:outputText value="#{itineraryBean.selected.formatStatus}" />

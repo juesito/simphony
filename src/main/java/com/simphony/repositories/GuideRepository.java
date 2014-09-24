@@ -41,7 +41,7 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
     @Query("SELECT d from SaleDetail d " +
        " WHERE d.sale.id IN  ( SELECT v.id FROM GuideDetail g, Sale v " +
        " WHERE g.sale.id = v.id AND g.guide.id = :guideId) " +
-       " AND d.status = 'V' ORDER BY d.seat.id"  )
+       " AND d.status != 'C' ORDER BY d.seat.id"  )
     public List<SaleDetail> qryGuideDetail(@Param("guideId")Long guideId);
 
 //    @Query("SELECT d from SaleDetail d " +

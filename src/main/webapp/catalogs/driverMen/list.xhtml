@@ -48,15 +48,15 @@
                                                  update=":form:driverManDetail" icon="ui-icon-search" 
                                                  value="#{msgs.but_visualize}" oncomplete="PF('driverManDialog').show()" />
                                 <p:commandButton process="driverManDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{driverManBean.modifyDriverMan()}" />
                                 <p:commandButton process="driverManDT" 
-                                                 update=":form:driverManDT" icon="ui-icon-trash" 
+                                                 update=":form:driverManDT" icon="ui-icon-check" 
                                                  value="#{msgs.but_enable}" actionListener="#{driverManBean.enabledDriverMan()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="driverManDT" 
-                                                 update=":form:driverManDT" icon="ui-icon-trash" 
+                                                 update=":form:driverManDT" icon="ui-icon-closethick" 
                                                  value="#{msgs.but_disable}" actionListener="#{driverManBean.disableDriverMan()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
@@ -70,7 +70,7 @@
                         </p:confirmDialog>
 
                         <p:commandButton value="#{msgs.but_add}" action="#{driverManBean.addDriverMan}"
-                                         styleClass="catalog-button" ajax="false"/>
+                                         styleClass="catalog-button" ajax="false" icon="ui-icon-copy"/>
 
                         <!-- detalle  -->
                         <p:dialog header="#{msgs.cat_detail} #{msgs.cat_driverMan}" widgetVar="driverManDialog" modal="true" 

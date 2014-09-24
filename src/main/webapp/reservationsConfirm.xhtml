@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:body>
+            <ui:composition template="./WEB-INF/templates/catalog.xhtml">
+
+                <ui:define name="content"> 
+                    <h:form id="SaleForm">
+                        <div class="box-content-sale" >
+                            <!-- choice your origin and destiny -->
+                            <p:panel id="sale-input" >
+                                <p:panelGrid styleClass="sale-schedule-panel" >
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:outputLabel value="Reservaciones" style=" font-size:20px " />
+                                        </p:column>
+                                    </p:row>
+                                    
+                                    <p:row>
+                                        <p:column style="padding-top: 20px;">
+                                            <p:outputLabel value="Origen:" />
+                                        </p:column>
+                                        <p:column style="padding-top: 20px;">
+                                            <p:outputLabel value="#{saleBean.selected.itinerary.origin.description}" />
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Destino:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.selected.itinerary.destiny.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Fecha:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Hora:" style="padding-top: 20px;"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.selected.formatDepartureTime}" style="padding-top: 20px;"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Reservaciones:" style="padding-top: 20px;"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.sale.passengers}" style="padding-top: 20px;" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:panel>
+
+                        </div>
+
+                        <!-- Seats Grid -->
+                        <div class="box-content-sale-detail2" >
+                            <p:panelGrid id="sale-seat-grid" 
+                                         style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
+                                <p:row>
+                                    <p:column>
+                                        <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="2" 
+                                                    rows="6" paginator="true" id="seats" paginatorTemplate="{PageLinks}"
+                                                    styleClass="grid-seats-main" paginatorPosition="bottom" >
+
+                                            <f:facet name="header">
+                                                Datos de la Reservación
+                                            </f:facet>
+                                            <p:panelGrid styleClass="inner-seat-grid">
+                                                <p:row>
+                                                    <p:column style="background-color: #FFF;">
+                                                        <p:outputLabel value="Asiento:"  />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:outputLabel value="#{seat.seat.seat}" />
+                                                    </p:column>
+                                                </p:row>
+
+                                                <p:row>
+                                                    <p:column style="background-color: #FFF;">
+                                                        <p:outputLabel value="Agremiado:"  />
+                                                    </p:column>
+                                                    <p:column >
+                                                        <p:inputText id="associateKey" value="#{seat.associateKey}" size="8"   >
+                                                            <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
+                                                        </p:inputText>
+                                                        <p:commandButton title="Buscar Agremiado" action="#{saleBean.findAssociate(seat)}"
+                                                                         icon="ui-icon-search" ajax="true" style="background-color: #FFF;"
+                                                                         update=":SaleForm:sale-seat-grid :main-form:growl" >
+                                                        </p:commandButton>
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column style="background-color: #FFF;">
+                                                        <p:outputLabel value="Nombre:"  />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:inputText id="name" value="#{seat.customerName}" size="30"  style="background-color: #6DAD65; color:#FFF;" />
+                                                        <p:watermark for="name" value="Nombre" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column style="background-color: #FFF; ">
+                                                        <p:outputLabel value="Plataforma:"  />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:inputText id="platform" value="#{seat.associate.platform}" size="30"  />
+                                                        <p:watermark for="platform" value="Plataforma" />
+                                                    </p:column>
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:dataGrid>
+                                    </p:column>
+                                </p:row>                                        
+
+                            </p:panelGrid>
+                            <!-- botones de control -->
+                            <p:panelGrid style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton value="Cancelar" ajax="false" immediate="true" 
+                                                         icon="ui-icon-arrowreturnthick-1-w"
+                                                         action="toReservations" style="float: right;" >
+                                            <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                        </p:commandButton>
+                                        <p:commandButton value="Guardar" ajax="false" action="#{saleBean.saveReservations(vendorBean.current)}"
+                                                         style="float: right;">
+                               </p:commandButton>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+
+                        </div>
+                    </h:form>
+                </ui:define>
+
+            </ui:composition>
+        </h:body>
+
+    </f:view>
+</html>

@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:body>
+            <ui:composition template="./WEB-INF/templates/catalog.xhtml">
+
+                <ui:define name="content"> 
+                    <h:form id="saleForm">
+                        <div class="box-content-sale" >
+                            <!-- choice your origin and destiny -->
+                            <p:panel id="sale-input" >
+                                <p:panelGrid styleClass="sale-schedule-panel" 
+                                             >
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Reservaciones" style="font-size:20px" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="padding-top: 25px;">
+                                            <p:outputLabel value="Saliendo de:" />
+                                        </p:column>                                    
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+
+                                            <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
+                                                             converter="populationConverter" 
+                                                             style="width:160px" required="true" 
+                                                             requiredMessage="Origen Requerido">
+                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
+                                                <p:ajax event="change" update=":saleForm:destiny" 
+                                                        listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Destino:" />
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
+                                                             converter="populationConverter" 
+                                                             style="width:160px" required="true" 
+                                                             requiredMessage="Destino requerido">
+                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
+                                                <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
+
+                                            </p:selectOneMenu>
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Fecha de salida:" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                                        pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Reservaciones:" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:inputText size="5" value="#{saleBean.sale.passengers}"
+                                                         maxlength="2" required="true" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
+                                                             ajax="true" styleClass="button-rounded" 
+                                                             update=":saleForm:sale-panel :main-form:growl"   >
+                                             <f:actionListener  binding="#{payRollBean.fillPayRolls()}"/>                                
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:row>                            
+                                </p:panelGrid>
+                            </p:panel>
+
+                        </div>
+
+                        <div class="box-content-sale-detail" >
+
+                            <!-- Itinerario Grid -->
+                            <p:panel id="sale-panel">
+                                <!-- first phase -->
+                                <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:dataTable id="dic" value="#{saleBean.model}" var="ic" 
+                                                         selectionMode="single" selection="#{saleBean.selected}" 
+                                                         rowKey="#{ic.rowId}" emptyMessage="Sin tarifas registradas"  >
+                                                <p:column headerText="Tipo ruta">                                                    
+                                                    <p:outputLabel value="#{ic.itinerary.formatTypeOfRoute}" />
+                                                </p:column>
+                                                <p:column headerText="hr Salida"> 
+                                                    <p:outputLabel value="#{ic.formatDepartureTime}" />
+
+                                                </p:column>
+                                                <p:column headerText="Origen">
+                                                    <p:outputLabel value="#{ic.cost.origin.description}" />
+                                                </p:column>
+                                                <p:column headerText="Destino">
+                                                    <p:outputLabel value="#{ic.cost.destiny.description}" />
+                                                </p:column>
+                                                <p:column headerText="Costo">
+                                                    <p:outputLabel value="#{ic.cost.cost}" />
+                                                </p:column>
+                                                <p:column headerText="Tiempo recorrido">
+                                                    <p:outputLabel value="#{ic.cost.formatRouteTime}" />
+                                                </p:column>
+                                                <p:column headerText="Vía">
+                                                    <p:outputLabel value="#{ic.itinerary.via}" />
+                                                </p:column>
+
+                                            </p:dataTable>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad"
+                                                             actionListener="#{saleBean.findAvailability(vendorBean.current)}"
+                                                             ajax="true" partialSubmit="true" process=":saleForm:sale-panel" 
+                                                             update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
+                                                             :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel :saleForm:seatsForBook">
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:row>
+
+                                </p:panelGrid>
+                            </p:panel>
+
+
+                            <!-- Seats Grid -->
+                            <p:panel id="seatsForBook">
+                                <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
+
+                                    <p:row>
+                                        <p:column>
+                                            <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4" 
+                                                        rows="40" paginator="false" id="seats" styleClass="grid-seats-main"
+                                                        >
+
+                                                <f:facet name="header">
+                                                    Asientos disponibles
+                                                </f:facet>
+
+                                                <p:panel styleClass="#{saleBean.columnClass(seat.id)}" rendered="#{seat.seat ne 'OC'}">
+
+                                                    <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
+                                                                   title="Seleccione asiento" >
+
+                                                        <p:outputLabel value="#{seat.seat}" />
+                                                        <f:setPropertyActionListener value="#{seat}" target="#{saleBean.selectedSeat}" />
+                                                    </p:commandLink>
+
+
+                                                </p:panel>
+                                                <p:outputLabel value="#{seat.seat}" rendered="#{seat.seat eq 'OC'}" />
+
+
+                                            </p:dataGrid>
+                                        </p:column>
+                                        <p:column>
+                                            <!-- lista de asientos ocupados -->
+                                            <p:dataList value="#{saleBean.saleDetail}" id="selectedSeatsList" 
+                                                        var="unselectedseatList" type="ordered" itemType="none" styleClass="reservedSeat-grid" >
+                                                <f:facet name="header">
+                                                    <p:outputLabel value="Asientos reservados" style="font-size: 12px;" />
+                                                </f:facet>
+                                                <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.removeSeat}" 
+                                                               title="Seleccione asiento" ajax="true">
+                                                    <f:setPropertyActionListener value="#{unselectedseatList}" target="#{saleBean.unSelectedDetail}" />
+                                                    <p:outputLabel value="#{unselectedseatList.seat.seat}" />
+
+                                                </p:commandLink>                                                                                                
+                                            </p:dataList>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:commandButton value="Confirmar Asientos" icon="ui-icon-cart"
+                                                             update=":main-form:growl"
+                                                             action="#{saleBean.toReservationsConfirm()}"  ajax="true">
+                                            </p:commandButton>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:commandButton value="Cancelar" icon="ui-icon-arrowreturnthick-1-w"
+                                                             action="toSale"  ajax="false" immediate="true">
+                                                <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:panel>
+                        </div>
+                    </h:form>
+                </ui:define>
+
+            </ui:composition>
+        </h:body>
+
+    </f:view>
+</html>

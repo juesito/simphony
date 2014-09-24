@@ -419,6 +419,154 @@ public class SaleBean implements IConfigurable {
 
     }
 
+     /**
+     * *
+     *
+     * @param vendor
+     * @throws java.lang.CloneNotSupportedException
+     */
+    public void saveReservations(Vendor vendor) throws CloneNotSupportedException {
+
+        sale.setVendor(vendor);
+        sale.setStatus(_RESERVATED);
+        sale.setCreateDate(new Date());
+
+        //Guardamos la venta
+        sale = saleService.getSaleRepository().save(sale);
+
+        // Guardamos la guia
+        if (guide.isNewGuide()) {
+
+            guide.setUsrModify(vendor.getNick());
+            guide.setCreateDate(new Date());
+            guide.setStatus(_GUIDE_TYPE_OPEN);
+            guide.setGuideType(_FOREING);
+            guide.setGuideReference("Sin Referencia");
+            guide.setDepartureDate(sale.getTripDate());
+
+            if (this.selected.isNormalMode()) {
+
+                guide.setRootGuide(0L);
+                guide.setRootRoute(this.selected.getItinerary().getId());
+                guide.setOrigin(this.selected.getCost().getOrigin());
+                guide.setDestiny(this.selected.getCost().getDestiny());
+                guide.setFinaDestiny(guideRoot.getDestiny());
+
+                guideService.getRepository().save(guide);
+                guide.setRootGuide(guide.getId());
+                guide.update(guide);
+                guide = guideService.getRepository().save(guide);
+
+            } else {
+
+                guide.setOrigin(this.selected.getCost().getOrigin());
+                guide.setDestiny(this.selected.getCost().getDestiny());
+                guide.setRootRoute(guideRoot.getRootRoute());
+                guide.setRootGuide(guideRoot.getId());
+                guide.setFinaDestiny(guideRoot.getDestiny());
+                guideService.getRepository().save(guide);
+
+            }
+        }
+
+        /**
+         * Guardamos el detalle de la guia
+         */
+        if (guide != null) {
+
+            GuideDetail guideDetail = new GuideDetail();
+            guideDetail.setGuide(guide);
+            guideDetail.setSale(sale);
+            guideService.getDetailRepository().save(guideDetail);
+
+        }
+
+        //Guardamos el detalle de la venta
+        for (SaleDetail dtSale : this.saleDetail) {
+
+            //Guardamos el detalle de venta
+            dtSale.setSale(sale);
+            dtSale.setStatus(_RESERVATED);
+
+            if (dtSale.getAssociateKey().isEmpty()) {
+                dtSale.setAssociate(associateService.getRepository().getOne(1L));
+                dtSale.setType(_SALE_TYPE_PUBLIC);
+            } else {
+                dtSale.setType(_SALE_TYPE_ASSOCIATE);
+            }
+            
+            if(dtSale.getBolType().equals(_RETIREE)){
+                dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
+            }
+
+            saleService.getDetailRepository().save(dtSale);
+
+            //Guardamos los asientos ocupados            
+            ReservedSeats reservedSeat = new ReservedSeats();
+            reservedSeat.setGuideId(guide.getRootGuide());
+            reservedSeat.setRouteId(guide.getRootRoute());
+            reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
+
+            ///Aqui modifique si es local la ruta antes tenia 0 0
+            reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
+            if(this.selected.isNormalMode()){
+                reservedSeat.setFinalSequence(this.selected.getItinerary().getSequence());
+            }else{
+                reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
+            }
+            reservedSeat.setSeat(dtSale.getSeat());
+
+            saleService.getReservedSeatsRepository().save(reservedSeat);
+        }
+
+         GrowlBean.simplyWarmMessage("Se ha guardado la Reservación", "Reservación guardada con exito!");
+        this.clearSale();
+
+    }
+
+    /**
+     * Buscamos Reservaciones
+     *
+     * @param mode
+     * @return
+     */
+    public String findReservations(Integer mode) {
+        boolean saleExist = false;
+        reservedSeatInDetailSale.clear();
+
+        if (mode == 0) {
+
+            for (Sale saleTmp : saleService.getSaleRepository().findSale(this.cancelledSale.getOrigin().getId(),
+                    this.cancelledSale.getDestiny().getId(),
+                    this.cancelledSale.getTripDate())) {
+                for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().findSeatsBySale(saleTmp.getId(),"R")) {
+                    reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
+                    saleExist = true;
+                }
+            }
+
+            if (!saleExist) {
+                GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una reservación con esos datos");
+            }
+
+        } else if (mode == 2) {
+            if (!unSelectedDetail.getCustomerName().isEmpty()) {
+
+                for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().
+                        findSeatsByCustomerName(unSelectedDetail.getCustomerName().trim(), "R")) {
+                    reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
+                    saleExist = true;
+                }
+
+                if (!saleExist) {
+                    GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una reservación con esos datos");
+                }
+            }
+        }
+
+        return "toCancelRes";
+    }
+
     /**
      * Validamos lo necesario para la venta
      *
@@ -539,6 +687,37 @@ public class SaleBean implements IConfigurable {
         } else {
             GrowlBean.simplyWarmMessage("Asientos incompletos", "No Se han asigando los asientos solicitados");
             msgNav = "toSale";
+        }
+
+        return msgNav;
+    }
+
+    public String toReservations() {
+
+        return "toReservations";
+    }
+
+    public String toCancelRes() {
+
+        return "toCancelRes";
+    }
+
+    /**
+     * Confirmamos la Reservación
+     *
+     * @return
+     */
+    public String toReservationsConfirm() {
+        String msgNav = "toReservationsConfirm";
+        if (this.sale.getPassengers() == saleDetail.size()) {
+
+            this.sale.setTripDate(this.selected.getDepartureTime());
+            sale.setOrigin(this.selected.getCost().getOrigin());
+            sale.setDestiny(this.selected.getCost().getDestiny());
+
+        } else {
+            GrowlBean.simplyWarmMessage("Asientos incompletos", "No Se han asigando los asientos solicitados");
+            msgNav = "toRservations";
         }
 
         return msgNav;
@@ -769,11 +948,12 @@ public class SaleBean implements IConfigurable {
     /**
      * Cancelamos el asiento
      *
-     * @param vendor
+     * @param user
+     * @param toReturn
      * @return
      * @throws CloneNotSupportedException
      */
-    public String cancelSeat(User user) throws CloneNotSupportedException {
+    public String cancelSeat(User user, String toReturn) throws CloneNotSupportedException {
 
         if (selectedReservedSeatInDetailSale != null) {
 
@@ -801,6 +981,10 @@ public class SaleBean implements IConfigurable {
             sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
             sale.setSubTotal(sale.getSubTotal() - (saleDetailCancelled.getAmount() - saleDetailCancelled.getDiscount()));
             sale.setPassengers(sale.getPassengers() - 1);
+            if ("toCancel".equals(toReturn)){
+                sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
+                sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getAmount());
+            }
 
             //Actualizamos la venta
             sale.update(sale);
@@ -813,7 +997,7 @@ public class SaleBean implements IConfigurable {
         } else {
             GrowlBean.simplyWarmMessage("Sin selección", "No se ha seleccionado asiento para cancelar!");
         }
-        return "toCancel";
+        return toReturn;
 
     }
 
@@ -832,7 +1016,7 @@ public class SaleBean implements IConfigurable {
             for (Sale saleTmp : saleService.getSaleRepository().findSale(this.cancelledSale.getOrigin().getId(),
                     this.cancelledSale.getDestiny().getId(),
                     this.cancelledSale.getTripDate())) {
-                for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().findSeatsBySale(saleTmp.getId())) {
+                for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().findSeatsBySale(saleTmp.getId(),"V")) {
                     reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
                     saleExist = true;
                 }
@@ -852,7 +1036,7 @@ public class SaleBean implements IConfigurable {
             }
 
             if (saleExist) {
-                reservedSeatInDetailSale = saleService.getDetailRepository().findSeatsBySale(cancelledSale.getId());
+                reservedSeatInDetailSale = saleService.getDetailRepository().findSeatsBySale(cancelledSale.getId(),"V");
             } else {
                 GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una venta con esos datos");
                 cancelledSale = new Sale();
@@ -861,7 +1045,7 @@ public class SaleBean implements IConfigurable {
             if (!unSelectedDetail.getCustomerName().isEmpty()) {
 
                 for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().
-                        findSeatsByCustomerName(unSelectedDetail.getCustomerName().trim())) {
+                        findSeatsByCustomerName(unSelectedDetail.getCustomerName().trim(),"V")) {
                     reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
                     saleExist = true;
                 }

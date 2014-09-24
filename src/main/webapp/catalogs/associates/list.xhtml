@@ -49,15 +49,15 @@
                                                  update=":form:associateDetail" icon="ui-icon-search" 
                                                  value="#{msgs.but_visualize}" oncomplete="PF('associateDialog').show()" />
                                 <p:commandButton process="associateDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{associateBean.modifyAssociate()}" />
                                 <p:commandButton process="associateDT" 
-                                                 update=":form:associateDT" icon="ui-icon-trash" 
+                                                 update=":form:associateDT" icon="ui-icon-check" 
                                                  value="#{msgs.but_enable}" actionListener="#{associateBean.enabledAssociate()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="associateDT" 
-                                                 update=":form:associateDT" icon="ui-icon-trash" 
+                                                 update=":form:associateDT" icon="ui-icon-closethick" 
                                                  value="#{msgs.but_disable}" actionListener="#{associateBean.disableAssociate()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
@@ -71,7 +71,7 @@
                         </p:confirmDialog>
 
                         <p:commandButton value="#{msgs.but_add}" action="#{associateBean.addAssociate}"
-                                         styleClass="catalog-button" ajax="false"/>
+                                         styleClass="catalog-button" ajax="false" icon="ui-icon-copy"/>
 
                         <!-- detalle agremiados -->
                         <p:dialog header="#{msgs.cat_detail} #{msgs.cat_associate}" widgetVar="associateDialog" modal="true" 

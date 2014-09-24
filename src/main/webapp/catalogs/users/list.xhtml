@@ -61,15 +61,15 @@
                                                  update=":form:userDetail" icon="ui-icon-search" 
                                                  value="#{msgs.but_visualize}" oncomplete="PF('userDialog').show()" />
                                 <p:commandButton process="userDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{userBean.modifyUser()}" />
                                 <p:commandButton process="userDT" 
-                                                 update=":form:userDT" icon="ui-icon-trash" 
+                                                 update=":form:userDT" icon="ui-icon-check" 
                                                  value="#{msgs.but_enable}" actionListener="#{userBean.enabledUser()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="userDT" 
-                                                 update=":form:userDT" icon="ui-icon-trash" 
+                                                 update=":form:userDT" icon="ui-icon-closethick" 
                                                  value="#{msgs.but_disable}" actionListener="#{userBean.disableUser()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
@@ -83,7 +83,7 @@
 
 
                         <p:commandButton value="#{msgs.but_add}" action="#{userBean.addUser()}"
-                                         styleClass="catalog-button" ajax="false"/>
+                                         styleClass="catalog-button" ajax="false" icon="ui-icon-copy"/>
 
                         <!-- detalle usuarios userDialog-->
                         <p:dialog header="Usuario Info" widgetVar="userDialog" modal="true" 

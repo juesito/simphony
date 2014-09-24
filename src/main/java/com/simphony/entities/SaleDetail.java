@@ -50,6 +50,10 @@ public  class SaleDetail implements Serializable, IConfigurable {
     @Basic
     private String bolType;
 
+    @Column(name = "Nota", length = 30)
+    @Basic
+    private String note;
+
     @ManyToOne(targetEntity = Associate.class)
     private Associate associate;
 
@@ -178,8 +182,13 @@ public  class SaleDetail implements Serializable, IConfigurable {
         this.discount = discount;
     }
 
-    
-    
-  
-}
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+ }
 

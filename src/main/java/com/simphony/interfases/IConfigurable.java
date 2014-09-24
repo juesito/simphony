@@ -36,6 +36,7 @@ public interface IConfigurable {
 
     final String _GUIDE_TYPE_OPEN = "OP";
     final String _GUIDE_TYPE_CLOSED = "CL";
+    final String _GUIDE_TYPE_CANCEL = "CA";
 
     final String _SALE_TYPE_PUBLIC = "P";
     final String _SALE_TYPE_ASSOCIATE = "A";
@@ -58,5 +59,6 @@ public interface IConfigurable {
     //Status for sale
     final String _CANCELLED = "C";
     final String _SALED = "V";
+    final String _RESERVATED = "R";
 
 }

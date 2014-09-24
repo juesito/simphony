@@ -26,10 +26,10 @@ public interface SaleDetailRepository extends JpaRepository<SaleDetail, Long>{
             "     AND g.rootGuide = ar.guideId " +
             "     AND dv.sale.id = dg.sale.id " +
             "     AND dv.seat.id = ar.seat.id" +
-            "     AND dv.status = 'V' " +
+            "     AND dv.status = :status " +
             "     AND dg.sale.id = :saleId" +
             "  ORDER BY dv.sale.id, dv.seat.id")
-    public List<ReservedSeatInDetailSale> findSeatsBySale(@Param("saleId") Long saleId);
+    public List<ReservedSeatInDetailSale> findSeatsBySale(@Param("saleId") Long saleId, @Param("status") String status);
     
     @Query("SELECT NEW com.simphony.pojos.ReservedSeatInDetailSale(dv, ar.id) " +
             "  FROM GuideDetail dg,  ReservedSeats ar , Guide g, " +
@@ -38,10 +38,10 @@ public interface SaleDetailRepository extends JpaRepository<SaleDetail, Long>{
             "     AND g.rootGuide = ar.guideId " +
             "     AND dv.sale.id = dg.sale.id " +
             "     AND dv.seat.id = ar.seat.id" +
-            "     AND dv.status = 'V' " +
+            "     AND dv.status = :status " +
             "     AND dv.customerName LIKE CONCAT('%', :customerName, '%')" +
             "  ORDER BY dv.sale.id, dv.seat.id")
-    public List<ReservedSeatInDetailSale> findSeatsByCustomerName(@Param("customerName") String customerName);
+    public List<ReservedSeatInDetailSale> findSeatsByCustomerName(@Param("customerName") String customerName, @Param("status") String status);
     
     
     @Query("SELECT COUNT(dv) FROM SaleDetail dv WHERE dv.sale.id = :saleId AND dv.status = 'V'")

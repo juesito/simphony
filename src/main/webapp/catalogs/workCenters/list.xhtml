@@ -39,15 +39,15 @@
                                                  update=":form:workCenterDetail" icon="ui-icon-search" 
                                                  value="#{msgs.but_visualize}" oncomplete="PF('workCenterDialog').show()" />
                                 <p:commandButton process="workCenterDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{workCenterBean.modifyWorkCenter()}" />
                                <p:commandButton process="workCenterDT" 
-                                                 update=":form:workCenterDT" icon="ui-icon-trash" 
+                                                 update=":form:workCenterDT" icon="ui-icon-check" 
                                                  value="#{msgs.but_enable}" actionListener="#{workCenterBean.enabledWorkCenter()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="workCenterDT" 
-                                                 update=":form:workCenterDT" icon="ui-icon-trash" 
+                                                 update=":form:workCenterDT" icon="ui-icon-closethick" 
                                                  value="#{msgs.but_disable}" actionListener="#{workCenterBean.disableWorkCenter()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
@@ -61,7 +61,7 @@
                         </p:confirmDialog>
 
                         <p:commandButton value="#{msgs.but_add}" action="#{workCenterBean.addWorkCenter}"
-                                         styleClass="catalog-button" ajax="false"/>
+                                         styleClass="catalog-button" ajax="false" icon="ui-icon-copy"/>
 
                         <!-- detalle -->
                         <p:dialog header="#{msgs.cat_detail} #{msgs.cat_workCenter}" widgetVar="workCenterDialog" modal="true" 

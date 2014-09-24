@@ -25,10 +25,18 @@
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                      >
-
+                            <p:column headerText="Clave Corta" >
+                                <p:outputLabel value="#{population.cveCorta}" />
+                            </p:column>
                             <p:column headerText="#{msgs.cat_description}" filterBy="#{population.description}"
                                       filterMatchMode="contains" >
                                 <p:outputLabel value="#{population.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_state}" >
+                                <p:outputLabel value="#{population.state}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_zipCode}" >
+                                <p:outputLabel value="#{population.zipCode}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >                                
                                 <p:outputLabel value="#{population.formatStatus}" />
@@ -40,15 +48,15 @@
                                                  update=":form:populationDetail" icon="ui-icon-search" 
                                                  value="#{msgs.but_visualize}" oncomplete="PF('populationDialog').show()" />
                                 <p:commandButton process="populationDT" 
-                                                 icon="ui-icon-search" ajax="false"
+                                                 icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{populationBean.modifyPopulation()}" />
                                 <p:commandButton process="populationDT" 
-                                                 update=":form:populationDT" icon="ui-icon-trash" 
+                                                 update=":form:populationDT" icon="ui-icon-check" 
                                                  value="#{msgs.but_enable}" actionListener="#{populationBean.enabledPopulation()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton process="populationDT" 
-                                                 update=":form:populationDT" icon="ui-icon-trash" 
+                                                 update=":form:populationDT" icon="ui-icon-closethick" 
                                                  value="#{msgs.but_disable}" actionListener="#{populationBean.disablePopulation()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
@@ -62,7 +70,7 @@
 
 
                         <p:commandButton value="#{msgs.but_add}" action="#{populationBean.addPopulation()}"
-                                         styleClass="catalog-button" ajax="false"/>
+                                         styleClass="catalog-button" ajax="false" icon="ui-icon-copy"/>
 
                         <!-- detalle poblaciones-->
                         <p:dialog header="#{msgs.cat_detail}" widgetVar="populationDialog" modal="true" 
@@ -73,10 +81,34 @@
                                     <!-- Id, Nombre -->
                                     <p:row>
                                         <p:column>
+                                            <p:outputLabel value="Clave Corta:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.cveCorta}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
                                             <p:outputLabel value="#{msgs.cat_description}:" />
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{populationBean.selected.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_state}:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.state}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{populationBean.selected.zipCode}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>

@@ -86,11 +86,12 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_save}" action="#{userBean.save}"
-                                                     ajax="false"  update="main-form:growl" />
+                                                     ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{userBean.cancelUser}"
-                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"
+                                                     icon="ui-icon-arrowreturnthick-1-w"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -170,11 +171,12 @@
                                 <p:column colspan="2"></p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_save}" action="#{userBean.update()}"
-                                                     ajax="false"  update="main-form:growl" />
+                                                     ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{userBean.cancelUser}"
-                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"
+                                                     icon="ui-icon-arrowreturnthick-1-w"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

@@ -141,6 +141,15 @@
                                                 </p:row>
                                                 <p:row>
                                                     <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                        <p:outputLabel value="Nota:"  />
+                                                    </p:column>
+                                                    <p:column>
+                                                        <p:inputText id="note" value="#{seat.note}" size="30"  />
+                                                        <p:watermark for="note" value="Nota" />
+                                                    </p:column>
+                                                </p:row>
+                                                <p:row>
+                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
                                                         <p:outputLabel value="Tipo bol:"  />
                                                     </p:column>
                                                     <p:column>
@@ -208,6 +217,7 @@
                                 <p:row>
                                     <p:column>
                                         <p:commandButton value="Cancelar" ajax="false" immediate="true" 
+                                                         icon="ui-icon-arrowreturnthick-1-w"
                                                          action="toSale" style="float: right;" >
                                             <f:actionListener  binding="#{saleBean.clearSale()}"/>
                                         </p:commandButton>

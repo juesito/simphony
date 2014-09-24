@@ -111,8 +111,11 @@
                                 <p:column headerText="#{msgs.cat_amount}" >
                                     <p:outputLabel value="#{payRollDetail.amount}" />
                                 </p:column>
-                                <p:column headerText="Fecha" >
+                                <p:column headerText="Fecha Viaje" >
                                     <p:outputLabel value="#{payRollDetail.sale.formatTripTime}" />
+                                </p:column>
+                                <p:column headerText="Datos de compra" >
+                                    <p:outputLabel value="#{payRollDetail.sale.createDate}" />
                                 </p:column>
                                 <f:facet name="footer">
                                     <p:outputLabel value="Total: #{payRollBean.suma}" />

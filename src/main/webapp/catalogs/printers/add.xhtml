@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                
+                <!-- panel para agregar -->
+                <p:panel rendered="#{printerBean.current.action eq 'A'}" style="padding-top: 25px; ">
+                    <h:form id="add">
+                        <p:outputLabel value="#{msgs.but_add} #{msgs.cat_printer}" class="welcome-title" />
+                        <br/><br/>
+
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_ipAddress}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="address" value="#{printerBean.printer.ipAddress}" required="true" 
+                                                 requiredMessage="#{msgs.req_ipAddress}" maxlength="35" />
+                                    <p:message for="address" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="type" value="#{printerBean.printer.type}" required="true" 
+                                                 requiredMessage="#{msgs.req_type}" maxlength="35" />
+                                    <p:message for="type" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_width}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="varWidth" value="#{printerBean.printer.width}" required="true" 
+                                                 requiredMessage="#{msgs.req_width}" maxlength="5" />
+                                    <p:message for="varWidth" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_height}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="varHeight" value="#{printerBean.printer.height}" required="true" 
+                                                 requiredMessage="#{msgs.req_height}" maxlength="5" />
+                                    <p:message for="varHeight" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_brand}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="brand" value="#{printerBean.printer.brand}" required="true" 
+                                                 requiredMessage="#{msgs.req_description}" maxlength="35" />
+                                    <p:message for="brand" />
+                                </p:column>
+                            </p:row>
+                           <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_save}" action="#{printerBean.save(userBean.current)}"
+                                                     ajax="false" icon="ui-icon-disk"/>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{printerBean.cancelPrinter()}"
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"
+                                                     icon="ui-icon-arrowreturnthick-1-w"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+
+                <p:panel rendered="#{printerBean.current.action eq 'M'}" style="padding-top: 25px; ">
+                    <h:form id="modify">
+                        <p:outputLabel value="#{msgs.but_modify} #{msgs.cat_printer}" class="welcome-title" />
+                        <br/><br/>
+
+                        <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row >
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_ipAddress}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="addressMd" value="#{printerBean.printer.ipAddress}" required="true" 
+                                                 requiredMessage="#{msgs.req_ipAddress}" maxlength="35" />
+                                    <p:message for="addressMd" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="typeMd" value="#{printerBean.printer.type}" required="true" 
+                                                 requiredMessage="#{msgs.req_type}" maxlength="35" />
+                                    <p:message for="typeMd" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_width}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="varWidth" value="#{printerBean.printer.width}" required="true" 
+                                                 requiredMessage="#{msgs.req_width}" maxlength="5" />
+                                    <p:message for="varWidth" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_height}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="varHeight" value="#{printerBean.printer.height}" required="true" 
+                                                 requiredMessage="#{msgs.req_height}" maxlength="5" />
+                                    <p:message for="varHeight" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_brand}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="brand" value="#{printerBean.printer.brand}" required="true" 
+                                                 requiredMessage="#{msgs.req_description}" maxlength="35" />
+                                    <p:message for="brand" />
+                                </p:column>
+                            </p:row>
+                           <p:row>
+                                <p:column colspan="2"></p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_save}" action="#{printerBean.update(userBean.current)}"
+                                                     ajax="false" />
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{printerBean.cancelPrinter()}"
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

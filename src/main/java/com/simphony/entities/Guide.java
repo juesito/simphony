@@ -75,7 +75,7 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
 
     @Column(name = "fechaCreacion")
     @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date createDate;
 
     @Column(name = "estatus")
@@ -96,7 +96,7 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
     
     @Column(name="ultimatipoGuiaModificacion")
     @Basic
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
     @Transient
