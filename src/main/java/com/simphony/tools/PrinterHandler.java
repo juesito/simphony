@@ -4,17 +4,12 @@
  * and open the template in the editor.
  */
 
-package com.simphony.repositories;
-
-import com.simphony.entities.Payment;
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.simphony.tools;
 
 /**
  *
  * @author Administrador
  */
-public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    
-    
+public class PrinterHandler {
     
 }

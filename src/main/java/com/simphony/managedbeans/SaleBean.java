@@ -268,16 +268,25 @@ public class SaleBean implements IConfigurable {
 
                 if (seat.contains(reserved.getSeat())) {
                     int index = seat.indexOf(reserved.getSeat());
-                    //Parten del mismo origen   
-                    if (reserved.getFinalSequence() == 0) {
+                    
+                    if (this.selected.getItinerary().getSequence() == 0
+                            && this.selected.isNormalMode()) {
+                        seat.set(index, occupiedPattern);
+                    } else if (reserved.getFinalSequence() == 0) {  //Parten del mismo origen   
                         seat.set(index, occupiedPattern);
                     } else if (selected.getItinerary().getSequence() == reserved.getInitialSequence()) {
                         seat.set(index, occupiedPattern);
                         //Alt 10  -  Initial 0
-                    } else if (selected.getItinerary().getSequence() > reserved.getInitialSequence()
-                            && selected.getAlternateItinerary().getSequence() <= reserved.getFinalSequence()) {
+                    } else if (!this.selected.isNormalMode() && 
+                            (selected.getAlternateItinerary().getSequence() <= reserved.getFinalSequence() &&
+                            selected.getAlternateItinerary().getSequence() > reserved.getInitialSequence())) {
+                        seat.set(index, occupiedPattern);
+                    } else if (!this.selected.isNormalMode() && 
+                            (reserved.getInitialSequence() >= selected.getItinerary().getSequence() &&
+                            selected.getAlternateItinerary().getSequence() >= reserved.getFinalSequence())) {
                         seat.set(index, occupiedPattern);
                     }
+                    
                 }
             }
 
@@ -366,8 +375,8 @@ public class SaleBean implements IConfigurable {
             } else {
                 dtSale.setType(_SALE_TYPE_ASSOCIATE);
             }
-            
-            if(dtSale.getBolType().equals(_RETIREE)){
+
+            if (dtSale.getBolType().equals(_RETIREE)) {
                 dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
             }
 
@@ -381,9 +390,9 @@ public class SaleBean implements IConfigurable {
 
             ///Aqui modifique si es local la ruta antes tenia 0 0
             reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
-            if(this.selected.isNormalMode()){
+            if (this.selected.isNormalMode()) {
                 reservedSeat.setFinalSequence(this.selected.getItinerary().getSequence());
-            }else{
+            } else {
                 reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
             }
             reservedSeat.setSeat(dtSale.getSeat());
@@ -418,7 +427,7 @@ public class SaleBean implements IConfigurable {
      * @param vendor
      * @throws java.lang.CloneNotSupportedException
      */
-    public void saveReservations(Vendor vendor) throws CloneNotSupportedException {
+    public String saveReservations(Vendor vendor) throws CloneNotSupportedException {
 
         sale.setVendor(vendor);
         sale.setStatus(_RESERVATED);
@@ -486,6 +495,7 @@ public class SaleBean implements IConfigurable {
                 dtSale.setType(_SALE_TYPE_PUBLIC);
             } else {
                 dtSale.setType(_SALE_TYPE_ASSOCIATE);
+                associateService.getRepository().save(dtSale.getAssociate());
             }
             
             if(dtSale.getBolType().equals(_RETIREE)){
@@ -510,11 +520,13 @@ public class SaleBean implements IConfigurable {
             reservedSeat.setSeat(dtSale.getSeat());
 
             saleService.getReservedSeatsRepository().save(reservedSeat);
+            
         }
 
          GrowlBean.simplyWarmMessage("Se ha guardado la Reservación", "Reservación guardada con exito!");
         this.clearSale();
 
+        return "toReservations";
     }
 
     /**
@@ -970,7 +982,9 @@ public class SaleBean implements IConfigurable {
 
             }
             sale = saleDetailCancelled.getSale();
-            sale.setCancelUser(user.getNick());            
+            sale.setCancelUser(user.getNick());
+            sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
+            sale.setSubTotal(sale.getSubTotal() - (saleDetailCancelled.getAmount() - saleDetailCancelled.getDiscount()));
             sale.setPassengers(sale.getPassengers() - 1);
             if ("toCancel".equals(toReturn)){
                 sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
