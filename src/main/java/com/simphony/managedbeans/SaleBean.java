@@ -425,7 +425,7 @@ public class SaleBean implements IConfigurable {
      * @param vendor
      * @throws java.lang.CloneNotSupportedException
      */
-    public void saveReservations(Vendor vendor) throws CloneNotSupportedException {
+    public String saveReservations(Vendor vendor) throws CloneNotSupportedException {
 
         sale.setVendor(vendor);
         sale.setStatus(_RESERVATED);
@@ -493,6 +493,7 @@ public class SaleBean implements IConfigurable {
                 dtSale.setType(_SALE_TYPE_PUBLIC);
             } else {
                 dtSale.setType(_SALE_TYPE_ASSOCIATE);
+                associateService.getRepository().save(dtSale.getAssociate());
             }
             
             if(dtSale.getBolType().equals(_RETIREE)){
@@ -517,11 +518,13 @@ public class SaleBean implements IConfigurable {
             reservedSeat.setSeat(dtSale.getSeat());
 
             saleService.getReservedSeatsRepository().save(reservedSeat);
+            
         }
 
          GrowlBean.simplyWarmMessage("Se ha guardado la Reservación", "Reservación guardada con exito!");
         this.clearSale();
 
+        return "toReservations";
     }
 
     /**
