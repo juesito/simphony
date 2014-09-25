@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html">
+        <h:body>
+
+            <ui:composition>
+
+                <h:form id="formPendingSale">
+                    <!-- div header detail -->
+                    <div id="guide-header-detail" class="guide-header-detail">
+                        <!-- Grid para agregar entidad -->                    
+                        <p:panelGrid  styleClass="guide-header">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Folio Venta Anterior:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="saleId" value="#{saleBean.pendingdSale.id}" maxlength="10" required="true" 
+                                                 requiredMessage="Folio requerido" style="width: 60px;"/>
+                                    <p:message for="saleId" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:commandButton value="Buscar" action="#{saleBean.findPendingSale()}"
+                                                     ajax="true" styleClass="button-rounded" partialSubmit="true"
+                                                     >
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                            
+                                    <p:row>
+                                        <p:column style="padding-top: 20px;">
+                                            <p:outputLabel value="Origen:" />
+                                        </p:column>
+                                        <p:column style="padding-top: 20px;">
+                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.origin.description}" />
+                                        </p:column>
+
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Destino:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.destiny.description}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Fecha:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.formatDateTime}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Hora:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.formatTime}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Asiento:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.pendingdSale.seat.seat}" />
+                                        </p:column>
+                                    </p:row>
+                                    
+                                    <p:row>
+                                        <p:column style="padding-top: 20px;">
+                                            <p:outputLabel value="Descuento:" />
+                                        </p:column>
+                                        <p:column style="padding-top: 20px;">
+                                            <p:outputLabel value="$#{saleBean.pendingdSale.discount}" style="color:red !important;" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Total:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="$#{saleBean.pendingdSale.amount}" style="color:red !important;" />
+                                        </p:column>
+                                    </p:row>
+
+                            <p:row>
+                                <p:column>
+                                    <p:commandButton value="Confirmar" action="#{saleBean.cancelPendigSale(1)}" ajax="true" 
+                                                     update=":confirmSaleForm:sale-input"  >
+
+                                                     
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Cancelar" action="#{saleBean.cancelPendigSale(2)}" 
+                                                     ajax="false" update=":main-form:growl" >
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </div>
+
+                </h:form>
+
+            </ui:composition>
+
+        </h:body>
+    </f:view>
+</html>
