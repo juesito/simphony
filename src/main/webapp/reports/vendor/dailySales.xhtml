@@ -17,7 +17,7 @@
 
                     <div id="sale-daily" class="guide-header-detail" style="padding-top: 25px; ">
 
-                        <p:panelGrid  styleClass="guide-header">
+                        <p:panelGrid  id="sale-daily" styleClass="guide-header">
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_vendor}:" />
@@ -41,6 +41,18 @@
                                 <p:column>
                                     <p:outputLabel value="#{reportsBean.sale.vendor.salePoint.description}" />
                                 </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Total de Venta:" />
+                                </p:column>
+                                <p:column style="width: 120px;">
+                                    <p:outputLabel value="#{reportsBean.totVta}" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Efectivo:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{reportsBean.totEfe}" />
+                                </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
@@ -49,6 +61,18 @@
                                 <p:column>
                                     <p:outputLabel value="#{reportsBean.sale.vendor.workCenter.description}" />
                                 </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Movimientos:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{reportsBean.totMov}" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Nómina:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{reportsBean.totNom}" />
+                                </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
@@ -56,6 +80,18 @@
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{reportsBean.sale.vendor.population.description}" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Agremiados:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{reportsBean.totAgr}" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Cortesía:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{reportsBean.totCor}" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -66,11 +102,38 @@
                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
                                                pages="2" showOn="button" value="#{reportsBean.sale.createDate}"/>
                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Público:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{reportsBean.totPub}" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Pagaré:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{reportsBean.totPag}" />
+                                </p:column>
+                             </p:row>
+                           <p:row>
+                                <p:column >
+                                    <p:outputLabel value="     " />
+                                </p:column>
+                                <p:column style="width: 120px;" >
+                                    <p:outputLabel value="     " />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Jubilados:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{reportsBean.totRet}" />
+                                </p:column>
                              </p:row>
                             <p:row>
                                 <p:column style="padding-top: 25px; ">
                                     <p:commandButton value="Procesar" actionListener="#{reportsBean.findDailySales()}" 
-                                                    ajax="true" styleClass="button-rounded" icon="ui-icon-play" >
+                                                    ajax="true" styleClass="button-rounded" icon="ui-icon-play"
+                                                    update=":form:saleDetailDT" >
                                    </p:commandButton>
                                 </p:column>
                             </p:row>
@@ -85,23 +148,20 @@
                             <p:column headerText="Folio" >
                                 <p:outputLabel value="#{ic.sale.id}" />
                             </p:column>
+                            <p:column headerText="Hora Vta" >
+                                <p:outputLabel value="#{ic.sale.getFormatCreateTime()}" />
+                            </p:column>
                             <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{ic.sale.origin.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_destiny}" >
                                 <p:outputLabel value="#{ic.sale.destiny.description}" />
                             </p:column>
-                            <p:column headerText="Tipo Venta" >
-                                <p:outputLabel value="#{ic.saleDetail.type}" />
-                            </p:column> 
-                            <p:column headerText="Tipo Boleto" >
-                                <p:outputLabel value="#{ic.saleDetail.bolType}" />
-                            </p:column>
                             <p:column headerText="#{msgs.cat_payType}" >
-                                <p:outputLabel value="#{ic.payType.description}" />
+                                <p:outputLabel value="#{ic.payment.payType.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_amount}" >
-                                <p:outputLabel value="#{ic.saleDetail.amount}" />
+                                <p:outputLabel value="#{ic.payment.amount}" />
                             </p:column>
 
 

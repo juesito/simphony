@@ -57,6 +57,7 @@ public class SaleBean implements IConfigurable {
 
     private Sale sale = new Sale();
     private Sale cancelledSale = new Sale();
+    private SaleDetail pendingSale = new SaleDetail();
     private Cost cost = new Cost();
     private Guide guide = new Guide();
     private Guide guideRoot = new Guide();
@@ -77,6 +78,7 @@ public class SaleBean implements IConfigurable {
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
 
     private boolean existSelectedAssociates = false;
+    private Double valeCaja = 0.0;
 
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
@@ -154,7 +156,7 @@ public class SaleBean implements IConfigurable {
                     Calendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
                             calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND));
                     itineraryCost1.setDepartureTime(calendar.getTime());
-                    if(this.sale.getDestiny().getId() == itineraryCost1.getAlternateItinerary().getDestiny().getId()){
+                    if(!itineraryCost1.isNormalMode() && this.sale.getDestiny().getId() == itineraryCost1.getAlternateItinerary().getDestiny().getId()){
                         itineraryCost1.getAlternateItinerary().setSequence(itineraryCost1.getAlternateItinerary().getSequence() + 5);  
                     }
                     
@@ -1138,6 +1140,14 @@ public class SaleBean implements IConfigurable {
         this.cancelledSale = cancelledSale;
     }
 
+    public SaleDetail getPendingdSale() {
+        return pendingSale;
+    }
+
+    public void setPendingSale(SaleDetail pendingSale) {
+        this.pendingSale = pendingSale;
+    }
+
     public void onTabChange(TabChangeEvent event) {
         reservedSeatInDetailSale.clear();
     }
@@ -1156,6 +1166,86 @@ public class SaleBean implements IConfigurable {
     public void removeSeat() {
         if (unSelectedDetail != null) {
             saleDetail.remove(unSelectedDetail);
+        }
+    }
+
+     /**
+     * Buscamos venta pendiente
+     *
+     * @return
+     */
+    public String findPendingSale() {
+        boolean saleExist = false;
+    
+        if (pendingSale != null) {
+            pendingSale = saleService.getDetailRepository().findOne(pendingSale.getId());
+            if (pendingSale != null) {
+                saleExist = true;
+            }
+        }
+
+        if (!saleExist) {
+            GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una venta con esos datos");
+            pendingSale = new SaleDetail();
+        }
+
+        return "toPendingSale";
+    }
+ 
+    public String cancelPendigSale(Integer mode) {
+        if (mode == 2) {
+            pendingSale.clear();
+        }
+        return "toCambioConfirm";
+    }
+
+    /**
+     * Cancelamos la venta Pendiente
+     *
+     * @param user
+     * @throws CloneNotSupportedException
+     */
+    public void modifyPendingSale(User user) throws CloneNotSupportedException {
+        Sale saleTmp = pendingSale.getSale();
+
+        if (pendingSale != null) {
+
+            //Cancelamos el detalle de la venta
+            pendingSale.setStatus(_PENDING);
+
+            saleService.getDetailRepository().save(pendingSale);
+
+            //Borramos el asiento reservado
+            saleService.getReservedSeatsRepository().delete(pendingSale.getSeat().getId());
+
+            Integer countDetailLeft = saleService.getDetailRepository().countDetailBySale(saleTmp.getId());
+
+            //Cancelamos el monto de la venta
+            if (countDetailLeft == 0) {
+                saleTmp.setStatus(_PENDING);
+
+            }
+            saleTmp.setCancelUser(user.getNick());            
+            saleTmp.setPassengers(saleTmp.getPassengers() - 1);
+            saleTmp.setServiceType(_ROUNDED);
+
+            //Actualizamos la venta
+            saleTmp.update(saleTmp);
+            saleService.getSaleRepository().save(saleTmp);
+            sale.setIdRefSale(saleTmp.getId());
+            sale.setServiceType(_ROUNDED);
+            if(pendingSale.getAmount() <= sale.getAmount() ){
+                sale.setAmount(0.0);
+            }else{
+                if(pendingSale.getAmount() > sale.getAmount() ){
+                    valeCaja = pendingSale.getAmount() - sale.getAmount();
+                }else{
+                    if(pendingSale.getAmount() < sale.getAmount() ){
+                        valeCaja = 0.0;
+                        sale.setAmount(sale.getAmount() - pendingSale.getAmount());
+                    }
+                }
+            }
         }
     }
 

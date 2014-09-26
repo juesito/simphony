@@ -30,6 +30,10 @@ public class Vendor extends Person implements Serializable, Cloneable {
     @ManyToOne(targetEntity = SalePoint.class)
     private SalePoint salePoint;
 
+    @Column(name = "type", length = 10)
+    @Basic
+    private String type;
+
     public Vendor() {
 
     }
@@ -39,6 +43,7 @@ public class Vendor extends Person implements Serializable, Cloneable {
         this.nick = vendorUpdated.getNick();
         this.password = vendorUpdated.getPassword();
         this.salePoint = vendorUpdated.getSalePoint();
+        this.type = vendorUpdated.getType();
     }
 
     @PreUpdate
@@ -86,6 +91,14 @@ public class Vendor extends Person implements Serializable, Cloneable {
         this.salePoint = salePoint;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Vendor{" + "nick=" + nick + ", workCenter=" + workCenter + ", password=" + password + ", population=" + population + '}';
@@ -114,4 +127,20 @@ public class Vendor extends Person implements Serializable, Cloneable {
         }else return texto;
     }
     
+    public String getFormatType(){
+        String texto = "";
+        if(this.getType()!= null){
+            if (this.getType().equals("C")){
+                texto = "Completo";
+            }else {
+                if (this.getType().equals("C")){
+                    texto = "Medio";
+                }else {
+                    texto = "Normal";
+                }
+            }
+       
+            return texto;
+        }else return texto;
+    }
 }

@@ -12,9 +12,6 @@
 
             <ui:define name="content">
                 <!-- panel para agregar -->
-                     <p:commandButton value="Print" type="button" icon="ui-icon-print">  
-                        <p:printer target=":form:guide-complete" />  
-                    </p:commandButton>  
                 <h:form id="form" style="padding-top: 25px; ">
                     <p:outputLabel value="#{msgs.cat_detail} de la #{msgs.cat_guide}" class="welcome-title" />
                     <br/><br/>
@@ -106,6 +103,9 @@
                                 <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
                                                  icon="ui-icon-arrowreturnthick-1-w"
                                                  id="cancelAdd" process="@this" immediate="true" ajax="false"/>
+                                 <p:commandButton value="Imprimir" type="button" icon="ui-icon-print">  
+                                    <p:printer target=":form:guide-complete" />  
+                                </p:commandButton>  
                                 </f:facet>
                             </p:dataTable>
                         </div>

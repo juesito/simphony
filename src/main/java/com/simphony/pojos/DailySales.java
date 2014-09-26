@@ -9,6 +9,7 @@ package com.simphony.pojos;
 import com.simphony.entities.Payment;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
+import static com.simphony.interfases.IConfigurable._SHM;
 
 /**
  *
@@ -21,16 +22,21 @@ public class DailySales  {
     private Payment payment;
     private Integer rowId;
     private Boolean normalMode;
+    private Long detAssociates;
+    private Long detRetires;
+    private Long detPublico;
 
     public DailySales() {
         rowId = (int) (Math.random()*5000+1);
     }
 
     
-    public DailySales(Payment payMent, SaleDetail detail, Sale sale) {
+    public DailySales(Payment payMent, Sale sale, Long detAssociates, Long detPublico, Long detRetires) {
         this.sale = sale;
         this.payment = payMent;
-        this.saleDetail = detail;
+        this.detAssociates = detAssociates;
+        this.detRetires = detRetires;
+        this.detPublico = detPublico;
         rowId = (int) (Math.random()*5000+1);
         normalMode = true;
     }
@@ -65,7 +71,7 @@ public class DailySales  {
 
     @Override
     public String toString() {
-        return "DailySales{" + "payMent=" + payment + ",  detail=" + saleDetail +", sale=" + sale + "}";
+        return "DailySales{" + "payMent=" + payment +", sale=" + sale + "}";
     }
 
     public Integer getRowId() {
@@ -79,5 +85,50 @@ public class DailySales  {
     public void setNormalMode(Boolean normalMode) {
         this.normalMode = normalMode;
     }
-   
-}
+
+    public Long getDetAssociates() {
+        return detAssociates;
+    }
+
+    public void setDetAssociates(Long detAssociates) {
+        this.detAssociates = detAssociates;
+    }
+
+    public Long getDetRetires() {
+        return detRetires;
+    }
+
+    public void setDetRetires(Long detRetires) {
+        this.detRetires = detRetires;
+    }
+
+    public Long getDetPublico() {
+        return detPublico;
+    }
+
+    public void setDetPublico(Long detPublico) {
+        this.detPublico = detPublico;
+    }
+
+    public String getFormatTipoVta(){
+        String texto = "";
+        if(this.getSaleDetail().getType() != null){
+            if (this.getSaleDetail().getType().equals("A")){
+                texto = "Agremiado";
+            }else texto = "Público";
+       
+            return texto;
+        }else return texto;
+    }
+
+    public String getFormatTipoBol(){
+        String texto = "";
+        if(this.getSaleDetail().getBolType()!= null){
+            if (this.getSaleDetail().getBolType().equals("J")){
+                texto = "Jubilado";
+            }else texto = "Normal";
+       
+            return texto;
+        }else return texto;
+    }
+ }

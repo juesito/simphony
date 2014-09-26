@@ -60,5 +60,7 @@ public interface IConfigurable {
     final String _CANCELLED = "C";
     final String _SALED = "V";
     final String _RESERVATED = "R";
+    final String _PENDING = "P";
+    final String _ROUNDED = "SR";
 
 }

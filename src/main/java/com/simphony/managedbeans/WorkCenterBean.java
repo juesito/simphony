@@ -7,6 +7,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.WorkCenterService;
 import com.simphony.entities.User;
+import com.simphony.entities.Vendor;
 import com.simphony.entities.WorkCenter;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
@@ -160,6 +161,7 @@ public class WorkCenterBean implements IConfigurable {
 
     /**
      * Guardamos el WorkCenter
+     * @param user
      * @return
      */
     public String save(User user) {
@@ -178,6 +180,13 @@ public class WorkCenterBean implements IConfigurable {
         }
 
         if (!exist) {
+            if(user.getNick() == null){
+//                user.setId(vendor.getId());
+//                user.setNick(vendor.getNick());
+//                user.setName(vendor.getName());
+//                user.setFirstLastName(vendor.getFirstLastName());
+//                user.setSecondLastName(vendor.getSecondLastName());
+            }
             if (this.workCenter.getDescription() != null ) {
                 workCenter.setUser(user);
                 workCenter.setCreateDate(cal.getTime());

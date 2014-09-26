@@ -163,6 +163,10 @@
             <to-view-id>/reservations.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>toPendingSale</from-outcome>
+            <to-view-id>/pendingSale.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>toCancelRes</from-outcome>
             <to-view-id>/cancelRes.xhtml</to-view-id>
         </navigation-case>

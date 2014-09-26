@@ -108,6 +108,18 @@
 
                                     </p:selectOneMenu>
                                 </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  id="type" effect="blind" value="#{vendorBean.vendor.type}" 
+                                                      style="width: 100px;" >
+                                        <f:selectItem itemLabel="Completo" itemValue="C" />
+                                        <f:selectItem itemLabel="Medio" itemValue="M" />                                        
+                                        <f:selectItem itemLabel="Normal" itemValue="N" />                                        
+                                    </p:selectOneMenu>
+                                    <p:message for="type" />
+                                </p:column>
                             </p:row>
 
                             <p:row>
@@ -221,6 +233,18 @@
                                         <f:selectItems value="#{boxWorkCenterService.workCenterList}" />
 
                                     </p:selectOneMenu>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  id="typeMd" effect="blind" value="#{vendorBean.vendor.type}" 
+                                                      style="width: 100px;" >
+                                        <f:selectItem itemLabel="Completo" itemValue="C" />
+                                        <f:selectItem itemLabel="Medio" itemValue="M" />                                        
+                                        <f:selectItem itemLabel="Normal" itemValue="N" />                                        
+                                    </p:selectOneMenu>
+                                    <p:message for="typeMd" />
                                 </p:column>
                             </p:row>
 
