@@ -74,6 +74,14 @@ public class Sale implements Serializable, IConfigurable {
     @Basic
     private String status;
     
+    @Column(name = "ventaReferenciada")
+    @Basic
+    private Long idRefSale;
+
+    @Column(name = "TipoServicio")
+    @Basic
+    private String serviceType;
+
     @Transient
     private boolean partner;
 
@@ -236,7 +244,7 @@ public class Sale implements Serializable, IConfigurable {
         }
     }
 
-    public String leoFormatCreateTime() {
+    public String getFormatCreateTime() {
         if (this.createDate != null) {
             return _SHM.format(this.createDate);
         } else {
@@ -329,6 +337,22 @@ public class Sale implements Serializable, IConfigurable {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Long getIdRefSale() {
+        return idRefSale;
+    }
+
+    public void setIdRefSale(Long idRefSale) {
+        this.idRefSale = idRefSale;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
     
         
