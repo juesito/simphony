@@ -8,6 +8,7 @@ package com.simphony.repositories;
 
 import com.simphony.entities.Sale;
 import com.simphony.pojos.DailySales;
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,11 +20,15 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ReportsRepository extends JpaRepository<Sale, Long> {
 
-    @Query("SELECT NEW com.simphony.pojos.DailySales(p, d, s) " +
-           " FROM Payment p, SaleDetail d, Sale s" +
-           " WHERE s.vendor.id = :idVendor  " +
-           " AND s.id = d.sale.id " +
-           " AND s.id = p.sale.id")
-    public List<DailySales> dailySales(@Param("idVendor") Long idVendor);
+    @Query("SELECT NEW com.simphony.pojos.DailySales(p, s, " +
+           "(SELECT COUNT(type) FROM SaleDetail WHERE type = 'A' AND s.id = sale.id) , " +
+           "(SELECT COUNT(type) FROM SaleDetail WHERE type = 'P' AND s.id = sale.id) , " +
+           "(SELECT COUNT(bolType) FROM SaleDetail WHERE bolType = 'J' AND s.id = sale.id)) " +
+           " FROM Payment p, Sale s " +
+           " WHERE s.vendor.id = :idVendor " +
+           " AND s.id = p.sale.id " +
+           " AND s.createDate BETWEEN :iniDate AND :finDate ")
+    public List<DailySales> dailySales(@Param("idVendor") Long idVendor, @Param("iniDate") Date iniDate,
+                                       @Param("finDate") Date finDate);
  
 }

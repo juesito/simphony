@@ -234,7 +234,14 @@ public class Sale implements Serializable, IConfigurable {
         } else {
             return "";
         }
+    }
 
+    public String leoFormatCreateTime() {
+        if (this.createDate != null) {
+            return _SHM.format(this.createDate);
+        } else {
+            return "";
+        }
     }
 
     public Integer getPassengers() {
