@@ -119,6 +119,7 @@ public class SaleBean implements IConfigurable {
      */
     public void findItinearies() throws ParseException {
         Calendar now = Calendar.getInstance();
+        int increaseSequence = 0;
 
         if (_SDF.parse(_SDF.format(this.sale.getTripDate())).compareTo(_SDF.parse(_SDF.format(now.getTime()))) < 0) {
             GrowlBean.simplyErrorMessage("Error de fechas", "Rutas fuera de calendario");
@@ -136,6 +137,9 @@ public class SaleBean implements IConfigurable {
 
                 for (ItineraryCost it : itineraryCostTemp) {
                     it.getItinerary().setRoute(it.getAlternateItinerary().getRoute());
+                    if(this.sale.getDestiny().getId() == it.getItinerary().getDestiny().getId()){
+                        it.getAlternateItinerary().setSequence(it.getAlternateItinerary().getSequence() + 5);  
+                    }
                     itineraryCost.add(it);
                 }
             }
@@ -152,6 +156,10 @@ public class SaleBean implements IConfigurable {
                     Calendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
                             calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND));
                     itineraryCost1.setDepartureTime(calendar.getTime());
+                    if(this.sale.getDestiny().getId() == itineraryCost1.getAlternateItinerary().getDestiny().getId()){
+                        itineraryCost1.getAlternateItinerary().setSequence(itineraryCost1.getAlternateItinerary().getSequence() + 5);  
+                    }
+                    
                 }
 
                 model = new ItineraryCostModel(itineraryCost);
@@ -278,11 +286,15 @@ public class SaleBean implements IConfigurable {
                         seat.set(index, occupiedPattern);
                         //Alt 10  -  Initial 0
                     } else if (!this.selected.isNormalMode() && 
-                            (selected.getAlternateItinerary().getSequence() <= reserved.getFinalSequence() &&
+                            (selected.getAlternateItinerary().getSequence() < reserved.getFinalSequence() &&
                             selected.getAlternateItinerary().getSequence() > reserved.getInitialSequence())) {
                         seat.set(index, occupiedPattern);
                     } else if (!this.selected.isNormalMode() && 
                             (reserved.getInitialSequence() >= selected.getItinerary().getSequence() &&
+                            selected.getAlternateItinerary().getSequence() >= reserved.getFinalSequence())) {
+                        seat.set(index, occupiedPattern);
+                    }else if (!this.selected.isNormalMode() && 
+                            (reserved.getInitialSequence() <= selected.getItinerary().getSequence() &&
                             selected.getAlternateItinerary().getSequence() >= reserved.getFinalSequence())) {
                         seat.set(index, occupiedPattern);
                     }
