@@ -53,12 +53,9 @@
                             <p:column headerText="#{msgs.cat_workCenter}">
                                 <p:outputLabel value="#{vendor.workCenter.description}" />
                             </p:column>
-<!--
-                            <p:column headerText="#{msgs.cat_createDate}" >
-                                <p:calendar value="#{vendor.createDate}" pattern="yyy/MMM/dd"
-                                            style="width: 20px !important;" disabled="true"/>
+                            <p:column headerText="#{msgs.cat_type}" >
+                                <p:outputLabel value="#{vendor.type}" />
                             </p:column>
--->
                             <p:column headerText="#{msgs.cat_status}"  style="width: 50px;">
                                 <p:outputLabel value="#{vendor.formatStatus}" />
                             </p:column>
@@ -117,6 +114,9 @@
 
                                     <h:outputText value="#{msgs.cat_workCenter}:" />
                                     <h:outputText value="#{vendorBean.selected.workCenter.description}" />  
+
+                                    <h:outputText value="#{msgs.cat_type}:" />
+                                    <h:outputText value="#{vendorBean.selected.type}" />  
 
                                     <h:outputText value="#{msgs.cat_status}:" />
                                     <h:outputText value="#{vendorBean.selected.formatStatus}" />

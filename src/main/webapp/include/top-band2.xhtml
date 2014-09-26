@@ -39,7 +39,8 @@
                                 <p:menuitem value="Cancelar Reservaciones" action="toCancelRes" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Pruebas" action="toPendingSale" ajax="false" />                             </p:submenu>
+                                <p:menuitem value="Pruebas" action="toPendingSale" ajax="false" />  
+                            </p:submenu>
                             <p:submenu label="   Operación   " rendered="#{userBean.current.looged}" >
                                 <p:menuitem value="Rutas" action="#{itineraryBean.toItineraries()}" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillBox()}"/>
@@ -57,14 +58,12 @@
                                     <f:actionListener  binding="#{boxVendorService.fillBox()}"/>
                                 </p:menuitem>
                             </p:submenu>
-                            <p:submenu label="   Catalogos   " rendered="#{userBean.current.looged}">
-                                <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false"
-                                            /> 
+                            <p:submenu label="   Catalogos   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}"  >
+                                <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 
                                 
                                 <p:menuitem value="Tarifas" action="#{costBean.toCosts}" ajax="false"> 
                                     <f:actionListener  binding="#{boxPopulationService.fillBox()}"/> 
                                 </p:menuitem>
-                                
                                 
                                 <p:menuitem value="Agremiados" action="#{associateBean.toAssociates}" ajax="false" /> 
                                 <p:menuitem value="Operadores" action="#{driverManBean.toDriverMan()}" ajax="false" /> 

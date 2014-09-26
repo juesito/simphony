@@ -1227,11 +1227,13 @@ public class SaleBean implements IConfigurable {
             }
             saleTmp.setCancelUser(user.getNick());            
             saleTmp.setPassengers(saleTmp.getPassengers() - 1);
+            saleTmp.setServiceType(_ROUNDED);
 
             //Actualizamos la venta
             saleTmp.update(saleTmp);
             saleService.getSaleRepository().save(saleTmp);
-            
+            sale.setIdRefSale(saleTmp.getId());
+            sale.setServiceType(_ROUNDED);
             if(pendingSale.getAmount() <= sale.getAmount() ){
                 sale.setAmount(0.0);
             }else{
