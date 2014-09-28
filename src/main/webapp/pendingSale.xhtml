@@ -10,36 +10,46 @@
 
             <ui:composition>
 
-                <h:form id="formPendingSale">
+                <h:form id="formPS">
                     <!-- div header detail -->
                     <div id="guide-header-detail" class="guide-header-detail">
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid  styleClass="guide-header">
                             <p:row>
-                                <p:column>
+                                <p:column style="padding-top: 25px; ">
                                     <p:outputLabel value="Folio Venta Anterior:" />
                                 </p:column>
-                                <p:column>
+                                <p:column style="padding-top: 25px; ">
                                     <p:inputText id="saleId" value="#{saleBean.pendingdSale.id}" maxlength="10" required="true" 
                                                  requiredMessage="Folio requerido" style="width: 60px;"/>
                                     <p:message for="saleId" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column>
+                                <p:column style="padding-top: 25px; ">
                                     <p:commandButton value="Buscar" action="#{saleBean.findPendingSale()}"
                                                      ajax="true" styleClass="button-rounded" partialSubmit="true"
-                                                     >
+                                                     update=":main-form:growl :formPS:origin :formPS:destiny
+                                                     :formPS:departureTime :formPS:name :formPS:seat :formPS:total">
                                     </p:commandButton>
                                 </p:column>
                             </p:row>
                             
                                     <p:row>
-                                        <p:column style="padding-top: 20px;">
+                                        <p:column style="padding-top: 25px; ">
+                                            <p:outputLabel value="Fecha:" />
+                                        </p:column>
+                                        <p:column style="padding-top: 25px; ">
+                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.formatDateTime}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
                                             <p:outputLabel value="Origen:" />
                                         </p:column>
-                                        <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.origin.description}" />
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.origin.description}" 
+                                                           id="origin"/>
                                         </p:column>
 
                                     </p:row>
@@ -48,15 +58,8 @@
                                             <p:outputLabel value="Destino:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.destiny.description}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Fecha:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.formatDateTime}" />
+                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.destiny.description}"
+                                                           id="destiny"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -64,7 +67,17 @@
                                             <p:outputLabel value="Hora:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.formatTime}" />
+                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.formatTime}" 
+                                                           id="departureTime"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Nombre:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{saleBean.pendingdSale.customerName}"
+                                                           id="name"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -72,38 +85,30 @@
                                             <p:outputLabel value="Asiento:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.seat.seat}" />
+                                            <p:outputLabel value="#{saleBean.pendingdSale.seat.seat}"
+                                                           id="seat"/>
                                         </p:column>
                                     </p:row>
                                     
                                     <p:row>
-                                        <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="Descuento:" />
-                                        </p:column>
-                                        <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="$#{saleBean.pendingdSale.discount}" style="color:red !important;" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Total:" />
+                                            <p:outputLabel value="Importe:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="$#{saleBean.pendingdSale.amount}" style="color:red !important;" />
+                                            <p:outputLabel value="$#{saleBean.pendingdSale.amount}"
+                                                           id="total" style="color:red !important;" />
                                         </p:column>
                                     </p:row>
 
                             <p:row>
-                                <p:column>
-                                    <p:commandButton value="Confirmar" action="#{saleBean.cancelPendigSale(1)}" ajax="true" 
-                                                     update=":confirmSaleForm:sale-input"  >
-
-                                                     
+                                <p:column style="padding-top: 25px; ">
+                                    <p:commandButton value="Confirmar" action="#{saleBean.cancelPendigSale(1)}" 
+                                                     ajax="false" >
                                     </p:commandButton>
                                 </p:column>
-                                <p:column>
+                                <p:column style="padding-top: 25px; ">
                                     <p:commandButton value="Cancelar" action="#{saleBean.cancelPendigSale(2)}" 
-                                                     ajax="false" update=":main-form:growl" >
+                                                     ajax="false" immediate="true">
                                     </p:commandButton>
                                 </p:column>
                             </p:row>

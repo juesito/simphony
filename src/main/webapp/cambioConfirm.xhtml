@@ -208,6 +208,13 @@
                                                          value="Folios nomina"/>
                                     </p:column>
                                 </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton update=":main-form:growl" action="#{saleBean.pendingSaleDialog()}"
+                                                          ajax="true"
+                                                         value="Venta Pendiente"/>
+                                    </p:column>
+                                </p:row>
 
                             </p:panelGrid>
 
@@ -233,6 +240,10 @@
                     <p:dialog id="idPayRoll" widgetVar="payRollVar"
                               width="500" height="500" header="Nomina">
                         <ui:include src="./payRoll.xhtml" ></ui:include>
+                    </p:dialog>
+                    <p:dialog id="idPendingSale" widgetVar="pendingSaleVar"
+                              width="350" height="400" header="Venta Pendiente">
+                        <ui:include src="./pendingSale.xhtml" ></ui:include>
                     </p:dialog>
                 </ui:define>
 

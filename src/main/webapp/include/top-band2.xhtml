@@ -39,7 +39,7 @@
                                 <p:menuitem value="Cancelar Reservaciones" action="toCancelRes" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Pruebas" action="toPendingSale" ajax="false" />  
+                                <p:menuitem value="Pruebas" action="toPayRolls" ajax="false" />  
                             </p:submenu>
                             <p:submenu label="   Operación   " rendered="#{userBean.current.looged}" >
                                 <p:menuitem value="Rutas" action="#{itineraryBean.toItineraries()}" ajax="false">
