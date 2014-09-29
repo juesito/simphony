@@ -30,7 +30,7 @@
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                     <f:actionListener  binding="#{boxPayTypeService.fillBox()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Cancelación" action="#{saleBean.toCancel()}" ajax="false">
+                                <p:menuitem value="Cancelar Venta" action="#{saleBean.toCancel()}" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
                                 <p:menuitem value="Reservaciones" action="toReservations" ajax="false">
@@ -39,7 +39,6 @@
                                 <p:menuitem value="Cancelar Reservaciones" action="toCancelRes" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Pruebas" action="toPendingSale" ajax="false" />  
                             </p:submenu>
                             <p:submenu label="   Operación   " rendered="#{userBean.current.looged}" >
                                 <p:menuitem value="Rutas" action="#{itineraryBean.toItineraries()}" ajax="false">
@@ -53,9 +52,13 @@
                             </p:submenu>
                             <p:submenu label="   Reportes   " rendered="#{userBean.current.looged}">  
                                 <p:menuitem value="Por definir" /> 
-                                <p:menuitem value="Venta diaria" action="toDailySales" ajax="false"
+                                <p:menuitem value="Venta diaria por Asesor de Venta" action="toDailySales" ajax="false"
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxVendorService.fillBox()}"/>
+                                </p:menuitem>
+                                <p:menuitem value="Venta diaria por Punto de Venta" action="toDailySalesPoint" ajax="false"
+                                            styleClass="miMenuItem">
+                                    <f:actionListener  binding="#{boxSalePointService.fillBox()}"/>
                                 </p:menuitem>
                             </p:submenu>
                             <p:submenu label="   Catalogos   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}"  >

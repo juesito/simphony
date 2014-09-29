@@ -31,4 +31,14 @@ public interface ReportsRepository extends JpaRepository<Sale, Long> {
     public List<DailySales> dailySales(@Param("idVendor") Long idVendor, @Param("iniDate") Date iniDate,
                                        @Param("finDate") Date finDate);
  
+    @Query("SELECT NEW com.simphony.pojos.DailySales(p, s, " +
+           "(SELECT COUNT(type) FROM SaleDetail WHERE type = 'A' AND s.id = sale.id) , " +
+           "(SELECT COUNT(type) FROM SaleDetail WHERE type = 'P' AND s.id = sale.id) , " +
+           "(SELECT COUNT(bolType) FROM SaleDetail WHERE bolType = 'J' AND s.id = sale.id)) " +
+           " FROM Payment p, Sale s " +
+           " WHERE s.vendor.id IN ( SELECT v.id FROM Vendor v WHERE v.salePoint.id = :idSalePoint) " +
+           " AND s.id = p.sale.id " +
+           " AND s.createDate BETWEEN :iniDate AND :finDate ORDER BY s.vendor.id ")
+    public List<DailySales> dailySalesPoint(@Param("idSalePoint") Long idVendor, @Param("iniDate") Date iniDate,
+                                       @Param("finDate") Date finDate);
 }

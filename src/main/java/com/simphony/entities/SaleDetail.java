@@ -57,7 +57,18 @@ public  class SaleDetail implements Serializable, IConfigurable {
     @ManyToOne(targetEntity = Associate.class)
     private Associate associate;
 
+    @Column(name = "ventaReferenciada")
+    @Basic
+    private Long idRefSale;
+
+    @Column(name = "TipoServicio")
+    @Basic
+    private String serviceType;
     
+    @Column(name = "asientoReservado")
+    @Basic
+    private Long idResSeat;
+
     @Transient
     private String associateKey;
     
@@ -65,7 +76,9 @@ public  class SaleDetail implements Serializable, IConfigurable {
         associate = new Associate();
         this.discount = 0.0;
         this.bolType = _PASSENGER;
-
+        this.serviceType = "";
+        this.idRefSale = new Long(0);
+        this.idResSeat = new Long(0);
     }
 
     public SaleDetail(double amount, Seat seat, Customer customer, Associate associate, String bolType) {
@@ -90,6 +103,9 @@ public  class SaleDetail implements Serializable, IConfigurable {
         this.customerName = "";
         this.seat = new Seat();
         this.sale = new Sale();
+        this.serviceType = "";
+        this.idRefSale = new Long(0);
+        this.idResSeat = new Long(0);
         this.status = _SALED;
     }
 
@@ -188,6 +204,30 @@ public  class SaleDetail implements Serializable, IConfigurable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Long getIdRefSale() {
+        return idRefSale;
+    }
+
+    public void setIdRefSale(Long idRefSale) {
+        this.idRefSale = idRefSale;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public Long getIdResSeat() {
+        return idResSeat;
+    }
+
+    public void setIdResSeat(Long idResSeat) {
+        this.idResSeat = idResSeat;
     }
 
  }

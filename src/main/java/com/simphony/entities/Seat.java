@@ -125,7 +125,7 @@ public class Seat implements Serializable, Cloneable {
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;

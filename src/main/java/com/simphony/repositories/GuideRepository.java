@@ -62,6 +62,11 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
     @Query("UPDATE Guide g " +
          "SET  g.quota = :quota ")
     public void updateGuide(@Param("quota")Integer quota);
-    
+
+    @Query("SELECT status from Guide g " +
+       " WHERE g.id IN  ( SELECT d.guide.id FROM GuideDetail d " +
+       " WHERE d.sale.id = :saleId) " )
+    public String selectStatus(@Param("saleId")Long saleId);
+
 }
 

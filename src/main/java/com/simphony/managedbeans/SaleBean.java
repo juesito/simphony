@@ -79,6 +79,7 @@ public class SaleBean implements IConfigurable {
 
     private boolean existSelectedAssociates = false;
     private Double valeCaja = 0.0;
+    private Double cantOriginal = 0.0;
 
     @ManagedProperty(value = "#{costService}")
     private CostService costService;
@@ -320,6 +321,13 @@ public class SaleBean implements IConfigurable {
      */
     public void save(Vendor vendor, List<PayType> payTypeList, List<PayRoll> payRollList) throws CloneNotSupportedException {
 
+        // Guardamos si hubo venta pendiente.
+        if (pendingSale.getId() != null) {
+            this.modifyPendingSale(vendor);
+        
+            sale.setIdRefSale(pendingSale.getId());
+            sale.setServiceType(_PENDING);
+        }
         sale.setVendor(vendor);
         sale.setStatus(_SALED);
         sale.setCreateDate(new Date());
@@ -377,23 +385,6 @@ public class SaleBean implements IConfigurable {
         //Guardamos el detalle de la venta
         for (SaleDetail dtSale : this.saleDetail) {
 
-            //Guardamos el detalle de venta
-            dtSale.setSale(sale);
-            dtSale.setStatus(_SALED);
-
-            if (dtSale.getAssociateKey().isEmpty()) {
-                dtSale.setAssociate(associateService.getRepository().getOne(1L));
-                dtSale.setType(_SALE_TYPE_PUBLIC);
-            } else {
-                dtSale.setType(_SALE_TYPE_ASSOCIATE);
-            }
-
-            if (dtSale.getBolType().equals(_RETIREE)) {
-                dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
-            }
-
-            saleService.getDetailRepository().save(dtSale);
-
             //Guardamos los asientos ocupados            
             ReservedSeats reservedSeat = new ReservedSeats();
             reservedSeat.setGuideId(guide.getRootGuide());
@@ -410,6 +401,31 @@ public class SaleBean implements IConfigurable {
             reservedSeat.setSeat(dtSale.getSeat());
 
             saleService.getReservedSeatsRepository().save(reservedSeat);
+
+            //Guardamos el detalle de venta
+            dtSale.setSale(sale);
+            dtSale.setStatus(_SALED);
+
+            if (pendingSale.getId() != null) {
+                dtSale.setServiceType(_PENDING);
+                dtSale.setIdRefSale(sale.getId());
+            }else{
+                dtSale.setServiceType("");
+                dtSale.setIdRefSale(new Long(0));
+            }
+            if (dtSale.getAssociateKey().isEmpty()) {
+                dtSale.setAssociate(associateService.getRepository().getOne(1L));
+                dtSale.setType(_SALE_TYPE_PUBLIC);
+            } else {
+                dtSale.setType(_SALE_TYPE_ASSOCIATE);
+            }
+
+            if (dtSale.getBolType().equals(_RETIREE)) {
+                dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
+            }
+            dtSale.setIdResSeat(reservedSeat.getId());
+            dtSale.update(dtSale);
+            saleService.getDetailRepository().save(dtSale);
         }
 
         //Guardamos los pagos
@@ -700,6 +716,7 @@ public class SaleBean implements IConfigurable {
             sale.setSubTotal(subTotal);
             sale.setDiscount(discount);
             sale.setAmount(amount);
+            cantOriginal = sale.getAmount();
 
         } else {
             GrowlBean.simplyWarmMessage("Asientos incompletos", "No Se han asigando los asientos solicitados");
@@ -745,10 +762,12 @@ public class SaleBean implements IConfigurable {
      */
     public void clearSale() {
         this.sale = new Sale();
+        this.sale.setTripDate(new Date());
         this.saleDetail = new ArrayList<SaleDetail>();
         this.guide = new Guide();
         this.guideRoot = new Guide();
         this.selected = new ItineraryCost();
+        this.pendingSale = new SaleDetail();
     }
 
     /**
@@ -1171,52 +1190,74 @@ public class SaleBean implements IConfigurable {
 
      /**
      * Buscamos venta pendiente
-     *
-     * @return
      */
-    public String findPendingSale() {
+    public void findPendingSale() {
         boolean saleExist = false;
+        boolean saleUsed = false;
     
         if (pendingSale != null) {
             pendingSale = saleService.getDetailRepository().findOne(pendingSale.getId());
-            if (pendingSale != null) {
+            if (pendingSale != null && pendingSale.getStatus().equals("V")){
                 saleExist = true;
+                if(pendingSale.getServiceType().equals("P")) {
+                    saleUsed = true;
+                }
             }
         }
 
         if (!saleExist) {
             GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una venta con esos datos");
             pendingSale = new SaleDetail();
+        }else {
+            if (saleUsed) {
+                GrowlBean.simplyWarmMessage("Folio ya utilizado", "El folio de ese boleto ya fue cambiado anteriormente");
+                pendingSale = new SaleDetail();
+            }else {
+                String status = guideService.getRepository().selectStatus(pendingSale.getSale().getId());
+                if(status.equals("CL")){
+                   GrowlBean.simplyWarmMessage("Guía Cerrada", "La Guía de viaje ya fue cerrada...");
+                   pendingSale = new SaleDetail();
+                }
+            }
         }
-
-        return "toPendingSale";
     }
  
     public String cancelPendigSale(Integer mode) {
         if (mode == 2) {
             pendingSale.clear();
-        }
+        }else {
+            Double varCalc;
+            if(pendingSale.getAmount() >= cantOriginal){
+                varCalc = pendingSale.getAmount() - cantOriginal;
+                valeCaja = varCalc;
+                this.sale.setAmount(0.0);
+           } else {
+                varCalc = cantOriginal - pendingSale.getAmount();
+                valeCaja = 0.0;
+                this.sale.setAmount(varCalc);
+            } 
+                this.sale.setSubTotal(0.0);
+         }
         return "toCambioConfirm";
     }
 
     /**
      * Cancelamos la venta Pendiente
      *
-     * @param user
+     * @param vendor
      * @throws CloneNotSupportedException
      */
-    public void modifyPendingSale(User user) throws CloneNotSupportedException {
+    public void modifyPendingSale(Vendor vendor) throws CloneNotSupportedException {
         Sale saleTmp = pendingSale.getSale();
 
-        if (pendingSale != null) {
-
             //Cancelamos el detalle de la venta
-            pendingSale.setStatus(_PENDING);
+            pendingSale.setServiceType(_PENDING);
+            pendingSale.setStatus(_CANCELLED);
 
             saleService.getDetailRepository().save(pendingSale);
 
             //Borramos el asiento reservado
-            saleService.getReservedSeatsRepository().delete(pendingSale.getSeat().getId());
+            saleService.getReservedSeatsRepository().delete(pendingSale.getIdResSeat());
 
             Integer countDetailLeft = saleService.getDetailRepository().countDetailBySale(saleTmp.getId());
 
@@ -1225,28 +1266,34 @@ public class SaleBean implements IConfigurable {
                 saleTmp.setStatus(_PENDING);
 
             }
-            saleTmp.setCancelUser(user.getNick());            
+            saleTmp.setCancelUser(vendor.getNick());            
             saleTmp.setPassengers(saleTmp.getPassengers() - 1);
             saleTmp.setServiceType(_ROUNDED);
 
-            //Actualizamos la venta
+            //Actualizamos la venta anterior
             saleTmp.update(saleTmp);
             saleService.getSaleRepository().save(saleTmp);
-            sale.setIdRefSale(saleTmp.getId());
-            sale.setServiceType(_ROUNDED);
-            if(pendingSale.getAmount() <= sale.getAmount() ){
-                sale.setAmount(0.0);
-            }else{
-                if(pendingSale.getAmount() > sale.getAmount() ){
-                    valeCaja = pendingSale.getAmount() - sale.getAmount();
-                }else{
-                    if(pendingSale.getAmount() < sale.getAmount() ){
-                        valeCaja = 0.0;
-                        sale.setAmount(sale.getAmount() - pendingSale.getAmount());
-                    }
-                }
-            }
-        }
+     }
+
+     /**
+     * Muestra el diálogo de la venta pendiente
+     *
+     */
+    public void pendingSaleDialog() {
+
+        RequestContext context = RequestContext.getCurrentInstance();
+
+            context.execute("PF('pendingSaleVar').show()");
+    }
+
+    /**
+     * A venta pendiente
+     *
+     * @return
+     */
+    public String toPendingSale() {
+
+        return "toPendingSale";
     }
 
 }
