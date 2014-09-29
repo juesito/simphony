@@ -7,6 +7,8 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.ReportsService;
 import com.simphony.entities.Sale;
+import com.simphony.entities.SalePoint;
+import com.simphony.entities.Vendor;
 import com.simphony.models.DailySalesModel;
 import com.simphony.pojos.DailySales;
 import java.text.ParseException;
@@ -31,11 +33,13 @@ public class ReportsBean  {
     private DailySales selectedDS = new DailySales();
     private DailySalesModel modelDS = new DailySalesModel();
     private List<DailySales> listDailySales = new ArrayList<DailySales>();
+    private List<DailySales> listTemp = new ArrayList<DailySales>();
     
     private Long totMov;
     private Long totAgr;
     private Long totPub;
     private Long totRet;
+    private SalePoint salePointTmp;
     private Double  totVta;
     private Double  totEfe;
     private Double  totNom;
@@ -94,8 +98,12 @@ public class ReportsBean  {
         return "toDailySales";
     }
 
-        /**
-     * Buscamos itinerarios
+    public String toDailySalesPoint() {
+
+        return "toDailySalesPoint";
+    }
+/**
+     * Buscamos ventas diarias
      *
      * @throws java.text.ParseException
      */
@@ -122,7 +130,7 @@ public class ReportsBean  {
                             this.sale.getCreateDate(), finD);
 
             modelDS = new DailySalesModel(listDailySales);
-            Long idAnt = new Long(0);
+            Long idAnt = (long) 0;
             for (DailySales dl : listDailySales) {
                 totMov += 1;
                 totVta = totVta + dl.getPayment().getAmount();
@@ -146,6 +154,98 @@ public class ReportsBean  {
                 }            }      
         } else {
                 GrowlBean.simplyErrorMessage("Error de datos", "Falta Asesor de Venta o fecha...");
+        }
+
+    }
+
+    /**
+     * Buscamos ventas diarias
+     *
+     * @throws java.text.ParseException
+     */
+    public void findDailySalesPoint() throws ParseException {
+        totMov = new Long(0);
+        totAgr = new Long(0);
+        totPub = new Long(0);
+        totRet = new Long(0);
+        totVta = 0.0;
+        totEfe = 0.0;
+        totNom = 0.0;
+        totCor = 0.0;
+        totPag = 0.0;
+        Calendar finDate = Calendar.getInstance();
+        finDate.setTime(this.sale.getCreateDate());
+        finDate.add(Calendar.HOUR, 23);
+        finDate.add(Calendar.MINUTE, 59);
+        Date finD = finDate.getTime();
+
+        if (this.salePointTmp.getId() != null && this.sale.getCreateDate() != null) {
+            listDailySales.clear();
+            
+            listDailySales = reportsService.getReportsRepository().dailySalesPoint(this.salePointTmp.getId(),
+                            this.sale.getCreateDate(), finD);
+
+            listTemp.clear();
+            Long idVendor = (long) 0;
+            Long idAnt = (long) 0;
+            DailySales dx = new DailySales();
+            Sale s = new Sale();
+            Vendor v = new Vendor();
+            boolean unaVez = true;
+            for (DailySales dl : listDailySales) {
+                dx = dl;
+                if (unaVez){
+                    idVendor = dl.getSale().getVendor().getId();
+                    unaVez = false;
+                }
+                totMov += 1;
+                totVta = totVta + dl.getPayment().getAmount();
+                if(dl.getSale().getId() != idAnt){
+                    totAgr = totAgr + dl.getDetAssociates();
+                    totPub = totPub + dl.getDetPublico();
+                    totRet = totRet + dl.getDetRetires();
+                    idAnt = dl.getSale().getId();
+                } 
+                if(dl.getPayment().getPayType().getId() == 1){
+                    totEfe = totEfe + dl.getPayment().getAmount();
+                }
+                if(dl.getPayment().getPayType().getId() == 2){
+                    totNom = totNom + dl.getPayment().getAmount();
+                }
+                if(dl.getPayment().getPayType().getId() == 3){
+                    totPag = totPag + dl.getPayment().getAmount();
+                }
+                if(dl.getPayment().getPayType().getId() == 4){
+                    totCor = totCor + dl.getPayment().getAmount();
+                }            
+                if(idVendor != dl.getSale().getVendor().getId()){
+                    s = dl.getSale();
+                    v = dl.getSale().getVendor();
+                    v.setId(idVendor);
+                    s.setVendor(v);
+                    s.setAmount(totEfe);
+                    s.setDiscount(totNom);
+                    s.setSubTotal(totPag);
+                    dx.setSale(s);
+                    dx.setSale(s);
+                    listTemp.add(dx);
+                    unaVez = true;
+                 }
+            }      
+
+            s = dx.getSale();
+            v = dx.getSale().getVendor();
+            v.setId(idVendor);
+            s.setVendor(v);
+            s.setAmount(totEfe);
+            s.setDiscount(totNom);
+            s.setSubTotal(totPag);
+            dx.setSale(s);
+            dx.setSale(s);
+            listTemp.add(dx);
+            modelDS = new DailySalesModel(listTemp);
+       } else {
+                GrowlBean.simplyErrorMessage("Error de datos", "Falta Punto de Venta o fecha...");
         }
 
     }
@@ -228,6 +328,22 @@ public class ReportsBean  {
 
     public void setTotRet(Long totRet) {
         this.totRet = totRet;
+    }
+
+    public List<DailySales> getListTemp() {
+        return listTemp;
+    }
+
+    public void setListTemp(List<DailySales> listTemp) {
+        this.listTemp = listTemp;
+    }
+
+    public SalePoint getSalePointTmp() {
+        return salePointTmp;
+    }
+
+    public void setSalePointTmp(SalePoint salePointTmp) {
+        this.salePointTmp = salePointTmp;
     }
 
     
