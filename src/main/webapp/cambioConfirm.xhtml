@@ -66,18 +66,18 @@
                                     
                                     <p:row>
                                         <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="Descuento:" />
+                                            <p:outputLabel value="Sub total:" />
                                         </p:column>
                                         <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
+                                            <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Sub total:" />
+                                            <p:outputLabel value="Descuento:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
+                                            <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -157,7 +157,8 @@
                                                                           >
                                                             <f:selectItem itemLabel="Jubilado" itemValue="J" />
                                                             <f:selectItem itemLabel="No jubilado" itemValue="P" />
-                                                            <p:ajax event="change" update=":SaleForm:sale-input" listener="#{saleBean.calculateRetireeDiscount(saleBean.saleDetail)}" />
+                                                            <p:ajax event="change" update=":SaleForm:sale-input" 
+                                                                    listener="#{saleBean.calculateRetireeDiscount(saleBean.saleDetail)}" />
                                                         </p:selectOneRadio>
                                                     </p:column>
                                                 </p:row>
@@ -206,11 +207,8 @@
                                         <p:commandButton rendered="#{payTypeBean.existNominalPayType}" update=":main-form:growl"
                                                          action="#{saleBean.validateAssociates()}" ajax="true"
                                                          value="Folios nomina"/>
-                                    </p:column>
-                                    <p:column>
                                         <p:commandButton update=":main-form:growl" action="#{saleBean.pendingSaleDialog()}"
-                                                          ajax="true"
-                                                         value="Venta Pendiente"/>
+                                                          ajax="true"  value="Venta Pendiente"/>
                                     </p:column>
                                 </p:row>
 
@@ -228,7 +226,7 @@
                                         </p:commandButton>
                                         <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list, payRollBean.list)}"
                                                          style="float: right;">
-                               </p:commandButton>
+                                        </p:commandButton>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>

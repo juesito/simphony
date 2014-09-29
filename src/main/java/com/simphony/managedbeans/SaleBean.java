@@ -1014,13 +1014,14 @@ public class SaleBean implements IConfigurable {
             }
             sale = saleDetailCancelled.getSale();
             sale.setCancelUser(user.getNick());
-            sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
-            sale.setSubTotal(sale.getSubTotal() - (saleDetailCancelled.getAmount() - saleDetailCancelled.getDiscount()));
+            sale.setDiscount(sale.getDiscount() - saleDetailCancelled.getDiscount());
+            sale.setAmount(sale.getAmount() - (saleDetailCancelled.getAmount()-saleDetailCancelled.getDiscount()));
+            sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getDiscount());
             sale.setPassengers(sale.getPassengers() - 1);
-            if ("toCancel".equals(toReturn)){
-                sale.setAmount(sale.getAmount() - saleDetailCancelled.getAmount());
-                sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getAmount());
-            }
+//            if ("toCancel".equals(toReturn)){
+//                sale.setAmount(sale.getAmount() - (saleDetailCancelled.getAmount()-saleDetailCancelled.getDiscount()));
+//                sale.setSubTotal(sale.getSubTotal() - saleDetailCancelled.getAmount());
+//            }
 
             //Actualizamos la venta
             sale.update(sale);

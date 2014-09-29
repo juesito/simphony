@@ -173,6 +173,15 @@ public class ReportsBean  {
         totNom = 0.0;
         totCor = 0.0;
         totPag = 0.0;
+        Long usrMov = new Long(0);
+        Long usrAgr = new Long(0);
+        Long usrPub = new Long(0);
+        Long usrRet = new Long(0);
+        Double usrVta = 0.0;
+        Double usrEfe = 0.0;
+        Double usrNom = 0.0;
+        Double usrCor = 0.0;
+        Double usrPag = 0.0;
         Calendar finDate = Calendar.getInstance();
         finDate.setTime(this.sale.getCreateDate());
         finDate.add(Calendar.HOUR, 23);
@@ -181,9 +190,9 @@ public class ReportsBean  {
 
         if (this.salePointTmp.getId() != null && this.sale.getCreateDate() != null) {
             listDailySales.clear();
-            
+
             listDailySales = reportsService.getReportsRepository().dailySalesPoint(this.salePointTmp.getId(),
-                            this.sale.getCreateDate(), finD);
+                    this.sale.getCreateDate(), finD);
 
             listTemp.clear();
             Long idVendor = (long) 0;
@@ -194,58 +203,64 @@ public class ReportsBean  {
             boolean unaVez = true;
             for (DailySales dl : listDailySales) {
                 dx = dl;
-                if (unaVez){
+                if (unaVez) {
                     idVendor = dl.getSale().getVendor().getId();
                     unaVez = false;
                 }
-                totMov += 1;
-                totVta = totVta + dl.getPayment().getAmount();
-                if(dl.getSale().getId() != idAnt){
-                    totAgr = totAgr + dl.getDetAssociates();
-                    totPub = totPub + dl.getDetPublico();
-                    totRet = totRet + dl.getDetRetires();
-                    idAnt = dl.getSale().getId();
-                } 
-                if(dl.getPayment().getPayType().getId() == 1){
-                    totEfe = totEfe + dl.getPayment().getAmount();
-                }
-                if(dl.getPayment().getPayType().getId() == 2){
-                    totNom = totNom + dl.getPayment().getAmount();
-                }
-                if(dl.getPayment().getPayType().getId() == 3){
-                    totPag = totPag + dl.getPayment().getAmount();
-                }
-                if(dl.getPayment().getPayType().getId() == 4){
-                    totCor = totCor + dl.getPayment().getAmount();
-                }            
-                if(idVendor != dl.getSale().getVendor().getId()){
+                if (idVendor != dl.getSale().getVendor().getId()) {
                     s = dl.getSale();
                     v = dl.getSale().getVendor();
                     v.setId(idVendor);
                     s.setVendor(v);
-                    s.setAmount(totEfe);
-                    s.setDiscount(totNom);
-                    s.setSubTotal(totPag);
+                    s.setAmount(usrEfe);
+                    s.setDiscount(usrNom);
+                    s.setSubTotal(usrPag);
                     dx.setSale(s);
                     dx.setSale(s);
                     listTemp.add(dx);
-                    unaVez = true;
-                 }
-            }      
+                    idVendor = dl.getSale().getVendor().getId();
+                    totEfe = totEfe + usrEfe;
+                    totNom = totNom + usrNom;
+                    totPag = totPag + usrPag;
+                    usrEfe = 0.0;
+                    usrNom = 0.0;
+                    usrPag = 0.0;
+                }
+                totMov += 1;
+                totVta = totVta + dl.getPayment().getAmount();
+                if (dl.getSale().getId() != idAnt) {
+                    totAgr = totAgr + dl.getDetAssociates();
+                    totPub = totPub + dl.getDetPublico();
+                    totRet = totRet + dl.getDetRetires();
+                    idAnt = dl.getSale().getId();
+                }
+                if (dl.getPayment().getPayType().getId() == 1) {
+                    usrEfe = usrEfe + dl.getPayment().getAmount();
+                }
+                if (dl.getPayment().getPayType().getId() == 2) {
+                    usrNom = usrNom + dl.getPayment().getAmount();
+                }
+                if (dl.getPayment().getPayType().getId() == 3) {
+                    usrPag = usrPag + dl.getPayment().getAmount();
+                }
+                if (dl.getPayment().getPayType().getId() == 4) {
+                    totCor = totCor + dl.getPayment().getAmount();
+                }
+            }
 
             s = dx.getSale();
             v = dx.getSale().getVendor();
             v.setId(idVendor);
             s.setVendor(v);
-            s.setAmount(totEfe);
-            s.setDiscount(totNom);
-            s.setSubTotal(totPag);
+            s.setAmount(usrEfe);
+            s.setDiscount(usrNom);
+            s.setSubTotal(usrPag);
             dx.setSale(s);
             dx.setSale(s);
             listTemp.add(dx);
             modelDS = new DailySalesModel(listTemp);
-       } else {
-                GrowlBean.simplyErrorMessage("Error de datos", "Falta Punto de Venta o fecha...");
+        } else {
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta Punto de Venta o fecha...");
         }
 
     }

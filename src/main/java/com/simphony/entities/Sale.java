@@ -104,7 +104,7 @@ public class Sale implements Serializable, IConfigurable {
         this.subTotal = 0.0;
         this.status = _SALED;
         this.createDate = new Date();
-
+        this.tripDate = new Date();
     }
 
     public void clear() {
