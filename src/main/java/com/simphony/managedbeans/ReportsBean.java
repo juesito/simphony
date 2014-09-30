@@ -173,11 +173,6 @@ public class ReportsBean  {
         totNom = 0.0;
         totCor = 0.0;
         totPag = 0.0;
-        Long usrMov = new Long(0);
-        Long usrAgr = new Long(0);
-        Long usrPub = new Long(0);
-        Long usrRet = new Long(0);
-        Double usrVta = 0.0;
         Double usrEfe = 0.0;
         Double usrNom = 0.0;
         Double usrCor = 0.0;
@@ -201,6 +196,7 @@ public class ReportsBean  {
             Sale s = new Sale();
             Vendor v = new Vendor();
             boolean unaVez = true;
+            String vrNick = "";
             for (DailySales dl : listDailySales) {
                 dx = dl;
                 if (unaVez) {
@@ -211,14 +207,15 @@ public class ReportsBean  {
                     s = dl.getSale();
                     v = dl.getSale().getVendor();
                     v.setId(idVendor);
+                    v.setNick(vrNick);
                     s.setVendor(v);
                     s.setAmount(usrEfe);
                     s.setDiscount(usrNom);
                     s.setSubTotal(usrPag);
                     dx.setSale(s);
-                    dx.setSale(s);
                     listTemp.add(dx);
                     idVendor = dl.getSale().getVendor().getId();
+                    vrNick = dl.getSale().getVendor().getNick();
                     totEfe = totEfe + usrEfe;
                     totNom = totNom + usrNom;
                     totPag = totPag + usrPag;
@@ -255,7 +252,6 @@ public class ReportsBean  {
             s.setAmount(usrEfe);
             s.setDiscount(usrNom);
             s.setSubTotal(usrPag);
-            dx.setSale(s);
             dx.setSale(s);
             listTemp.add(dx);
             modelDS = new DailySalesModel(listTemp);
