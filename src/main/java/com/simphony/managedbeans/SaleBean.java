@@ -123,8 +123,8 @@ public class SaleBean implements IConfigurable {
         int increaseSequence = 0;
 
         if (_SDF.parse(_SDF.format(this.sale.getTripDate())).compareTo(_SDF.parse(_SDF.format(now.getTime()))) < 0) {
-            GrowlBean.simplyErrorMessage("Error de fechas", "Rutas fuera de calendario");
-            return;
+       //     GrowlBean.simplyErrorMessage("Error de fechas", "Rutas fuera de calendario");
+       //     return;
         }
 
         if (this.sale.getPassengers() + this.sale.getRetirees() > 0) {
