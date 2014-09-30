@@ -98,6 +98,30 @@
                             </p:column>
 
                          </p:row>
+                         <p:row>
+                            <p:column>
+                                <p:outputLabel value="#{msgs.cat_address}:" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.address}" maxlength="100"  />
+                            </p:column>
+                            <p:column>
+                                 <p:outputLabel value="Colonia:" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="colony" value="#{associateBean.associate.colony}" maxlength="40" tabindex="8"/>
+                                 <p:message for="colony" />
+                            </p:column>
+
+                         </p:row>
+                         <p:row>
+                            <p:column>
+                                <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.zipCode}" maxlength="10" />
+                            </p:column>
+                         </p:row>
                         <p:row>
                         </p:row>
                        <p:row>
@@ -205,6 +229,30 @@
                                  <p:message for="email" />
                             </p:column>
 
+                         </p:row>
+                         <p:row>
+                            <p:column>
+                                <p:outputLabel value="#{msgs.cat_address}:" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.address}" maxlength="100"  />
+                            </p:column>
+                            <p:column>
+                                 <p:outputLabel value="Colonia:" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="colony" value="#{associateBean.associate.colony}" maxlength="40" tabindex="8"/>
+                                 <p:message for="colony" />
+                            </p:column>
+
+                         </p:row>
+                         <p:row>
+                            <p:column>
+                                <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.zipCode}" maxlength="10" />
+                            </p:column>
                          </p:row>
                         <p:row>
                         </p:row>

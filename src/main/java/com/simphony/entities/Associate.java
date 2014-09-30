@@ -47,7 +47,19 @@ public  class Associate extends Person implements Serializable, Cloneable {
     @Basic
     private String city;
 
-    public Associate(){
+    @Column(name="domicilio",length=100)
+    @Basic
+    private String address;
+
+    @Column(name="colonia",length=40)
+    @Basic
+    private String colony;
+
+    @Column(name="codigoPostal",length=10)
+    @Basic
+    private String zipCode;
+
+     public Associate(){
 
     }
 
@@ -60,6 +72,9 @@ public  class Associate extends Person implements Serializable, Cloneable {
         this.section = associateUpdated.getSection();
         this.state = associateUpdated.getState();
         this.user = associateUpdated.getUser();
+        this.address = associateUpdated.address;
+        this.colony = associateUpdated.colony;
+        this.zipCode = associateUpdated.zipCode;
     }
     
     @PreUpdate
@@ -131,17 +146,38 @@ public  class Associate extends Person implements Serializable, Cloneable {
         this.keyId = keyId;
     }
 
-
-
    public String getCity() {
         return this.city;
     }
 
-
   public void setCity (String city) {
         this.city = city;
     }
-  
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getColony() {
+        return colony;
+    }
+
+    public void setColony(String colony) {
+        this.colony = colony;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
   public String getFullName(){
       String fullName = super.getFirstLastName().trim() + " "+ super.getSecondLastName().trim() + " " + super.getName().trim();
       return fullName;
