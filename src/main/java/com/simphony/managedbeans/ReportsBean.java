@@ -198,27 +198,21 @@ public class ReportsBean  {
             boolean unaVez = true;
             String vrNick = "";
             for (DailySales dl : listDailySales) {
-                dx = dl;
                 if (unaVez) {
                     idVendor = dl.getSale().getVendor().getId();
+                    vrNick = dl.getSale().getVendor().getNick();
+                    dx = dl;
                     unaVez = false;
                 }
                 if (idVendor != dl.getSale().getVendor().getId()) {
-                    s = dl.getSale();
-                    v = dl.getSale().getVendor();
-                    v.setId(idVendor);
-                    v.setNick(vrNick);
-                    s.setVendor(v);
+                    s = dx.getSale();
                     s.setAmount(usrEfe);
                     s.setDiscount(usrNom);
                     s.setSubTotal(usrPag);
-                    dx.setSale(s);
                     listTemp.add(dx);
                     idVendor = dl.getSale().getVendor().getId();
                     vrNick = dl.getSale().getVendor().getNick();
-                    totEfe = totEfe + usrEfe;
-                    totNom = totNom + usrNom;
-                    totPag = totPag + usrPag;
+                    dx = dl;
                     usrEfe = 0.0;
                     usrNom = 0.0;
                     usrPag = 0.0;
@@ -233,12 +227,15 @@ public class ReportsBean  {
                 }
                 if (dl.getPayment().getPayType().getId() == 1) {
                     usrEfe = usrEfe + dl.getPayment().getAmount();
+                    totEfe = totEfe + dl.getPayment().getAmount();
                 }
                 if (dl.getPayment().getPayType().getId() == 2) {
                     usrNom = usrNom + dl.getPayment().getAmount();
+                    totNom = totNom + dl.getPayment().getAmount();
                 }
                 if (dl.getPayment().getPayType().getId() == 3) {
                     usrPag = usrPag + dl.getPayment().getAmount();
+                    totPag = totPag + dl.getPayment().getAmount();
                 }
                 if (dl.getPayment().getPayType().getId() == 4) {
                     totCor = totCor + dl.getPayment().getAmount();
@@ -246,9 +243,6 @@ public class ReportsBean  {
             }
 
             s = dx.getSale();
-            v = dx.getSale().getVendor();
-            v.setId(idVendor);
-            s.setVendor(v);
             s.setAmount(usrEfe);
             s.setDiscount(usrNom);
             s.setSubTotal(usrPag);

@@ -567,7 +567,7 @@ public class SaleBean implements IConfigurable {
 
         if (mode == 0) {
 
-            for (Sale saleTmp : saleService.getSaleRepository().findSale(this.cancelledSale.getOrigin().getId(),
+            for (Sale saleTmp : saleService.getSaleRepository().findRes(this.cancelledSale.getOrigin().getId(),
                     this.cancelledSale.getDestiny().getId(),
                     this.cancelledSale.getTripDate())) {
                 for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().findSeatsBySale(saleTmp.getId(),"R")) {

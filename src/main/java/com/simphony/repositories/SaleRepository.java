@@ -68,4 +68,10 @@ public interface SaleRepository extends JpaRepository<Sale, Long>{
     public List<Sale> findSale(@Param("origin")Long origin, @Param("destiny")Long destiny, 
             @Param("tripDate")Date tripDate);
 
+    @Query("SELECT s FROM Sale s " +
+         "  WHERE  s.origin.id = :origin " +
+         "    AND s.destiny.id = :destiny " +
+         "    AND s.tripDate = :tripDate) " )
+    public List<Sale> findRes(@Param("origin")Long origin, @Param("destiny")Long destiny, 
+            @Param("tripDate")Date tripDate);
 }

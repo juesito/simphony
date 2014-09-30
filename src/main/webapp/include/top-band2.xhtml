@@ -40,7 +40,7 @@
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
                             </p:submenu>
-                            <p:submenu label="   Operación   " rendered="#{userBean.current.looged}" >
+                            <p:submenu label="   Operación   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}" >
                                 <p:menuitem value="Rutas" action="#{itineraryBean.toItineraries()}" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillBox()}"/>
                                     <f:actionListener  binding="#{boxMainItineraryService.fillBox()}"/>
@@ -50,7 +50,7 @@
                                     <f:actionListener  binding="#{boxDriverManService.fillBox()}"/>
                                 </p:menuitem>
                             </p:submenu>
-                            <p:submenu label="   Reportes   " rendered="#{userBean.current.looged}">  
+                            <p:submenu label="   Reportes   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}">  
                                 <p:menuitem value="Por definir" /> 
                                 <p:menuitem value="Venta diaria por Asesor de Venta" action="toDailySales" ajax="false"
                                             styleClass="miMenuItem">
