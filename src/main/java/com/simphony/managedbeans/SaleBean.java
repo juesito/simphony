@@ -157,10 +157,7 @@ public class SaleBean implements IConfigurable {
                     Calendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
                             calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND));
                     itineraryCost1.setDepartureTime(calendar.getTime());
-                    //if(!itineraryCost1.isNormalMode() && this.sale.getDestiny().getId() == itineraryCost1.getAlternateItinerary().getDestiny().getId()){
-                    //    itineraryCost1.getAlternateItinerary().setSequence(itineraryCost1.getAlternateItinerary().getSequence() + 5);  
-                   // }
-                    
+                                        
                 }
 
                 model = new ItineraryCostModel(itineraryCost);
