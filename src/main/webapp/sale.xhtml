@@ -28,6 +28,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
+                                            
 
                                             <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
                                                              converter="populationConverter" 
@@ -87,7 +88,7 @@
                                             <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
                                                              ajax="true" styleClass="button-rounded" 
                                                              update=":saleForm:sale-panel :main-form:growl :saleForm:seatsForBook"   >
-                                             <f:actionListener  binding="#{payRollBean.fillPayRolls()}"/>                                
+                                                <f:actionListener  binding="#{payRollBean.fillPayRolls()}"/>                                
                                             </p:commandButton>
                                         </p:column>
                                     </p:row>                            
