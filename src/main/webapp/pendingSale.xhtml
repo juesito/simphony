@@ -14,7 +14,7 @@
                     <!-- div header detail -->
                     <div id="guide-header-detail" class="guide-header-detail">
                         <!-- Grid para agregar entidad -->                    
-                        <p:panelGrid  styleClass="guide-header">
+                        <p:panelGrid  id="pendingSale-Grid" styleClass="guide-header">
                             <p:row>
                                 <p:column style="padding-top: 25px; ">
                                     <p:outputLabel value="Folio Venta Anterior:" />
@@ -29,76 +29,75 @@
                                 <p:column style="padding-top: 25px; ">
                                     <p:commandButton value="Buscar" action="#{saleBean.findPendingSale()}"
                                                      ajax="true" styleClass="button-rounded" partialSubmit="true"
-                                                     update=":main-form:growl :formPS:origin :formPS:destiny
-                                                     :formPS:departureTime :formPS:name :formPS:seat :formPS:total">
+                                                     update=":main-form:growl :formPS:pendingSale-Grid" >
                                     </p:commandButton>
                                 </p:column>
                             </p:row>
-                            
-                                    <p:row>
-                                        <p:column style="padding-top: 25px; ">
-                                            <p:outputLabel value="Fecha:" />
-                                        </p:column>
-                                        <p:column style="padding-top: 25px; ">
-                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.formatDateTime}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Origen:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.origin.description}" 
-                                                           id="origin"/>
-                                        </p:column>
 
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Destino:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.destiny.description}"
-                                                           id="destiny"/>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Hora:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.sale.formatTime}" 
-                                                           id="departureTime"/>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Nombre:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.customerName}"
-                                                           id="name"/>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Asiento:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.pendingdSale.seat.seat}"
-                                                           id="seat"/>
-                                        </p:column>
-                                    </p:row>
-                                    
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Importe:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="$#{saleBean.pendingdSale.amount}"
-                                                           id="total" style="color:red !important;" />
-                                        </p:column>
-                                    </p:row>
+                            <p:row>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:outputLabel value="Fecha:" />
+                                </p:column>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:outputLabel value="#{saleBean.pendingdSale.sale.formatDateTime}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Origen:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.pendingdSale.sale.origin.description}" 
+                                                   id="origin"/>
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Destino:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.pendingdSale.sale.destiny.description}"
+                                                   id="destiny"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Hora:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.pendingdSale.sale.formatTime}" 
+                                                   id="departureTime"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Nombre:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.pendingdSale.customerName}"
+                                                   id="name"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Asiento:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{saleBean.pendingdSale.seat.seat}"
+                                                   id="seat"/>
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Importe:" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="$#{saleBean.pendingdSale.amount}"
+                                                   id="total" style="color:red !important;" />
+                                </p:column>
+                            </p:row>
 
                             <p:row>
                                 <p:column style="padding-top: 25px; ">

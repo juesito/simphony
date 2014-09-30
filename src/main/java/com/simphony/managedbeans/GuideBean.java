@@ -171,10 +171,10 @@ public class GuideBean implements IConfigurable {
             listDetail.clear();
 //            listDetail = guideService.getRepository().qryGuideDetailLocal(this.selected.getDepartureDate(), this.selected.getOrigin().getId());
 //            listDetail = guideService.getRepository().qryGuideDetail(this.selected.getId());
-        for (Guide gd : listTemporal) {
-                if(gd.getDepartureDate().equals(this.selected.getDepartureDate())&& 
-                   gd.getOrigin().getId().equals(this.selected.getOrigin().getId()) && 
-                   gd.getRootRoute().equals(this.selected.getRootRoute())){
+            for (Guide gd : listTemporal) {
+                if (gd.getDepartureDate().equals(this.selected.getDepartureDate())
+                        && gd.getOrigin().getId().equals(this.selected.getOrigin().getId())
+                        && gd.getRootRoute().equals(this.selected.getRootRoute())) {
                     Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getId());
                     Iterator<SaleDetail> cu = c.iterator();
                     while (cu.hasNext()) {
@@ -182,7 +182,7 @@ public class GuideBean implements IConfigurable {
                     }
                 }
             }
-
+            this.ordenaAsi();
             return "toGuideDetail";
         } else {
             return "toGuide";
@@ -203,6 +203,7 @@ public class GuideBean implements IConfigurable {
                     }
                 }
             }
+        
    
         
     }
@@ -220,6 +221,7 @@ public class GuideBean implements IConfigurable {
     /**
      * Actualizamos el usuario
      *
+     * @param user
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
@@ -300,4 +302,23 @@ public class GuideBean implements IConfigurable {
     return new Sort(Sort.Direction.ASC, "departureDate","rootRoute");
     }
 
+    public void ordenaAsi() {
+        int i, j, cont;
+        cont = listDetail.size();
+
+        SaleDetail temp;
+        SaleDetail opc1;
+        SaleDetail opc2;
+        for (i = (cont - 1); i >= 0; i--) {
+            for (j = 1; j <= i; j++) {
+                opc1 = (SaleDetail) listDetail.get(j - 1);
+                opc2 = (SaleDetail) listDetail.get(j);
+                if ((opc2.getSeat().getId().compareTo(opc1.getSeat().getId())) < 0) {
+                    temp = opc1;
+                    listDetail.set(j - 1, opc2);
+                    listDetail.set(j, temp);
+                }
+            }
+        }
+    }
 }
