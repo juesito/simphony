@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <!-- panel para agregar -->
+                <h:form id="form" style="padding-top: 25px; " >
+                    <p:outputLabel value="Ingresos por Autobús" class="welcome-title" />
+
+                    <div id="sale-daily" class="guide-header-detail" style="padding-top: 25px; ">
+
+                        <p:panelGrid  id="sale-daily" styleClass="guide-header">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_bus}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="bus" value="#{reportsBean.bus}" 
+                                                     converter="busConverter" 
+                                                     style="width:300px" required="true" 
+                                                     tabindex="1" >
+                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_bus}"  />
+                                        <f:selectItems value="#{boxBusService.busList}"/>
+                                        <p:ajax event="click" update=":form:sale-daily" /> 
+                                    </p:selectOneMenu>
+                                    <p:message for="bus" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                               <p:column style="padding-top: 20px; ">
+                                   <p:outputLabel value="Del:" />
+                              </p:column>
+                               <p:column style="padding-top: 20px; ">
+                                   <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                               pages="2" showOn="button" value="#{reportsBean.fecIni}"/>
+                               </p:column>
+                            </p:row>
+                            <p:row>
+                               <p:column style="padding-top: 20px; ">
+                                   <p:outputLabel value="Al :" />
+                              </p:column>
+                               <p:column style="padding-top: 20px; ">
+                                   <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                               pages="2" showOn="button" value="#{reportsBean.fecFin}"/>
+                               </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="padding-top: 20px; ">
+                                    <p:outputLabel value="Ingresos:" />
+                                </p:column>
+                                <p:column style="width: 120px; padding-top: 20px; ">
+                                    <p:outputLabel value="#{reportsBean.totVta}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:commandButton value="Procesar" actionListener="#{reportsBean.findDailySalesPoint()}" 
+                                                    ajax="true" styleClass="button-rounded" icon="ui-icon-play"
+                                                    update=":form:saleDetailDT :form:sale-daily" >
+                                   </p:commandButton>
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>
+                    </div>
+
+                    <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
+                        <!-- Data table -->
+                        <p:dataTable id="saleDetailDT" value="#{reportsBean.modelDS}" var="ic" 
+                                      emptyMessage="Sin ingresos registrados"  >
+                            <p:column headerText="Usuario" >
+                                <p:outputLabel value="#{ic.guide.vendor.nick}" />
+                            </p:column>
+                            <p:column headerText="Efectivo" >
+                                <p:outputLabel value="#{ic.sale.amount}" />
+                            </p:column>
+                            <p:column headerText="Nómina" >
+                                <p:outputLabel value="#{ic.sale.discount}" />
+                            </p:column>
+                            <p:column headerText="Pagaré" >
+                                <p:outputLabel value="#{ic.sale.subTotal}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </div>
+                   
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

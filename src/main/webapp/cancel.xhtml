@@ -178,6 +178,9 @@
                             <p:dataTable value="#{saleBean.reservedSeatInDetailSale}" var="reservedSeat" 
                                          id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top: 25px; "
                                          selectionMode="single" selection="#{saleBean.selectedReservedSeatInDetailSale}">
+                                <p:column headerText="Folio" style="width:75px">  
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.id}"/>
+                                </p:column>
                                 <p:column headerText="Fecha" style="width:75px">  
                                     <p:outputLabel value="#{reservedSeat.saleDetail.sale.formatTripTime}"/>
                                 </p:column>

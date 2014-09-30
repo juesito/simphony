@@ -6,6 +6,7 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.ReportsService;
+import com.simphony.entities.Bus;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SalePoint;
 import com.simphony.entities.Vendor;
@@ -34,12 +35,15 @@ public class ReportsBean  {
     private DailySalesModel modelDS = new DailySalesModel();
     private List<DailySales> listDailySales = new ArrayList<DailySales>();
     private List<DailySales> listTemp = new ArrayList<DailySales>();
+    private SalePoint salePointTmp;
+    private Bus bus = new Bus();
     
+    private Date fecIni = new Date();
+    private Date fecFin = new Date();
     private Long totMov;
     private Long totAgr;
     private Long totPub;
     private Long totRet;
-    private SalePoint salePointTmp;
     private Double  totVta;
     private Double  totEfe;
     private Double  totNom;
@@ -351,5 +355,28 @@ public class ReportsBean  {
         this.salePointTmp = salePointTmp;
     }
 
-    
+    public Bus getBus() {
+        return bus;
+    }
+
+    public void setBus(Bus bus) {
+        this.bus = bus;
+    }
+
+    public Date getFecIni() {
+        return fecIni;
+    }
+
+    public void setFecIni(Date fecIni) {
+        this.fecIni = fecIni;
+    }
+
+    public Date getFecFin() {
+        return fecFin;
+    }
+
+    public void setFecFin(Date fecFin) {
+        this.fecFin = fecFin;
+    }
+
 }

@@ -29,20 +29,20 @@
                             <p:column headerText="#{msgs.cat_printer}" >
                                 <p:outputLabel value="#{printer.id}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_ipAddress}" >
-                                <p:outputLabel value="#{printer.ipAddress}" />
+                            <p:column headerText="#{msgs.cat_brand}" >                                
+                                <p:outputLabel value="#{printer.brand}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_type}" >                                
                                 <p:outputLabel value="#{printer.type}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_ipAddress}" >
+                                <p:outputLabel value="#{printer.ipAddress}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_width}" >                                
                                 <p:outputLabel value="#{printer.width}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_height}" >                                
                                 <p:outputLabel value="#{printer.height}" />
-                            </p:column>
-                            <p:column headerText="#{msgs.cat_brand}" >                                
-                                <p:outputLabel value="#{printer.brand}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >                                
                                 <p:outputLabel value="#{printer.formatStatus}" />
@@ -87,10 +87,10 @@
                                     <!-- Id, Nombre -->
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="#{msgs.cat_ipAddress}:" />
+                                            <p:outputLabel value="#{msgs.cat_brand}:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{printerBean.selected.ipAddress}" />
+                                            <p:outputLabel value="#{printerBean.selected.brand}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -99,6 +99,14 @@
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{printerBean.selected.type}" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="#{msgs.cat_ipAddress}:" />
+                                        </p:column>
+                                        <p:column>
+                                            <p:outputLabel value="#{printerBean.selected.ipAddress}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -115,14 +123,6 @@
                                         </p:column>
                                         <p:column>
                                             <p:outputLabel value="#{printerBean.selected.height}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="#{msgs.cat_brand}:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{printerBean.selected.brand}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>

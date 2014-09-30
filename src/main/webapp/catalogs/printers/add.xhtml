@@ -22,12 +22,12 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_ipAddress}:" />
+                                    <p:outputLabel value="#{msgs.cat_brand}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="address" value="#{printerBean.printer.ipAddress}" required="true" 
-                                                 requiredMessage="#{msgs.req_ipAddress}" maxlength="35" />
-                                    <p:message for="address" />
+                                    <p:inputText id="brand" value="#{printerBean.printer.brand}" required="true" 
+                                                 requiredMessage="#{msgs.req_description}" maxlength="35" />
+                                    <p:message for="brand" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -35,9 +35,22 @@
                                     <p:outputLabel value="#{msgs.cat_type}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="type" value="#{printerBean.printer.type}" required="true" 
-                                                 requiredMessage="#{msgs.req_type}" maxlength="35" />
+                                    <p:selectOneMenu  id="type" effect="blind" value="#{printerBean.printer.type}" 
+                                                      style="width: 100px;" >
+                                        <f:selectItem itemLabel="Local" itemValue="LOCAL" />
+                                        <f:selectItem itemLabel="Remota" itemValue="REMOTA" />                                        
+                                    </p:selectOneMenu>
                                     <p:message for="type" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_ipAddress}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="address" value="#{printerBean.printer.ipAddress}" required="true" 
+                                                 requiredMessage="#{msgs.req_ipAddress}" maxlength="35" />
+                                    <p:message for="address" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -58,16 +71,6 @@
                                     <p:inputText id="varHeight" value="#{printerBean.printer.height}" required="true" 
                                                  requiredMessage="#{msgs.req_height}" maxlength="5" />
                                     <p:message for="varHeight" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_brand}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText id="brand" value="#{printerBean.printer.brand}" required="true" 
-                                                 requiredMessage="#{msgs.req_description}" maxlength="35" />
-                                    <p:message for="brand" />
                                 </p:column>
                             </p:row>
                            <p:row>
@@ -93,6 +96,29 @@
                         <br/><br/>
 
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_brand}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="brand" value="#{printerBean.printer.brand}" required="true" 
+                                                 requiredMessage="#{msgs.req_description}" maxlength="35" />
+                                    <p:message for="brand" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  id="type" effect="blind" value="#{printerBean.printer.type}" 
+                                                      style="width: 100px;" >
+                                        <f:selectItem itemLabel="Local" itemValue="LOCAL" />
+                                        <f:selectItem itemLabel="Remota" itemValue="REMOTA" />                                        
+                                    </p:selectOneMenu>
+                                    <p:message for="type" />
+                                </p:column>
+                            </p:row>
                             <p:row >
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_ipAddress}:" />
@@ -101,16 +127,6 @@
                                     <p:inputText id="addressMd" value="#{printerBean.printer.ipAddress}" required="true" 
                                                  requiredMessage="#{msgs.req_ipAddress}" maxlength="35" />
                                     <p:message for="addressMd" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_type}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText id="typeMd" value="#{printerBean.printer.type}" required="true" 
-                                                 requiredMessage="#{msgs.req_type}" maxlength="35" />
-                                    <p:message for="typeMd" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -131,16 +147,6 @@
                                     <p:inputText id="varHeight" value="#{printerBean.printer.height}" required="true" 
                                                  requiredMessage="#{msgs.req_height}" maxlength="5" />
                                     <p:message for="varHeight" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_brand}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText id="brand" value="#{printerBean.printer.brand}" required="true" 
-                                                 requiredMessage="#{msgs.req_description}" maxlength="35" />
-                                    <p:message for="brand" />
                                 </p:column>
                             </p:row>
                            <p:row>
