@@ -25,7 +25,7 @@
                                 </p:column>
                                  <p:column>
                                     <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" required="true" 
-                                                 tabindex="1" requiredMessage="#{msgs.req_keyId}"/>
+                                                 tabindex="1" requiredMessage="#{msgs.req_keyId}" style="width:80px"/>
                                     <p:message for="keyId" />
                                 </p:column>
                             </p:row>
@@ -35,14 +35,15 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="name" value="#{associateBean.associate.name}" required="true" maxlength="25" 
-                                                 tabindex="2" requiredMessage="#{msgs.req_name}"/>
+                                                 tabindex="2" requiredMessage="#{msgs.req_name}" style="width:160px"/>
                                     <p:message for="name" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_state}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.state}" maxlength="35" tabindex="5" />
+                                    <p:inputText value="#{associateBean.associate.state}" maxlength="35" tabindex="5" 
+                                                 style="width:160px"/>
                                 </p:column>
 
                             </p:row>
@@ -52,7 +53,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="lastName" value="#{associateBean.associate.firstLastName}" 
-                                                 required="true" tabindex="3" maxlength="25" 
+                                                 required="true" tabindex="3" maxlength="25"  style="width:160px"
                                                  requiredMessage="#{msgs.req_lastName}:"/>
                                     <p:message for="lastName" />
                                 </p:column>
@@ -60,7 +61,8 @@
                                    <p:outputLabel value="#{msgs.cat_section}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.section}" maxlength="15" tabindex="6" />
+                                    <p:inputText value="#{associateBean.associate.section}" maxlength="15" tabindex="6"
+                                                 style="width:160px"/>
                                 </p:column>
 
                             </p:row>
@@ -70,14 +72,16 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="secondName" value="#{associateBean.associate.secondLastName}" required="true" 
-                                                 tabindex="3" requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                                 tabindex="3" requiredMessage="#{msgs.req_lastName}" maxlength="25"  
+                                                 style="width:160px"/>
                                     <p:message for="secondName" />
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_phoneId}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" tabindex="7" />
+                                    <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" tabindex="7"
+                                                 style="width:160px"/>
                                 </p:column>
 
                             </p:row>
@@ -87,13 +91,15 @@
                                 <p:outputLabel value="#{msgs.cat_platform}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" tabindex="4" />
+                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" tabindex="4"
+                                             style="width:160px"/>
                             </p:column>
                             <p:column>
                                  <p:outputLabel value="Email:" />
                             </p:column>
                             <p:column>
-                                 <p:inputText id="email" value="#{associateBean.associate.email}" maxlength="50" tabindex="8"/>
+                                 <p:inputText id="email" value="#{associateBean.associate.email}" maxlength="50" tabindex="8"
+                                              style="width:160px"/>
                                  <p:message for="email" />
                             </p:column>
 
@@ -103,13 +109,14 @@
                                 <p:outputLabel value="#{msgs.cat_address}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.address}" maxlength="100"  />
+                                <p:inputText value="#{associateBean.associate.address}" maxlength="100" style="width:160px" />
                             </p:column>
                             <p:column>
                                  <p:outputLabel value="Colonia:" />
                             </p:column>
                             <p:column>
-                                <p:inputText id="colony" value="#{associateBean.associate.colony}" maxlength="40" tabindex="8"/>
+                                <p:inputText id="colony" value="#{associateBean.associate.colony}" maxlength="40" tabindex="8"
+                                             style="width:160px"/>
                                  <p:message for="colony" />
                             </p:column>
 
@@ -119,7 +126,8 @@
                                 <p:outputLabel value="#{msgs.cat_zipCode}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.zipCode}" maxlength="10" />
+                                <p:inputText value="#{associateBean.associate.zipCode}" maxlength="10"
+                                             style="width:160px"/>
                             </p:column>
                          </p:row>
                         <p:row>
