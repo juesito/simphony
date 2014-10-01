@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity(name = "Printer")
 @Table(name = "Impresoras")
-public class Printer extends Catalog {
+public class Printer extends Catalog implements Cloneable {
 
     @Basic
     @Column(name = "direccionIp")

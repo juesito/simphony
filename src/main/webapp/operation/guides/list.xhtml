@@ -25,7 +25,7 @@
                                      paginatorTemplate="{PageLinks}"
                                     >
 
-                            <p:column headerText="#{msgs.cat_date}" filterBy="#{guide.departureDate}"
+                            <p:column headerText="#{msgs.cat_date}" filterBy="#{guide.formatDepartureDate}"
                                       filterMatchMode="contains" >
                                 <p:outputLabel value="#{guide.formatDepartureDate}" />
                             </p:column>

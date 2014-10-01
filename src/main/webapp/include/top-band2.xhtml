@@ -52,8 +52,8 @@
                             </p:submenu>
                             <p:submenu label="   Reportes   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}">  
                                 <p:menuitem value="Por definir" /> 
-                                <p:menuitem value="Venta diaria por Asesor de Venta" action="toDailySales" ajax="false"
-                                            styleClass="miMenuItem">
+                                <p:menuitem value="Venta diaria por Asesor de Venta" action="#{reportsBean.toDailySales()}" ajax="false"
+                                            styleClass="miMenuItem" >
                                     <f:actionListener  binding="#{boxVendorService.fillBox()}"/>
                                 </p:menuitem>
                                 <p:menuitem value="Venta diaria por Punto de Venta" action="toDailySalesPoint" ajax="false"

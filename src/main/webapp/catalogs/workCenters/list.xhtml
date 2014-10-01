@@ -13,27 +13,26 @@
             <ui:define name="content">
                 <div class="catalog-table">
                     <h:form id="form">
-                        
+
                         <p:outputLabel value="#{msgs.cat_workCenters}" class="welcome-title" />
-                        
-                         <br />
+
+                        <br />
                         <!-- Data table -->
                         <p:dataTable value="#{workCenterBean.list}" var="workCenter" style="font-size: 12px;"
                                      selectionMode="single" selection="#{workCenterBean.selected}" 
                                      rowKey="#{workCenter.id}" id="workCenterDT"
                                      emptyMessage="#{msgs.no_records_found}" rows="10"
                                      paginator="true" paginatorPosition="bottom"
-                                     paginatorTemplate="{PageLinks}"
-                                     >
-                           
+                                     paginatorTemplate="{PageLinks}" >
+
                             <p:column headerText="#{msgs.cat_description}" >
                                 <p:outputLabel value="#{workCenter.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{workCenter.formatStatus}" />
                             </p:column>
-                            
-                             <!-- Footer -->
+
+                            <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton process="workCenterDT" 
                                                  update=":form:workCenterDetail" icon="ui-icon-search" 
@@ -41,7 +40,7 @@
                                 <p:commandButton process="workCenterDT" 
                                                  icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{workCenterBean.modifyWorkCenter()}" />
-                               <p:commandButton process="workCenterDT" 
+                                <p:commandButton process="workCenterDT" 
                                                  update=":form:workCenterDT" icon="ui-icon-check" 
                                                  value="#{msgs.but_enable}" actionListener="#{workCenterBean.enabledWorkCenter()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_enable}" icon="ui-icon-alert" />
@@ -51,6 +50,12 @@
                                                  value="#{msgs.but_disable}" actionListener="#{workCenterBean.disableWorkCenter()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
+                                <h:commandLink>
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 20px;height: 20px;" />
+                                    
+                                    <p:dataExporter type="xls" target="workCenterDT" fileName="workCenters" />
+                                </h:commandLink>
                             </f:facet>
 
                         </p:dataTable>
@@ -68,22 +73,22 @@
                                   showEffect="fade" hideEffect="fade" resizable="false">
                             <p:outputPanel id="workCenterDetail" style="text-align:center;">
                                 <p:panelGrid  columns="2" rendered="#{not empty workCenterBean.selected}" columnClasses="label,value">
-                                    
+
                                     <h:outputText value="#{msgs.cat_description}:" />
                                     <h:outputText value="#{workCenterBean.selected.description}" />
 
                                     <h:outputText value="#{msgs.cat_status}:" />
                                     <h:outputText value="#{workCenterBean.selected.formatStatus}" />
-                                                                       
+
                                     <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{workCenterBean.selected.createDate}" />
-                                                                       
-                                     <h:outputText value="#{msgs.cat_updateDate}:" />
-                                     <h:outputText value="#{workCenterBean.selected.lastUpdate}" />
-                                                                       
-                                   <h:outputText value="#{msgs.cat_user}:" />
-                                   <h:outputText value="#{workCenterBean.selected.user.name}" />
-                                                                       
+
+                                    <h:outputText value="#{msgs.cat_updateDate}:" />
+                                    <h:outputText value="#{workCenterBean.selected.lastUpdate}" />
+
+                                    <h:outputText value="#{msgs.cat_user}:" />
+                                    <h:outputText value="#{workCenterBean.selected.user.name}" />
+
                                 </p:panelGrid>
                             </p:outputPanel>
                         </p:dialog>

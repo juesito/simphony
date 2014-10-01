@@ -204,10 +204,10 @@
                                 </p:row>                
                                 <p:row>
                                     <p:column>
-                                        <p:commandButton rendered="#{payTypeBean.existNominalPayType}" update=":main-form:growl"
+                                        <p:commandButton rendered="#{payTypeBean.existNominalPayType}" update=":main-form:growl :formPayRoll"
                                                          action="#{saleBean.validateAssociates()}" ajax="true"
                                                          value="Folios nomina"/>
-                                        <p:commandButton update=":main-form:growl" action="#{saleBean.pendingSaleDialog()}"
+                                        <p:commandButton update=":main-form:growl " action="#{saleBean.pendingSaleDialog()}"
                                                           ajax="true"  value="Venta Pendiente"/>
                                     </p:column>
                                 </p:row>

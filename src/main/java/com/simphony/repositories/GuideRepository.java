@@ -13,8 +13,10 @@ import com.simphony.entities.SaleDetail;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -59,8 +61,10 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
          "  WHERE g.guideType = 'L' ")
     public List<Guide>findAllLocal();
     
+    @Modifying(clearAutomatically=true)
+    @Transactional
     @Query("UPDATE Guide g " +
-         "SET  g.quota = :quota ")
+         "     SET g.quota = :quota ")
     public void updateGuide(@Param("quota")Integer quota);
 
     @Query("SELECT status from Guide g " +

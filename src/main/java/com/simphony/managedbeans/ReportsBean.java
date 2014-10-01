@@ -98,12 +98,12 @@ public class ReportsBean  {
     }
 
     public String toDailySales() {
-
+        this.listDailySales.clear();
         return "toDailySales";
     }
 
     public String toDailySalesPoint() {
-
+        this.listDailySales.clear();
         return "toDailySalesPoint";
     }
 /**
