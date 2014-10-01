@@ -98,12 +98,12 @@ public class ReportsBean  {
     }
 
     public String toDailySales() {
-        this.listDailySales.clear();
+        this.clearReports();
         return "toDailySales";
     }
 
     public String toDailySalesPoint() {
-        this.listDailySales.clear();
+        this.clearReports();
         return "toDailySalesPoint";
     }
 /**
@@ -259,6 +259,22 @@ public class ReportsBean  {
 
     }
 
+    public void clearReports() {
+        listTemp.clear();
+        listDailySales.clear();
+        sale = new Sale();
+        salePointTmp = new SalePoint();
+        totMov = new Long(0);
+        totAgr = new Long(0);
+        totPub = new Long(0);
+        totRet = new Long(0);
+        totVta = 0.0;
+        totEfe = 0.0;
+        totNom = 0.0;
+        totCor = 0.0;
+        totPag = 0.0;
+    }
+    
     public Sale getSale() {
         return sale;
     }

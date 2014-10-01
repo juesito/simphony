@@ -725,12 +725,18 @@ public class SaleBean implements IConfigurable {
     }
 
     public String toReservations() {
-
+        cancelledSale = new Sale();
+        unSelectedDetail = new SaleDetail();
+        reservedSeatInDetailSale = new ArrayList();
+        selectedReservedSeatInDetailSale = new ReservedSeatInDetailSale();
         return "toReservations";
     }
 
     public String toCancelRes() {
-
+        cancelledSale = new Sale();
+        unSelectedDetail = new SaleDetail();
+        reservedSeatInDetailSale = new ArrayList();
+        selectedReservedSeatInDetailSale = new ReservedSeatInDetailSale();
         return "toCancelRes";
     }
 
@@ -1100,7 +1106,10 @@ public class SaleBean implements IConfigurable {
      * @return
      */
     public String toCancel() {
-
+        cancelledSale = new Sale();
+        unSelectedDetail = new SaleDetail();
+        reservedSeatInDetailSale = new ArrayList();
+        selectedReservedSeatInDetailSale = new ReservedSeatInDetailSale();
         return "toCancel";
     }
 

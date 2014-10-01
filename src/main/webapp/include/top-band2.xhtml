@@ -56,7 +56,7 @@
                                             styleClass="miMenuItem" >
                                     <f:actionListener  binding="#{boxVendorService.fillBox()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Venta diaria por Punto de Venta" action="toDailySalesPoint" ajax="false"
+                                <p:menuitem value="Venta diaria por Punto de Venta" action="#{reportsBean.toDailySalesPoint()}" ajax="false"
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxSalePointService.fillBox()}"/>
                                 </p:menuitem>

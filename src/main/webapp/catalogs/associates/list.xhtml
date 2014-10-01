@@ -21,7 +21,7 @@
                         <p:dataTable value="#{associateBean.model}" var="associate" style="font-size: 12px;"
                                      selectionMode="single" selection="#{associateBean.selected}" 
                                      rowKey="#{associate.id}" id="associateDT" 
-                                     emptyMessage="#{msgs.no_records_found}" rows="10"
+                                     emptyMessage="#{msgs.no_records_found}" rows="20"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                      >
@@ -61,6 +61,9 @@
                                                  value="#{msgs.but_disable}" actionListener="#{associateBean.disableAssociate()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
+                                 <p:commandButton value="#{msgs.but_print}" type="button" icon="ui-icon-print">  
+                                    <p:printer target=":form" />  
+                                </p:commandButton>  
                             </f:facet>
 
                         </p:dataTable>

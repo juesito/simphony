@@ -103,7 +103,7 @@
                                 <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
                                                  icon="ui-icon-arrowreturnthick-1-w"
                                                  id="cancelAdd" process="@this" immediate="true" ajax="false"/>
-                                 <p:commandButton value="Imprimir" type="button" icon="ui-icon-print">  
+                                 <p:commandButton value="#{msgs.but_print}" type="button" icon="ui-icon-print">  
                                     <p:printer target=":form:guide-complete" />  
                                 </p:commandButton>  
                                 </f:facet>
