@@ -5,7 +5,9 @@
  */
 package com.simphony.managedbeans;
 
+import com.simphony.beans.UserService;
 import com.simphony.beans.VendorService;
+import com.simphony.entities.User;
 import com.simphony.entities.Vendor;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
@@ -39,8 +41,13 @@ public class VendorBean implements IConfigurable {
    
     @ManagedProperty(value = "#{vendorService}")
     private VendorService vendorService;
+    
+    @ManagedProperty(value = "#{userBean}")
+    private UserBean userBean;
 
-    /**
+    @ManagedProperty(value = "#{userService}")
+    private UserService userService;
+        /**
      * Creates a new instance of VendorBean
      */
     public VendorBean() {
@@ -95,6 +102,22 @@ public class VendorBean implements IConfigurable {
 
     public void setVendorService(VendorService vendorService) {
         this.vendorService = vendorService;
+    }
+
+    public UserBean getUserBean() {
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -257,6 +280,13 @@ public class VendorBean implements IConfigurable {
         if (current != null) {
             current.setLooged(true);
             GrowlBean.simplyInfoMessage(mp.getValue("msj_welcome"), this.vendor.getNick() );
+            Long idTmp = (long) 1;
+            User usrTmp = this.userService.getUserRepository().findOne(idTmp);
+            usrTmp.setNick(vendor.getNick());
+            usrTmp.setName(vendor.getName());
+            usrTmp.setFirstLastName(vendor.getFirstLastName());
+            usrTmp.setSecondLastName(vendor.getSecondLastName());
+            this.userBean.setAlternativeUser(usrTmp);
             return "toSale";
         } else {
             GrowlBean.simplyFatalMessage(mp.getValue("error_login"), mp.getValue("error_user"));

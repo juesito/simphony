@@ -173,14 +173,32 @@ public class DriverManBean implements IConfigurable {
      * @return
      */
     public String save(User user) {
-            driverMan.setUser(user);
-            driverMan.setCreateDate(cal.getTime());
-            driverMan.setStatus(_ENABLED);
-             
-            this.driverManService.getDriverManRepository().save(driverMan);
-            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.driverMan.getName()+" "+mp.getValue("msj_record_save"));
-            driverMan = new DriverMan();
+         Boolean exist = true;
+         DriverMan driverManTmp;
 
+        try {
+            driverManTmp = this.driverManService.getDriverManRepository().findByRFC(this.driverMan.getRfc().trim());
+            if(driverManTmp == null){
+                exist = false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error");
+            exist = false;
+        }
+
+        if (!exist) {
+            if (this.driverMan.getRfc() != null ) {
+                driverMan.setUser(user);
+                driverMan.setCreateDate(cal.getTime());
+                driverMan.setStatus(_ENABLED);
+
+                this.driverManService.getDriverManRepository().save(driverMan);
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.driverMan.getName()+" "+mp.getValue("msj_record_save"));
+                driverMan = new DriverMan();
+            }
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.driverMan.getRfc()+" "+mp.getValue("error_keyId_Detail"));
+        }
             return "";
     }
     
@@ -192,7 +210,6 @@ public class DriverManBean implements IConfigurable {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws PersonException {
-        
         DriverMan driverManUpdated = this.driverManService.getDriverManRepository().findOne(this.driverMan.getId());
         
         if(driverManUpdated == null){

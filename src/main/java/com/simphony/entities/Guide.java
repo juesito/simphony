@@ -353,4 +353,16 @@ public class Guide implements Serializable, Cloneable, IConfigurable {
         }else return "";
     }
 
+    public String getFormatLastUpdate(){
+        if(this.lastUpdate != null){
+            return _DMA.format(this.lastUpdate);
+        }else return "";
+   }
+
+    public String getFormatCreateDate(){
+        if(this.createDate != null){
+            return _DMA.format(this.createDate);
+        }else return "";
+   }
+
 }

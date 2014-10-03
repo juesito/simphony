@@ -89,7 +89,7 @@
                            <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{itineraryBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{itineraryBean.save(userBean.alternativeUser)}"
                                                      ajax="false"  update="main-form:growl :panel-captura:capturaDT"
                                                      icon="ui-icon-disk"/>
                                 </p:column>
@@ -219,15 +219,14 @@
                                     <p:outputLabel value="#{msgs.cat_via}:" />
                                 </p:column>
                                <p:column>
-                                    <p:inputText id="via" value="#{itineraryBean.itinerary.via}" required="true" 
-                                                 requiredMessage="#{msgs.req_via}" maxlength="25" />
+                                    <p:inputText id="via" value="#{itineraryBean.itinerary.via}"  maxlength="25" />
                                     <p:message for="via" />
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{itineraryBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{itineraryBean.update(userBean.alternativeUser)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>

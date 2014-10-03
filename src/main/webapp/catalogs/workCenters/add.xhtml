@@ -34,7 +34,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{workCenterBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{workCenterBean.save(userBean.alternativeUser)}"
                                                      ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
@@ -72,7 +72,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{workCenterBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{workCenterBean.update(userBean.alternativeUser)}"
                                                      ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>

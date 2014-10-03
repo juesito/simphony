@@ -9,8 +9,6 @@ package com.simphony.pojos;
 import com.simphony.entities.Payment;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
-import static com.simphony.interfases.IConfigurable._SHM;
-
 /**
  *
  * @author Administrador

@@ -66,6 +66,12 @@
                                                  value="#{msgs.but_disable}" actionListener="#{printerBean.disablePrinter()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
+                                <h:commandLink>
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
+                                    
+                                    <p:dataExporter type="xls" target="printerDT" fileName="#{msgs.cat_printers}" />
+                                </h:commandLink>
                             </f:facet>
                         </p:dataTable>
 

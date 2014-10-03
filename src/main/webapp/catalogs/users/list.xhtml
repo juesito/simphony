@@ -49,12 +49,6 @@
                             <p:column headerText="#{msgs.cat_status}"  style="width: 70px !important;">
                                 <p:outputLabel value="#{user.formatStatus}" />
                             </p:column>
-<!--
-                            <p:column headerText="#{msgs.cat_createDate}" >
-                                <p:calendar value="#{user.createDate}" pattern="yyy/MMM/dd"
-                                            style="width: 20px !important;" disabled="true"/>
-                            </p:column>
--->
                             <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton process="userDT" 
@@ -73,6 +67,12 @@
                                                  value="#{msgs.but_disable}" actionListener="#{userBean.disableUser()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
+                                <h:commandLink>
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
+                                    
+                                    <p:dataExporter type="xls" target="userDT" fileName="#{msgs.cat_users}" />
+                                </h:commandLink>
                             </f:facet>
                         </p:dataTable>
                         

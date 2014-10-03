@@ -62,8 +62,14 @@
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
                                  <p:commandButton value="#{msgs.but_print}" type="button" icon="ui-icon-print">  
-                                    <p:printer target=":form" />  
+                                    <p:printer target=":form:associateDT" />  
                                 </p:commandButton>  
+                                <h:commandLink>
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
+                                    
+                                    <p:dataExporter type="xls" target="associateDT" fileName="#{msgs.cat_associates}" />
+                                </h:commandLink>
                             </f:facet>
 
                         </p:dataTable>

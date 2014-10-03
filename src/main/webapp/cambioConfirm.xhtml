@@ -172,8 +172,7 @@
                             <!-- Captura de pagos -->
                             <p:panelGrid id="sale-payment-grid"  
                                          style="margin-top: 15px; border: 0px solid #225A01; width: 100%;">
-                                <p:outputLabel value="#{msgs.but_add} #{msgs.cat_cost}" class="welcome-title" />
-                                <p:row>
+                                 <p:row>
                                     <p:column>
                                         <p:outputLabel value="Pago:" class="welcome-title" />
                                     </p:column>
@@ -192,7 +191,7 @@
                                                         <p:outputLabel value="#{payment.amount}" rendered="#{payTypeBean.isNominalPayType(payment.description)}" />
                                                     </p:column>
                                                     <p:column>
-                                                        <p:inputText id="payInfo" value="#{payment.paymentInfo}" size="20" rendered="#{payment.reference eq 'S'}"
+                                                        <p:inputText id="payInfo" value="#{payment.paymentInfo}" size="18" rendered="#{payment.reference eq 'S'}"
                                                                      style="background-color: #FFF; " />
                                                         <p:watermark for="payInfo" value="Información del Pago" />
                                                     </p:column>

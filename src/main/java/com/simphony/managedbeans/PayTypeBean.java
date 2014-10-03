@@ -41,6 +41,7 @@ public class PayTypeBean implements IConfigurable {
     private boolean existNominalPayType = false;
 
     private List<PayType> list = new ArrayList();
+    private List<PayType> listEnable = new ArrayList();
 
     @ManagedProperty(value = "#{payTypeService}")
     PayTypeService payTypeService;
@@ -121,6 +122,14 @@ public class PayTypeBean implements IConfigurable {
 
     public void setNominalPayType(PayType nominalPayType) {
         this.nominalPayType = nominalPayType;
+    }
+
+    public List<PayType> getListEnable() {
+        return listEnable;
+    }
+
+    public void setListEnable(List<PayType> listEnable) {
+        this.listEnable = listEnable;
     }
 
     /**
@@ -221,6 +230,12 @@ public class PayTypeBean implements IConfigurable {
         Iterator<PayType> cu = c.iterator();
         while (cu.hasNext()) {
             list.add(cu.next());
+        }
+        listEnable.clear();
+        c = this.payTypeService.getPayTypeRepository().findAllEnabled();
+        cu = c.iterator();
+        while (cu.hasNext()) {
+            listEnable.add(cu.next());
         }
     }
 

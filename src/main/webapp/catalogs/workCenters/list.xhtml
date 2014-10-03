@@ -52,9 +52,9 @@
                                 </p:commandButton>
                                 <h:commandLink>
                                     <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
-                                         alt="Exportar Excel" title="Exportar Excel" style="width: 20px;height: 20px;" />
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
                                     
-                                    <p:dataExporter type="xls" target="workCenterDT" fileName="workCenters" />
+                                    <p:dataExporter type="xls" target="workCenterDT" fileName="#{msgs.cat_workCenters}" />
                                 </h:commandLink>
                             </f:facet>
 

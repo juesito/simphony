@@ -54,6 +54,9 @@
                              <!-- Footer -->
                             <f:facet name="footer">
                                 <p:commandButton process="guideDT" 
+                                                 update=":form:guideDetail" icon="ui-icon-search" 
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('guideDialog').show()" />
+                                <p:commandButton process="guideDT" 
                                                  icon="ui-icon-wrench" ajax="false"
                                                  value="#{msgs.but_modify}" action="#{guideBean.modifyGuide()}" />
                                 <p:commandButton process="guideDT" 
@@ -73,6 +76,51 @@
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </p:confirmDialog>
                         
+                        <p:dialog header="#{msgs.cat_guide}" widgetVar="guideDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="guideDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty guideBean.selected}" columnClasses="label,value" >
+                                    
+                                    <h:outputText value="#{msgs.cat_date}" />
+                                    <h:outputText value="#{guideBean.selected.formatDepartureDate}" />
+
+                                    <h:outputText value="#{msgs.cat_departureTime}:" />
+                                    <h:outputText value="#{guideBean.selected.formatDepartureTime}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_origin}:" />
+                                    <h:outputText value="#{guideBean.selected.origin.description}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_destiny}:" />
+                                    <h:outputText value="#{guideBean.selected.destiny.description}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_bus}:" />
+                                    <h:outputText value="#{guideBean.selected.bus.number}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_driverMan}1:" />
+                                    <h:outputText value="#{guideBean.selected.driverMan1.fullName}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_driverMan}2:" />
+                                    <h:outputText value="#{guideBean.selected.driverMan2.fullName}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_quota}:" />
+                                    <h:outputText value="#{guideBean.selected.quota}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_status}:" />
+                                    <h:outputText value="#{guideBean.selected.formatStatus}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
+                                    <h:outputText value="#{guideBean.selected.formatCreateDate}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_updateDate}:" />
+                                    <h:outputText value="#{guideBean.selected.formatLastUpdate}" />
+                                                                       
+                                     <h:outputText value="#{msgs.cat_user}:" />
+                                     <h:outputText value="#{guideBean.selected.usrModify}" />
+                                                                       
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+
                     </h:form>
             </ui:define>
 

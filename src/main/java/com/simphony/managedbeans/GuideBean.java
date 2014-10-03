@@ -225,7 +225,7 @@ public class GuideBean implements IConfigurable {
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
-    public String update(User user) throws PersonException {
+    public String updateG(User user) throws PersonException {
 
         // Verifica cuantos boletos tiene vendidos anets de modificar el cupo
         int pasVend = 0;
@@ -241,23 +241,29 @@ public class GuideBean implements IConfigurable {
                 }
             }
         }
-        if (pasVend <= this.guide.getQuota()) {
-            Guide guideUpdated = this.guideService.getRepository().findOne(this.guide.getId());
+        if(pasVend != 0 && this.guide.getStatus().equals("C")){
+                 GrowlBean.simplyErrorMessage("Error de cambio", "La ruta ya tiene boletos vendidos.");
+        }else{
+            if (pasVend <= this.guide.getQuota()) {
+                Guide guideUpdated = this.guideService.getRepository().findOne(this.guide.getId());
 
-            if (guideUpdated == null) {
-                throw new PersonException("Guía no existente");
+                if (guideUpdated == null) {
+                    throw new PersonException("Guía no existente");
+                }
+                guide.setUsrModify(user.getNick());
+                guide.setLastUpdate(cal.getTime());
+                guideUpdated.update(this.guide);
+
+                this.guideService.getRepository().updateGuide(guideUpdated.getRootGuide(), guideUpdated.getBus().getId(), 
+                        guideUpdated.getDriverMan1().getId(), guideUpdated.getDriverMan2().getId(), guideUpdated.getQuota(), 
+                        guideUpdated.getStatus(), guideUpdated.getDepartureDate());
+
+                GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " " + mp.getValue("msj_record_update"));
+                guide = new Guide();
+            }else{
+                 GrowlBean.simplyErrorMessage("Error de cupo", "El cupo no puede ser menor a los boletos vendidos.");
             }
-            guide.setUsrModify(user.getNick());
-            guide.setLastUpdate(cal.getTime());
-            guideUpdated.update(this.guide);
-            //this.guideService.getRepository().save(guideUpdated);
-            this.guideService.getRepository().updateGuide(guideUpdated.getQuota());
-
-            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " " + mp.getValue("msj_record_update"));
-            guide = new Guide();
-        }else
-             GrowlBean.simplyErrorMessage("Error de cupo", "El cupo no puede ser menor a los boletos vendidos.");
-
+            }
         return toGuide();
     }
 

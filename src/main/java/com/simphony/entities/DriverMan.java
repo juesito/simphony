@@ -18,6 +18,10 @@ public class DriverMan extends Person implements Serializable, Cloneable {
     @Basic
     private String type;
 
+    @Column(name = "Rfc", length = 20)
+    @Basic
+    private String rfc;
+
     @OneToOne(targetEntity = User.class)
     private User user;
 
@@ -41,6 +45,14 @@ public class DriverMan extends Person implements Serializable, Cloneable {
         this.user = user;
     }
 
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
     @PreUpdate
     public void preUpdate(){
         super.setLastUpdate(new Date());
@@ -49,6 +61,7 @@ public class DriverMan extends Person implements Serializable, Cloneable {
     public void update(DriverMan driverManUpdated){
         super.update(driverManUpdated);
         this.user = driverManUpdated.getUser();
+        this.rfc = driverManUpdated.getRfc();
     }
     
     @Override
@@ -72,5 +85,10 @@ public class DriverMan extends Person implements Serializable, Cloneable {
             return texto;
         }else return texto;
     }
-        
+ 
+    public String getFullName(){
+      String fullName = super.getFirstLastName().trim() + " "+ super.getSecondLastName().trim() + " " + super.getName().trim();
+      return fullName;
+  }
+
 }

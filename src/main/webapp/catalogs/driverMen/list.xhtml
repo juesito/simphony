@@ -28,6 +28,9 @@
                             <p:column headerText="#{msgs.cat_id}" >
                                 <p:outputLabel value="#{driverMan.id}" />
                             </p:column>
+                            <p:column headerText="#{msgs.cat_rfc}" >
+                                <p:outputLabel value="#{driverMan.rfc}" />
+                            </p:column>
                             <p:column headerText="#{msgs.cat_name}" filterBy="#{driverMan.name}"
                                       filterMatchMode="contains" >
                                 <p:outputLabel value="#{driverMan.name}"  />
@@ -60,6 +63,12 @@
                                                  value="#{msgs.but_disable}" actionListener="#{driverManBean.disableDriverMan()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
+                                <h:commandLink>
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
+                                    
+                                    <p:dataExporter type="xls" target="driverManDT" fileName="#{msgs.cat_driverMen}" />
+                                </h:commandLink>
                             </f:facet>
 
                         </p:dataTable>
@@ -81,6 +90,9 @@
                                      <h:outputText value="#{msgs.cat_id}:" />
                                      <h:outputText value="#{driverManBean.selected.id}" />
 
+                                    <h:outputText value="#{msgs.cat_rfc}:" />
+                                    <h:outputText value="#{driverManBean.selected.rfc}" />
+                                                                       
                                     <h:outputText value="#{msgs.cat_name}:" />
                                     <h:outputText value="#{driverManBean.selected.name}" />
                                                                        

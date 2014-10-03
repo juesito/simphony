@@ -180,13 +180,6 @@ public class WorkCenterBean implements IConfigurable {
         }
 
         if (!exist) {
-            if(user.getNick() == null){
-//                user.setId(vendor.getId());
-//                user.setNick(vendor.getNick());
-//                user.setName(vendor.getName());
-//                user.setFirstLastName(vendor.getFirstLastName());
-//                user.setSecondLastName(vendor.getSecondLastName());
-            }
             if (this.workCenter.getDescription() != null ) {
                 workCenter.setUser(user);
                 workCenter.setCreateDate(cal.getTime());

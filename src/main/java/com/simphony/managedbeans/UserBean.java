@@ -34,6 +34,7 @@ public class UserBean implements IConfigurable {
     private User user = new User();
     private User current = new User();
     private User selected = new User();
+    private User alternativeUser = new User();
     private List<User> list = new ArrayList<User>();
 
     @ManagedProperty(value = "#{userService}")
@@ -96,6 +97,14 @@ public class UserBean implements IConfigurable {
 
     public void setCurrent(User current) {
         this.current = current;
+    }
+
+    public User getAlternativeUser() {
+        return alternativeUser;
+    }
+
+    public void setAlternativeUser(User alternativeUser) {
+        this.alternativeUser = alternativeUser;
     }
 
     /**
@@ -261,10 +270,12 @@ public class UserBean implements IConfigurable {
      * Autentificamos usuario
      *
      * @return
+     * @throws java.lang.CloneNotSupportedException
      */
-    public String login() {
+    public String login() throws CloneNotSupportedException {
         current = this.userService.getUserRepository().login(current.getNick().trim(), current.getPassword().trim());
         if (current != null) {
+            this.alternativeUser =  (User) current.clone();
             current.setLooged(true);
             GrowlBean.simplyInfoMessage(mp.getValue("msj_welcome"), this.user.getNick() );
             return "toindex";

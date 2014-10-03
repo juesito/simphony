@@ -162,7 +162,7 @@
                                 </p:column>
                                 <f:facet name="footer">
                                     <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
-                                                     actionListener="#{saleBean.cancelSeat(userBean.current, 'toCancelRes')}"
+                                                     actionListener="#{saleBean.cancelSeat(userBean.alternativeUser, 'toCancelRes')}"
                                                      ajax="true" 
                                                      update=":saleForm:reservedSeatsBySale :main-form:growl" >
                                     </p:commandButton>

@@ -422,6 +422,7 @@ public class SaleBean implements IConfigurable {
                 dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
             }
             dtSale.setIdResSeat(reservedSeat.getId());
+            dtSale.setCustomerName(dtSale.getCustomerName().toUpperCase());
             dtSale.update(dtSale);
             saleService.getDetailRepository().save(dtSale);
         }
@@ -527,6 +528,7 @@ public class SaleBean implements IConfigurable {
             if(dtSale.getBolType().equals(_RETIREE)){
                 dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
             }
+            dtSale.setCustomerName(dtSale.getCustomerName().toUpperCase());
 
             saleService.getDetailRepository().save(dtSale);
 
@@ -584,7 +586,7 @@ public class SaleBean implements IConfigurable {
             if (!unSelectedDetail.getCustomerName().isEmpty()) {
 
                 for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().
-                        findSeatsByCustomerName(unSelectedDetail.getCustomerName().trim(), "R")) {
+                        findSeatsByCustomerName(unSelectedDetail.getCustomerName().trim().toUpperCase(), "R")) {
                     reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
                     saleExist = true;
                 }
@@ -1051,7 +1053,7 @@ public class SaleBean implements IConfigurable {
     public String findSale(Integer mode) {
         boolean saleExist = false;
         reservedSeatInDetailSale.clear();
-
+        SaleDetail sdTemp = new SaleDetail();
         if (mode == 0) {
 
             for (Sale saleTmp : saleService.getSaleRepository().findSale(this.cancelledSale.getOrigin().getId(),
@@ -1070,10 +1072,12 @@ public class SaleBean implements IConfigurable {
         } else if (mode == 1) {
 
             if (cancelledSale != null) {
-                cancelledSale = saleService.getSaleRepository().findOne(cancelledSale.getId());
-                if (cancelledSale != null) {
+                sdTemp = saleService.getDetailRepository().findOne(cancelledSale.getId());
+                if (sdTemp != null) {
                     saleExist = true;
+                    cancelledSale = sdTemp.getSale();
                 }
+
             }
 
             if (saleExist) {
@@ -1086,7 +1090,7 @@ public class SaleBean implements IConfigurable {
             if (!unSelectedDetail.getCustomerName().isEmpty()) {
 
                 for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().
-                        findSeatsByCustomerName(unSelectedDetail.getCustomerName().trim(),"V")) {
+                        findSeatsByCustomerName(unSelectedDetail.getCustomerName().trim().toUpperCase(),"V")) {
                     reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
                     saleExist = true;
                 }

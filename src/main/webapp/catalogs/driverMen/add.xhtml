@@ -21,6 +21,16 @@
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
                                 <p:column>
+                                    <p:outputLabel value="#{msgs.cat_rfc}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="rfc" value="#{driverManBean.driverMan.rfc}" required="true" 
+                                                  requiredMessage="#{msgs.req_rfc}" maxlength="20" />
+                                    <p:message for="rfc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
@@ -56,7 +66,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{driverManBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{driverManBean.save(userBean.alternativeUser)}"
                                                      ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
@@ -77,6 +87,16 @@
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                           <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_rfc}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="rfc" value="#{driverManBean.driverMan.rfc}" required="true" 
+                                                  requiredMessage="#{msgs.req_rfc}" maxlength="20" />
+                                    <p:message for="rfc" />
+                                </p:column>
+                            </p:row>
                             <p:row>
                                 <p:column>
                                     <p:outputLabel value="#{msgs.cat_name}:" />
@@ -113,7 +133,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{driverManBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{driverManBean.update(userBean.alternativeUser)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>

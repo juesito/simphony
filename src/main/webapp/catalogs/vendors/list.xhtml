@@ -78,6 +78,12 @@
                                                  value="#{msgs.but_disable}" actionListener="#{vendorBean.disableVendor()}" >
                                     <p:confirm header="#{msgs.msj_confirmation}" message="#{msgs.qst_disable}" icon="ui-icon-alert" />
                                 </p:commandButton>
+                                <h:commandLink>
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
+                                    
+                                    <p:dataExporter type="xls" target="vendorDT" fileName="#{msgs.cat_vendors}" />
+                                </h:commandLink>
                             </f:facet>
                         </p:dataTable>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">

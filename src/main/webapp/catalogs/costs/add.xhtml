@@ -83,7 +83,7 @@
 
                             <p:row>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{costBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{costBean.save(userBean.alternativeUser)}"
                                                      ajax="false" update="main-form:growl" icon="ui-icon-disk" />
                                 </p:column>
                                 <p:column>
@@ -166,7 +166,7 @@
                             <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{costBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{costBean.update(userBean.alternativeUser)}"
                                                      ajax="false"  update="main-form:growl" />
                                 </p:column>
                                 <p:column>

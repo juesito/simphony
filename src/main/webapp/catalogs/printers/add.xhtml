@@ -48,8 +48,7 @@
                                     <p:outputLabel value="#{msgs.cat_ipAddress}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="address" value="#{printerBean.printer.ipAddress}" required="true" 
-                                                 requiredMessage="#{msgs.req_ipAddress}" maxlength="35" />
+                                    <p:inputText id="address" value="#{printerBean.printer.ipAddress}"  maxlength="35" />
                                     <p:message for="address" />
                                 </p:column>
                             </p:row>
@@ -76,7 +75,7 @@
                            <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{printerBean.save(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{printerBean.save(userBean.alternativeUser)}"
                                                      ajax="false" icon="ui-icon-disk"/>
                                 </p:column>
                                 <p:column>
@@ -152,7 +151,7 @@
                            <p:row>
                                 <p:column colspan="2"></p:column>
                                 <p:column>
-                                    <p:commandButton value="#{msgs.but_save}" action="#{printerBean.update(userBean.current)}"
+                                    <p:commandButton value="#{msgs.but_save}" action="#{printerBean.update(userBean.alternativeUser)}"
                                                      ajax="false" />
                                 </p:column>
                                 <p:column>

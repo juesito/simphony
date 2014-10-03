@@ -20,7 +20,7 @@ public interface PayTypeRepository extends JpaRepository<PayType, Long> {
     @Query("SELECT b FROM PayType b WHERE TRIM(b.description) = (:description)")
     public PayType findByDes(@Param("description") String description);
 
-    @Query("SELECT w FROM PayType w WHERE UPPER(w.status) = UPPER('A')")
+    @Query("SELECT w FROM PayType w WHERE UPPER(w.status) = UPPER('A') ORDER BY w.description")
     public List<PayType> findAllEnabled();
     
     @Query("SELECT COUNT(b) FROM PayType b WHERE TRIM(b.description) = (:description)")
