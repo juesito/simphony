@@ -83,7 +83,8 @@
                                 <p:menuitem value="Tipos de Pago" action="#{payTypeBean.toPayType()}" ajax="false" /> 
                                 <p:menuitem value="Usuarios" action="#{userBean.toUsers}" ajax="false"
                                             actionListener="#{boxPopulationService.fillBox()}"/>
-                                <p:menuitem value="Asientos" action="#{seatBean.toSeats}" ajax="false" />
+                                <p:menuitem value="Asientos" action="#{seatBean.toSeats}" ajax="false" 
+                                            rendered="#{userBean.current.nick eq 'root'}"/>
 
                             </p:submenu>
                         </p:menubar>

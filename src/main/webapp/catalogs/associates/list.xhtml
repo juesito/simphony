@@ -34,6 +34,9 @@
                                 <p:outputLabel value="#{associate.name}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_firstLastName}" >
+                                <p:outputLabel value="#{associate.secondLastName}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_secondLastName}" >
                                 <p:outputLabel value="#{associate.firstLastName}" />
                             </p:column>
                              <p:column headerText="#{msgs.cat_platform}" >
@@ -95,10 +98,10 @@
                                     <h:outputText value="#{associateBean.selected.name}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_firstLastName}:" />
-                                    <h:outputText value="#{associateBean.selected.firstLastName}" />
+                                    <h:outputText value="#{associateBean.selected.secondLastName}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_secondLastName}:" />
-                                    <h:outputText value="#{associateBean.selected.secondLastName}" />
+                                    <h:outputText value="#{associateBean.selected.firstLastName}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_platform}:" />
                                     <h:outputText value="#{associateBean.selected.platform}" />

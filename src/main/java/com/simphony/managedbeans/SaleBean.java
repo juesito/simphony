@@ -192,8 +192,10 @@ public class SaleBean implements IConfigurable {
 
         } else {
             innerSaleDetail.setCustomerName(_BLANK);
+            innerSaleDetail.setAssociateKey(_BLANK);
             this.saleDetail.set(index, innerSaleDetail);
             GrowlBean.simplyErrorMessage("No se encontro", "Asociado no encontrado");
+            
         }
     }
 
