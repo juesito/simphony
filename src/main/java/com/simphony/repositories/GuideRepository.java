@@ -6,8 +6,6 @@
 
 package com.simphony.repositories;
 
-import com.simphony.entities.Bus;
-import com.simphony.entities.DriverMan;
 import com.simphony.entities.Guide;
 import com.simphony.entities.SaleDetail;
 import java.util.Date;

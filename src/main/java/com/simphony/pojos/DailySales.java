@@ -6,6 +6,8 @@
 
 package com.simphony.pojos;
 
+import com.simphony.entities.Guide;
+import com.simphony.entities.GuideDetail;
 import com.simphony.entities.Payment;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
@@ -23,6 +25,10 @@ public class DailySales  {
     private Long detAssociates;
     private Long detRetires;
     private Long detPublico;
+    private Long detAmoung;
+    
+    private Guide guide;
+    private GuideDetail guideDetail;
 
     public DailySales() {
         rowId = (int) (Math.random()*5000+1);
@@ -35,6 +41,13 @@ public class DailySales  {
         this.detAssociates = detAssociates;
         this.detRetires = detRetires;
         this.detPublico = detPublico;
+        rowId = (int) (Math.random()*5000+1);
+        normalMode = true;
+    }
+
+    public DailySales(Guide guide, Long detAmount) {
+        this.guide = guide;
+        this.detAmoung = detAmount;
         rowId = (int) (Math.random()*5000+1);
         normalMode = true;
     }
@@ -106,6 +119,30 @@ public class DailySales  {
 
     public void setDetPublico(Long detPublico) {
         this.detPublico = detPublico;
+    }
+
+    public Long getDetAmoung() {
+        return detAmoung;
+    }
+
+    public void setDetAmoung(Long detAmoung) {
+        this.detAmoung = detAmoung;
+    }
+
+    public Guide getGuide() {
+        return guide;
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
+    }
+
+    public GuideDetail getGuideDetail() {
+        return guideDetail;
+    }
+
+    public void setGuideDetail(GuideDetail guideDetail) {
+        this.guideDetail = guideDetail;
     }
 
     public String getFormatTipoVta(){

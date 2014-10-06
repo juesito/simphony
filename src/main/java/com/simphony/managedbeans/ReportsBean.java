@@ -7,6 +7,7 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.ReportsService;
 import com.simphony.entities.Bus;
+import com.simphony.entities.Guide;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SalePoint;
 import com.simphony.entities.Vendor;
@@ -31,6 +32,7 @@ import javax.faces.bean.SessionScoped;
 public class ReportsBean  {
 
     private Sale sale = new Sale();
+    private Guide guide = new Guide();
     private DailySales selectedDS = new DailySales();
     private DailySalesModel modelDS = new DailySalesModel();
     private List<DailySales> listDailySales = new ArrayList<DailySales>();
@@ -259,6 +261,32 @@ public class ReportsBean  {
 
     }
 
+    /**
+     * Buscamos ingresos por autobús
+     *
+     * @throws java.text.ParseException
+     */
+    public void findBusAmount() throws ParseException {
+        Calendar finDate = Calendar.getInstance();
+        finDate.setTime(this.fecFin);
+        finDate.add(Calendar.HOUR, 23);
+        finDate.add(Calendar.MINUTE, 59);
+        Date finD = finDate.getTime();
+
+        if (this.guide.getBus().getNumber() != null && this.guide.getDepartureDate() != null) {
+            listDailySales.clear();
+
+//            listDailySales = reportsService.getReportsRepository().busAmount(this.guide.getBus().getNumber(),
+//                    this.fecIni, finD);
+
+            modelDS = new DailySalesModel(listDailySales);
+        } else {
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
+        }
+
+    }
+
+    
     public void clearReports() {
         listTemp.clear();
         listDailySales.clear();
@@ -393,6 +421,14 @@ public class ReportsBean  {
 
     public void setFecFin(Date fecFin) {
         this.fecFin = fecFin;
+    }
+
+    public Guide getGuide() {
+        return guide;
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
     }
 
 }

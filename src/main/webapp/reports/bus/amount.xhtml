@@ -23,7 +23,7 @@
                                     <p:outputLabel value="#{msgs.cat_bus}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="bus" value="#{reportsBean.bus}" 
+                                    <p:selectOneMenu id="bus" value="#{reportsBean.bus.number}" 
                                                      converter="busConverter" 
                                                      style="width:300px" required="true" 
                                                      tabindex="1" >
@@ -77,16 +77,16 @@
                         <p:dataTable id="saleDetailDT" value="#{reportsBean.modelDS}" var="ic" 
                                       emptyMessage="Sin ingresos registrados"  >
                             <p:column headerText="Usuario" >
-                                <p:outputLabel value="#{ic.guide.vendor.nick}" />
+                                <p:outputLabel value="#{ic.guide.departureDate}" />
                             </p:column>
                             <p:column headerText="Efectivo" >
-                                <p:outputLabel value="#{ic.sale.amount}" />
+                                <p:outputLabel value="#{ic.guide.origin.description}" />
                             </p:column>
                             <p:column headerText="Nómina" >
-                                <p:outputLabel value="#{ic.sale.discount}" />
+                                <p:outputLabel value="#{ic.guide.destiny.description}" />
                             </p:column>
                             <p:column headerText="Pagaré" >
-                                <p:outputLabel value="#{ic.sale.subTotal}" />
+                                <p:outputLabel value="#{ic.busAmount}" />
                             </p:column>
 
                         </p:dataTable>

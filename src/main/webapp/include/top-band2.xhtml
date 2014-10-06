@@ -61,6 +61,10 @@
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxSalePointService.fillBox()}"/>
                                 </p:menuitem>
+                                <p:menuitem value="Ingresos por Autobús" action="#{reportsBean.toBusAmount()}" ajax="false"
+                                            styleClass="miMenuItem">
+                                    <f:actionListener  binding="#{boxBusService.fillBox()}"/>
+                                </p:menuitem>
                             </p:submenu>
                             <p:submenu label="   Catalogos   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}"  >
                                 <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 

@@ -41,4 +41,19 @@ public interface ReportsRepository extends JpaRepository<Sale, Long> {
            " AND s.createDate BETWEEN :iniDate AND :finDate ORDER BY s.vendor.id ")
     public List<DailySales> dailySalesPoint(@Param("idSalePoint") Long idVendor, @Param("iniDate") Date iniDate,
                                        @Param("finDate") Date finDate);
+
+//        @Query("SELECT NEW com.simphony.pojos.DailySales(g, " +
+//           "(SELECT SUM(sd.amount - sd.discount) FROM SaleDetail sd, GuideDetai gd  "+
+//           " WHERE sd.status = 'V' AND sd.sale.id = gd.sale.id " +
+//           " AND g.id = gd.guide.id ))" +
+//           " FROM Guide g "  +
+//           " WHERE g.bus.number = :busNum " +
+//           " AND g.departureDate BETWEEN :iniDate AND :finDate ")
+//    public List<DailySales> busAmount(@Param("busNum") String busNum, @Param("iniDate") Date iniDate,
+//                                       @Param("finDate") Date finDate);
+
+    
+//    select g.*, (SELECT SUM(importe) from detalleventa dv, detalleguia dg 
+//    where dv.sale_id = dg.sale_id AND g.id = dg.guide_id) AS 'INGRESO' from dbo.Guias g where bus_id = 1;
+
 }
