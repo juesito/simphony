@@ -192,17 +192,21 @@ public class BusBean {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws PersonException {
-        
-        Bus busUpdated = this.busService.getBusRepository().findOne(this.bus.getId());
-        
-        if(busUpdated == null){
-            throw new PersonException("Autobús no existente"); 
-        } 
-        this.bus.setUser(user);
-        busUpdated.update(this.bus);
-        this.busService.getBusRepository().save(busUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.bus.getNumber() + " " + mp.getValue("msj_record_update") );
-        bus = new Bus();
+        Bus tmp = this.busService.getBusRepository().findByNum(this.bus.getNumber());
+        if(tmp == null || tmp.getId() == this.bus.getId()){
+            Bus busUpdated = this.busService.getBusRepository().findOne(this.bus.getId());
+
+            if(busUpdated == null){
+                throw new PersonException("Autobús no existente"); 
+            } 
+            this.bus.setUser(user);
+            busUpdated.update(this.bus);
+            this.busService.getBusRepository().save(busUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.bus.getNumber() + " " + mp.getValue("msj_record_update") );
+            bus = new Bus();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.bus.getNumber() + " " + mp.getValue("error_keyId_Detail") );
+        }
         return toBus();
     }
 

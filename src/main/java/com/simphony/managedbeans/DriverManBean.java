@@ -210,16 +210,20 @@ public class DriverManBean implements IConfigurable {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws PersonException {
-        DriverMan driverManUpdated = this.driverManService.getDriverManRepository().findOne(this.driverMan.getId());
-        
-        if(driverManUpdated == null){
-            throw new PersonException("Operador no existente"); 
+        DriverMan drManTmp = this.driverManService.getDriverManRepository().findByRFC(this.driverMan.getRfc());
+        if (drManTmp == null || drManTmp.getId() == this.driverMan.getId()) {
+            DriverMan driverManUpdated = this.driverManService.getDriverManRepository().findOne(this.driverMan.getId());
+            if (driverManUpdated == null) {
+                throw new PersonException("Operador no existente");
+            }
+            driverMan.setUser(user);
+            driverManUpdated.update(this.driverMan);
+            this.driverManService.getDriverManRepository().save(driverManUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.driverMan.getName() + " " + mp.getValue("msj_record_update"));
+            driverMan = new DriverMan();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.driverMan.getRfc() + " " + mp.getValue("error_keyId_Detail"));
         }
-        driverMan.setUser(user);
-        driverManUpdated.update(this.driverMan);
-        this.driverManService.getDriverManRepository().save(driverManUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.driverMan.getName()+" "+ mp.getValue("msj_record_update") );
-        driverMan = new DriverMan();
         return toDriverMan();
     }
 

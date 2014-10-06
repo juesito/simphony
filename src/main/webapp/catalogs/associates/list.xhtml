@@ -30,7 +30,8 @@
                                       filterMatchMode="contains" >
                                 <p:outputLabel value="#{associate.keyId}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_name}" >
+                            <p:column headerText="#{msgs.cat_name}" filterBy="#{associate.name}"
+                                      filterMatchMode="contains" >
                                 <p:outputLabel value="#{associate.name}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_firstLastName}" >
@@ -103,30 +104,36 @@
                                     <h:outputText value="#{msgs.cat_secondLastName}:" />
                                     <h:outputText value="#{associateBean.selected.firstLastName}" />
                                                                        
-                                    <h:outputText value="#{msgs.cat_platform}:" />
-                                    <h:outputText value="#{associateBean.selected.platform}" />
-                                                                       
-                                    <h:outputText value="#{msgs.cat_state}:" />
-                                    <h:outputText value="#{associateBean.selected.state}" />
-                                                                       
-                                    <h:outputText value="#{msgs.cat_section}:" />
-                                    <h:outputText value="#{associateBean.selected.section}" />
-                                                                       
-                                    <h:outputText value="#{msgs.cat_phoneId}:" />
-                                    <h:outputText value="#{associateBean.selected.phoneId}" />
-                                                                       
-                                    <h:outputText value="Email:" />
-                                    <h:outputText value="#{associateBean.selected.email}" />
-                                                                       
                                     <h:outputText value="#{msgs.cat_address}:" />
                                     <h:outputText value="#{associateBean.selected.address}" />
 
-                                    <h:outputText value="Colonia:" />
+                                    <h:outputText value="#{msgs.cat_colony}:" />
                                     <h:outputText value="#{associateBean.selected.colony}" />
 
                                     <h:outputText value="#{msgs.cat_zipCode}:" />
                                     <h:outputText value="#{associateBean.selected.zipCode}" />
 
+                                    <h:outputText value="#{msgs.cat_state}:" />
+                                    <h:outputText value="#{associateBean.selected.state}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_platform}:" />
+                                    <h:outputText value="#{associateBean.selected.platform}" />
+                                                                       
+                                     <h:outputText value="#{msgs.cat_section}:" />
+                                    <h:outputText value="#{associateBean.selected.section}" />
+                                                                       
+                                   <h:outputText value="#{msgs.cat_group}:" />
+                                    <h:outputText value="#{associateBean.selected.group}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_phoneId}:" />
+                                    <h:outputText value="#{associateBean.selected.phoneId}" />
+                                                                       
+                                    <h:outputText value="Micro:" />
+                                    <h:outputText value="#{associateBean.selected.micro}" />
+                                                                       
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{associateBean.selected.email}" />
+                                                                       
                                     <h:outputText value="#{msgs.cat_status}:" />
                                     <h:outputText value="#{associateBean.selected.formatStatus}" />
                                     

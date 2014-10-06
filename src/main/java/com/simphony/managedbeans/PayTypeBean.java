@@ -248,17 +248,22 @@ public class PayTypeBean implements IConfigurable {
      */
     public String update(User user) throws PersonException {
 
-        PayType payTypeUpdated = this.payTypeService.getPayTypeRepository().findOne(this.payType.getId());
+        PayType payTypeTmp = this.payTypeService.getPayTypeRepository().findByDes(this.payType.getDescription().trim());
+        if (payTypeTmp == null || payTypeTmp.getId() == this.payType.getId()) {
+            PayType payTypeUpdated = this.payTypeService.getPayTypeRepository().findOne(this.payType.getId());
 
-        if (payTypeUpdated == null) {
-            throw new PersonException("Tipo de pago no existente");
+            if (payTypeUpdated == null) {
+                throw new PersonException("Tipo de pago no existente");
+            }
+            this.payType.setUser(user);
+            payTypeUpdated.update(this.payType);
+            this.payTypeService.getPayTypeRepository().save(payTypeUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.payType.getDescription() + " " + mp.getValue("msj_record_update"));
+            payType = new PayType();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.payType.getDescription() + " " + mp.getValue("error_keyId_Detail"));
         }
-        this.payType.setUser(user);
-        payTypeUpdated.update(this.payType);
-        this.payTypeService.getPayTypeRepository().save(payTypeUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.payType.getDescription() + " " + mp.getValue("msj_record_update"));
-        payType = new PayType();
-        return toPayType();
+         return toPayType();
     }
 
     /**

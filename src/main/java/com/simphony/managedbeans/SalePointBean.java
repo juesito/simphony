@@ -196,16 +196,21 @@ public class SalePointBean {
      */
     public String update(User user) throws PersonException {
         
-        SalePoint salePointUpdated = this.salePointService.getSalePointRepository().findOne(this.salePoint.getId());
-        
-        if(salePointUpdated == null){
-            throw new PersonException("Punto de venta no existente"); 
-        } 
-        this.salePoint.setUser(user);
-        salePointUpdated.update(this.salePoint);
-        this.salePointService.getSalePointRepository().save(salePointUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.salePoint.getDescription()+" "+mp.getValue("msj_record_update"));
-        salePoint = new SalePoint();
+        SalePoint salePointTmp = this.salePointService.getSalePointRepository().findByDesc(this.salePoint.getDescription().trim());
+        if(salePointTmp == null || salePointTmp.getId() == this.salePoint.getId()){
+            SalePoint salePointUpdated = this.salePointService.getSalePointRepository().findOne(this.salePoint.getId());
+
+            if(salePointUpdated == null){
+                throw new PersonException("Punto de venta no existente"); 
+            } 
+            this.salePoint.setUser(user);
+            salePointUpdated.update(this.salePoint);
+            this.salePointService.getSalePointRepository().save(salePointUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.salePoint.getDescription()+" "+mp.getValue("msj_record_update"));
+            salePoint = new SalePoint();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.salePoint.getDescription()+" "+mp.getValue("error_keyId_Detail"));
+        }
         return toSalePoint();
     }
 

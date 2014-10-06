@@ -20,13 +20,20 @@
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
-                                <p:column>
+                                <p:column style="padding-top: 25px; ">
                                     <p:outputLabel value="#{msgs.cat_keyId}:" />
                                 </p:column>
-                                 <p:column>
+                                 <p:column style="padding-top: 25px; ">
                                     <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" required="true" 
                                                  tabindex="1" requiredMessage="#{msgs.req_keyId}" style="width:80px"/>
                                     <p:message for="keyId" />
+                                </p:column>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:outputLabel value="#{msgs.cat_state}:" />
+                                </p:column>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:inputText value="#{associateBean.associate.state}" maxlength="35" tabindex="8" 
+                                                 style="width:160px"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -38,13 +45,13 @@
                                                  tabindex="2" requiredMessage="#{msgs.req_name}" style="width:160px"/>
                                     <p:message for="name" />
                                 </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_state}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText value="#{associateBean.associate.state}" maxlength="35" tabindex="8" 
-                                                 style="width:160px"/>
-                                </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{msgs.cat_platform}:" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" tabindex="9"
+                                             style="width:160px"/>
+                            </p:column>
 
                             </p:row>
                             <p:row>
@@ -61,8 +68,8 @@
                                    <p:outputLabel value="#{msgs.cat_section}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.section}" maxlength="15" tabindex="9"
-                                                 style="width:160px"/>
+                                    <p:inputText value="#{associateBean.associate.section}" maxlength="5" tabindex="10"
+                                                 style="width:50px"/>
                                 </p:column>
 
                             </p:row>
@@ -77,10 +84,10 @@
                                     <p:message for="secondName" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
+                                    <p:outputLabel value="#{msgs.cat_group}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" tabindex="10"
+                                    <p:inputText value="#{associateBean.associate.group}" maxlength="30" tabindex="11"
                                                  style="width:160px"/>
                                 </p:column>
 
@@ -88,38 +95,37 @@
 
                          <p:row>
                             <p:column>
-                                <p:outputLabel value="#{msgs.cat_platform}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" tabindex="5"
-                                             style="width:160px"/>
-                            </p:column>
-                            <p:column>
-                                 <p:outputLabel value="Email:" />
-                            </p:column>
-                            <p:column>
-                                 <p:inputText id="email" value="#{associateBean.associate.email}" maxlength="50" 
-                                              tabindex="11" style="width:160px"/>
-                                 <p:message for="email" />
-                            </p:column>
-
-                         </p:row>
-                         <p:row>
-                            <p:column>
                                 <p:outputLabel value="#{msgs.cat_address}:" />
                             </p:column>
                             <p:column>
                                 <p:inputText value="#{associateBean.associate.address}" maxlength="100" 
-                                             tabindex="6" style="width:160px" />
+                                             tabindex="5" style="width:160px" />
                             </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" tabindex="12"
+                                                 style="width:80px"/>
+                                </p:column>
+
+                         </p:row>
+                         <p:row>
                             <p:column>
-                                 <p:outputLabel value="Colonia:" />
+                                 <p:outputLabel value="#{msgs.cat_colony}:" />
                             </p:column>
                             <p:column>
                                 <p:inputText id="colony" value="#{associateBean.associate.colony}" maxlength="40" 
-                                             tabindex="12" style="width:160px"/>
+                                             tabindex="6" style="width:160px"/>
                                  <p:message for="colony" />
                             </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Micro:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{associateBean.associate.micro}" maxlength="13" tabindex="13" 
+                                                 style="width:70px"/>
+                                </p:column>
 
                          </p:row>
                          <p:row>
@@ -128,22 +134,24 @@
                             </p:column>
                             <p:column>
                                 <p:inputText value="#{associateBean.associate.zipCode}" maxlength="10"
-                                             tabindex="7" style="width:160px"/>
+                                             tabindex="7" style="width:50px"/>
+                            </p:column>
+                            <p:column>
+                                 <p:outputLabel value="Email:" />
+                            </p:column>
+                            <p:column>
+                                 <p:inputText id="email" value="#{associateBean.associate.email}" maxlength="50" 
+                                              tabindex="14" style="width:160px"/>
+                                 <p:message for="email" />
                             </p:column>
                          </p:row>
-                        <p:row>
-                        </p:row>
-                       <p:row>
-                         </p:row>
-                               
-
                             <p:row>
-                                <p:column colspan="2"></p:column>
-                                <p:column>
+                                <p:column colspan="2" ></p:column>
+                                <p:column style="padding-top: 55px; ">
                                     <p:commandButton value="#{msgs.but_save}" action="#{associateBean.save(userBean.alternativeUser)}"
                                                      ajax="false" update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
-                                <p:column>
+                                <p:column style="padding-top: 55px; ">
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{associateBean.cancelAssociate()}"
                                                      id="cancelAdd" process="@this" immediate="true" ajax="false" 
                                                      icon="ui-icon-arrowreturnthick-1-w"/>
@@ -162,13 +170,20 @@
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
-                                <p:column>
+                                <p:column style="padding-top: 25px; ">
                                     <p:outputLabel value="#{msgs.cat_keyId}:" />
                                 </p:column>
-                                 <p:column>
-                                    <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" 
-                                                 required="true" requiredMessage="#{msgs.req_keyId}"/>
+                                 <p:column style="padding-top: 25px; ">
+                                    <p:inputText id="keyId" value="#{associateBean.associate.keyId}" maxlength="10" required="true" 
+                                                 tabindex="1" requiredMessage="#{msgs.req_keyId}" style="width:80px"/>
                                     <p:message for="keyId" />
+                                </p:column>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:outputLabel value="#{msgs.cat_state}:" />
+                                </p:column>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:inputText value="#{associateBean.associate.state}" maxlength="35" tabindex="8" 
+                                                 style="width:160px"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -176,16 +191,17 @@
                                     <p:outputLabel value="#{msgs.cat_name}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="name" value="#{associateBean.associate.name}" required="true" 
-                                                 maxlength="25" requiredMessage="#{msgs.req_name}"/>
+                                    <p:inputText id="name" value="#{associateBean.associate.name}" required="true" maxlength="25" 
+                                                 tabindex="2" requiredMessage="#{msgs.req_name}" style="width:160px"/>
                                     <p:message for="name" />
                                 </p:column>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_state}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText value="#{associateBean.associate.state}" maxlength="35" />
-                                </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{msgs.cat_platform}:" />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" tabindex="9"
+                                             style="width:160px"/>
+                            </p:column>
 
                             </p:row>
                             <p:row>
@@ -193,15 +209,17 @@
                                     <p:outputLabel value="#{msgs.cat_firstLastName}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="lastName" value="#{associateBean.associate.secondLastName}" required="true" 
-                                                 requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                    <p:inputText id="lastName" value="#{associateBean.associate.secondLastName}" 
+                                                 required="true" tabindex="3" maxlength="25"  style="width:160px"
+                                                 requiredMessage="#{msgs.req_lastName}:"/>
                                     <p:message for="lastName" />
                                 </p:column>
                                 <p:column>
                                    <p:outputLabel value="#{msgs.cat_section}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.section}" maxlength="15" />
+                                    <p:inputText value="#{associateBean.associate.section}" maxlength="5" tabindex="10"
+                                                 style="width:50px"/>
                                 </p:column>
 
                             </p:row>
@@ -211,48 +229,53 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="secondName" value="#{associateBean.associate.firstLastName}" required="true" 
-                                                 requiredMessage="#{msgs.req_lastName}" maxlength="25" />
+                                                 tabindex="4" requiredMessage="#{msgs.req_lastName}" maxlength="25"  
+                                                 style="width:160px"/>
                                     <p:message for="secondName" />
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
+                                    <p:outputLabel value="#{msgs.cat_group}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" />
+                                    <p:inputText value="#{associateBean.associate.group}" maxlength="30" tabindex="11"
+                                                 style="width:160px"/>
                                 </p:column>
 
                             </p:row>
 
                          <p:row>
                             <p:column>
-                                <p:outputLabel value="#{msgs.cat_platform}:" />
+                                <p:outputLabel value="#{msgs.cat_address}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.platform}" maxlength="35" />
+                                <p:inputText value="#{associateBean.associate.address}" maxlength="100" 
+                                             tabindex="5" style="width:160px" />
                             </p:column>
-                            <p:column>
-                                 <p:outputLabel value="Email:" />
-                            </p:column>
-                            <p:column>
-                                 <p:inputText id="email" value="#{associateBean.associate.email}" maxlength="50"  />
-                                 <p:message for="email" />
-                            </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{associateBean.associate.phoneId}" maxlength="10" tabindex="12"
+                                                 style="width:80px"/>
+                                </p:column>
 
                          </p:row>
                          <p:row>
                             <p:column>
-                                <p:outputLabel value="#{msgs.cat_address}:" />
+                                 <p:outputLabel value="#{msgs.cat_colony}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.address}" maxlength="100"  />
-                            </p:column>
-                            <p:column>
-                                 <p:outputLabel value="Colonia:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText id="colony" value="#{associateBean.associate.colony}" maxlength="40"/>
+                                <p:inputText id="colony" value="#{associateBean.associate.colony}" maxlength="40" 
+                                             tabindex="6" style="width:160px"/>
                                  <p:message for="colony" />
                             </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Micro:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{associateBean.associate.micro}" maxlength="13" tabindex="13" 
+                                                 style="width:70px"/>
+                                </p:column>
 
                          </p:row>
                          <p:row>
@@ -260,20 +283,25 @@
                                 <p:outputLabel value="#{msgs.cat_zipCode}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{associateBean.associate.zipCode}" maxlength="10" />
+                                <p:inputText value="#{associateBean.associate.zipCode}" maxlength="10"
+                                             tabindex="7" style="width:50px"/>
                             </p:column>
-                         </p:row>
-                        <p:row>
-                        </p:row>
-                       <p:row>
+                            <p:column>
+                                 <p:outputLabel value="Email:" />
+                            </p:column>
+                            <p:column>
+                                 <p:inputText id="email" value="#{associateBean.associate.email}" maxlength="50" 
+                                              tabindex="14" style="width:160px"/>
+                                 <p:message for="email" />
+                            </p:column>
                          </p:row>
                             <p:row>
                                 <p:column colspan="2"></p:column>
-                                <p:column>
+                                <p:column style="padding-top: 55px; ">
                                     <p:commandButton value="#{msgs.but_save}" action="#{associateBean.update(userBean.alternativeUser)}"
                                                      ajax="false" update="main-form:growl"  icon="ui-icon-disk" />
                                 </p:column>
-                                <p:column>
+                                <p:column style="padding-top: 55px; ">
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{associateBean.cancelAssociate()}"
                                                      id="cancelAdd" process="@this" immediate="true" ajax="false"
                                                      icon="ui-icon-arrowreturnthick-1-w"/>

@@ -59,7 +59,15 @@ public  class Associate extends Person implements Serializable, Cloneable {
     @Basic
     private String zipCode;
 
-     public Associate(){
+    @Column(name="micro",length=12)
+    @Basic
+    private String micro;
+
+    @Column(name="grupo",length=30)
+    @Basic
+    private String group;
+
+    public Associate(){
 
     }
 
@@ -75,6 +83,8 @@ public  class Associate extends Person implements Serializable, Cloneable {
         this.address = associateUpdated.address;
         this.colony = associateUpdated.colony;
         this.zipCode = associateUpdated.zipCode;
+        this.micro = associateUpdated.micro;
+        this.group = associateUpdated.group;
     }
     
     @PreUpdate
@@ -178,6 +188,22 @@ public  class Associate extends Person implements Serializable, Cloneable {
         this.zipCode = zipCode;
     }
 
+    public String getMicro() {
+        return micro;
+    }
+
+    public void setMicro(String micro) {
+        this.micro = micro;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
   public String getFullName(){
       String fullName = super.getFirstLastName().trim() + " "+ super.getSecondLastName().trim() + " " + super.getName().trim();
       return fullName;
@@ -228,7 +254,6 @@ public  class Associate extends Person implements Serializable, Cloneable {
             return texto;
         }else return texto;
     }
-
 
 }
 

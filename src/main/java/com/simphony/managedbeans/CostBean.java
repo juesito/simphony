@@ -251,19 +251,24 @@ public class CostBean implements IConfigurable {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws PersonException {
+        Cost costTmp = this.costService.getCostRepository().findByOriDes(this.cost.getOrigin().getId(), this.cost.getDestiny().getId());
+        if(costTmp == null || costTmp.getId() == this.cost.getId()){
         
-        Cost costUpdated = this.costService.getCostRepository().findOne(this.cost.getId());
-        
-        if(costUpdated == null){
-            throw new PersonException("Tarifa no existente"); 
-        }
+            Cost costUpdated = this.costService.getCostRepository().findOne(this.cost.getId());
 
-        cost.setLastUpdate(cal.getTime());
-        cost.setUser(user);
-        costUpdated.update(this.cost);
-        this.costService.getCostRepository().save(costUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.cost.getOrigin().getDescription()+"-"+this.cost.getDestiny().getDescription()+" "+mp.getValue("msj_record_update"));
-        cost = new Cost();
+            if(costUpdated == null){
+                throw new PersonException("Tarifa no existente"); 
+            }
+
+            cost.setLastUpdate(cal.getTime());
+            cost.setUser(user);
+            costUpdated.update(this.cost);
+            this.costService.getCostRepository().save(costUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.cost.getOrigin().getDescription()+"-"+this.cost.getDestiny().getDescription()+" "+mp.getValue("msj_record_update"));
+            cost = new Cost();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.cost.getOrigin().getDescription()+"-"+this.cost.getDestiny().getDescription()+" "+mp.getValue("error_keyId_Detail"));
+        }
         return toCosts();
     }
 

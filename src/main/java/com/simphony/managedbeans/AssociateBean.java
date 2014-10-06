@@ -220,19 +220,24 @@ public class AssociateBean implements IConfigurable {
      * @throws com.simphony.exceptions.PersonException
      */
     public String update(User user) throws PersonException {
+        
+        Associate tmp = this.service.getRepository().findByKey(this.associate.getKeyId());
+        if(tmp == null || tmp.getId() == this.associate.getId()){
+            Associate associateUpdated = this.service.getRepository().findOne(this.associate.getId());
 
-        Associate associateUpdated = this.service.getRepository().findOne(this.associate.getId());
+            if (associateUpdated == null) {
+                throw new PersonException("Agremiado no existente");
+            }
 
-        if (associateUpdated == null) {
-            throw new PersonException("Agremiado no existente");
+            associate.setLastUpdate(cal.getTime());
+            associate.setUser(user);
+            associateUpdated.update(this.associate);
+            this.service.getRepository().save(associateUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.associate.getName() + " " + mp.getValue("msj_record_update"));
+            associate = new Associate();
+        }else{
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.associate.getKeyId() + " " + mp.getValue("error_keyId_Detail"));
         }
-
-        associate.setLastUpdate(cal.getTime());
-        associate.setUser(user);
-        associateUpdated.update(this.associate);
-        this.service.getRepository().save(associateUpdated);
-       GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.associate.getName() + " " + mp.getValue("msj_record_update"));
-        associate = new Associate();
         return toAssociates();
     }
     

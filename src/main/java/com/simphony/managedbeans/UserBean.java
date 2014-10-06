@@ -243,16 +243,21 @@ public class UserBean implements IConfigurable {
      */
     public String update() throws UserException {
         
-        User userUpdated = this.userService.getUserRepository().findOne(user.getId());
-        
-        if(userUpdated == null){
-            throw new UserException("Usuario no existente"); 
+        User userTmp = this.userService.getUserRepository().findByNick(this.user.getNick().trim());
+        if(userTmp == null || userTmp.getId() == user.getId()){
+            User userUpdated = this.userService.getUserRepository().findOne(user.getId());
+
+            if(userUpdated == null){
+                throw new UserException("Usuario no existente"); 
+            }
+
+            userUpdated.update(user);
+            this.userService.getUserRepository().save(userUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.user.getNick()+" "+mp.getValue("msj_record_update") );
+            user = new User();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.user.getNick()+" "+mp.getValue("error_keyId_Detail"));
         }
-        
-        userUpdated.update(user);
-        this.userService.getUserRepository().save(userUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.user.getNick()+" "+mp.getValue("msj_record_update") );
-        user = new User();
         return toUsers();
     }
 

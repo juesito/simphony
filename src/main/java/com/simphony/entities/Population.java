@@ -14,8 +14,8 @@ import javax.persistence.Table;
 public  class Population extends Catalog implements Serializable, Cloneable {
 
     @Basic
-    @Column(name="CveCosrta")
-    private String cveCorta;
+    @Column(name="CveCorta")
+    private String shortKey;
 
     @Basic
     @Column(name="Estado")
@@ -28,12 +28,12 @@ public  class Population extends Catalog implements Serializable, Cloneable {
     public Population(){
     }
 
-    public String getCveCorta() {
-        return cveCorta;
+    public String getShortKey() {
+        return shortKey;
     }
 
-    public void setCveCorta(String cveCorta) {
-        this.cveCorta = cveCorta;
+    public void setShortKey(String shortKey) {
+        this.shortKey = shortKey;
     }
 
     public String getState() {
@@ -59,7 +59,7 @@ public  class Population extends Catalog implements Serializable, Cloneable {
 
     public void update(Population populationUpdated){
         super.update(populationUpdated);
-        this.cveCorta = populationUpdated.cveCorta;
+        this.shortKey = populationUpdated.shortKey;
         this.state = populationUpdated.state;
         this.zipCode = populationUpdated.zipCode;
     }

@@ -25,8 +25,8 @@
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                      >
-                            <p:column headerText="Clave Corta" >
-                                <p:outputLabel value="#{population.cveCorta}" />
+                            <p:column headerText="#{msgs.cat_shortKey}" >
+                                <p:outputLabel value="#{population.shortKey}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_description}" filterBy="#{population.description}"
                                       filterMatchMode="contains" >
@@ -87,10 +87,10 @@
                                     <!-- Id, Nombre -->
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Clave Corta:" />
+                                            <p:outputLabel value="#{msgs.cat_shortKey}:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{populationBean.selected.cveCorta}" />
+                                            <p:outputLabel value="#{populationBean.selected.shortKey}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>

@@ -108,6 +108,11 @@ public class ReportsBean  {
         this.clearReports();
         return "toDailySalesPoint";
     }
+
+    public String toBusIncome() {
+        this.clearReports();
+        return "toBusIncome";
+    }
 /**
      * Buscamos ventas diarias
      *
@@ -266,7 +271,7 @@ public class ReportsBean  {
      *
      * @throws java.text.ParseException
      */
-    public void findBusAmount() throws ParseException {
+    public void findBusIncome() throws ParseException {
         Calendar finDate = Calendar.getInstance();
         finDate.setTime(this.fecFin);
         finDate.add(Calendar.HOUR, 23);
@@ -276,7 +281,7 @@ public class ReportsBean  {
         if (this.guide.getBus().getNumber() != null && this.guide.getDepartureDate() != null) {
             listDailySales.clear();
 
-//            listDailySales = reportsService.getReportsRepository().busAmount(this.guide.getBus().getNumber(),
+//            listDailySales = reportsService.getReportsRepository().busIncome(this.guide.getBus().getNumber(),
 //                    this.fecIni, finD);
 
             modelDS = new DailySalesModel(listDailySales);

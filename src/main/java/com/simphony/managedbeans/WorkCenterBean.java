@@ -7,7 +7,6 @@ package com.simphony.managedbeans;
 
 import com.simphony.beans.WorkCenterService;
 import com.simphony.entities.User;
-import com.simphony.entities.Vendor;
 import com.simphony.entities.WorkCenter;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
@@ -204,17 +203,22 @@ public class WorkCenterBean implements IConfigurable {
      */
     public String update(User user) throws PersonException {
         
-        WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(this.workCenter.getId());
-        
-        if(workCenterUpdated == null){
-            throw new PersonException("Estación de trabajo no existente"); 
+        WorkCenter workCenterTmp = this.workCenterService.getWorkCenterRepository().findByDesc(this.workCenter.getDescription().trim());
+        if(workCenterTmp == null || workCenterTmp.getId() == this.workCenter.getId()){
+            WorkCenter workCenterUpdated = this.workCenterService.getWorkCenterRepository().findOne(this.workCenter.getId());
+
+            if(workCenterUpdated == null){
+                throw new PersonException("Estación de trabajo no existente"); 
+            }
+            workCenter.setUser(user);
+            workCenter.setLastUpdate(cal.getTime());
+            workCenterUpdated.update(this.workCenter);
+            this.workCenterService.getWorkCenterRepository().save(workCenterUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.workCenter.getDescription()+" "+mp.getValue("msj_record_update"));
+            workCenter = new WorkCenter();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.workCenter.getDescription()+" "+mp.getValue("error_keyId_Detail"));
         }
-        workCenter.setUser(user);
-        workCenter.setLastUpdate(cal.getTime());
-        workCenterUpdated.update(this.workCenter);
-        this.workCenterService.getWorkCenterRepository().save(workCenterUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.workCenter.getDescription()+" "+mp.getValue("msj_record_update"));
-        workCenter = new WorkCenter();
         return toWorkCenter();
     }
  

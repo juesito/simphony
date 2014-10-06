@@ -49,7 +49,7 @@ public interface ReportsRepository extends JpaRepository<Sale, Long> {
 //           " FROM Guide g "  +
 //           " WHERE g.bus.number = :busNum " +
 //           " AND g.departureDate BETWEEN :iniDate AND :finDate ")
-//    public List<DailySales> busAmount(@Param("busNum") String busNum, @Param("iniDate") Date iniDate,
+//    public List<DailySales> busIncome(@Param("busNum") String busNum, @Param("iniDate") Date iniDate,
 //                                       @Param("finDate") Date finDate);
 
     

@@ -16,12 +16,12 @@
         <Node id="catalogs/populations/add.xhtml" x="150" y="1050" zoom="true"/>
         <Node id="catalogs/seats/list.xhtml" x="2400" y="150" zoom="true"/>
         <Node id="catalogs/driverMen/add.xhtml" x="1400" y="450" zoom="true"/>
-        <Node id="include/footer.xhtml" x="400" y="450" zoom="true"/>
         <Node id="catalogs/itineraries/detailList.xhtml" x="26" y="687" zoom="true"/>
+        <Node id="include/footer.xhtml" x="400" y="450" zoom="true"/>
         <Node id="cambioConfirm.xhtml" x="650" y="1200" zoom="true"/>
         <Node id="reports/bus/amount.xhtml" x="150" y="1350" zoom="true"/>
-        <Node id="index.xhtml" x="400" y="150" zoom="true"/>
         <Node id="catalogs/payTypes/add.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="index.xhtml" x="400" y="150" zoom="true"/>
         <Node id="*" x="1150" y="300" zoom="true"/>
         <Node id="catalogs/seats/add.xhtml" x="150" y="1500" zoom="true"/>
         <Node id="catalogs/vendors/list.xhtml" x="150" y="300" zoom="true"/>
@@ -38,8 +38,8 @@
         <Node id="catalogs/associates/list.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="operation/itineraries/addDetail.xhtml" x="1900" y="300" zoom="true"/>
         <Node id="include/top-band.xhtml" x="1150" y="600" zoom="true"/>
-        <Node id="catalogs/vendors/add.xhtml" x="850" y="314" zoom="true"/>
         <Node id="catalogs/users/add.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="catalogs/vendors/add.xhtml" x="850" y="314" zoom="true"/>
         <Node id="catalogs/itineraries/list.xhtml" x="150" y="600" zoom="true"/>
         <Node id="catalogs/payTypes/list.xhtml" x="1150" y="750" zoom="true"/>
         <Node id="error.xhtml" x="150" y="750" zoom="true"/>

@@ -218,19 +218,24 @@ public class PopulationBean implements IConfigurable {
         
         String mgs = "";
         
-        Population populationUpdated = this.populationService.getPopulationRepository().findOne(this.population.getId());
-        
-        if(populationUpdated == null){
-            throw new PersonException("Población no existente"); 
-        }
+        Population populationTmp = this.populationService.getPopulationRepository().findByDesc(this.population.getDescription().trim());
+        if(populationTmp == null || populationTmp.getId() == this.population.getId()){
+            Population populationUpdated = this.populationService.getPopulationRepository().findOne(this.population.getId());
 
-        this.population.setUser(user);
-        populationUpdated.update(this.population);
-        this.populationService.getPopulationRepository().save(populationUpdated);
-        
-       GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.population.getDescription() + " "+ mp.getValue("msj_record_update"));
-        
-        population = new Population();
+            if(populationUpdated == null){
+                throw new PersonException("Población no existente"); 
+            }
+
+            this.population.setUser(user);
+            populationUpdated.update(this.population);
+            this.populationService.getPopulationRepository().save(populationUpdated);
+
+           GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), this.population.getDescription() + " "+ mp.getValue("msj_record_update"));
+
+            population = new Population();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.population.getDescription()+" "+mp.getValue("error_keyId_Detail"));
+        }
         return toPopulations();
     }
 

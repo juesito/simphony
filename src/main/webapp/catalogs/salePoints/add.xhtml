@@ -20,13 +20,13 @@
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
                             <p:row>
-                                <p:column>
+                                <p:column style="padding-top: 25px;">
                                     <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
-                                <p:column>
-                                    <p:inputText id="descripcion" value="#{salePointBean.salePoint.description}" required="true" 
-                                                 requiredMessage="Descripción requerida" maxlength="25" />
-                                    <p:message for="descripcion" />
+                                <p:column style="padding-top: 25px;">
+                                    <p:inputText id="description" value="#{salePointBean.salePoint.description}" required="true" 
+                                                 requiredMessage="#{req_description}" maxlength="25" />
+                                    <p:message for="description" />
                                 </p:column>
                             </p:row>
                              <p:row>
@@ -34,17 +34,118 @@
                                     <p:outputLabel value="#{msgs.cat_address}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="domicilio" value="#{salePointBean.salePoint.domicilio}" maxlength="50"  />
-                                    <p:message for="domicilio" />
+                                    <p:inputText id="address" value="#{salePointBean.salePoint.domicilio}" maxlength="50" 
+                                                 style="width:300px"/>
+                                    <p:message for="address" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_colony}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="colony" value="#{salePointBean.salePoint.colony}" maxlength="35"  />
+                                    <p:message for="colony" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_city}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="city" value="#{salePointBean.salePoint.city}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_city}"  />
+                                        <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="zipCode" value="#{salePointBean.salePoint.zipCode}" maxlength="5" 
+                                                 style="width:50px"/>
+                                    <p:message for="zipCode" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_state}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="state" value="#{salePointBean.salePoint.state}" maxlength="30"  />
+                                    <p:message for="state" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_manager}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="manager" value="#{salePointBean.salePoint.manager}" maxlength="50"
+                                                 style="width:300px"/>
+                                    <p:message for="manager" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="phone" value="#{salePointBean.salePoint.phoneId}" maxlength="10" 
+                                                 style="width:80px"/>
+                                    <p:message for="phone" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Email:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="email" value="#{salePointBean.salePoint.emailManager}" maxlength="50"  />
+                                    <p:message for="email" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Titular 1:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="titular1" value="#{salePointBean.salePoint.titular1}" maxlength="50"
+                                                 style="width:300px"/>
+                                    <p:message for="titular1" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Titular 2:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="titular2" value="#{salePointBean.salePoint.titular2}" maxlength="50" 
+                                                 style="width:300px"/>
+                                    <p:message for="titular2" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="type" value="#{salePointBean.salePoint.type}" maxlength="10"
+                                                 style="width:50px"/>
+                                    <p:message for="type" />
                                 </p:column>
                             </p:row>
                           <p:row>
                                 <p:column colspan="2"></p:column>
-                                <p:column>
+                                <p:column style="padding-top: 55px;">
                                     <p:commandButton value="#{msgs.but_save}" action="#{salePointBean.save(userBean.alternativeUser)}"
                                                      ajax="false"  update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
-                                <p:column>
+                                <p:column style="padding-top: 55px;">
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{salePointBean.cancelSalePoint()}"
                                                      id="cancelAdd" process="@this" immediate="true" ajax="false"
                                                      icon="ui-icon-arrowreturnthick-1-w"/>
@@ -62,14 +163,14 @@
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
-                           <p:row>
-                                <p:column>
+                            <p:row>
+                                <p:column style="padding-top: 25px;">
                                     <p:outputLabel value="#{msgs.cat_description}:" />
                                 </p:column>
-                                <p:column>
-                                    <p:inputText id="descripcion" value="#{salePointBean.salePoint.description}" required="true" 
-                                                 requiredMessage="Descripción requerida" maxlength="25" />
-                                    <p:message for="descripcion" />
+                                <p:column style="padding-top: 25px;">
+                                    <p:inputText id="description" value="#{salePointBean.salePoint.description}" required="true" 
+                                                 requiredMessage="#{req_description}" maxlength="25" />
+                                    <p:message for="description" />
                                 </p:column>
                             </p:row>
                              <p:row>
@@ -77,8 +178,108 @@
                                     <p:outputLabel value="#{msgs.cat_address}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="domicilio" value="#{salePointBean.salePoint.domicilio}" maxlength="50"  />
-                                    <p:message for="domicilio" />
+                                    <p:inputText id="address" value="#{salePointBean.salePoint.domicilio}" maxlength="50" 
+                                                 style="width:300px"/>
+                                    <p:message for="address" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_colony}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="colony" value="#{salePointBean.salePoint.colony}" maxlength="35"  />
+                                    <p:message for="colony" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_city}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="city" value="#{salePointBean.salePoint.city}" 
+                                                     converter="populationConverter" 
+                                                     style="width:160px" required="true" >
+                                       <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_city}"  />
+                                        <f:selectItems value="#{boxPopulationService.populationList}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="zipCode" value="#{salePointBean.salePoint.zipCode}" maxlength="5"  />
+                                    <p:message for="zipCode" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_state}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="state" value="#{salePointBean.salePoint.state}" maxlength="30"  />
+                                    <p:message for="state" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_manager}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="manager" value="#{salePointBean.salePoint.manager}" maxlength="50"
+                                                 style="width:300px"/>
+                                    <p:message for="manager" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="phone" value="#{salePointBean.salePoint.phoneId}" maxlength="10" 
+                                                 style="width:80px"/>
+                                    <p:message for="phone" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Email:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="email" value="#{salePointBean.salePoint.emailManager}" maxlength="50"  />
+                                    <p:message for="email" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Titular 1:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="titular1" value="#{salePointBean.salePoint.titular1}" maxlength="50"
+                                                 style="width:300px"/>
+                                    <p:message for="titular1" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Titular 2:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="titular2" value="#{salePointBean.salePoint.titular2}" maxlength="50" 
+                                                 style="width:300px"/>
+                                    <p:message for="titular2" />
+                                </p:column>
+                            </p:row>
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_type}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="type" value="#{salePointBean.salePoint.type}" maxlength="10"
+                                                 style="width:50px"/>
+                                    <p:message for="type" />
                                 </p:column>
                             </p:row>
                             <p:row>

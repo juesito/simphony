@@ -25,7 +25,7 @@ public class DailySales  {
     private Long detAssociates;
     private Long detRetires;
     private Long detPublico;
-    private Long detAmoung;
+    private Long detIncome;
     
     private Guide guide;
     private GuideDetail guideDetail;
@@ -45,9 +45,9 @@ public class DailySales  {
         normalMode = true;
     }
 
-    public DailySales(Guide guide, Long detAmount) {
+    public DailySales(Guide guide, Long detIncome) {
         this.guide = guide;
-        this.detAmoung = detAmount;
+        this.detIncome = detIncome;
         rowId = (int) (Math.random()*5000+1);
         normalMode = true;
     }
@@ -121,12 +121,12 @@ public class DailySales  {
         this.detPublico = detPublico;
     }
 
-    public Long getDetAmoung() {
-        return detAmoung;
+    public Long getDetIncome() {
+        return detIncome;
     }
 
-    public void setDetAmoung(Long detAmoung) {
-        this.detAmoung = detAmoung;
+    public void setDetIncome(Long detIncome) {
+        this.detIncome = detIncome;
     }
 
     public Guide getGuide() {

@@ -30,8 +30,17 @@
                                       filterMatchMode="contains" >
                                 <p:outputLabel value="#{salePoint.description}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_address}" >
-                                <p:outputLabel value="#{salePoint.domicilio}" />
+                            <p:column headerText="#{msgs.cat_city}" >
+                                <p:outputLabel value="#{salePoint.city.description}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_manager}" >
+                                <p:outputLabel value="#{salePoint.manager}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_phoneId}" >
+                                <p:outputLabel value="#{salePoint.phoneId}" />
+                            </p:column>
+                            <p:column headerText="Titular 1" >
+                                <p:outputLabel value="#{salePoint.titular1}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_status}" >
                                 <p:outputLabel value="#{salePoint.formatStatus}" />
@@ -85,7 +94,34 @@
                                     <h:outputText value="#{msgs.cat_address}:" />
                                     <h:outputText value="#{salePointBean.selected.domicilio}" />
 
-                                   <h:outputText value="#{msgs.cat_status}:" />
+                                    <h:outputText value="#{msgs.cat_colony}:" />
+                                    <h:outputText value="#{salePointBean.selected.colony}" />
+
+                                     <h:outputText value="#{msgs.cat_state}:" />
+                                     <h:outputText value="#{salePointBean.selected.state}" />
+
+                                    <h:outputText value="#{msgs.cat_city}:" />
+                                    <h:outputText value="#{salePointBean.selected.city.description}" />
+
+                                    <h:outputText value="#{msgs.cat_manager}:" />
+                                    <h:outputText value="#{salePointBean.selected.manager}" />
+
+                                    <h:outputText value="#{msgs.cat_phoneId}:" />
+                                    <h:outputText value="#{salePointBean.selected.phoneId}" />
+
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{salePointBean.selected.emailManager}" />
+
+                                    <h:outputText value="Titular 1:" />
+                                    <h:outputText value="#{salePointBean.selected.titular1}" />
+
+                                    <h:outputText value="Titular 2:" />
+                                    <h:outputText value="#{salePointBean.selected.titular2}" />
+
+                                    <h:outputText value="#{msgs.cat_type}:" />
+                                    <h:outputText value="#{salePointBean.selected.type}" />
+
+                                    <h:outputText value="#{msgs.cat_status}:" />
                                    <h:outputText value="#{salePointBean.selected.formatStatus}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_createDate}:" />

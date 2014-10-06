@@ -234,17 +234,22 @@ public class VendorBean implements IConfigurable {
      */
     public String update() throws PersonException {
         
-        Vendor vendorUpdated = this.vendorService.getVendorRepository().findOne(vendor.getId());
-        
-        if(vendorUpdated == null){
-            throw new PersonException("Vendedor no existente"); 
+        Vendor vendorTmp = this.vendorService.getVendorRepository().findByNick(this.vendor.getNick().trim());
+        if(vendorTmp == null || vendorTmp.getId() == vendor.getId()){
+            Vendor vendorUpdated = this.vendorService.getVendorRepository().findOne(vendor.getId());
+
+            if(vendorUpdated == null){
+                throw new PersonException("Vendedor no existente"); 
+            }
+
+            vendorUpdated.update(vendor);
+            this.vendorService.getVendorRepository().save(vendorUpdated);
+            GrowlBean.simplyInfoMessage(mp.getValue("msj_success"),  this.vendor.getNick()+" "+mp.getValue("msj_record_update"));
+
+            vendor = new Vendor();
+        } else {
+            GrowlBean.simplyFatalMessage(mp.getValue("error_keyId"), this.vendor.getNick()+" "+mp.getValue("error_keyId_Detail"));
         }
-         
-        vendorUpdated.update(vendor);
-        this.vendorService.getVendorRepository().save(vendorUpdated);
-        GrowlBean.simplyInfoMessage(mp.getValue("msj_success"),  this.vendor.getNick()+" "+mp.getValue("msj_record_update"));
-  
-        vendor = new Vendor();
         return toVendors();
     }
 

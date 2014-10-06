@@ -35,34 +35,34 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                               <p:column style="padding-top: 20px; ">
+                               <p:column style="padding-top: 10px; ">
                                    <p:outputLabel value="Del:" />
                               </p:column>
-                               <p:column style="padding-top: 20px; ">
+                               <p:column style="padding-top: 10px; ">
                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
                                                pages="2" showOn="button" value="#{reportsBean.fecIni}"/>
                                </p:column>
                             </p:row>
                             <p:row>
-                               <p:column style="padding-top: 20px; ">
+                               <p:column style="padding-top: 10px; ">
                                    <p:outputLabel value="Al :" />
                               </p:column>
-                               <p:column style="padding-top: 20px; ">
+                               <p:column style="padding-top: 10px; ">
                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
                                                pages="2" showOn="button" value="#{reportsBean.fecFin}"/>
                                </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="padding-top: 20px; ">
-                                    <p:outputLabel value="Ingresos:" />
+                                <p:column style="padding-top: 10px; ">
+                                    <p:outputLabel value="#{msgs.cat_income}:" />
                                 </p:column>
-                                <p:column style="width: 120px; padding-top: 20px; ">
+                                <p:column style="width: 120px; padding-top: 10px; ">
                                     <p:outputLabel value="#{reportsBean.totVta}" />
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="padding-top: 25px; ">
-                                    <p:commandButton value="Procesar" actionListener="#{reportsBean.findDailySalesPoint()}" 
+                                <p:column style="padding-top: 20px; ">
+                                    <p:commandButton value="Procesar" actionListener="#{reportsBean.findBusIncome()}" 
                                                     ajax="true" styleClass="button-rounded" icon="ui-icon-play"
                                                     update=":form:saleDetailDT :form:sale-daily" >
                                    </p:commandButton>
@@ -76,17 +76,20 @@
                         <!-- Data table -->
                         <p:dataTable id="saleDetailDT" value="#{reportsBean.modelDS}" var="ic" 
                                       emptyMessage="Sin ingresos registrados"  >
-                            <p:column headerText="Usuario" >
-                                <p:outputLabel value="#{ic.guide.departureDate}" />
+                            <p:column headerText="#{msgs.cat_date}" >
+                                <p:outputLabel value="#{ic.guide.formatDepartureDate}" />
                             </p:column>
-                            <p:column headerText="Efectivo" >
+                            <p:column headerText="#{msgs.cat_departureTime}" >
+                                <p:outputLabel value="#{ic.guide.formatDepartureTime}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{ic.guide.origin.description}" />
                             </p:column>
-                            <p:column headerText="Nómina" >
+                            <p:column headerText="#{msgs.cat_destiny}" >
                                 <p:outputLabel value="#{ic.guide.destiny.description}" />
                             </p:column>
-                            <p:column headerText="Pagaré" >
-                                <p:outputLabel value="#{ic.busAmount}" />
+                            <p:column headerText="#{msgs.cat_income}" >
+                                <p:outputLabel value="#{ic.busIncome}" />
                             </p:column>
 
                         </p:dataTable>
