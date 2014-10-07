@@ -15,7 +15,7 @@ import com.simphony.entities.SaleDetail;
  *
  * @author Administrador
  */
-public class DailySales  {
+public class DailySales implements Cloneable {
     
     private Sale sale;
     private SaleDetail saleDetail;
@@ -25,7 +25,7 @@ public class DailySales  {
     private Long detAssociates;
     private Long detRetires;
     private Long detPublico;
-    private Long detIncome;
+    private Double detIncome;
     
     private Guide guide;
     private GuideDetail guideDetail;
@@ -45,7 +45,7 @@ public class DailySales  {
         normalMode = true;
     }
 
-    public DailySales(Guide guide, Long detIncome) {
+    public DailySales(Guide guide, Double detIncome) {
         this.guide = guide;
         this.detIncome = detIncome;
         rowId = (int) (Math.random()*5000+1);
@@ -121,11 +121,11 @@ public class DailySales  {
         this.detPublico = detPublico;
     }
 
-    public Long getDetIncome() {
+    public Double getDetIncome() {
         return detIncome;
     }
 
-    public void setDetIncome(Long detIncome) {
+    public void setDetIncome(Double detIncome) {
         this.detIncome = detIncome;
     }
 
@@ -143,6 +143,17 @@ public class DailySales  {
 
     public void setGuideDetail(GuideDetail guideDetail) {
         this.guideDetail = guideDetail;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Object obj = null;
+        try {
+            obj = super.clone();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
     }
 
     public String getFormatTipoVta(){

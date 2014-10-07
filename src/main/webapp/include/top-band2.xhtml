@@ -52,7 +52,6 @@
                                 </p:menuitem>
                             </p:submenu>
                             <p:submenu label="   Reportes   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}">  
-                                <p:menuitem value="Por definir" /> 
                                 <p:menuitem value="Venta diaria por Asesor de Venta" action="#{reportsBean.toDailySales()}" ajax="false"
                                             styleClass="miMenuItem" >
                                     <f:actionListener  binding="#{boxVendorService.fillBox()}"/>
@@ -64,6 +63,10 @@
                                 <p:menuitem value="Ingresos por Autobús" action="#{reportsBean.toBusIncome()}" ajax="false"
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxBusService.fillBox()}"/>
+                                </p:menuitem>
+                                <p:menuitem value="Ingresos por Operador" action="#{reportsBean.toDriverManIncome()}" ajax="false"
+                                            styleClass="miMenuItem">
+                                    <f:actionListener  binding="#{boxDriverManService.fillBox()}"/>
                                 </p:menuitem>
                             </p:submenu>
                             <p:submenu label="   Catalogos   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}"  >

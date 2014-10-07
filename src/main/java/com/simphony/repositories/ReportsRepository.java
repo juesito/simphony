@@ -43,7 +43,7 @@ public interface ReportsRepository extends JpaRepository<Sale, Long> {
                                        @Param("finDate") Date finDate);
 
     @Query("SELECT NEW com.simphony.pojos.DailySales(g, " +
-           "(SELECT SUM(sd.amount - sd.discount) FROM SaleDetail sd, GuideDetai gd  "+
+           "(SELECT SUM(sd.amount - sd.discount) FROM SaleDetail sd, GuideDetail gd  "+
            " WHERE sd.status = 'V' AND sd.sale.id = gd.sale.id " +
            " AND g.id = gd.guide.id ))" +
            " FROM Guide g "  +
@@ -52,6 +52,15 @@ public interface ReportsRepository extends JpaRepository<Sale, Long> {
     public List<DailySales> busIncome(@Param("busId") Long busId, @Param("iniDate") Date iniDate,
                                        @Param("finDate") Date finDate);
 
+    @Query("SELECT NEW com.simphony.pojos.DailySales(g, " +
+           "(SELECT SUM(sd.amount - sd.discount) FROM SaleDetail sd, GuideDetail gd  "+
+           " WHERE sd.status = 'V' AND sd.sale.id = gd.sale.id " +
+           " AND g.id = gd.guide.id ))" +
+           " FROM Guide g "  +
+           " WHERE (g.driverMan1.id = :driverManId OR g.driverMan2.id = :driverManId) " +
+           " AND g.departureDate BETWEEN :iniDate AND :finDate ")
+    public List<DailySales> driverManIncome(@Param("driverManId") Long busId, @Param("iniDate") Date iniDate,
+                                       @Param("finDate") Date finDate);
     
 //    select g.*, (SELECT SUM(importe) from detalleventa dv, detalleguia dg 
 //    where dv.sale_id = dg.sale_id AND g.id = dg.guide_id) AS 'INGRESO' from dbo.Guias g where bus_id = 1;

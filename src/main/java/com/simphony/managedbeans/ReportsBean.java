@@ -113,6 +113,11 @@ public class ReportsBean  {
         this.clearReports();
         return "toBusIncome";
     }
+
+    public String toDriverManIncome() {
+        this.clearReports();
+        return "toDriverManIncome";
+    }
 /**
      * Buscamos ventas diarias
      *
@@ -271,19 +276,52 @@ public class ReportsBean  {
      *
      * @throws java.text.ParseException
      */
-    public void findBusIncome() throws ParseException {
+    public void findBusIncome() throws ParseException, CloneNotSupportedException {
         Calendar finDate = Calendar.getInstance();
         finDate.setTime(this.fecFin);
         finDate.add(Calendar.HOUR, 23);
         finDate.add(Calendar.MINUTE, 59);
         Date finD = finDate.getTime();
 
-        if (this.guide.getBus().getNumber() != null && this.guide.getDepartureDate() != null) {
+        if (this.guide.getBus().getId() != null && this.fecIni != null && this.fecFin != null) {
             listDailySales.clear();
-
-            listDailySales = reportsService.getReportsRepository().busIncome(this.guide.getBus().getId(),
+            List<DailySales> c = reportsService.getReportsRepository().busIncome(this.guide.getBus().getId(),
                     this.fecIni, finD);
-
+            if (c.size() > 0) {
+                Date depDate = new Date();
+                Long idOrigin = (long) 0;
+                Long idRoute = (long) 0;
+                Double income = 0.0;
+                DailySales dsAnt = new DailySales();
+                int vrIndex = 0;
+                for (DailySales ds : c) {
+                    if (ds.getGuide().getDepartureDate().equals(depDate) && ds.getGuide().getOrigin().getId().equals(idOrigin)
+                            && ds.getGuide().getRootRoute().equals(idRoute)) {
+                        if(ds.getDetIncome() != null){
+                            income = income + ds.getDetIncome();
+                        }
+                    } else {
+                        depDate = ds.getGuide().getDepartureDate();
+                        idOrigin = ds.getGuide().getOrigin().getId();
+                        idRoute = ds.getGuide().getRootRoute();
+                        if (vrIndex != 0) {
+                            dsAnt.setDetIncome(income);
+                            listDailySales.set(vrIndex-1, dsAnt);
+                            totVta = totVta + income;
+                            income = 0.0;
+                        }
+                        dsAnt = (DailySales)ds.clone();
+                        if(ds.getDetIncome() != null){
+                            income = income + ds.getDetIncome();
+                        }
+                        vrIndex += 1;
+                        listDailySales.add(ds);
+                    }
+                }
+                dsAnt.setDetIncome(income);
+                totVta = totVta + income;
+                listDailySales.set(vrIndex-1, dsAnt);
+            }
             modelDS = new DailySalesModel(listDailySales);
         } else {
             GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
@@ -291,6 +329,64 @@ public class ReportsBean  {
 
     }
 
+    /**
+     * Buscamos ingresos por operador
+     *
+     * @throws java.text.ParseException
+     */
+    public void findDriverManIncome() throws ParseException, CloneNotSupportedException {
+        Calendar finDate = Calendar.getInstance();
+        finDate.setTime(this.fecFin);
+        finDate.add(Calendar.HOUR, 23);
+        finDate.add(Calendar.MINUTE, 59);
+        Date finD = finDate.getTime();
+
+        if (this.guide.getDriverMan1().getId() != null && this.fecIni != null && this.fecFin != null) {
+            listDailySales.clear();
+            List<DailySales> c = reportsService.getReportsRepository().driverManIncome(this.guide.getDriverMan1().getId(),
+                    this.fecIni, finD);
+            if (c.size() > 0) {
+                Date depDate = new Date();
+                Long idOrigin = (long) 0;
+                Long idRoute = (long) 0;
+                Double income = 0.0;
+                totVta = 0.0;
+                DailySales dsAnt = new DailySales();
+                int vrIndex = 0;
+                for (DailySales ds : c) {
+                    if (ds.getGuide().getDepartureDate().equals(depDate) && ds.getGuide().getOrigin().getId().equals(idOrigin)
+                            && ds.getGuide().getRootRoute().equals(idRoute)) {
+                        if(ds.getDetIncome() != null){
+                            income = income + ds.getDetIncome();
+                        }
+                    } else {
+                        depDate = ds.getGuide().getDepartureDate();
+                        idOrigin = ds.getGuide().getOrigin().getId();
+                        idRoute = ds.getGuide().getRootRoute();
+                        if (vrIndex != 0) {
+                            dsAnt.setDetIncome(income);
+                            listDailySales.set(vrIndex-1, dsAnt);
+                            totVta = totVta + income;
+                            income = 0.0;
+                        }
+                        dsAnt = (DailySales)ds.clone();
+                        if(ds.getDetIncome() != null){
+                            income = income + ds.getDetIncome();
+                        }
+                        vrIndex += 1;
+                        listDailySales.add(ds);
+                    }
+                }
+                dsAnt.setDetIncome(income);
+                totVta = totVta + income;
+                listDailySales.set(vrIndex-1, dsAnt);
+            }
+            modelDS = new DailySalesModel(listDailySales);
+        } else {
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
+        }
+
+    }
     
     public void clearReports() {
         listTemp.clear();
@@ -306,6 +402,9 @@ public class ReportsBean  {
         totNom = 0.0;
         totCor = 0.0;
         totPag = 0.0;
+        guide = new Guide();
+        fecIni = new Date();
+        fecFin = new Date();        
     }
     
     public Sale getSale() {
