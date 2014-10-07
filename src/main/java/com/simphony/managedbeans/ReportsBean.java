@@ -281,8 +281,8 @@ public class ReportsBean  {
         if (this.guide.getBus().getNumber() != null && this.guide.getDepartureDate() != null) {
             listDailySales.clear();
 
-//            listDailySales = reportsService.getReportsRepository().busIncome(this.guide.getBus().getNumber(),
-//                    this.fecIni, finD);
+            listDailySales = reportsService.getReportsRepository().busIncome(this.guide.getBus().getId(),
+                    this.fecIni, finD);
 
             modelDS = new DailySalesModel(listDailySales);
         } else {

@@ -6,6 +6,7 @@
 package com.simphony.managedbeans;
 
 import com.simphony.beans.GuideService;
+import com.simphony.beans.SalePointService;
 import com.simphony.entities.Guide;
 import com.simphony.entities.SaleDetail;
 import com.simphony.entities.User;
@@ -44,7 +45,13 @@ public class GuideBean implements IConfigurable {
 
     @ManagedProperty(value = "#{guideService}")
     private GuideService guideService;
+    
+    @ManagedProperty(value = "#{salePointService}")
+    private SalePointService salePointService;
+
     private Calendar cal = Calendar.getInstance();
+    private String tit1 = "";
+    private String tit2 = "";
 
     /**
      * Creates a new instance of GuideBean
@@ -72,6 +79,14 @@ public class GuideBean implements IConfigurable {
 
     public void setGuideService(GuideService guideService) {
         this.guideService = guideService;
+    }
+
+    public SalePointService getSalePointService() {
+        return salePointService;
+    }
+
+    public void setSalePointService(SalePointService salePointService) {
+        this.salePointService = salePointService;
     }
 
     public List<Guide> getList() {
@@ -104,6 +119,22 @@ public class GuideBean implements IConfigurable {
 
     public void setCurrent(Guide current) {
         this.current = current;
+    }
+
+    public String getTit1() {
+        return tit1;
+    }
+
+    public void setTit1(String tit1) {
+        this.tit1 = tit1;
+    }
+
+    public String getTit2() {
+        return tit2;
+    }
+
+    public void setTit2(String tit2) {
+        this.tit2 = tit2;
     }
 
     /**
@@ -182,6 +213,8 @@ public class GuideBean implements IConfigurable {
                     }
                 }
             }
+            tit1 = this.salePointService.getSalePointRepository().tit1(this.selected.getOrigin().getId());
+            tit2 = this.salePointService.getSalePointRepository().tit2(this.selected.getOrigin().getId());
             this.ordenaAsi();
             return "toGuideDetail";
         } else {

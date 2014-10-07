@@ -22,4 +22,10 @@ public interface SalePointRepository extends JpaRepository<SalePoint, Long> {
     @Query("SELECT s FROM SalePoint s WHERE s.description = (:description)")
     public SalePoint findByDesc(@Param("description") String description);
 
+    @Query("SELECT titular1 FROM SalePoint s WHERE s.city.id = (:idOrigin)")
+    public String tit1(@Param("idOrigin") Long idOrigin);
+
+    @Query("SELECT titular2 FROM SalePoint s WHERE s.city.id = (:idOrigin)")
+    public String tit2(@Param("idOrigin") Long idOrigin);
+
 }
