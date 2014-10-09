@@ -6,7 +6,13 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <f:view contentType="text/html">
-        <h:body>
+    <script type="text/javascript">
+        function setFocus()
+        {
+            document.getElementById("payRoll").focus();
+        }
+        </script>        
+        <h:body onload="setFocus();">
 
             <ui:composition>
 
@@ -22,7 +28,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:inputText id="payRoll" value="#{payRollBean.payRoll.idPayRoll}" maxlength="10" required="true" 
-                                                 requiredMessage="Folio requerido" style="width: 60px;"/>
+                                                 requiredMessage="Folio requerido" style="width: 60px;" />
                                     <p:message for="payRoll" />
                                 </p:column>
                                 <p:column>

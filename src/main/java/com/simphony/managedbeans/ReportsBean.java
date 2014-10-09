@@ -163,11 +163,12 @@ public class ReportsBean  {
                     totNom = totNom + dl.getPayment().getAmount();
                 }
                 if(dl.getPayment().getPayType().getId() == 3){
-                    totPag = totPag + dl.getPayment().getAmount();
+                    totCor = totCor + dl.getPayment().getAmount();
                 }
                 if(dl.getPayment().getPayType().getId() == 4){
-                    totCor = totCor + dl.getPayment().getAmount();
-                }            }      
+                    totPag = totPag + dl.getPayment().getAmount();
+                }
+            }      
         } else {
                 GrowlBean.simplyErrorMessage("Error de datos", "Falta Asesor de Venta o fecha...");
         }
@@ -250,14 +251,13 @@ public class ReportsBean  {
                     totNom = totNom + dl.getPayment().getAmount();
                 }
                 if (dl.getPayment().getPayType().getId() == 3) {
+                    totCor = totCor + dl.getPayment().getAmount();
+                }
+                if (dl.getPayment().getPayType().getId() == 4) {
                     usrPag = usrPag + dl.getPayment().getAmount();
                     totPag = totPag + dl.getPayment().getAmount();
                 }
-                if (dl.getPayment().getPayType().getId() == 4) {
-                    totCor = totCor + dl.getPayment().getAmount();
-                }
             }
-
             s = dx.getSale();
             s.setAmount(usrEfe);
             s.setDiscount(usrNom);

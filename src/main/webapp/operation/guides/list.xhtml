@@ -26,10 +26,10 @@
                                     >
 
                             <p:column headerText="#{msgs.cat_date}" filterBy="#{guide.formatDepartureDate}"
-                                      filterMatchMode="contains" >
+                                      filterMatchMode="contains" style="width:110px" >
                                 <p:outputLabel value="#{guide.formatDepartureDate}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_departureTime}" >
+                            <p:column headerText="#{msgs.cat_departureTime}" style="width:35px" >
                                 <p:outputLabel value="#{guide.formatDepartureTime}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_origin}" >
@@ -38,16 +38,16 @@
                              <p:column headerText="#{msgs.cat_destiny}" >
                                  <p:outputLabel value="#{guide.finalDestiny.description}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_bus}" >
+                            <p:column headerText="#{msgs.cat_bus}" style="width:60px" >
                                 <p:outputLabel value="#{guide.bus.number}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_driverMan}" >
                                 <p:outputLabel value="#{guide.driverMan1.firstLastName} #{guide.driverMan1.name}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_quota}" >
+                            <p:column headerText="#{msgs.cat_quota}" style="width:35px" >
                                 <p:outputLabel value="#{guide.quota}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_status}" >
+                            <p:column headerText="#{msgs.cat_status}" style="width:100px" >
                                 <p:outputLabel value="#{guide.formatStatus}" />
                             </p:column>
                             

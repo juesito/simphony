@@ -165,7 +165,7 @@
                                                 <p:panel styleClass="#{saleBean.columnClass(seat.id)}" rendered="#{seat.seat ne 'OC'}">
 
                                                     <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
-                                                                   title="Seleccione asiento" >
+                                                                   title="Seleccione asiento">
 
                                                         <p:outputLabel value="#{seat.seat}" />
                                                         <f:setPropertyActionListener value="#{seat}" target="#{saleBean.selectedSeat}" />
