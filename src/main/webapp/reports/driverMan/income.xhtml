@@ -60,7 +60,15 @@
                                     <p:outputLabel value="#{reportsBean.totVta}" />
                                 </p:column>
                             </p:row>
-                            <p:row>
+                             <p:row>
+                                <p:column style="padding-top: 15px; ">
+                                    <p:outputLabel value="Kms:" />
+                                </p:column>
+                                <p:column style="width: 120px; padding-top: 15px; ">
+                                    <p:outputLabel value="#{reportsBean.totKms}" />
+                                </p:column>
+                            </p:row>
+                           <p:row>
                                 <p:column style="padding-top: 20px; ">
                                     <p:commandButton value="Procesar" actionListener="#{reportsBean.findDriverManIncome()}" 
                                                     ajax="true" styleClass="button-rounded" icon="ui-icon-play"
@@ -92,6 +100,9 @@
                             </p:column>
                             <p:column headerText="#{msgs.cat_bus}" >
                                 <p:outputLabel value="#{ic.guide.bus.number}" />
+                            </p:column>
+                            <p:column headerText="Kms" >
+                                <p:outputLabel value="#{ic.kms}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_income}" >
                                 <p:outputLabel value="#{ic.detIncome}" />

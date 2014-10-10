@@ -55,7 +55,9 @@ public interface ReportsRepository extends JpaRepository<Sale, Long> {
     @Query("SELECT NEW com.simphony.pojos.DailySales(g, " +
            "(SELECT SUM(sd.amount - sd.discount) FROM SaleDetail sd, GuideDetail gd  "+
            " WHERE sd.status = 'V' AND sd.sale.id = gd.sale.id " +
-           " AND g.id = gd.guide.id ))" +
+           " AND g.id = gd.guide.id ), " +
+           "(SELECT c.kms FROM Cost c " +
+           " WHERE c.origin.id = g.origin.id AND c.destiny.id = g.destiny.id )) " +
            " FROM Guide g "  +
            " WHERE (g.driverMan1.id = :driverManId OR g.driverMan2.id = :driverManId) " +
            " AND g.departureDate BETWEEN :iniDate AND :finDate ")

@@ -51,6 +51,7 @@ public class ReportsBean  {
     private Double  totNom;
     private Double  totCor;
     private Double  totPag;
+    private int totKms;
 
     @ManagedProperty(value = "#{reportsService}")
     private ReportsService reportsService;
@@ -350,7 +351,7 @@ public class ReportsBean  {
                 Long idOrigin = (long) 0;
                 Long idRoute = (long) 0;
                 Double income = 0.0;
-                totVta = 0.0;
+                totKms = 0;
                 DailySales dsAnt = new DailySales();
                 int vrIndex = 0;
                 for (DailySales ds : c) {
@@ -374,11 +375,13 @@ public class ReportsBean  {
                             income = income + ds.getDetIncome();
                         }
                         vrIndex += 1;
+                        totKms = totKms + ds.getKms();
                         listDailySales.add(ds);
                     }
                 }
                 dsAnt.setDetIncome(income);
                 totVta = totVta + income;
+                totKms = totKms + dsAnt.getKms();
                 listDailySales.set(vrIndex-1, dsAnt);
             }
             modelDS = new DailySalesModel(listDailySales);
@@ -402,6 +405,7 @@ public class ReportsBean  {
         totNom = 0.0;
         totCor = 0.0;
         totPag = 0.0;
+        totKms = 0;
         guide = new Guide();
         fecIni = new Date();
         fecFin = new Date();        
@@ -533,6 +537,14 @@ public class ReportsBean  {
 
     public void setGuide(Guide guide) {
         this.guide = guide;
+    }
+
+    public int getTotKms() {
+        return totKms;
+    }
+
+    public void setTotKms(int totKms) {
+        this.totKms = totKms;
     }
 
 }
