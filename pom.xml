@@ -189,15 +189,11 @@
             </plugin>
             <plugin>  
                 <groupId>org.codehaus.mojo</groupId>  
-                <artifactId>jasperreports-maven-plugin</artifactId>  
-                <version>1.0-beta-1</version>  
-            </plugin>  
-            <plugin>  
-                <groupId>org.codehaus.mojo</groupId>  
-                <artifactId>jasperreports-maven-plugin</artifactId>  
+                <artifactId>jasperreports-maven-plugin</artifactId>
+                <version>1.0-beta-1</version>    
                 <configuration>  
-                    <sourceDirectory>C:\Users\Leonor\Documents\NetBeansProjects\simphony\src\main\webapp\reports\reports</sourceDirectory>  
-                    <outputDirectory>C:\Users\Leonor\Documents\NetBeansProjects\simphony\src\main\webapp\reports\reportsCompiled</outputDirectory>  
+                    <sourceDirectory>C:\JasperReportsSimphony</sourceDirectory>  
+                    <outputDirectory>C:\JasperReportsSimphony</outputDirectory>  
                 </configuration>  
                 <executions>  
                     <execution>  
