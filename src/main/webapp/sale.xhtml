@@ -130,6 +130,12 @@
                                                 <p:column headerText="Vía">
                                                     <p:outputLabel value="#{ic.itinerary.via}" />
                                                 </p:column>
+                                                <p:column headerText="Ocupados">
+                                                    <p:outputLabel value="#{ic.reservedSeats}" />
+                                                </p:column>
+                                                <p:column headerText="Disponibles">
+                                                    <p:outputLabel value="#{ic.freeSeats}" />
+                                                </p:column>
                                             </p:dataTable>
                                         </p:column>
                                     </p:row>

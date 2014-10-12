@@ -166,6 +166,10 @@ public class SaleBean implements IConfigurable {
 
                     rootItinerary.setDepartureTime(itineraryCost1.getDepartureTime());
                     guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
+                    List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guideRoot.getRootGuide(), guideRoot.getRootRoute());
+                    
+                    itineraryCost1.setReservedSeats(reservedSeats.size());
+                    itineraryCost1.setFreeSeats(guideRoot.getQuota() - reservedSeats.size());
 
                     if (guideRoot != null && !guideRoot.getStatus().equals(_GUIDE_TYPE_CLOSED)) {
                         lastItinerary.add(itineraryCost1);

@@ -22,6 +22,8 @@ public class ItineraryCost implements IConfigurable {
     private Integer rowId;
     private Date departureTime;
     private Boolean normalMode;
+    private int reservedSeats;
+    private int freeSeats;
 
     public ItineraryCost() {
         rowId = (int) (Math.random()*5000+1);
@@ -32,6 +34,8 @@ public class ItineraryCost implements IConfigurable {
         this.cost = cost;        
         rowId = (int) (Math.random()*5000+1);
         normalMode = true;
+        reservedSeats = 0;
+        freeSeats = 0;
 
     }
 
@@ -41,6 +45,8 @@ public class ItineraryCost implements IConfigurable {
         this.cost = cost;
         rowId = (int) (Math.random()*5000+1);
         normalMode = false;
+        reservedSeats = 0;
+        freeSeats = 0;
     }
 
     public Itinerary getItinerary() {
@@ -102,6 +108,25 @@ public class ItineraryCost implements IConfigurable {
     public void setRowId(Integer rowId) {        
         this.rowId = rowId;
     }
+
+    public int getReservedSeats() {
+        return reservedSeats;
+    }
+
+    public void setReservedSeats(int reservedSeats) {
+        this.reservedSeats = reservedSeats;
+    }
+
+    public int getFreeSeats() {
+        return freeSeats;
+    }
+
+    public void setFreeSeats(int freeSeats) {
+        this.freeSeats = freeSeats;
+    }
+    
+    
+
     
     public String getFormatDepartureTime(){
         if(this.departureTime != null){
