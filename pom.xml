@@ -132,6 +132,11 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>  
+            <groupId>jasperreports</groupId>  
+            <artifactId>jasperreports</artifactId>  
+            <version>3.0.0</version>  
+        </dependency> 
 
     </dependencies>
 
@@ -182,6 +187,34 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>  
+                <groupId>org.codehaus.mojo</groupId>  
+                <artifactId>jasperreports-maven-plugin</artifactId>  
+                <version>1.0-beta-1</version>  
+            </plugin>  
+            <plugin>  
+                <groupId>org.codehaus.mojo</groupId>  
+                <artifactId>jasperreports-maven-plugin</artifactId>  
+                <configuration>  
+                    <sourceDirectory>C:\Users\Leonor\Documents\NetBeansProjects\simphony\src\main\webapp\reports\reports</sourceDirectory>  
+                    <outputDirectory>C:\Users\Leonor\Documents\NetBeansProjects\simphony\src\main\webapp\reports\reportsCompiled</outputDirectory>  
+                </configuration>  
+                <executions>  
+                    <execution>  
+                        <goals>  
+                            <goal>compile-reports</goal>  
+                        </goals>  
+                        <phase>compile</phase>  
+                    </execution>  
+                </executions>  
+                <dependencies>  
+                    <dependency>  
+                        <groupId>jasperreports</groupId>  
+                        <artifactId>jasperreports</artifactId>  
+                        <version>3.0.0</version>  
+                    </dependency>  
+                </dependencies>  
+            </plugin>  
         </plugins>
     </build>
 
