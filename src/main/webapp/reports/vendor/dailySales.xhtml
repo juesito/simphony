@@ -145,11 +145,17 @@
                         <!-- Data table -->
                         <p:dataTable id="saleDetailDT" value="#{reportsBean.modelDS}" var="ic" 
                                       emptyMessage="Sin ventas registradas"  >
-                            <p:column headerText="Folio" >
+                            <p:column headerText="Folio" style="width:50px" >
                                 <p:outputLabel value="#{ic.sale.id}" />
                             </p:column>
-                            <p:column headerText="Hora Vta" >
+                            <p:column headerText="Hora Vta" style="width:60px" >
                                 <p:outputLabel value="#{ic.sale.getFormatCreateTime()}" />
+                            </p:column>
+                            <p:column headerText="Fecha Salida" >
+                                <p:outputLabel value="#{ic.sale.getFormatDateTime()}" />
+                            </p:column>
+                            <p:column headerText="Hora Salida" style="width:50px" >
+                                <p:outputLabel value="#{ic.sale.getFormatTime()}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_origin}" >
                                 <p:outputLabel value="#{ic.sale.origin.description}" />

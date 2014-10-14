@@ -158,10 +158,10 @@ public class ReportsBean  {
                     idAnt = dl.getSale().getId();
                 } 
                 if(dl.getPayment().getPayType().getId() == 1){
-                    totEfe = totEfe + dl.getPayment().getAmount();
+                    totNom = totNom + dl.getPayment().getAmount();
                 }
                 if(dl.getPayment().getPayType().getId() == 2){
-                    totNom = totNom + dl.getPayment().getAmount();
+                    totEfe = totEfe + dl.getPayment().getAmount();
                 }
                 if(dl.getPayment().getPayType().getId() == 3){
                     totCor = totCor + dl.getPayment().getAmount();
@@ -244,12 +244,12 @@ public class ReportsBean  {
                     idAnt = dl.getSale().getId();
                 }
                 if (dl.getPayment().getPayType().getId() == 1) {
-                    usrEfe = usrEfe + dl.getPayment().getAmount();
-                    totEfe = totEfe + dl.getPayment().getAmount();
-                }
-                if (dl.getPayment().getPayType().getId() == 2) {
                     usrNom = usrNom + dl.getPayment().getAmount();
                     totNom = totNom + dl.getPayment().getAmount();
+                }
+                if (dl.getPayment().getPayType().getId() == 2) {
+                    usrEfe = usrEfe + dl.getPayment().getAmount();
+                    totEfe = totEfe + dl.getPayment().getAmount();
                 }
                 if (dl.getPayment().getPayType().getId() == 3) {
                     totCor = totCor + dl.getPayment().getAmount();
