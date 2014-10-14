@@ -158,20 +158,28 @@ public class SaleBean implements IConfigurable {
                     Long route = itineraryCost1.getItinerary().getRoute().getId();
                     Itinerary rootItinerary
                             = itineraryService.getItineraryRepository().findOne(route);
+                    
                     calTimeTmp.setTime(itineraryCost1.getItinerary().getDepartureTime());
 
                     Calendar calendar = new GregorianCalendar(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
                             calTimeTmp.get(Calendar.HOUR_OF_DAY), calTimeTmp.get(Calendar.MINUTE), calTimeTmp.get(Calendar.SECOND));
                     itineraryCost1.setDepartureTime(calendar.getTime());
 
-                    rootItinerary.setDepartureTime(itineraryCost1.getDepartureTime());
+                    rootItinerary.setDepartureTime(itineraryCost1.getDepartureTime());                    
                     guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
-                    List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guideRoot.getRootGuide(), guideRoot.getRootRoute());
-                    
-                    itineraryCost1.setReservedSeats(reservedSeats.size());
-                    itineraryCost1.setFreeSeats(guideRoot.getQuota() - reservedSeats.size());
 
-                    if (guideRoot != null && !guideRoot.getStatus().equals(_GUIDE_TYPE_CLOSED)) {
+                    if (guideRoot != null){
+                        if(!guideRoot.getStatus().equals(_GUIDE_TYPE_CLOSED))
+                         {
+                            List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guideRoot.getRootGuide(), guideRoot.getRootRoute());
+                            itineraryCost1.setReservedSeats(reservedSeats.size());
+                            itineraryCost1.setFreeSeats(guideRoot.getQuota() - reservedSeats.size());
+                            lastItinerary.add(itineraryCost1);
+                         }
+                    }else{
+                        itineraryCost1.setReservedSeats(0);
+                        itineraryCost1.setFreeSeats(_DEFAULT_SEAT_NUMBER);
+                        
                         lastItinerary.add(itineraryCost1);
                     }
 
