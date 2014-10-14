@@ -390,7 +390,103 @@ public class ReportsBean  {
         }
 
     }
-    
+
+        /**
+     * Buscamos ventas diarias
+     *
+     * @throws java.text.ParseException
+     */
+    public void findDailySalesMonth() throws ParseException {
+        totMov = new Long(0);
+        totAgr = new Long(0);
+        totPub = new Long(0);
+        totRet = new Long(0);
+        totVta = 0.0;
+        totEfe = 0.0;
+        totNom = 0.0;
+        totCor = 0.0;
+        totPag = 0.0;
+        Double usrEfe = 0.0;
+        Double usrNom = 0.0;
+        Double usrCor = 0.0;
+        Double usrPag = 0.0;
+        Calendar finDate = Calendar.getInstance();
+        finDate.setTime(this.sale.getCreateDate());
+        finDate.add(Calendar.HOUR, 23);
+        finDate.add(Calendar.MINUTE, 59);
+        Date finD = finDate.getTime();
+
+        if (this.salePointTmp.getId() != null && this.sale.getCreateDate() != null) {
+            listDailySales.clear();
+
+            listDailySales = reportsService.getReportsRepository().dailySalesPoint(this.salePointTmp.getId(),
+                    this.sale.getCreateDate(), finD);
+
+            listTemp.clear();
+            Long idVendor = (long) 0;
+            Long idAnt = (long) 0;
+            DailySales dx = new DailySales();
+            Sale s = new Sale();
+            Vendor v = new Vendor();
+            boolean unaVez = true;
+            String vrNick = "";
+            for (DailySales dl : listDailySales) {
+                if (unaVez) {
+                    idVendor = dl.getSale().getVendor().getId();
+                    vrNick = dl.getSale().getVendor().getNick();
+                    dx = dl;
+                    unaVez = false;
+                }
+                if (idVendor != dl.getSale().getVendor().getId()) {
+                    s = dx.getSale();
+                    s.setAmount(usrEfe);
+                    s.setDiscount(usrNom);
+                    s.setSubTotal(usrPag);
+                    listTemp.add(dx);
+                    idVendor = dl.getSale().getVendor().getId();
+                    vrNick = dl.getSale().getVendor().getNick();
+                    dx = dl;
+                    usrEfe = 0.0;
+                    usrNom = 0.0;
+                    usrPag = 0.0;
+                }
+                totMov += 1;
+                totVta = totVta + dl.getPayment().getAmount();
+                if (dl.getSale().getId() != idAnt) {
+                    totAgr = totAgr + dl.getDetAssociates();
+                    totPub = totPub + dl.getDetPublico();
+                    totRet = totRet + dl.getDetRetires();
+                    idAnt = dl.getSale().getId();
+                }
+                if (dl.getPayment().getPayType().getId() == 1) {
+                    usrEfe = usrEfe + dl.getPayment().getAmount();
+                    totEfe = totEfe + dl.getPayment().getAmount();
+                }
+                if (dl.getPayment().getPayType().getId() == 2) {
+                    usrNom = usrNom + dl.getPayment().getAmount();
+                    totNom = totNom + dl.getPayment().getAmount();
+                }
+                if (dl.getPayment().getPayType().getId() == 3) {
+                    totCor = totCor + dl.getPayment().getAmount();
+                }
+                if (dl.getPayment().getPayType().getId() == 4) {
+                    usrPag = usrPag + dl.getPayment().getAmount();
+                    totPag = totPag + dl.getPayment().getAmount();
+                }
+            }
+            s = dx.getSale();
+            s.setAmount(usrEfe);
+            s.setDiscount(usrNom);
+            s.setSubTotal(usrPag);
+            dx.setSale(s);
+            listTemp.add(dx);
+            modelDS = new DailySalesModel(listTemp);
+        } else {
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta Punto de Venta o fecha...");
+        }
+
+    }
+
     public void clearReports() {
         listTemp.clear();
         listDailySales.clear();

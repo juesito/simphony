@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/templates/catalog.xhtml">
+
+            <ui:define name="content">
+                <div class="catalog-table">
+                    <h:form id="form">
+                        
+                        <p:outputLabel value="#{msgs.cat_workers}" class="welcome-title" />
+                        
+                         <br />
+                        <!-- Data table -->
+                        <p:dataTable value="#{workerBean.model}" var="worker" style="font-size: 12px;"
+                                     selectionMode="single" selection="#{workerBean.selected}" 
+                                     rowKey="#{worker.id}" id="workerDT" 
+                                     emptyMessage="#{msgs.no_records_found}" rows="20"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}"
+                                     >
+                           
+                            <p:column headerText="#{msgs.cat_keyId}" filterBy="#{worker.keyId}"
+                                      filterMatchMode="contains" >
+                                <p:outputLabel value="#{worker.keyId}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_name}" filterBy="#{worker.name}"
+                                      filterMatchMode="contains" >
+                                <p:outputLabel value="#{worker.name}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_firstLastName}" >
+                                <p:outputLabel value="#{worker.secondLastName}" />
+                            </p:column>
+                            <p:column headerText="#{msgs.cat_secondLastName}" >
+                                <p:outputLabel value="#{worker.firstLastName}" />
+                            </p:column>
+                             <p:column headerText="#{msgs.cat_position}" >
+                                <p:outputLabel value="#{worker.position}" />
+                            </p:column>                            
+                            <p:column headerText="#{msgs.cat_status}" >
+                                <p:outputLabel value="#{worker.formatStatus}" />
+                            </p:column>
+                            
+                             <!-- Footer -->
+                            <f:facet name="footer">
+                                <p:commandButton process="workerDT" 
+                                                 update=":form:workerDetail" icon="ui-icon-search" 
+                                                 value="#{msgs.but_visualize}" oncomplete="PF('workerDialog').show()" />
+                                <p:commandButton process="workerDT" 
+                                                 icon="ui-icon-wrench" ajax="false"
+                                                 value="#{msgs.but_modify}" action="#{workerBean.modifyWorker()}" />
+                                <h:commandLink>
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
+                                    
+                                    <p:dataExporter type="xls" target="workerDT" fileName="#{msgs.cat_workers}" />
+                                </h:commandLink>
+                            </f:facet>
+
+                        </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                            <p:commandButton value="#{msgs.but_yes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
+                        <p:commandButton value="#{msgs.but_add}" action="#{workerBean.addWorker}"
+                                         styleClass="catalog-button" ajax="false" icon="ui-icon-copy"/>
+
+                        <!-- detalle agremiados -->
+                        <p:dialog header="#{msgs.cat_detail} #{msgs.cat_worker}" widgetVar="workerDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="false">
+                            <p:outputPanel id="workerDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty workerBean.selected}" columnClasses="label,value" >
+                                    
+                                    <h:outputText value="#{msgs.cat_keyId}" />
+                                    <h:outputText value="#{workerBean.selected.keyId}" />
+
+                                    <h:outputText value="#{msgs.cat_name}:" />
+                                    <h:outputText value="#{workerBean.selected.name}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_firstLastName}:" />
+                                    <h:outputText value="#{workerBean.selected.secondLastName}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_secondLastName}:" />
+                                    <h:outputText value="#{workerBean.selected.firstLastName}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_address}:" />
+                                    <h:outputText value="#{workerBean.selected.address}" />
+
+                                    <h:outputText value="#{msgs.cat_colony}:" />
+                                    <h:outputText value="#{workerBean.selected.colony}" />
+
+                                    <h:outputText value="#{msgs.cat_zipCode}:" />
+                                    <h:outputText value="#{workerBean.selected.zipCode}" />
+
+                                    <h:outputText value="#{msgs.cat_state}:" />
+                                    <h:outputText value="#{workerBean.selected.state}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_platform}:" />
+                                    <h:outputText value="#{workerBean.selected.platform}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_section}:" />
+                                    <h:outputText value="#{workerBean.selected.section}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_group}:" />
+                                    <h:outputText value="#{workerBean.selected.group}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_phoneId}:" />
+                                    <h:outputText value="#{workerBean.selected.phoneId}" />
+                                                                       
+                                    <h:outputText value="Micro:" />
+                                    <h:outputText value="#{workerBean.selected.micro}" />
+                                                                       
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{workerBean.selected.email}" />
+                                                                       
+                                    <h:outputText value="#{msgs.cat_status}:" />
+                                    <h:outputText value="#{workerBean.selected.formatStatus}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_createDate}:" />
+                                    <h:outputText value="#{workerBean.selected.createDate}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_updateDate}:" />
+                                    <h:outputText value="#{workerBean.selected.lastUpdate}" />
+                                                                       
+                                     <h:outputText value="#{msgs.cat_user}:" />
+                                     <h:outputText value="#{workerBean.selected.user.name}" />
+                                                                       
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

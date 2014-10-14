@@ -64,6 +64,13 @@ public interface ReportsRepository extends JpaRepository<Sale, Long> {
     public List<DailySales> driverManIncome(@Param("driverManId") Long busId, @Param("iniDate") Date iniDate,
                                        @Param("finDate") Date finDate);
     
+//    @Query("SELECT NEW com.simphony.pojos.DailySales(p, s, " +
+//           " FROM Payment p, Sale s " +
+//           " WHERE s.id = p.sale.id " +
+//           " AND s.tripDate BETWEEN :iniDate AND :finDate " +
+//           " GROUP BY s.tripDate " )
+//    public List<DailySales> dailySalesMonth(@Param("iniDate") Date iniDate, @Param("finDate") Date finDate);
+
 //    select g.*, (SELECT SUM(importe) from detalleventa dv, detalleguia dg 
 //    where dv.sale_id = dg.sale_id AND g.id = dg.guide_id) AS 'INGRESO' from dbo.Guias g where bus_id = 1;
 
