@@ -63,4 +63,7 @@ public interface IConfigurable {
     final String _PENDING = "P";
     final String _ROUNDED = "SR";
 
+    final String _REPORT_PATH = "C:\\JasperReportsSimphony\\";
+    final String _REPORT_PDF = "application/pdf";
+    final String _REPORT_HTML = "text/html";
 }
