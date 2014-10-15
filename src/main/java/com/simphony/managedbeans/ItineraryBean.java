@@ -205,7 +205,8 @@ public class ItineraryBean implements IConfigurable {
 
         try {
             Itinerary itineratyTemp = this.itineraryService.getItineraryRepository().findByOriginAndDestiny(
-                    this.itinerary.getDepartureTime(),this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
+                    this.itinerary.getDepartureTime(),this.itinerary.getOrigin().getId(), 
+                    this.itinerary.getDestiny().getId(), this.itinerary.getRoute().getId());
             if(itineratyTemp == null){
                 exist = false;
             }
@@ -266,7 +267,8 @@ public class ItineraryBean implements IConfigurable {
         Itinerary itineratyTemp = new Itinerary() ;
         try {
             itineratyTemp = this.itineraryService.getItineraryRepository().findByOriginAndDestiny(
-                    this.itinerary.getDepartureTime(),this.itinerary.getOrigin().getId(), this.itinerary.getDestiny().getId());
+                    this.itinerary.getDepartureTime(),this.itinerary.getOrigin().getId(), 
+                    this.itinerary.getDestiny().getId(), this.itinerary.getRoute().getId());
             if(itineratyTemp == null){
                 exist = false;
             }

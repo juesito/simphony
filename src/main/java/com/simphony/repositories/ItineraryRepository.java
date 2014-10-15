@@ -20,8 +20,10 @@ public interface ItineraryRepository extends JpaRepository<Itinerary, Long> {
 
     @Query("SELECT a FROM Itinerary a "
             + " WHERE a.departureTime = (:departureTime) AND a.origin.id = (:originId) "
-            + "   AND a.destiny.id = (:destinyId) ")
-    public Itinerary findByOriginAndDestiny(@Param("departureTime") Date departureTime, @Param("originId") Long originId, @Param("destinyId") Long destinyId);
+            + "   AND a.destiny.id = (:destinyId)  AND a.route.id = (:routeId) ") 
+    public Itinerary findByOriginAndDestiny(@Param("departureTime") Date departureTime, 
+            @Param("originId") Long originId, @Param("destinyId") Long destinyId,
+            @Param("routeId") Long routeId);
 
     @Query("SELECT a FROM Itinerary a WHERE a.typeOfRoute = 'L' ")
     public List<Itinerary> findAllLocal();
