@@ -307,7 +307,7 @@ div{ display:block; }
     display: inline-block;
     vertical-align: top;
     margin-top: 15px;    
-    border: 1px solid rgba(27,71,48,1);
+    border: 0px solid rgba(27,71,48,1);
     padding: 10px 40px;     
     width: 60%;
     border-radius: 25px;

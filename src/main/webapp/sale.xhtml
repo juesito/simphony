@@ -43,7 +43,7 @@
 
                                     </p:row>
                                     <p:row>
-                                        <p:column>
+                                        <p:column style="padding-top: 20px;">
                                             <p:outputLabel value="Destino:" />
                                         </p:column>
 
@@ -62,7 +62,7 @@
 
                                     </p:row>
                                     <p:row>
-                                        <p:column>
+                                        <p:column style="padding-top: 25px;">
                                             <p:outputLabel value="Fecha de salida:" />
                                         </p:column>
                                     </p:row>
@@ -73,7 +73,7 @@
                                         </p:column>
                                     </p:row>
                                     <p:row>
-                                        <p:column>
+                                        <p:column style="padding-top: 25px;">
                                             <p:commandButton value="Buscar" actionListener="#{saleBean.findItinearies()}" 
                                                              ajax="true" styleClass="button-rounded" 
                                                              update=":saleForm:sale-panel :main-form:growl :saleForm:seatsForBook"   >
@@ -94,21 +94,12 @@
                                 <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
                                     <p:row>
                                         <p:column colspan="2">
-                                            <p:dataTable id="dic" value="#{saleBean.model}" var="ic" 
+                                            <p:outputLabel value="Seleccione una Ruta." style=" font-size:15px " />
+                                            <p:dataTable id="dic" value="#{saleBean.model}" var="ic" style="padding-top: 12px;"
                                                          selectionMode="single" selection="#{saleBean.selected}" 
                                                          rowKey="#{ic.rowId}" emptyMessage="Sin tarifas registradas"  >
-                                                <p:column headerText="Tipo ruta">                                                    
-                                                    <p:outputLabel value="#{ic.itinerary.formatTypeOfRoute}" />
-                                                </p:column>
                                                 <p:column headerText="hr Salida"> 
                                                     <p:outputLabel value="#{ic.formatDepartureTime}" />
-
-                                                </p:column>
-                                                <p:column headerText="Origen">
-                                                    <p:outputLabel value="#{ic.cost.origin.description}" />
-                                                </p:column>
-                                                <p:column headerText="Destino">
-                                                    <p:outputLabel value="#{ic.cost.destiny.description}" />
                                                 </p:column>
                                                 <p:column headerText="Costo">
                                                     <p:outputLabel value="#{ic.cost.cost}" />
@@ -116,21 +107,24 @@
                                                 <p:column headerText="Tiempo recorrido">
                                                     <p:outputLabel value="#{ic.cost.formatRouteTime}" />
                                                 </p:column>
-                                                <p:column headerText="Vía">
-                                                    <p:outputLabel value="#{ic.itinerary.via}" />
+                                                 <p:column headerText="Tipo ruta">                                                    
+                                                    <p:outputLabel value="#{ic.itinerary.formatTypeOfRoute}" />
                                                 </p:column>
-                                                <p:column headerText="Ocupados">
+                                                <p:column headerText="Ocup" style="width:27px">
                                                     <p:outputLabel value="#{ic.reservedSeats}" />
                                                 </p:column>
-                                                <p:column headerText="Disponibles">
+                                                <p:column headerText="Disp" style="width:22px">
                                                     <p:outputLabel value="#{ic.freeSeats}" />
+                                                </p:column>
+                                               <p:column headerText="Vía" style="width:120px">
+                                                    <p:outputLabel value="#{ic.itinerary.via}" />
                                                 </p:column>
                                             </p:dataTable>
                                         </p:column>
                                     </p:row>
                                     <p:row>
-                                        <p:column>
-                                            <p:commandButton icon="ui-icon-star" value="Disponibilidad"
+                                        <p:column style="padding-top: 25px;">
+                                            <p:commandButton icon="ui-icon-star" value="Seleccionar Asientos"
                                                              actionListener="#{saleBean.findAvailability(vendorBean.current)}"
                                                              ajax="true" partialSubmit="true" process=":saleForm:sale-panel" 
                                                              update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
@@ -146,12 +140,10 @@
                             <!-- Seats Grid -->
                             <p:panel id="seatsForBook">
                                 <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
-
                                     <p:row>
                                         <p:column>
-                                            <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4" 
-                                                        rows="40" paginator="false" id="seats" styleClass="grid-seats-main"
-                                                        >
+                                            <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4" rows="40"
+                                                        paginator="false" id="seats" styleClass="grid-seats-main" >
 
                                                 <f:facet name="header">
                                                     Asientos disponibles
@@ -176,9 +168,10 @@
                                         <p:column>
                                             <!-- lista de asientos ocupados -->
                                             <p:dataList value="#{saleBean.saleDetail}" id="selectedSeatsList" 
-                                                        var="unselectedseatList" type="ordered" itemType="none" styleClass="reservedSeat-grid" >
+                                                        var="unselectedseatList" type="ordered" itemType="none" 
+                                                        styleClass="reservedSeat-grid" emptyMessage=" ">
                                                 <f:facet name="header">
-                                                    <p:outputLabel value="Asientos reservados" style="font-size: 12px;" />
+                                                    <p:outputLabel value="Asientos elegidos" style="font-size: 12px;" />
                                                 </f:facet>
                                                 <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.removeSeat}" 
                                                                title="Seleccione asiento" ajax="true">
