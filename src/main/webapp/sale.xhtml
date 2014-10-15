@@ -74,18 +74,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:outputLabel value="Pasajeros:" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:inputText size="5" value="#{saleBean.sale.passengers}"
-                                                         maxlength="2" required="true" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
+                                            <p:commandButton value="Buscar" actionListener="#{saleBean.findItinearies()}" 
                                                              ajax="true" styleClass="button-rounded" 
                                                              update=":saleForm:sale-panel :main-form:growl :saleForm:seatsForBook"   >
                                                 <f:actionListener  binding="#{payRollBean.fillPayRolls()}"/>                                
