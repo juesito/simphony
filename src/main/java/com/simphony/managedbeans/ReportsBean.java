@@ -5,23 +5,30 @@
  */
 package com.simphony.managedbeans;
 
+import com.simphony.beans.JasperService;
 import com.simphony.beans.ReportsService;
 import com.simphony.entities.Bus;
 import com.simphony.entities.Guide;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SalePoint;
 import com.simphony.entities.Vendor;
+import com.simphony.interfases.IConfigurable;
 import com.simphony.models.DailySalesModel;
 import com.simphony.pojos.DailySales;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -29,7 +36,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class ReportsBean  {
+public class ReportsBean implements IConfigurable {
 
     private Sale sale = new Sale();
     private Guide guide = new Guide();
@@ -39,22 +46,25 @@ public class ReportsBean  {
     private List<DailySales> listTemp = new ArrayList<DailySales>();
     private SalePoint salePointTmp;
     private Bus bus = new Bus();
-    
+
     private Date fecIni = new Date();
     private Date fecFin = new Date();
     private Long totMov;
     private Long totAgr;
     private Long totPub;
     private Long totRet;
-    private Double  totVta;
-    private Double  totEfe;
-    private Double  totNom;
-    private Double  totCor;
-    private Double  totPag;
+    private Double totVta;
+    private Double totEfe;
+    private Double totNom;
+    private Double totCor;
+    private Double totPag;
     private int totKms;
 
     @ManagedProperty(value = "#{reportsService}")
     private ReportsService reportsService;
+
+    @ManagedProperty(value = "#{jasperService}")
+    private JasperService jasperService;
 
     /**
      * Creates a new instance of SaleBean
@@ -82,7 +92,6 @@ public class ReportsBean  {
     public void setListDailySales(List<DailySales> listDailySales) {
         this.listDailySales = listDailySales;
     }
-
 
     public DailySales getSelectedDS() {
         return selectedDS;
@@ -119,7 +128,8 @@ public class ReportsBean  {
         this.clearReports();
         return "toDriverManIncome";
     }
-/**
+
+    /**
      * Buscamos ventas diarias
      *
      * @throws java.text.ParseException
@@ -142,36 +152,36 @@ public class ReportsBean  {
 
         if (this.sale.getVendor() != null && this.sale.getCreateDate() != null) {
             listDailySales.clear();
-            
+
             listDailySales = reportsService.getReportsRepository().dailySales(this.sale.getVendor().getId(),
-                            this.sale.getCreateDate(), finD);
+                    this.sale.getCreateDate(), finD);
 
             modelDS = new DailySalesModel(listDailySales);
             Long idAnt = (long) 0;
             for (DailySales dl : listDailySales) {
                 totMov += 1;
                 totVta = totVta + dl.getPayment().getAmount();
-                if(dl.getSale().getId() != idAnt){
+                if (dl.getSale().getId() != idAnt) {
                     totAgr = totAgr + dl.getDetAssociates();
                     totPub = totPub + dl.getDetPublico();
                     totRet = totRet + dl.getDetRetires();
                     idAnt = dl.getSale().getId();
-                } 
-                if(dl.getPayment().getPayType().getId() == 1){
+                }
+                if (dl.getPayment().getPayType().getId() == 1) {
                     totNom = totNom + dl.getPayment().getAmount();
                 }
-                if(dl.getPayment().getPayType().getId() == 2){
+                if (dl.getPayment().getPayType().getId() == 2) {
                     totEfe = totEfe + dl.getPayment().getAmount();
                 }
-                if(dl.getPayment().getPayType().getId() == 3){
+                if (dl.getPayment().getPayType().getId() == 3) {
                     totCor = totCor + dl.getPayment().getAmount();
                 }
-                if(dl.getPayment().getPayType().getId() == 4){
+                if (dl.getPayment().getPayType().getId() == 4) {
                     totPag = totPag + dl.getPayment().getAmount();
                 }
-            }      
+            }
         } else {
-                GrowlBean.simplyErrorMessage("Error de datos", "Falta Asesor de Venta o fecha...");
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta Asesor de Venta o fecha...");
         }
 
     }
@@ -298,7 +308,7 @@ public class ReportsBean  {
                 for (DailySales ds : c) {
                     if (ds.getGuide().getDepartureDate().equals(depDate) && ds.getGuide().getOrigin().getId().equals(idOrigin)
                             && ds.getGuide().getRootRoute().equals(idRoute)) {
-                        if(ds.getDetIncome() != null){
+                        if (ds.getDetIncome() != null) {
                             income = income + ds.getDetIncome();
                         }
                     } else {
@@ -307,12 +317,12 @@ public class ReportsBean  {
                         idRoute = ds.getGuide().getRootRoute();
                         if (vrIndex != 0) {
                             dsAnt.setDetIncome(income);
-                            listDailySales.set(vrIndex-1, dsAnt);
+                            listDailySales.set(vrIndex - 1, dsAnt);
                             totVta = totVta + income;
                             income = 0.0;
                         }
-                        dsAnt = (DailySales)ds.clone();
-                        if(ds.getDetIncome() != null){
+                        dsAnt = (DailySales) ds.clone();
+                        if (ds.getDetIncome() != null) {
                             income = income + ds.getDetIncome();
                         }
                         vrIndex += 1;
@@ -321,7 +331,7 @@ public class ReportsBean  {
                 }
                 dsAnt.setDetIncome(income);
                 totVta = totVta + income;
-                listDailySales.set(vrIndex-1, dsAnt);
+                listDailySales.set(vrIndex - 1, dsAnt);
             }
             modelDS = new DailySalesModel(listDailySales);
         } else {
@@ -357,7 +367,7 @@ public class ReportsBean  {
                 for (DailySales ds : c) {
                     if (ds.getGuide().getDepartureDate().equals(depDate) && ds.getGuide().getOrigin().getId().equals(idOrigin)
                             && ds.getGuide().getRootRoute().equals(idRoute)) {
-                        if(ds.getDetIncome() != null){
+                        if (ds.getDetIncome() != null) {
                             income = income + ds.getDetIncome();
                         }
                     } else {
@@ -366,12 +376,12 @@ public class ReportsBean  {
                         idRoute = ds.getGuide().getRootRoute();
                         if (vrIndex != 0) {
                             dsAnt.setDetIncome(income);
-                            listDailySales.set(vrIndex-1, dsAnt);
+                            listDailySales.set(vrIndex - 1, dsAnt);
                             totVta = totVta + income;
                             income = 0.0;
                         }
-                        dsAnt = (DailySales)ds.clone();
-                        if(ds.getDetIncome() != null){
+                        dsAnt = (DailySales) ds.clone();
+                        if (ds.getDetIncome() != null) {
                             income = income + ds.getDetIncome();
                         }
                         vrIndex += 1;
@@ -382,7 +392,7 @@ public class ReportsBean  {
                 dsAnt.setDetIncome(income);
                 totVta = totVta + income;
                 totKms = totKms + dsAnt.getKms();
-                listDailySales.set(vrIndex-1, dsAnt);
+                listDailySales.set(vrIndex - 1, dsAnt);
             }
             modelDS = new DailySalesModel(listDailySales);
         } else {
@@ -391,7 +401,7 @@ public class ReportsBean  {
 
     }
 
-        /**
+    /**
      * Buscamos ventas diarias
      *
      * @throws java.text.ParseException
@@ -504,9 +514,9 @@ public class ReportsBean  {
         totKms = 0;
         guide = new Guide();
         fecIni = new Date();
-        fecFin = new Date();        
+        fecFin = new Date();
     }
-    
+
     public Sale getSale() {
         return sale;
     }
@@ -641,6 +651,31 @@ public class ReportsBean  {
 
     public void setTotKms(int totKms) {
         this.totKms = totKms;
+    }
+
+    public void viewSalesReport() throws JRException, ClassNotFoundException {
+        jasperService.setReportName("prueba.jasper");
+        jasperService.builtReport(_REPORT_PDF);
+    }
+
+    public void viewGuidesReport() throws JRException, ClassNotFoundException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        java.sql.Date frm_dte = null;
+        
+        try {
+            frm_dte = (java.sql.Date) sdf.parse("2014-10-15 05:00:00");
+        } catch (ParseException ex) {
+            Logger.getLogger(ReportsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("fechaSalida", frm_dte);
+        
+        jasperService.setReportName("prueba-leo.jasper");
+        jasperService.builtReport(parameters, _REPORT_PDF);
+    }
+
+    public void setJasperService(JasperService jasperService) {
+        this.jasperService = jasperService;
     }
 
 }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a32b08d-a7b7-4d51-8bfc-51a84204d6a0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     *,
+     ventas."id" AS ventas_id,
+     ventas."montoVenta" AS ventas_montoVenta,
+     ventas."fechaCreacion" AS ventas_fechaCreacion,
+     ventas."pasajeros" AS ventas_pasajeros,
+     ventas."jubilados" AS ventas_jubilados,
+     ventas."fechaSalida" AS ventas_fechaSalida,
+     ventas."tipo" AS ventas_tipo,
+     ventas."descuento" AS ventas_descuento,
+     ventas."estatus" AS ventas_estatus
+FROM
+     "ventas" ventas]]>
+	</queryString>
+	<field name="id" class="java.math.BigDecimal"/>
+	<field name="montoVenta" class="java.lang.Double"/>
+	<field name="fechaCreacion" class="java.sql.Timestamp"/>
+	<field name="pasajeros" class="java.lang.Integer"/>
+	<field name="jubilados" class="java.lang.Integer"/>
+	<field name="fechaSalida" class="java.sql.Timestamp"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="associate_id" class="java.math.BigDecimal"/>
+	<field name="cancelVendor_id" class="java.math.BigDecimal"/>
+	<field name="destiny_id" class="java.math.BigDecimal"/>
+	<field name="origin_id" class="java.math.BigDecimal"/>
+	<field name="vendor_id" class="java.math.BigDecimal"/>
+	<field name="descuento" class="java.lang.Double"/>
+	<field name="subtotal" class="java.lang.Double"/>
+	<field name="fechaModificacion" class="java.sql.Timestamp"/>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="usuarioCancel" class="java.lang.String"/>
+	<field name="ventaReferenciada" class="java.math.BigDecimal"/>
+	<field name="TipoServicio" class="java.lang.String"/>
+	<field name="ventas_id" class="java.math.BigDecimal"/>
+	<field name="ventas_montoVenta" class="java.lang.Double"/>
+	<field name="ventas_fechaCreacion" class="java.sql.Timestamp"/>
+	<field name="ventas_pasajeros" class="java.lang.Integer"/>
+	<field name="ventas_jubilados" class="java.lang.Integer"/>
+	<field name="ventas_fechaSalida" class="java.sql.Timestamp"/>
+	<field name="ventas_tipo" class="java.lang.String"/>
+	<field name="ventas_descuento" class="java.lang.Double"/>
+	<field name="ventas_estatus" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="57" forecolor="#CCFF00" backcolor="#009933" uuid="c7897c5f-8bc2-4ca6-9834-ab3c8cb1bffa"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="135" y="17" width="145" height="30" forecolor="#FFFF00" uuid="b2a7b078-05cc-406b-b855-9b5f1148e0fc"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Reporte de ventas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="66" y="0" width="100" height="20" uuid="c9c47217-1a78-46ef-92cb-d2948af5cc2e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[pasajeros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="0" width="48" height="20" uuid="1ab856f0-3a15-4953-ba32-306ac23d4851"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="0" width="100" height="20" uuid="e4548dfc-b55c-4343-887a-c670c6efee9a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[fechaSalida]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="20" width="553" height="1" forecolor="#00CC00" uuid="9292e6e5-8714-4e68-b68e-ae23cd948068"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="66" y="0" width="100" height="20" uuid="04b7d05a-3238-4091-ad54-92e41fb321f1"/>
+				<textFieldExpression><![CDATA[$F{pasajeros}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="18" y="0" width="48" height="20" uuid="5621d5be-3df6-4f26-8cf1-dcfd62f30ec7"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="0" width="100" height="20" uuid="882d157b-e58b-49fb-bc22-e4eda0acae9d"/>
+				<textFieldExpression><![CDATA[$F{fechaSalida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="bcba5aee-f862-4dab-887a-c9b23007c961"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

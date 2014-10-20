@@ -163,9 +163,9 @@ public class SaleBean implements IConfigurable {
                 calTime.setTime(rootItinerary.getDepartureTime());
                 calTime.set(calTimeTmp.get(Calendar.YEAR), calTimeTmp.get(Calendar.MONTH), calTimeTmp.get(Calendar.DAY_OF_MONTH));
 
-                if (calTime.getTime().compareTo(this.sale.getTripDate()) > 0) {
-                    calTime.add(Calendar.DAY_OF_MONTH, -1);
-                }
+//                if (calTime.getTime().compareTo(this.sale.getTripDate()) > 0) {
+//                    calTime.add(Calendar.DAY_OF_MONTH, -1);
+//                }
 
                 calTimeTmp.setTime(itineraryCost1.getItinerary().getDepartureTime());
 
@@ -1369,4 +1369,5 @@ public class SaleBean implements IConfigurable {
         return "toPendingSale";
     }
 
+    
 }

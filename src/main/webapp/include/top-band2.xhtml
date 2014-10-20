@@ -68,6 +68,12 @@
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxDriverManService.fillBox()}"/>
                                 </p:menuitem>
+                                <p:menuitem value="Prueba Jasper" actionListener="#{reportsBean.viewSalesReport()}" 
+                                            ajax="false"   styleClass="miMenuItem">
+                                </p:menuitem>
+                                <p:menuitem value="Prueba Jasper Parameters" actionListener="#{reportsBean.viewGuidesReport()}" 
+                                            ajax="false"   styleClass="miMenuItem">
+                                </p:menuitem>
                             </p:submenu>
                             <p:submenu label="   Catalogos   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}"  >
                                 <p:menuitem value="Poblaciones" action="#{populationBean.toPopulations}" ajax="false" /> 

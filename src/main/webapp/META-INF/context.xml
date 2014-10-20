@@ -4,7 +4,6 @@
   <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" maxActive="20" maxIdle="10" maxWait="-1" name="simphonysql/jdbc" password="jeargaqu" type="javax.sql.DataSource" url="jdbc:sqlserver://localhost:433;databaseName=simphonybd" username="root"/>
   <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" maxActive="20" maxIdle="10" maxWait="-1" name="sqlserver/jdbc" password="jeargaqu" type="javax.sql.DataSource" url="jdbc:sqlserver://localhost:433;databaseName=simphonybd" username="root"/>
   <Resource auth="Container" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" maxActive="20" maxIdle="10" maxWait="-1" name="sqlServer/jdbc" password="jeargaqu" type="javax.sql.DataSource" url="jdbc:sqlserver://localhost:1433;databaseName=Simphonybd" username="root"/>
-  
 </Context>
 <!--
     -->

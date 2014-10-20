@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prueba-leo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b16f8cfe-421d-4b84-a017-5b7a942bfe92">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaSalida" class="java.sql.Timestamp"/>
+	<queryString>
+		<![CDATA[SELECT
+     Guias."id" AS Guias_id,
+     Guias."fechaCreacion" AS Guias_fechaCreacion,
+     Guias."fechaSalida" AS Guias_fechaSalida,
+     Guias."horaSalida" AS Guias_horaSalida,
+     Guias."referencia" AS Guias_referencia,
+     Guias."tipoGuia" AS Guias_tipoGuia,
+     Guias."cupo" AS Guias_cupo,
+     Guias."guiaPadre" AS Guias_guiaPadre,
+     Guias."rutaPadre" AS Guias_rutaPadre,
+     Guias."estatus" AS Guias_estatus,
+     Guias."usuarioMod" AS Guias_usuarioMod,
+     Guias."bus_id" AS Guias_bus_id,
+     Guias."destiny_id" AS Guias_destiny_id,
+     Guias."driverMan1_id" AS Guias_driverMan1_id,
+     Guias."driverMan2_id" AS Guias_driverMan2_id,
+     (select Poblaciones."descripcion" from "dbo"."Poblaciones" where Poblaciones."id" = Guias."finalDestiny_id") AS Guias_finalDestiny_id,
+     (select Poblaciones."descripcion" from "dbo"."Poblaciones" where Poblaciones."id" = Guias."origin_id") AS Guias_origin,
+     DetalleGuia."id" AS DetalleGuia_id,
+     DetalleGuia."guide_id" AS DetalleGuia_guide_id,
+     DetalleGuia."sale_id" AS DetalleGuia_sale_id,
+     DetalleVenta."id" AS DetalleVenta_id,
+     DetalleVenta."importe" AS DetalleVenta_importe,
+     DetalleVenta."tipoBol" AS DetalleVenta_tipoBol,
+     DetalleVenta."nombreCliente" AS DetalleVenta_nombreCliente,
+     DetalleVenta."descuento" AS DetalleVenta_descuento,
+     DetalleVenta."status" AS DetalleVenta_status,
+     DetalleVenta."tipoVta" AS DetalleVenta_tipoVta,
+     DetalleVenta."associate_id" AS DetalleVenta_associate_id,
+     DetalleVenta."sale_id" AS DetalleVenta_sale_id,
+     DetalleVenta."seat_id" AS DetalleVenta_seat_id,
+     DetalleVenta."Nota" AS DetalleVenta_Nota,
+     DetalleVenta."ventaReferenciada" AS DetalleVenta_ventaReferenciada,
+     DetalleVenta."TipoServicio" AS DetalleVenta_TipoServicio,
+     DetalleVenta."asientoReservado" AS DetalleVenta_asientoReservado,
+     Ventas."id" AS Ventas_id,
+     Ventas."montoVenta" AS Ventas_montoVenta,
+     Ventas."usuarioCancel" AS Ventas_usuarioCancel,
+     Ventas."fechaCreacion" AS Ventas_fechaCreacion,
+     Ventas."descuento" AS Ventas_descuento,
+     Ventas."fechaModificacion" AS Ventas_fechaModificacion,
+     Ventas."pasajeros" AS Ventas_pasajeros,
+     Ventas."jubilados" AS Ventas_jubilados,
+     Ventas."estatus" AS Ventas_estatus,
+     Ventas."subtotal" AS Ventas_subtotal,
+     Ventas."fechaSalida" AS Ventas_fechaSalida,
+     (select Poblaciones."descripcion" from "dbo"."Poblaciones" where Poblaciones."id" = Ventas."destiny_id") AS Ventas_destiny_id,
+     (select Poblaciones."descripcion" from "dbo"."Poblaciones" where Poblaciones."id" = Ventas."origin_id") AS Ventas_origin_id,
+     Ventas."vendor_id" AS Ventas_vendor_id,
+     Ventas."ventaReferenciada" AS Ventas_ventaReferenciada,
+     Ventas."TipoServicio" AS Ventas_TipoServicio
+FROM
+     "dbo"."Guias" Guias INNER JOIN "dbo"."DetalleGuia" DetalleGuia ON Guias."id" = DetalleGuia."guide_id"
+     INNER JOIN "dbo"."Ventas" Ventas ON DetalleGuia."sale_id" = Ventas."id"
+     INNER JOIN "dbo"."DetalleVenta" DetalleVenta ON Ventas."id" = DetalleVenta."sale_id"
+WHERE Guias."fechaSalida" = $P{fechaSalida}]]>
+	</queryString>
+	<field name="Guias_id" class="java.math.BigDecimal"/>
+	<field name="Guias_fechaCreacion" class="java.sql.Timestamp"/>
+	<field name="Guias_fechaSalida" class="java.sql.Timestamp"/>
+	<field name="Guias_horaSalida" class="java.sql.Timestamp"/>
+	<field name="Guias_referencia" class="java.lang.String"/>
+	<field name="Guias_tipoGuia" class="java.lang.String"/>
+	<field name="Guias_cupo" class="java.lang.Integer"/>
+	<field name="Guias_guiaPadre" class="java.math.BigDecimal"/>
+	<field name="Guias_rutaPadre" class="java.math.BigDecimal"/>
+	<field name="Guias_estatus" class="java.lang.String"/>
+	<field name="Guias_usuarioMod" class="java.lang.String"/>
+	<field name="Guias_bus_id" class="java.math.BigDecimal"/>
+	<field name="Guias_destiny_id" class="java.math.BigDecimal"/>
+	<field name="Guias_driverMan1_id" class="java.math.BigDecimal"/>
+	<field name="Guias_driverMan2_id" class="java.math.BigDecimal"/>
+	<field name="Guias_finalDestiny_id" class="java.lang.String"/>
+	<field name="Guias_origin" class="java.lang.String"/>
+	<field name="DetalleGuia_id" class="java.math.BigDecimal"/>
+	<field name="DetalleGuia_guide_id" class="java.math.BigDecimal"/>
+	<field name="DetalleGuia_sale_id" class="java.math.BigDecimal"/>
+	<field name="DetalleVenta_id" class="java.math.BigDecimal"/>
+	<field name="DetalleVenta_importe" class="java.lang.Double"/>
+	<field name="DetalleVenta_tipoBol" class="java.lang.String"/>
+	<field name="DetalleVenta_nombreCliente" class="java.lang.String"/>
+	<field name="DetalleVenta_descuento" class="java.lang.Double"/>
+	<field name="DetalleVenta_status" class="java.lang.String"/>
+	<field name="DetalleVenta_tipoVta" class="java.lang.String"/>
+	<field name="DetalleVenta_associate_id" class="java.math.BigDecimal"/>
+	<field name="DetalleVenta_sale_id" class="java.math.BigDecimal"/>
+	<field name="DetalleVenta_seat_id" class="java.math.BigDecimal"/>
+	<field name="DetalleVenta_Nota" class="java.lang.String"/>
+	<field name="DetalleVenta_ventaReferenciada" class="java.math.BigDecimal"/>
+	<field name="DetalleVenta_TipoServicio" class="java.lang.String"/>
+	<field name="DetalleVenta_asientoReservado" class="java.math.BigDecimal"/>
+	<field name="Ventas_id" class="java.math.BigDecimal"/>
+	<field name="Ventas_montoVenta" class="java.lang.Double"/>
+	<field name="Ventas_usuarioCancel" class="java.lang.String"/>
+	<field name="Ventas_fechaCreacion" class="java.sql.Timestamp"/>
+	<field name="Ventas_descuento" class="java.lang.Double"/>
+	<field name="Ventas_fechaModificacion" class="java.sql.Timestamp"/>
+	<field name="Ventas_pasajeros" class="java.lang.Integer"/>
+	<field name="Ventas_jubilados" class="java.lang.Integer"/>
+	<field name="Ventas_estatus" class="java.lang.String"/>
+	<field name="Ventas_subtotal" class="java.lang.Double"/>
+	<field name="Ventas_fechaSalida" class="java.sql.Timestamp"/>
+	<field name="Ventas_destiny_id" class="java.lang.String"/>
+	<field name="Ventas_origin_id" class="java.lang.String"/>
+	<field name="Ventas_vendor_id" class="java.math.BigDecimal"/>
+	<field name="Ventas_ventaReferenciada" class="java.math.BigDecimal"/>
+	<field name="Ventas_TipoServicio" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="17" width="169" height="39" uuid="dc38255b-8583-48d7-bec9-2896350c5e0e"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Guia de Viaje]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="138" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="12" width="100" height="20" uuid="14cb2960-506b-4e55-b6c1-92369b2c055b"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="58" width="100" height="20" uuid="04958c13-806a-4d03-9035-5a163e28685d"/>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="78" width="100" height="20" uuid="79fccb3f-430b-4901-b321-10b0c88e288c"/>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="106" y="12" width="100" height="20" uuid="f67cc0f4-7094-499f-8fc5-e3fdd26e3072"/>
+				<textFieldExpression><![CDATA[$F{Guias_fechaSalida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="58" width="100" height="20" uuid="9399eaeb-293f-4fc0-af14-9f4a468e298e"/>
+				<textFieldExpression><![CDATA[$F{Guias_origin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="78" width="100" height="20" uuid="465209f3-1808-4626-b7e6-7e39354ca656"/>
+				<textFieldExpression><![CDATA[$F{Guias_finalDestiny_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement x="106" y="32" width="100" height="20" uuid="77990d78-00b3-4931-8156-bc52beeb1a45"/>
+				<textFieldExpression><![CDATA[$F{Guias_fechaSalida}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="32" width="100" height="20" uuid="365dc1d1-8b57-4cbf-be22-01c3f81b37b4"/>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="263" y="0" width="100" height="20" uuid="59d256b4-afa9-473c-8e26-110c918f66de"/>
+				<text><![CDATA[Asiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="0" width="100" height="20" uuid="a92ad338-d051-4a25-95a3-06eb2c369d88"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="0" width="100" height="20" uuid="f090b01b-2936-4fb7-842f-33b04460a211"/>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="0" width="100" height="20" uuid="17470da9-b73b-4c5d-97f7-0e04a5d171d9"/>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="18" width="544" height="2" uuid="013a81b3-bef0-4c95-a6ca-0f86ce30728e"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="245" y="0" width="100" height="20" uuid="954ecd2b-73e0-4378-8459-6ac4c2cadfbd"/>
+				<textFieldExpression><![CDATA[$F{DetalleVenta_seat_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="0" width="100" height="20" uuid="568b08b4-6bfa-480d-9294-3535f8928bbf"/>
+				<textFieldExpression><![CDATA[$F{DetalleVenta_nombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="0" width="100" height="20" uuid="79113587-47b9-44cf-afb5-ed4ce3976ca9"/>
+				<textFieldExpression><![CDATA[$F{Ventas_origin_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="0" width="100" height="20" uuid="63262bcb-5438-47a0-ba1c-2ee20add7943"/>
+				<textFieldExpression><![CDATA[$F{Ventas_destiny_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="245" y="14" width="100" height="20" uuid="d2e6d786-3f94-4531-bd1f-cb79a3335fe6"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

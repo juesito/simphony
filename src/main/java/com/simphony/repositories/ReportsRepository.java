@@ -10,6 +10,8 @@ import com.simphony.entities.Sale;
 import com.simphony.pojos.DailySales;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +21,9 @@ import org.springframework.data.repository.query.Param;
  * @author Soporte IT
  */
 public interface ReportsRepository extends JpaRepository<Sale, Long> {
+
+    
+    
 
     @Query("SELECT NEW com.simphony.pojos.DailySales(p, s, " +
            "(SELECT COUNT(type) FROM SaleDetail WHERE type = 'A' AND s.id = sale.id) , " +
