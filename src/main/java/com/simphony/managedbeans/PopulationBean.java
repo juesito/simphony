@@ -255,7 +255,7 @@ public class PopulationBean implements IConfigurable {
         
         
         for(Population populationTmp : populations){
-            if(populationTmp.getDescription().startsWith(query))     
+            if(populationTmp.getDescription().toLowerCase().startsWith(query.toLowerCase()))     
                 suggestions.add(populationTmp);
         }
         return suggestions;
