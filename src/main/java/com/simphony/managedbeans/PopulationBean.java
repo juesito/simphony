@@ -248,5 +248,17 @@ public class PopulationBean implements IConfigurable {
     private Sort sortByDescription(){
         return new Sort(Sort.Direction.ASC, "Description");
     }
+    
+    public List<Population> autoComplete(String query){
+        List<Population> populations = populationService.getPopulationRepository().findAllEnabled();
+        List<Population> suggestions = new ArrayList<Population>();
+        
+        
+        for(Population populationTmp : populations){
+            if(populationTmp.getDescription().startsWith(query))     
+                suggestions.add(populationTmp);
+        }
+        return suggestions;
+    }
 
 }

@@ -28,19 +28,16 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            
-
-                                            <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
-                                                             converter="populationConverter" 
-                                                             style="width:160px" required="true" 
-                                                             requiredMessage="Origen Requerido">
-                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                                <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
-                                                <p:ajax event="change" update=":saleForm:destiny" 
+                                            <p:autoComplete value="#{saleBean.sale.origin}" id="o_reactive" 
+                                                            completeMethod="#{populationBean.autoComplete}" 
+                                                            scrollHeight="200" style="position: relative;"
+                                                    var="p" itemLabel="#{p.description}" itemValue="#{p}" forceSelection="true" 
+                                                    converter="populationConverter" >
+                                                <p:ajax event="itemSelect" update=":saleForm:destiny" 
                                                         listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
-                                            </p:selectOneMenu>
+                                            </p:autoComplete>
+                        
                                         </p:column>
-
                                     </p:row>
                                     <p:row>
                                         <p:column style="padding-top: 20px;">
