@@ -34,7 +34,7 @@
                                             rendered="#{userBean.current.looged ne true}">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Reservaciones" action="toReservations" ajax="false">
+                                <p:menuitem value="Reservaciones" action="#{saleBean.toReservations()}" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
                                 <p:menuitem value="Cancelar Reservaciones" action="#{saleBean.toCancelRes()}" ajax="false">
@@ -67,12 +67,6 @@
                                 <p:menuitem value="Ingresos por Operador" action="#{reportsBean.toDriverManIncome()}" ajax="false"
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxDriverManService.fillBox()}"/>
-                                </p:menuitem>
-                                <p:menuitem value="Prueba Jasper" actionListener="#{reportsBean.viewSalesReport()}" 
-                                            ajax="false"   styleClass="miMenuItem">
-                                </p:menuitem>
-                                <p:menuitem value="Prueba Jasper Parameters" actionListener="#{reportsBean.viewGuidesReport()}" 
-                                            ajax="false"   styleClass="miMenuItem">
                                 </p:menuitem>
                             </p:submenu>
                             <p:submenu label="   Catalogos   " rendered="#{userBean.current.looged or vendorBean.current.type eq 'C'}"  >

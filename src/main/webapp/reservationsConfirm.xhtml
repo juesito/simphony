@@ -135,7 +135,7 @@
                                     <p:column>
                                         <p:commandButton value="Cancelar" ajax="false" immediate="true" 
                                                          icon="ui-icon-arrowreturnthick-1-w"
-                                                         action="toReservations" style="float: right;" >
+                                                         action="#{saleBean.toReservations()}" style="float: right;" >
                                             <f:actionListener  binding="#{saleBean.clearSale()}"/>
                                         </p:commandButton>
                                         <p:commandButton value="Guardar" ajax="false" action="#{saleBean.saveReservations(vendorBean.current)}"

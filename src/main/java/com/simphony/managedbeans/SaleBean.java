@@ -791,6 +791,7 @@ public class SaleBean implements IConfigurable {
     }
 
     public String toReservations() {
+        sale = new Sale();
         cancelledSale = new Sale();
         unSelectedDetail = new SaleDetail();
         reservedSeatInDetailSale = new ArrayList();

@@ -654,7 +654,7 @@ public class ReportsBean implements IConfigurable {
     }
 
     public void viewSalesReport() throws JRException, ClassNotFoundException {
-        jasperService.setReportName("prueba.jasper");
+        jasperService.setReportName("Tarifas.jasper");
         jasperService.builtReport(_REPORT_PDF);
     }
 
