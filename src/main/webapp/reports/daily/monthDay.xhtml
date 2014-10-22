@@ -42,6 +42,10 @@
                                                     ajax="true" styleClass="button-rounded" icon="ui-icon-play"
                                                     update=":form:saleDetailDT :form:sale-daily" >
                                    </p:commandButton>
+                                    <p:commandButton value="Jasper" actionListener="#{reportsBean.viewSalesReport("guide.jasper")}" 
+                                                    ajax="false" styleClass="button-rounded" icon="ui-icon-play"
+                                                    update=":form:saleDetailDT :form:sale-daily" >
+                                   </p:commandButton>
                                 </p:column>
                             </p:row>
 

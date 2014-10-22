@@ -71,7 +71,7 @@
 
                                             </p:row>
                                             <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top: 25px; ">
                                                     <p:outputLabel value="Fecha y hora de salida:" />
                                                 </p:column>
                                             </p:row>
@@ -83,7 +83,7 @@
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top: 25px; ">
                                                     <p:commandButton value="Buscar" action="#{saleBean.findSale(0)}" 
                                                                      ajax="true" styleClass="button-rounded"  partialSubmit="true"
                                                                      process=":saleForm:tabViewCancel:sale-input"
@@ -120,7 +120,7 @@
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top: 25px; ">
                                                     <p:commandButton value="Buscar" action="#{saleBean.findSale(1)}" 
                                                                      ajax="true" styleClass="button-rounded" partialSubmit="true"
                                                                      process=":saleForm:tabViewCancel:sale-input-II"
@@ -157,7 +157,7 @@
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top: 25px; ">
                                                     <p:commandButton value="Buscar" action="#{saleBean.findSale(2)}" 
                                                                      ajax="true" styleClass="button-rounded" partialSubmit="true"
                                                                      process=":saleForm:tabViewCancel:sale-input-III"
@@ -176,9 +176,9 @@
                         <div class="box-content-saleCancel-detail" >
 
                             <p:dataTable value="#{saleBean.reservedSeatInDetailSale}" var="reservedSeat" 
-                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top: 25px; "
+                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top: 25px; padding-bottom: 40px; "
                                          selectionMode="single" selection="#{saleBean.selectedReservedSeatInDetailSale}">
-                                <p:column headerText="Folio" style="width:75px">  
+                                <p:column headerText="Folio" style="width:25px">  
                                     <p:outputLabel value="#{reservedSeat.saleDetail.id}"/>
                                 </p:column>
                                 <p:column headerText="Fecha" style="width:75px">  
@@ -194,20 +194,24 @@
                                     <p:outputLabel value="#{reservedSeat.saleDetail.sale.destiny.description}" />
                                 </p:column>
                                 <p:column headerText="Asi" style="width:20px">
-                                    <p:outputLabel value="#{reservedSeat.saleDetail.seat.seat}" 
-                                                    />
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.seat.seat}" />
                                 </p:column>
-                                <p:column headerText="Cliente" style="width:157px">
+                                <p:column headerText="Costo" style="width:50px">
+                                    <p:outputLabel value="#{reservedSeat.saleDetail.amount}" />
+                                </p:column>
+                                <p:column headerText="Nombre" style="width:137px">
                                     <p:outputLabel value="#{reservedSeat.saleDetail.customerName}" />
                                 </p:column>
-                                <f:facet name="footer">
-                                    <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
+                            </p:dataTable>
+                            <p:row>
+                                <p:column>
+                                   <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
                                                      actionListener="#{saleBean.cancelSeat(userBean.alternativeUser, 'toCancel')}"
                                                      ajax="true" 
                                                      update=":saleForm:reservedSeatsBySale :main-form:growl" >
                                     </p:commandButton>
-                                </f:facet>
-                            </p:dataTable>
+                                </p:column>
+                            </p:row>
                         </div>
                     </h:form>
                 </ui:define>

@@ -1094,7 +1094,17 @@ public class SaleBean implements IConfigurable {
             //Actualizamos la venta
             sale.update(sale);
             saleService.getSaleRepository().save(sale);
-
+            
+            // Descontamos en pagos de la venta
+            List<Payment> pmList = saleService.getPaymentRepository().findbySale(sale.getId()); 
+            boolean cobrado = false;
+            for (Payment payment : pmList) {
+                if (payment.getAmount() >= saleDetailCancelled.getAmount() - saleDetailCancelled.getDiscount() && !cobrado) {
+                    payment.setAmount(payment.getAmount() - (saleDetailCancelled.getAmount() - saleDetailCancelled.getDiscount()));
+                    saleService.getPaymentRepository().save(payment);
+                    cobrado = true;
+                }
+            }
             //Borramos el elmento de la lista
             this.reservedSeatInDetailSale.remove(selectedReservedSeatInDetailSale);
             GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");

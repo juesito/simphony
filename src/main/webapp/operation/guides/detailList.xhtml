@@ -112,6 +112,9 @@
                                  <p:commandButton value="#{msgs.but_print}" type="button" icon="ui-icon-print">  
                                     <p:printer target=":form:guide-complete" />  
                                 </p:commandButton>  
+                                <p:commandButton process="costDT" 
+                                                 icon="ui-icon-print" ajax="false"
+                                                 value="Jasper" action="#{reportsBean.viewGuidesReport()}" />
                                 </f:facet>
                             </p:dataTable>
                         </div>

@@ -96,7 +96,7 @@
                             </p:row>
                             <p:row>
                                <p:column>
-                                   <p:outputLabel value="Fecha:" />
+                                   <p:outputLabel value="Fecha Ini:" />
                               </p:column>
                                <p:column>
                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
@@ -116,12 +116,13 @@
                                 </p:column>
                              </p:row>
                            <p:row>
-                                <p:column >
-                                    <p:outputLabel value="     " />
-                                </p:column>
-                                <p:column style="width: 120px;" >
-                                    <p:outputLabel value="     " />
-                                </p:column>
+                               <p:column>
+                                   <p:outputLabel value="Fecha Fin:" />
+                              </p:column>
+                               <p:column>
+                                   <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                               pages="2" showOn="button" value="#{reportsBean.fecFin}"/>
+                               </p:column>
                                 <p:column>
                                     <p:outputLabel value="Jubilados:" />
                                 </p:column>
@@ -133,6 +134,12 @@
                                 <p:column style="padding-top: 25px; ">
                                     <p:commandButton value="Procesar" actionListener="#{reportsBean.findDailySales()}" 
                                                     ajax="true" styleClass="button-rounded" icon="ui-icon-play"
+                                                    update=":form:saleDetailDT :form:sale-daily" >
+                                   </p:commandButton>
+                                </p:column>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:commandButton value="Detalle" actionListener="#{reportsBean.viewSaleDetailReport(reportsBean.sale.vendor.getId(), reportsBean.sale.createDate, reportsBean.fecFin)}" 
+                                                    ajax="false" styleClass="button-rounded" icon="ui-icon-play"
                                                     update=":form:saleDetailDT :form:sale-daily" >
                                    </p:commandButton>
                                 </p:column>

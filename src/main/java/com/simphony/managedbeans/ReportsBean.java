@@ -15,6 +15,7 @@ import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.models.DailySalesModel;
 import com.simphony.pojos.DailySales;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public class ReportsBean implements IConfigurable {
         totCor = 0.0;
         totPag = 0.0;
         Calendar finDate = Calendar.getInstance();
-        finDate.setTime(this.sale.getCreateDate());
+        finDate.setTime(this.fecFin);
         finDate.add(Calendar.HOUR, 23);
         finDate.add(Calendar.MINUTE, 59);
         Date finD = finDate.getTime();
@@ -283,7 +284,7 @@ public class ReportsBean implements IConfigurable {
     }
 
     /**
-     * Buscamos ingresos por autobús
+     * Buscamos ingresos por autobÃºs
      *
      * @throws java.text.ParseException
      */
@@ -335,7 +336,7 @@ public class ReportsBean implements IConfigurable {
             }
             modelDS = new DailySalesModel(listDailySales);
         } else {
-            GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta AutobÃºs o fechas...");
         }
 
     }
@@ -396,7 +397,7 @@ public class ReportsBean implements IConfigurable {
             }
             modelDS = new DailySalesModel(listDailySales);
         } else {
-            GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta AutobÃºs o fechas...");
         }
 
     }
@@ -661,17 +662,55 @@ public class ReportsBean implements IConfigurable {
     public void viewGuidesReport() throws JRException, ClassNotFoundException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         java.sql.Date frm_dte = null;
+        java.sql.Time frm_time = null;
         
         try {
             frm_dte = (java.sql.Date) sdf.parse("2014-10-15 05:00:00");
+            frm_time = (java.sql.Time) sdf.parse("05:00:00");
         } catch (ParseException ex) {
             Logger.getLogger(ReportsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         HashMap<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("fechaSalida", frm_dte);
+        parameters.put("hora", frm_time);
         
-        jasperService.setReportName("prueba-leo.jasper");
+        jasperService.setReportName("guide.jasper");
         jasperService.builtReport(parameters, _REPORT_PDF);
+    }
+
+    public void viewSaleDetailReport(Long vendorId, Date fIni, Date fFin) throws JRException, ClassNotFoundException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        java.sql.Date frm_dte1 = null;
+        java.sql.Date frm_dte2 = null;
+        java.sql.Time frm_time = null;
+        
+ //       try {
+ //           frm_dte1 = (java.sql.Date) sdf.parse(fIni.toString());
+ //           frm_dte2 = (java.sql.Date) sdf.parse(fFin.toString());
+ //           frm_time = (java.sql.Time) sdf.parse("05:00:00");
+ //       } catch (ParseException ex) {
+ //           Logger.getLogger(ReportsBean.class.getName()).log(Level.SEVERE, null, ex);
+ //       }
+        
+        Calendar finDate = Calendar.getInstance();
+        finDate.setTime(this.fecFin);
+        finDate.add(Calendar.HOUR, 23);
+        finDate.add(Calendar.MINUTE, 59);
+        Date finD = finDate.getTime();
+        BigDecimal id = new BigDecimal(vendorId);
+
+        if (this.sale.getVendor().getId() != null && this.sale.getCreateDate() != null) {
+        
+            HashMap<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("user", id);
+            parameters.put("fecIni", fIni);
+            parameters.put("fecFin", fFin );
+
+            jasperService.setReportName("DetailSale.jasper");
+           jasperService.builtReport(parameters, _REPORT_PDF);
+        } else {
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta Vendedor o fecha...");
+        }
     }
 
     public void setJasperService(JasperService jasperService) {
