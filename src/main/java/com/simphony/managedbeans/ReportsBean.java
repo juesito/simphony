@@ -679,32 +679,19 @@ public class ReportsBean implements IConfigurable {
     }
 
     public void viewSaleDetailReport(Long vendorId, Date fIni, Date fFin) throws JRException, ClassNotFoundException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        java.sql.Date frm_dte1 = null;
-        java.sql.Date frm_dte2 = null;
-        java.sql.Time frm_time = null;
-        
- //       try {
- //           frm_dte1 = (java.sql.Date) sdf.parse(fIni.toString());
- //           frm_dte2 = (java.sql.Date) sdf.parse(fFin.toString());
- //           frm_time = (java.sql.Time) sdf.parse("05:00:00");
- //       } catch (ParseException ex) {
- //           Logger.getLogger(ReportsBean.class.getName()).log(Level.SEVERE, null, ex);
- //       }
-        
         Calendar finDate = Calendar.getInstance();
-        finDate.setTime(this.fecFin);
+        finDate.setTime(fFin);
         finDate.add(Calendar.HOUR, 23);
         finDate.add(Calendar.MINUTE, 59);
         Date finD = finDate.getTime();
-        BigDecimal id = new BigDecimal(vendorId);
+//        BigDecimal id = new BigDecimal(vendorId);
 
         if (this.sale.getVendor().getId() != null && this.sale.getCreateDate() != null) {
         
             HashMap<String, Object> parameters = new HashMap<String, Object>();
-            parameters.put("user", id);
+            parameters.put("user", vendorId);
             parameters.put("fecIni", fIni);
-            parameters.put("fecFin", fFin );
+            parameters.put("fecFin", finD );
 
             jasperService.setReportName("DetailSale.jasper");
            jasperService.builtReport(parameters, _REPORT_PDF);
