@@ -151,7 +151,9 @@
                     <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
                         <!-- Data table -->
                         <p:dataTable id="saleDetailDT" value="#{reportsBean.modelDS}" var="ic" 
-                                      emptyMessage="Sin ventas registradas"  >
+                                      emptyMessage="Sin ventas registradas"  rows="12"
+                                     paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{PageLinks}">
                             <p:column headerText="Folio" style="width:50px" >
                                 <p:outputLabel value="#{ic.sale.id}" />
                             </p:column>
