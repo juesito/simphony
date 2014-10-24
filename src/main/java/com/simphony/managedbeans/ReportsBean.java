@@ -684,7 +684,7 @@ public class ReportsBean implements IConfigurable {
         finDate.add(Calendar.HOUR, 23);
         finDate.add(Calendar.MINUTE, 59);
         Date finD = finDate.getTime();
-//        BigDecimal id = new BigDecimal(vendorId);
+        BigDecimal id = new BigDecimal(vendorId);
 
         if (this.sale.getVendor().getId() != null && this.sale.getCreateDate() != null) {
         

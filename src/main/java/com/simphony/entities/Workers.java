@@ -56,7 +56,7 @@ public  class Workers extends Person implements Serializable, Cloneable {
     @Basic
     private String zipCode;
 
-    @Column(name="lugar de nacimiento",length=35)
+    @Column(name="lugarDeNacimiento",length=35)
     @Basic
     private String birthPlace;
     

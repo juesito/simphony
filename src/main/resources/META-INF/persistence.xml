@@ -26,6 +26,7 @@
     <class>com.simphony.entities.Payment</class>
     <class>com.simphony.entities.PayRoll</class>
     <class>com.simphony.entities.Printer</class>
+    <class>com.simphony.entities.Workers</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <!--

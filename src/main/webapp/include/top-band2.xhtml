@@ -92,7 +92,7 @@
                                             actionListener="#{boxPopulationService.fillBox()}"/>
                                 <p:menuitem value="Asientos" action="#{seatBean.toSeats}" ajax="false" 
                                             rendered="#{userBean.current.nick eq 'root'}"/>
-
+                                <p:menuitem value="Empleados" action="#{workersBean.toWorkers}" ajax="false" /> 
                             </p:submenu>
                         </p:menubar>
                     </h:form>

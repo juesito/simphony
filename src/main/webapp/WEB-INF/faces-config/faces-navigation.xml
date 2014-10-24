@@ -40,7 +40,7 @@
             <from-outcome>toPopulations</from-outcome>
             <to-view-id>/catalogs/populations/list.xhtml</to-view-id>
         </navigation-case>
-                <navigation-case>
+        <navigation-case>
             <description>de catalogo de agremiados</description>
             <from-outcome>toAssociates</from-outcome>
             <to-view-id>/catalogs/associates/list.xhtml</to-view-id>
@@ -131,6 +131,16 @@
         <navigation-case>
             <from-outcome>toItineraries</from-outcome>
             <to-view-id>/operation/itineraries/list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <description>de catalogo de empleados</description>
+            <from-outcome>toWorkers</from-outcome>
+            <to-view-id>/catalogs/workers/list.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>        
+            <from-outcome>addWorkers</from-outcome>
+            <to-view-id>/catalogs/workers/add.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
 
         <navigation-case>
