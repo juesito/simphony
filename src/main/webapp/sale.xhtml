@@ -28,13 +28,13 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:autoComplete value="#{saleBean.sale.origin}" id="o_reactive" 
+                                            <p:autoComplete value="#{saleBean.sale.origin}" id="origin" 
                                                             completeMethod="#{populationBean.autoComplete}" 
                                                             scrollHeight="200" style="position: relative;"
                                                     var="p" itemLabel="#{p.description}" itemValue="#{p}" forceSelection="true" 
                                                     converter="populationConverter" >
                                                 <p:ajax event="itemSelect" update=":saleForm:destiny" 
-                                                        listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
+                                                        listener="#{populationBean.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
                                             </p:autoComplete>
                         
                                         </p:column>
@@ -47,14 +47,13 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
-                                                             converter="populationConverter" 
-                                                             style="width:160px" required="true" 
-                                                             requiredMessage="Destino requerido">
-                                                <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
-                                                <f:selectItems value="#{boxPopulationService.populationDesSaleList}" />
-
-                                            </p:selectOneMenu>
+                                            <p:autoComplete value="#{saleBean.sale.destiny}" id="destiny" 
+                                                            completeMethod="#{populationBean.autoCompleteDestiny}" 
+                                                            scrollHeight="200" style="position: relative;"
+                                                    var="p" itemLabel="#{p.description}" itemValue="#{p}" forceSelection="true" 
+                                                    converter="populationConverter" >
+                                            </p:autoComplete>
+                                       
                                         </p:column>
 
                                     </p:row>

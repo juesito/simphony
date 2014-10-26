@@ -1306,6 +1306,12 @@ public class SaleBean implements IConfigurable {
         }
     }
 
+    /**
+     * Cancelamos la venta pendiente
+     * 
+     * @param mode
+     * @return 
+     */
     public String cancelPendigSale(Integer mode) {
         if (mode == 2) {
             pendingSale.clear();

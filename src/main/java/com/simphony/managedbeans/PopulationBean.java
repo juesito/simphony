@@ -38,6 +38,8 @@ public class PopulationBean implements IConfigurable {
     private Population selected = new Population();
     private List<Population> list = new ArrayList<Population>();
     private Calendar cal = Calendar.getInstance();
+    
+    private List<Population> populationDesSaleList = new ArrayList<Population>();
         
     @ManagedProperty(value = "#{populationService}")
     private PopulationService populationService;
@@ -259,6 +261,25 @@ public class PopulationBean implements IConfigurable {
                 suggestions.add(populationTmp);
         }
         return suggestions;
+    }
+    
+    public List<Population> autoCompleteDestiny(String query){
+        List<Population> suggestions = new ArrayList<Population>();
+        
+        
+        for(Population populationTmp : populationDesSaleList){
+            if(populationTmp.getDescription().toLowerCase().startsWith(query.toLowerCase()))     
+                suggestions.add(populationTmp);
+        }
+        return suggestions;
+    }
+    
+    public void fillPopulationDesSaleList(Long originId){
+        
+        populationDesSaleList.clear();
+        //Llena solo poblaciones activas
+        populationDesSaleList = this.getPopulationService().getPopulationRepository().
+                findDestiniesForSale(originId);
     }
 
 }
