@@ -29,6 +29,7 @@
                                         <f:selectItem itemLabel="Vendedor" itemValue="Vendedor" />
                                         <f:selectItem itemLabel="Operador" itemValue="Operador" />                                        
                                         <f:selectItem itemLabel="Administrativo" itemValue="Administrativo" />                                        
+                                        <p:ajax event="change" update="add" />
                                     </p:selectOneMenu>
                                 </p:column>
                             <p:column>
@@ -74,7 +75,7 @@
                                    <p:outputLabel value="#{msgs.cat_bankCount}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{workersBean.workers.bankCount}" maxlength="5" tabindex="10"
+                                    <p:inputText value="#{workersBean.workers.bankCount}" maxlength="35" tabindex="10"
                                                  style="width:160px"/>
                                 </p:column>
 
@@ -104,14 +105,14 @@
                                 <p:outputLabel value="#{msgs.cat_position}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{workersBean.workers.position}" maxlength="30" 
+                                <p:inputText value="#{workersBean.workers.position}" maxlength="35" 
                                              tabindex="5" style="width:160px" />
                             </p:column>
                                 <p:column>
                                     <p:outputLabel value="Email:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{workersBean.workers.email}" maxlength="10" tabindex="12"
+                                    <p:inputText value="#{workersBean.workers.email}" maxlength="100" tabindex="12"
                                                  style="width:160px"/>
                                 </p:column>
 
@@ -128,7 +129,7 @@
                                     <p:outputLabel value="#{msgs.cat_bloodType}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{workersBean.workers.bloodType}" maxlength="13" tabindex="13" 
+                                    <p:inputText value="#{workersBean.workers.bloodType}" maxlength="20" tabindex="13" 
                                                  style="width:100px"/>
                                 </p:column>
 
@@ -154,14 +155,14 @@
                                 <p:outputLabel value="#{msgs.cat_rfc}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{workersBean.workers.rfc}" maxlength="10"
+                                <p:inputText value="#{workersBean.workers.rfc}" maxlength="15"
                                              tabindex="7" style="width:100px"/>
                             </p:column>
                             <p:column>
                                  <p:outputLabel value="#{msgs.cat_contactPhone}:" />
                             </p:column>
                             <p:column>
-                                 <p:inputText value="#{workersBean.workers.contactPhone}" maxlength="50" 
+                                 <p:inputText value="#{workersBean.workers.contactPhone}" maxlength="10" 
                                               tabindex="14" style="width:80px"/>
                              </p:column>
                          </p:row>
@@ -170,14 +171,14 @@
                                 <p:outputLabel value="#{msgs.cat_nss}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{workersBean.workers.nss}" maxlength="10"
+                                <p:inputText value="#{workersBean.workers.nss}" maxlength="25"
                                              tabindex="7" style="width:100px"/>
                             </p:column>
                             <p:column>
                                  <p:outputLabel value="#{msgs.cat_phoneId}:" />
                             </p:column>
                             <p:column>
-                                 <p:inputText value="#{workersBean.workers.phoneId}" maxlength="50" 
+                                 <p:inputText value="#{workersBean.workers.phoneId}" maxlength="15" 
                                               tabindex="14" style="width:80px"/>
                             </p:column>
                          </p:row>
@@ -216,10 +217,10 @@
                             <p:column>
                                 <p:selectOneMenu  effect="blind" value="#{workersBean.workers.status}" 
                                                       style="width: 140px;" >
-                                        <f:selectItem itemLabel="Activo" itemValue="Activo" />
-                                        <f:selectItem itemLabel="Inactivo" itemValue="Inactivo" />                                        
-                                        <f:selectItem itemLabel="Suspensión laboral" itemValue="Suspensión" />                                        
-                                        <f:selectItem itemLabel="En demanda" itemValue="En demanda" />                                        
+                                        <f:selectItem itemLabel="Activo" itemValue="A" />
+                                        <f:selectItem itemLabel="Inactivo" itemValue="I" />                                        
+                                        <f:selectItem itemLabel="Suspensión laboral" itemValue="S" />                                        
+                                        <f:selectItem itemLabel="En demanda" itemValue="D" />                                        
                                     </p:selectOneMenu>
                              </p:column>
                          </p:row>
@@ -228,13 +229,13 @@
                                 <p:outputLabel value="#{msgs.cat_address}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{workersBean.workers.address}" maxlength="150"
+                                <p:inputText value="#{workersBean.workers.address}" maxlength="100"
                                              tabindex="7" style="width:300px"/>
                             </p:column>
-                            <p:column>
+                             <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                  <p:outputLabel value="#{msgs.cat_licenseExpedition}:" />
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                   <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
                                               pages="2" showOn="button" value="#{workersBean.workers.licenseExpedition}"/>
                             </p:column>
@@ -244,13 +245,13 @@
                                 <p:outputLabel value="#{msgs.cat_entidad}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{workersBean.workers.entidad}" maxlength="10"
+                                <p:inputText value="#{workersBean.workers.entidad}" maxlength="30"
                                              tabindex="7" style="width:100px"/>
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                  <p:outputLabel value="#{msgs.cat_licenseExpiry}:" />
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                   <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
                                               pages="2" showOn="button" value="#{workersBean.workers.licenseExpiry}"/>
                             </p:column>
@@ -263,10 +264,10 @@
                                 <p:inputText value="#{workersBean.workers.zipCode}" maxlength="10"
                                              tabindex="7" style="width:50px"/>
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                  <p:outputLabel value="#{msgs.cat_licenseCountersign}:" />
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                   <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
                                               pages="2" showOn="button" value="#{workersBean.workers.licenseCountersign}"/>
                             </p:column>
@@ -276,14 +277,14 @@
                                 <p:outputLabel value="#{msgs.cat_birthPlace}:" />
                             </p:column>
                             <p:column>
-                                <p:inputText value="#{workersBean.workers.birthPlace}" maxlength="10"
+                                <p:inputText value="#{workersBean.workers.birthPlace}" maxlength="35"
                                              tabindex="7" style="width:100px"/>
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                  <p:outputLabel value="#{msgs.cat_bus}:" />
                             </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.assignedBus}" maxlength="50" 
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                <p:inputText value="#{workersBean.workers.assignedBus}" maxlength="6" 
                                               tabindex="14" style="width:60px"/>
                             </p:column>
                          </p:row>
@@ -301,10 +302,10 @@
                                         <f:selectItem itemLabel="Unión libre" itemValue="Unión libre" />                                        
                                     </p:selectOneMenu>
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                  <p:outputLabel value="#{msgs.cat_illness}:" />
                             </p:column>
-                            <p:column>
+                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
                                 <p:selectOneMenu  effect="blind" value="#{workersBean.workers.maritalStatus}" 
                                                       style="width: 120px;" >
                                         <f:selectItem itemLabel="Ninguna" itemValue="Ninguna" />
@@ -317,11 +318,11 @@
                            
                             <p:row>
                                 <p:column colspan="2" ></p:column>
-                                <p:column style="padding-top: 55px; ">
+                                <p:column style="padding-top: 35px; ">
                                     <p:commandButton value="#{msgs.but_save}" action="#{workersBean.save(userBean.alternativeUser)}"
                                                      ajax="false" update="main-form:growl" icon="ui-icon-disk"/>
                                 </p:column>
-                                <p:column style="padding-top: 55px; ">
+                                <p:column style="padding-top: 35px; ">
                                     <p:commandButton value="#{msgs.but_cancel}" action="#{workersBean.cancelWorkers()}"
                                                      id="cancelAdd" process="@this" immediate="true" ajax="false" 
                                                      icon="ui-icon-arrowreturnthick-1-w"/>

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 @Entity(name="Workers")
-@Table(name="Trabajadores")
+@Table(name="Empleados")
 public  class Workers extends Person implements Serializable, Cloneable {
 
     @Column(name="puesto",length=35)
@@ -36,11 +36,11 @@ public  class Workers extends Person implements Serializable, Cloneable {
     @Basic
     private String nss;
 
-    @Column(name = "salarioImss", length = 7)
+    @Column(name = "salarioImss", length = 10)
     @Basic
     private double imssSalary;
 
-     @Column(name = "salarioBase", length = 7)
+     @Column(name = "salarioBase", length = 10)
     @Basic
     private double baseSalary;
    
@@ -68,7 +68,7 @@ public  class Workers extends Person implements Serializable, Cloneable {
     @Basic
     private String phoneId;
 
-    @Column(name="escolaridad",length=10)
+    @Column(name="escolaridad",length=25)
     @Basic
     private String degree;
 
@@ -397,7 +397,7 @@ public  class Workers extends Person implements Serializable, Cloneable {
 
 
   public String getFullName(){
-      String fullName = super.getFirstLastName().trim() + " "+ super.getSecondLastName().trim() + " " + super.getName().trim();
+      String fullName = super.getSecondLastName().trim() + " "+ super.getFirstLastName().trim() + " " + super.getName().trim();
       return fullName;
   }
   
