@@ -8,6 +8,7 @@ package com.simphony.repositories;
 
 import com.simphony.entities.Guide;
 import com.simphony.entities.SaleDetail;
+import com.simphony.pojos.DailySales;
 import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -79,6 +80,16 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
        " WHERE g.sale.id = v.id AND g.guide.id = :guideId) " +
        " AND d.status = 'V' ORDER BY d.seat.id"  )
     public Double guideDetailAmount(@Param("guideId")Long guideId);
+
+    @Query("SELECT NEW com.simphony.pojos.DailySales(g, " +
+           "(SELECT SUM(sd.amount - sd.discount) FROM SaleDetail sd, GuideDetail gd  "+
+           " WHERE sd.status = 'V' AND sd.sale.id = gd.sale.id " +
+           " AND g.id = gd.guide.id ), " +
+           "(SELECT COUNT(gd.id) FROM GuideDetail gd " +
+           " WHERE g.id = gd.guide.id ))" +
+           " FROM Guide g "  +
+           " ORDER BY g.departureDate ")
+    public List<DailySales> selectAllGuide();
 
 }
 

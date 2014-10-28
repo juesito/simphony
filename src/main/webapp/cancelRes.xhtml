@@ -13,8 +13,8 @@
                 <ui:define name="content"> 
                     <h:form id="saleForm">
                         <div class="box-content-saleCancel" >
-                            <p:tabView orientation="left" id="tabViewCancel" dynamic="true" cache="true">
-                                <p:ajax event="tabChange" listener="#{saleBean.onTabChange}"
+                            <p:tabView orientation="left" id="tabViewCancel" dynamic="true" cache="true" >
+                                <p:ajax event="tabChange" listener="#{reservationsBean.onTabChange}"
                                         update=":saleForm:tabViewCancel :saleForm:reservedSeatsBySale"/>
 
                                 <p:tab title="Por itinerario">
@@ -23,43 +23,38 @@
                                         <p:panelGrid styleClass="sale-schedule-panel">
                                             <p:row>
                                                 <p:column>
-                                                    <p:outputLabel value="Cancelación de Reservaciones" style=" font-size:20px " />
+                                                    <p:outputLabel value="Cancelación de reservaciones" style=" font-size:20px " />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
-                                                    <p:outputLabel value=" " />
-                                                </p:column>
-                                            </p:row>
-                                            <p:row>
-                                                <p:column>
-                                                    <p:outputLabel value="#{msgs.cat_origin}:" />
+                                                <p:column style="padding-top:25px;">
+                                                    <p:outputLabel value="#{msgs.cat_origin}:"  />
                                                 </p:column>                                    
                                             </p:row>
                                             <p:row>
                                                 <p:column>
 
-                                                    <p:selectOneMenu id="origin" value="#{saleBean.cancelledSale.origin}" 
+                                                    <p:selectOneMenu id="origin" value="#{reservationsBean.cancelledSale.origin}" 
                                                                      converter="populationConverter" 
                                                                      style="width:160px" required="true" 
                                                                      requiredMessage="Origen Requerido">
                                                         <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                                         <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
                                                         <p:ajax event="change" update=":saleForm:tabViewCancel:destiny" 
-                                                                listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.cancelledSale.origin.id)}"   />
+                                                                listener="#{boxPopulationService.fillPopulationDesSaleList(reservationsBean.cancelledSale.origin.id)}"   />
                                                     </p:selectOneMenu>
                                                 </p:column>
 
                                             </p:row>
                                             <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top:10px;">
                                                     <p:outputLabel value="#{msgs.cat_destiny}:" />
                                                 </p:column>
 
                                             </p:row>
                                             <p:row>
                                                 <p:column>
-                                                    <p:selectOneMenu id="destiny" value="#{saleBean.cancelledSale.destiny}" 
+                                                    <p:selectOneMenu id="destiny" value="#{reservationsBean.cancelledSale.destiny}" 
                                                                      converter="populationConverter" 
                                                                      style="width:160px" required="true" 
                                                                      requiredMessage="Destino requerido">
@@ -71,20 +66,20 @@
 
                                             </p:row>
                                             <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top:10px;">
                                                     <p:outputLabel value="Fecha y hora de salida:" />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
                                                 <p:column>
                                                     <p:calendar mode="popup" size="18" locale="mx"  
-                                                                pages="2" showOn="button" value="#{saleBean.cancelledSale.tripDate}"
+                                                                pages="2" showOn="button" value="#{reservationsBean.cancelledSale.tripDate}"
                                                                 pattern="dd/MM/yyyy HH:mm"/>
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
-                                                    <p:commandButton value="Buscar" action="#{saleBean.findReservations(0)}" 
+                                                <p:column style="padding-top:20px;">
+                                                    <p:commandButton value="Buscar" action="#{reservationsBean.findReservations(0)}" 
                                                                      ajax="true" styleClass="button-rounded"  partialSubmit="true"
                                                                      process=":saleForm:tabViewCancel:sale-input"
                                                                      update=":main-form:growl :saleForm:reservedSeatsBySale">
@@ -100,28 +95,23 @@
                                         <p:panelGrid styleClass="sale-schedule-panel">
                                             <p:row>
                                                 <p:column>
-                                                    <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                                    <p:outputLabel value="Cancelación de reservaciones" style=" font-size:20px " />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
-                                                    <p:outputLabel value=" " />
-                                                </p:column>
-                                            </p:row>
-                                            <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top:25px;">
                                                     <p:outputLabel value="Nombre Cliente:" />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
                                                 <p:column>
-                                                    <p:inputText size="20" value="#{saleBean.unSelectedDetail.customerName}"
+                                                    <p:inputText size="20" value="#{reservationsBean.unSelectedDetail.customerName}"
                                                                  maxlength="30" required="true" />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
-                                                    <p:commandButton value="Buscar" action="#{saleBean.findReservations(2)}" 
+                                                <p:column style="padding-top:20px;">
+                                                    <p:commandButton value="Buscar" action="#{reservationsBean.findReservations(2)}" 
                                                                      ajax="true" styleClass="button-rounded" partialSubmit="true"
                                                                      process=":saleForm:tabViewCancel:sale-input-III"
                                                                      update=":main-form:growl :saleForm:reservedSeatsBySale">
@@ -138,9 +128,10 @@
 
                         <div class="box-content-saleCancel-detail" >
 
-                            <p:dataTable value="#{saleBean.reservedSeatInDetailSale}" var="reservedSeat" 
-                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top: 25px; "
-                                         selectionMode="single" selection="#{saleBean.selectedReservedSeatInDetailSale}">
+                            <p:outputLabel value="Seleccione una Reservación." style=" font-size:13px " />
+                            <p:dataTable value="#{reservationsBean.reservedSeatInDetailSale}" var="reservedSeat" 
+                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top: 5px; padding-bottom: 40px; "
+                                         selectionMode="single" selection="#{reservationsBean.selectedReservedSeatInDetailSale}">
                                 <p:column headerText="Fecha" style="width:75px">  
                                     <p:outputLabel value="#{reservedSeat.saleDetail.sale.formatTripTime}"/>
                                 </p:column>
@@ -157,18 +148,20 @@
                                     <p:outputLabel value="#{reservedSeat.saleDetail.seat.seat}" 
                                                     />
                                 </p:column>
-                                <p:column headerText="Cliente" style="width:157px">
+                                <p:column headerText="Cliente" style="width:157px;">
                                     <p:outputLabel value="#{reservedSeat.saleDetail.customerName}" />
                                 </p:column>
-                                <f:facet name="footer">
-                                    <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
-                                                     actionListener="#{saleBean.cancelSeat(userBean.alternativeUser, 'toCancelRes')}"
-                                                     ajax="true" 
-                                                     update=":saleForm:reservedSeatsBySale :main-form:growl" >
-                                    </p:commandButton>
-                                </f:facet>
                             </p:dataTable>
-                        </div>
+                            <p:row>
+                                <p:column style="padding-top: 105px;">
+                                    <p:commandButton icon="ui-icon-star" value="Confirmar cancelación"  
+                                                 actionListener="#{reservationsBean.cancelSeat(userBean.alternativeUser, 'toCancelRes')}"
+                                                 ajax="true" 
+                                                 update=":saleForm:reservedSeatsBySale :main-form:growl" >
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>                            
+                         </div>
                     </h:form>
                 </ui:define>
 

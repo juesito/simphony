@@ -23,16 +23,11 @@
                                         <p:panelGrid styleClass="sale-schedule-panel">
                                             <p:row>
                                                 <p:column>
-                                                    <p:outputLabel value="Cancelación de Venta" style=" font-size:20px " />
+                                                    <p:outputLabel value="Cancelación de venta" style=" font-size:20px " />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
-                                                    <p:outputLabel value=" " />
-                                                </p:column>
-                                            </p:row>
-                                            <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top:25px;">
                                                     <p:outputLabel value="#{msgs.cat_origin}:" />
                                                 </p:column>                                    
                                             </p:row>
@@ -52,7 +47,7 @@
 
                                             </p:row>
                                             <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top:10px;">
                                                     <p:outputLabel value="#{msgs.cat_destiny}:" />
                                                 </p:column>
 
@@ -71,7 +66,7 @@
 
                                             </p:row>
                                             <p:row>
-                                                <p:column style="padding-top: 25px; ">
+                                                <p:column style="padding-top:10px; ">
                                                     <p:outputLabel value="Fecha y hora de salida:" />
                                                 </p:column>
                                             </p:row>
@@ -83,7 +78,7 @@
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column style="padding-top: 25px; ">
+                                                <p:column style="padding-top: 20px; ">
                                                     <p:commandButton value="Buscar" action="#{saleBean.findSale(0)}" 
                                                                      ajax="true" styleClass="button-rounded"  partialSubmit="true"
                                                                      process=":saleForm:tabViewCancel:sale-input"
@@ -100,27 +95,22 @@
                                         <p:panelGrid styleClass="sale-schedule-panel">
                                             <p:row>
                                                 <p:column>
-                                                    <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                                    <p:outputLabel value="Cancelación de venta" style=" font-size:20px " />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
-                                                    <p:outputLabel value=" " />
-                                                </p:column>
-                                            </p:row>
-                                            <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top: 25px; ">
                                                     <p:outputLabel value="Folio Venta:" />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
                                                 <p:column>
-                                                    <p:inputText size="4" value="#{saleBean.cancelledSale.id}"
-                                                                 maxlength="5" required="true" />
+                                                    <p:inputText size="10" value="#{saleBean.cancelledSale.id}"
+                                                                 maxlength="10" required="true" />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column style="padding-top: 25px; ">
+                                                <p:column style="padding-top: 20px; ">
                                                     <p:commandButton value="Buscar" action="#{saleBean.findSale(1)}" 
                                                                      ajax="true" styleClass="button-rounded" partialSubmit="true"
                                                                      process=":saleForm:tabViewCancel:sale-input-II"
@@ -137,16 +127,11 @@
                                         <p:panelGrid styleClass="sale-schedule-panel">
                                             <p:row>
                                                 <p:column>
-                                                    <p:outputLabel value="Cancelación" style=" font-size:20px " />
+                                                    <p:outputLabel value="Cancelación de venta" style=" font-size:20px " />
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column>
-                                                    <p:outputLabel value=" " />
-                                                </p:column>
-                                            </p:row>
-                                            <p:row>
-                                                <p:column>
+                                                <p:column style="padding-top:25px; ">
                                                     <p:outputLabel value="Nombre Cliente:" />
                                                 </p:column>
                                             </p:row>
@@ -157,7 +142,7 @@
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column style="padding-top: 25px; ">
+                                                <p:column style="padding-top: 20px; ">
                                                     <p:commandButton value="Buscar" action="#{saleBean.findSale(2)}" 
                                                                      ajax="true" styleClass="button-rounded" partialSubmit="true"
                                                                      process=":saleForm:tabViewCancel:sale-input-III"
@@ -175,8 +160,9 @@
 
                         <div class="box-content-saleCancel-detail" >
 
+                            <p:outputLabel value="Seleccione una Venta." style=" font-size:13px " />
                             <p:dataTable value="#{saleBean.reservedSeatInDetailSale}" var="reservedSeat" 
-                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top: 25px; padding-bottom: 40px; "
+                                         id="reservedSeatsBySale" rowKey="#{reservedSeat.rowId}" style="padding-top:5px; padding-bottom: 40px; "
                                          selectionMode="single" selection="#{saleBean.selectedReservedSeatInDetailSale}">
                                 <p:column headerText="Folio" style="width:25px">  
                                     <p:outputLabel value="#{reservedSeat.saleDetail.id}"/>

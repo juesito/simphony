@@ -99,6 +99,7 @@ public class Sale implements Serializable, IConfigurable {
         this.setAvailability(false);
         this.setExistRoutes(false);
         this.passengers = 0;
+        this.discount = 0.0;
         this.amount = 0.0;
         this.retirees = 0;
         this.subTotal = 0.0;
@@ -111,7 +112,7 @@ public class Sale implements Serializable, IConfigurable {
         this.setPartner(false);
         this.setAvailability(false);
         this.setExistRoutes(false);
-
+        this.discount = 0.0;
         this.amount = 0.0;
         this.retirees = 0;
         this.subTotal = 0.0;
