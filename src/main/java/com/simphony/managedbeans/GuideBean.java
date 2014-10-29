@@ -147,7 +147,7 @@ public class GuideBean implements IConfigurable {
         if (this.selected != null) {
             this.current.setAction(_MODIFY);
             try {
-                this.guide = (Guide) this.selected.clone();
+                this.guide = (Guide) this.selected.getGuide().clone();
             } catch (CloneNotSupportedException ex) {
                 Logger.getLogger(GuideBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -182,37 +182,39 @@ public class GuideBean implements IConfigurable {
         listTemporal = c;
         if (c.size() > 0) {
             Date depDate = new Date();
-            Long idOrigin = (long) 0 ;
-            Long idRoute  = (long) 0;
+            Long idOrigin = (long) 0;
+            Long idRoute = (long) 0;
             boolean unaVez = true;
             DailySales gClone = new DailySales();
             for (DailySales gd : c) {
-                if(unaVez){
+                if (unaVez) {
                     depDate = gd.getGuide().getDepartureDate();
                     idOrigin = gd.getGuide().getOrigin().getId();
                     idRoute = gd.getGuide().getRootRoute();
                     gClone = (DailySales) gd.clone();
                     unaVez = false;
                 }
-                if(gd.getGuide().getDepartureDate().equals(depDate)&& gd.getGuide().getOrigin().getId().equals(idOrigin) && gd.getGuide().getRootRoute().equals(idRoute)){
-                    if(gd.getDetAssociates() != null ){
-                        totPas = totPas + gd.getDetAssociates();
-                    }
-                    if(gd.getDetIncome() != null){
-                        totIng = totIng + gd.getDetIncome();
-                    }
-                }else{
-                    depDate = gd.getGuide().getDepartureDate();
-                    idOrigin = gd.getGuide().getOrigin().getId();
-                    idRoute = gd.getGuide().getRootRoute();
+                if (!gd.getGuide().getDepartureDate().equals(depDate) || !gd.getGuide().getOrigin().getId().equals(idOrigin) || !gd.getGuide().getRootRoute().equals(idRoute)) {
                     gClone.setDetIncome(totIng);
                     gClone.setDetAssociates(totPas);
                     list.add(gClone);
                     gClone = (DailySales) gd.clone();
                     totPas = new Long(0);
                     totIng = 0.0;
+                    depDate = gd.getGuide().getDepartureDate();
+                    idOrigin = gd.getGuide().getOrigin().getId();
+                    idRoute = gd.getGuide().getRootRoute();
+                }
+                if (gd.getDetAssociates() != null) {
+                    totPas = totPas + gd.getDetAssociates();
+                }
+                if (gd.getDetIncome() != null) {
+                    totIng = totIng + gd.getDetIncome();
                 }
             }
+            gClone.setDetIncome(totIng);
+            gClone.setDetAssociates(totPas);
+            list.add(gClone);
         }
     }
 

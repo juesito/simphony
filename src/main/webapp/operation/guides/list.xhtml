@@ -46,13 +46,13 @@
                             <p:column headerText="#{msgs.cat_driverMan}" >
                                 <p:outputLabel value="#{guide.guide.driverMan1.firstLastName} #{guide.guide.driverMan1.name}" />
                             </p:column>
-                            <p:column headerText="Pasajeros" style="width:35px" >
+                            <p:column headerText="Ocup" style="width:35px" >
                                 <p:outputLabel value="#{guide.detAssociates}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_quota}" style="width:35px" >
                                 <p:outputLabel value="#{guide.guide.quota}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_status}" style="width:100px" >
+                            <p:column headerText="#{msgs.cat_status}" style="width:75px" >
                                 <p:outputLabel value="#{guide.guide.formatStatus}" />
                             </p:column>
                             
@@ -107,7 +107,7 @@
                                     <h:outputText value="#{msgs.cat_driverMan}2:" />
                                     <h:outputText value="#{guideBean.selected.guide.driverMan2.fullName}" />
                                                                        
-                                    <h:outputText value="Pasajeros:" />
+                                    <h:outputText value="Ocupados:" />
                                     <h:outputText value="#{guideBean.selected.detAssociates}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_quota}:" />

@@ -85,8 +85,8 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
            "(SELECT SUM(sd.amount - sd.discount) FROM SaleDetail sd, GuideDetail gd  "+
            " WHERE sd.status = 'V' AND sd.sale.id = gd.sale.id " +
            " AND g.id = gd.guide.id ), " +
-           "(SELECT COUNT(gd.id) FROM GuideDetail gd " +
-           " WHERE g.id = gd.guide.id ))" +
+           "(SELECT COUNT(gd.id) FROM GuideDetail gd, SaleDetail sd " +
+           " WHERE g.id = gd.guide.id AND sd.status <> 'C' AND sd.sale.id = gd.sale.id ))" +
            " FROM Guide g "  +
            " ORDER BY g.departureDate ")
     public List<DailySales> selectAllGuide();
