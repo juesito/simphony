@@ -397,7 +397,7 @@ public class ReportsBean implements IConfigurable {
             }
             modelDS = new DailySalesModel(listDailySales);
         } else {
-            GrowlBean.simplyErrorMessage("Error de datos", "Falta AutobÃºs o fechas...");
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
         }
 
     }

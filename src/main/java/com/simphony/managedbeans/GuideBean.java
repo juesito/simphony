@@ -13,6 +13,7 @@ import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.pojos.DailySales;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,10 +39,10 @@ public class GuideBean implements IConfigurable {
     private final MessageProvider mp;
     private Guide guide = new Guide();
     private Guide current = new Guide();
-    private Guide selected = new Guide();
-    private List<Guide> list = new ArrayList<Guide>();
+    private DailySales selected = new DailySales();
+    private List<DailySales> list = new ArrayList<DailySales>();
     private List<SaleDetail> listDetail = new ArrayList<SaleDetail>();
-    private List<Guide> listTemporal = new ArrayList<Guide>();
+    private List<DailySales> listTemporal = new ArrayList<DailySales>();
 
     @ManagedProperty(value = "#{guideService}")
     private GuideService guideService;
@@ -89,11 +90,11 @@ public class GuideBean implements IConfigurable {
         this.salePointService = salePointService;
     }
 
-    public List<Guide> getList() {
+    public List<DailySales> getList() {
         return list;
     }
 
-    public void setList(List<Guide> list) {
+    public void setList(List<DailySales> list) {
         this.list = list;
     }
 
@@ -105,11 +106,11 @@ public class GuideBean implements IConfigurable {
         this.listDetail = listDetail;
     }
 
-    public Guide getSelected() {
+    public DailySales getSelected() {
         return selected;
     }
 
-    public void setSelected(Guide selected) {
+    public void setSelected(DailySales selected) {
         this.selected = selected;
     }
 
@@ -146,7 +147,7 @@ public class GuideBean implements IConfigurable {
         if (this.selected != null) {
             this.current.setAction(_MODIFY);
             try {
-                this.guide = (Guide) this.selected.clone();
+                this.guide = (Guide) this.selected.getGuide().clone();
             } catch (CloneNotSupportedException ex) {
                 Logger.getLogger(GuideBean.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -156,7 +157,7 @@ public class GuideBean implements IConfigurable {
         }
     }
 
-    public String cancelGuide() {
+    public String cancelGuide() throws CloneNotSupportedException {
         this.fillGuide();
         return "toGuide";
     }
@@ -164,7 +165,7 @@ public class GuideBean implements IConfigurable {
     /**
      * Llenamos lista
      */
-    private void fillGuide() {
+    private void fillGuide() throws CloneNotSupportedException {
         list.clear();
 //        Iterable<Guide> c = this.guideService.getRepository().findAllLocal();
 //        Iterable<Guide> c = this.guideService.getRepository().findAll(sortByDate());
@@ -174,21 +175,46 @@ public class GuideBean implements IConfigurable {
 //                list.add(cu.next());
 //            }
 //        }
-        List<Guide> c = this.guideService.getRepository().findAll(sortByDate());
+//        List<Guide> c = this.guideService.getRepository().findAll(sortByDate());
+        Long totPas = new Long(0);
+        Double totIng = 0.0;
+        List<DailySales> c = this.guideService.getRepository().selectAllGuide();
         listTemporal = c;
         if (c.size() > 0) {
             Date depDate = new Date();
-            Long idOrigin = (long) 0 ;
-            Long idRoute  = (long) 0;
-            for (Guide gd : c) {
-                if(gd.getDepartureDate().equals(depDate)&& gd.getOrigin().getId().equals(idOrigin) && gd.getRootRoute().equals(idRoute)){
-                }else{
-                    depDate = gd.getDepartureDate();
-                    idOrigin = gd.getOrigin().getId();
-                    idRoute = gd.getRootRoute();
-                    list.add(gd);
+            Long idOrigin = (long) 0;
+            Long idRoute = (long) 0;
+            boolean unaVez = true;
+            DailySales gClone = new DailySales();
+            for (DailySales gd : c) {
+                if (unaVez) {
+                    depDate = gd.getGuide().getDepartureDate();
+                    idOrigin = gd.getGuide().getOrigin().getId();
+                    idRoute = gd.getGuide().getRootRoute();
+                    gClone = (DailySales) gd.clone();
+                    unaVez = false;
+                }
+                if (!gd.getGuide().getDepartureDate().equals(depDate) || !gd.getGuide().getOrigin().getId().equals(idOrigin) || !gd.getGuide().getRootRoute().equals(idRoute)) {
+                    gClone.setDetIncome(totIng);
+                    gClone.setDetAssociates(totPas);
+                    list.add(gClone);
+                    gClone = (DailySales) gd.clone();
+                    totPas = new Long(0);
+                    totIng = 0.0;
+                    depDate = gd.getGuide().getDepartureDate();
+                    idOrigin = gd.getGuide().getOrigin().getId();
+                    idRoute = gd.getGuide().getRootRoute();
+                }
+                if (gd.getDetAssociates() != null) {
+                    totPas = totPas + gd.getDetAssociates();
+                }
+                if (gd.getDetIncome() != null) {
+                    totIng = totIng + gd.getDetIncome();
                 }
             }
+            gClone.setDetIncome(totIng);
+            gClone.setDetAssociates(totPas);
+            list.add(gClone);
         }
     }
 
@@ -202,19 +228,19 @@ public class GuideBean implements IConfigurable {
             listDetail.clear();
 //            listDetail = guideService.getRepository().qryGuideDetailLocal(this.selected.getDepartureDate(), this.selected.getOrigin().getId());
 //            listDetail = guideService.getRepository().qryGuideDetail(this.selected.getId());
-            for (Guide gd : listTemporal) {
-                if (gd.getDepartureDate().equals(this.selected.getDepartureDate())
-                        && gd.getOrigin().getId().equals(this.selected.getOrigin().getId())
-                        && gd.getRootRoute().equals(this.selected.getRootRoute())) {
-                    Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getId());
+            for (DailySales gd : listTemporal) {
+                if (gd.getGuide().getDepartureDate().equals(this.selected.getGuide().getDepartureDate())
+                        && gd.getGuide().getOrigin().getId().equals(this.selected.getGuide().getOrigin().getId())
+                        && gd.getGuide().getRootRoute().equals(this.selected.getGuide().getRootRoute())) {
+                    Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getGuide().getId());
                     Iterator<SaleDetail> cu = c.iterator();
                     while (cu.hasNext()) {
                         listDetail.add(cu.next());
                     }
                 }
             }
-            tit1 = this.salePointService.getSalePointRepository().tit1(this.selected.getOrigin().getId());
-            tit2 = this.salePointService.getSalePointRepository().tit2(this.selected.getOrigin().getId());
+            tit1 = this.salePointService.getSalePointRepository().tit1(this.selected.getGuide().getOrigin().getId());
+            tit2 = this.salePointService.getSalePointRepository().tit2(this.selected.getGuide().getOrigin().getId());
             this.ordenaAsi();
             return "toGuideDetail";
         } else {
@@ -227,9 +253,9 @@ public class GuideBean implements IConfigurable {
      */
     private void fillDetail(Date depDate, Long idOrigin, Long idRoute) {
         listDetail.clear();
-        for (Guide gd : listTemporal) {
-                if(gd.getDepartureDate().equals(depDate)&& gd.getOrigin().getId().equals(idOrigin) && gd.getRootRoute().equals(idRoute)){
-                    Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getId());
+        for (DailySales gd : listTemporal) {
+                if(gd.getGuide().getDepartureDate().equals(depDate)&& gd.getGuide().getOrigin().getId().equals(idOrigin) && gd.getGuide().getRootRoute().equals(idRoute)){
+                    Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getGuide().getId());
                     Iterator<SaleDetail> cu = c.iterator();
                     while (cu.hasNext()) {
                         listDetail.add(cu.next());
@@ -247,7 +273,7 @@ public class GuideBean implements IConfigurable {
      * @return
      */
     public String toGuideDetail() {
-        this.fillDetail(this.selected.getDepartureDate(),this.selected.getOrigin().getId(),this.selected.getRootRoute());
+        this.fillDetail(this.selected.getGuide().getDepartureDate(),this.selected.getGuide().getOrigin().getId(),this.selected.getGuide().getRootRoute());
         return "toGuideDetail";
     }
 
@@ -258,15 +284,15 @@ public class GuideBean implements IConfigurable {
      * @return
      * @throws com.simphony.exceptions.PersonException
      */
-    public String updateG(User user) throws PersonException {
+    public String updateG(User user) throws PersonException, CloneNotSupportedException {
 
         // Verifica cuantos boletos tiene vendidos anets de modificar el cupo
         int pasVend = 0;
-        for (Guide gd : listTemporal) {
-            if(gd.getDepartureDate().equals(this.selected.getDepartureDate())&& 
-                gd.getOrigin().getId().equals(this.selected.getOrigin().getId()) && 
-                gd.getRootRoute().equals(this.selected.getRootRoute())){
-                Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getId());
+        for (DailySales gd : listTemporal) {
+            if(gd.getGuide().getDepartureDate().equals(this.selected.getGuide().getDepartureDate())&& 
+                gd.getGuide().getOrigin().getId().equals(this.selected.getGuide().getOrigin().getId()) && 
+                gd.getGuide().getRootRoute().equals(this.selected.getGuide().getRootRoute())){
+                Iterable<SaleDetail> c = this.guideService.getRepository().qryGuideDetail(gd.getGuide().getId());
                 Iterator<SaleDetail> cu = c.iterator();
                 while (cu.hasNext()) {
                     pasVend += 1;
@@ -305,16 +331,16 @@ public class GuideBean implements IConfigurable {
      *
      * @throws com.simphony.exceptions.PersonException
      */
-    public void closeGuide() throws PersonException {
-        this.selected.setStatus(_GUIDE_TYPE_CLOSED);
+    public void closeGuide() throws PersonException, CloneNotSupportedException {
+        this.selected.getGuide().setStatus(_GUIDE_TYPE_CLOSED);
 
-        Guide guideUpdated = this.guideService.getRepository().findOne(selected.getId());
+        Guide guideUpdated = this.guideService.getRepository().findOne(selected.getGuide().getId());
 
         if (guideUpdated == null) {
             throw new PersonException("Guía no existente");
         }
-
-        guideUpdated.update(selected);
+        Guide guide = this.selected.getGuide();
+        guideUpdated.update(guide);
         this.guideService.getRepository().save(guideUpdated);
 
         this.fillGuide();
@@ -326,7 +352,7 @@ public class GuideBean implements IConfigurable {
      *
      * @return
      */
-    public String toGuide() {
+    public String toGuide() throws CloneNotSupportedException {
         this.fillGuide();
         return "toGuide";
     }

@@ -19,36 +19,41 @@
                         <!-- Data table de usuarios -->
                         <p:dataTable value="#{guideBean.list}" var="guide" style="font-size: 12px;"
                                      selectionMode="single" selection="#{guideBean.selected}" 
-                                     rowKey="#{guide.id}" id="guideDT"
+                                     rowKey="#{guide.guide.id}" id="guideDT"
                                      emptyMessage="#{msgs.no_records_found}" rows="20"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}"
                                     >
 
-                            <p:column headerText="#{msgs.cat_date}" filterBy="#{guide.formatDepartureDate}"
+                            <p:column headerText="#{msgs.cat_date}" filterBy="#{guide.guide.formatDepartureDate}"
                                       filterMatchMode="contains" style="width:110px" >
-                                <p:outputLabel value="#{guide.formatDepartureDate}" />
+                                <p:outputLabel value="#{guide.guide.formatDepartureDate}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_departureTime}" style="width:35px" >
-                                <p:outputLabel value="#{guide.formatDepartureTime}" />
+                                <p:outputLabel value="#{guide.guide.formatDepartureTime}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_origin}" >
-                                <p:outputLabel value="#{guide.origin.description}" />
+                            <p:column headerText="#{msgs.cat_origin}" filterBy="#{guide.guide.origin.description}"
+                                      filterMatchMode="contains"  >
+                                <p:outputLabel value="#{guide.guide.origin.description}" />
                             </p:column>
-                             <p:column headerText="#{msgs.cat_destiny}" >
-                                 <p:outputLabel value="#{guide.finalDestiny.description}" />
+                            <p:column headerText="#{msgs.cat_destiny}" filterBy="#{guide.guide.destiny.description}"
+                                      filterMatchMode="contains" >
+                                 <p:outputLabel value="#{guide.guide.finalDestiny.description}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_bus}" style="width:60px" >
-                                <p:outputLabel value="#{guide.bus.number}" />
+                                <p:outputLabel value="#{guide.guide.bus.number}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_driverMan}" >
-                                <p:outputLabel value="#{guide.driverMan1.firstLastName} #{guide.driverMan1.name}" />
+                                <p:outputLabel value="#{guide.guide.driverMan1.firstLastName} #{guide.guide.driverMan1.name}" />
+                            </p:column>
+                            <p:column headerText="Ocup" style="width:35px" >
+                                <p:outputLabel value="#{guide.detAssociates}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_quota}" style="width:35px" >
-                                <p:outputLabel value="#{guide.quota}" />
+                                <p:outputLabel value="#{guide.guide.quota}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_status}" style="width:100px" >
-                                <p:outputLabel value="#{guide.formatStatus}" />
+                            <p:column headerText="#{msgs.cat_status}" style="width:75px" >
+                                <p:outputLabel value="#{guide.guide.formatStatus}" />
                             </p:column>
                             
                              <!-- Footer -->
@@ -82,40 +87,43 @@
                                 <p:panelGrid  columns="2" rendered="#{not empty guideBean.selected}" columnClasses="label,value" >
                                     
                                     <h:outputText value="#{msgs.cat_date}" />
-                                    <h:outputText value="#{guideBean.selected.formatDepartureDate}" />
+                                    <h:outputText value="#{guideBean.selected.guide.formatDepartureDate}" />
 
                                     <h:outputText value="#{msgs.cat_departureTime}:" />
-                                    <h:outputText value="#{guideBean.selected.formatDepartureTime}" />
+                                    <h:outputText value="#{guideBean.selected.guide.formatDepartureTime}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_origin}:" />
-                                    <h:outputText value="#{guideBean.selected.origin.description}" />
+                                    <h:outputText value="#{guideBean.selected.guide.origin.description}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_destiny}:" />
-                                    <h:outputText value="#{guideBean.selected.destiny.description}" />
+                                    <h:outputText value="#{guideBean.selected.guide.destiny.description}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_bus}:" />
-                                    <h:outputText value="#{guideBean.selected.bus.number}" />
+                                    <h:outputText value="#{guideBean.selected.guide.bus.number}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_driverMan}1:" />
-                                    <h:outputText value="#{guideBean.selected.driverMan1.fullName}" />
+                                    <h:outputText value="#{guideBean.selected.guide.driverMan1.fullName}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_driverMan}2:" />
-                                    <h:outputText value="#{guideBean.selected.driverMan2.fullName}" />
+                                    <h:outputText value="#{guideBean.selected.guide.driverMan2.fullName}" />
+                                                                       
+                                    <h:outputText value="Ocupados:" />
+                                    <h:outputText value="#{guideBean.selected.detAssociates}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_quota}:" />
-                                    <h:outputText value="#{guideBean.selected.quota}" />
+                                    <h:outputText value="#{guideBean.selected.guide.quota}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_status}:" />
-                                    <h:outputText value="#{guideBean.selected.formatStatus}" />
+                                    <h:outputText value="#{guideBean.selected.guide.formatStatus}" />
                                     
                                     <h:outputText value="#{msgs.cat_createDate}:" />
-                                    <h:outputText value="#{guideBean.selected.formatCreateDate}" />
+                                    <h:outputText value="#{guideBean.selected.guide.formatCreateDate}" />
                                     
                                     <h:outputText value="#{msgs.cat_updateDate}:" />
-                                    <h:outputText value="#{guideBean.selected.formatLastUpdate}" />
+                                    <h:outputText value="#{guideBean.selected.guide.formatLastUpdate}" />
                                                                        
                                      <h:outputText value="#{msgs.cat_user}:" />
-                                     <h:outputText value="#{guideBean.selected.usrModify}" />
+                                     <h:outputText value="#{guideBean.selected.guide.usrModify}" />
                                                                        
                                 </p:panelGrid>
                             </p:outputPanel>

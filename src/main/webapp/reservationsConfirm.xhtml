@@ -27,7 +27,7 @@
                                             <p:outputLabel value="Origen:" />
                                         </p:column>
                                         <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="#{saleBean.selected.itinerary.origin.description}" />
+                                            <p:outputLabel value="#{reservationsBean.selected.itinerary.origin.description}" />
                                         </p:column>
 
                                     </p:row>
@@ -36,7 +36,7 @@
                                             <p:outputLabel value="Destino:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{saleBean.selected.itinerary.destiny.description}" />
+                                            <p:outputLabel value="#{reservationsBean.selected.itinerary.destiny.description}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -44,7 +44,7 @@
                                             <p:outputLabel value="Fecha:" />
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
+                                            <p:outputLabel value="#{reservationsBean.sale.formatTripTime}" />
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -52,7 +52,7 @@
                                             <p:outputLabel value="Hora:" style="padding-top: 20px;"/>
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{saleBean.selected.formatDepartureTime}" style="padding-top: 20px;"/>
+                                            <p:outputLabel value="#{reservationsBean.selected.formatDepartureTime}" style="padding-top: 20px;"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -60,7 +60,7 @@
                                             <p:outputLabel value="Reserv.:" style="padding-top: 20px;"/>
                                         </p:column>
                                         <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.passengers}" style="padding-top: 20px;" />
+                                            <p:outputLabel value="#{reservationsBean.sale.passengers}" style="padding-top: 20px;" />
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
@@ -74,7 +74,7 @@
                                          style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
                                 <p:row>
                                     <p:column>
-                                        <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="2" 
+                                        <p:dataGrid var="seat" value="#{reservationsBean.saleDetail}" columns="2" 
                                                     rows="6" paginator="true" id="seats" paginatorTemplate="{PageLinks}"
                                                     styleClass="grid-seats-main" paginatorPosition="bottom" >
 
@@ -99,7 +99,7 @@
                                                         <p:inputText id="associateKey" value="#{seat.associateKey}" size="8"   >
                                                             <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
                                                         </p:inputText>
-                                                        <p:commandButton title="Buscar Agremiado" action="#{saleBean.findAssociate(seat)}"
+                                                        <p:commandButton title="Buscar Agremiado" action="#{reservationsBean.findAssociate(seat)}"
                                                                          icon="ui-icon-search" ajax="true" style="background-color: #FFF;"
                                                                          update=":SaleForm:sale-seat-grid :main-form:growl" >
                                                         </p:commandButton>
@@ -135,10 +135,10 @@
                                     <p:column>
                                         <p:commandButton value="Cancelar" ajax="false" immediate="true" 
                                                          icon="ui-icon-arrowreturnthick-1-w"
-                                                         action="#{saleBean.toReservations()}" style="float: right;" >
-                                            <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                                         action="#{reservationsBean.toReservations()}" style="float: right;" >
+                                            <f:actionListener  binding="#{reservationsBean.clearSale()}"/>
                                         </p:commandButton>
-                                        <p:commandButton value="Guardar" ajax="false" action="#{saleBean.saveReservations(vendorBean.current)}"
+                                        <p:commandButton value="Guardar" ajax="false" action="#{reservationsBean.saveReservations(userBean.alternativeUser)}"
                                                          style="float: right;">
                                </p:commandButton>
                                     </p:column>

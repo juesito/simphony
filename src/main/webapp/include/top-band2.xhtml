@@ -34,10 +34,10 @@
                                             rendered="#{userBean.current.looged ne true}">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Reservaciones" action="#{saleBean.toReservations()}" ajax="false">
+                                <p:menuitem value="Reservaciones" action="#{reservationsBean.toReservations()}" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
-                                <p:menuitem value="Cancelar Reservaciones" action="#{saleBean.toCancelRes()}" ajax="false">
+                                <p:menuitem value="Cancelar Reservaciones" action="#{reservationsBean.toCancelRes()}" ajax="false">
                                     <f:actionListener  binding="#{boxPopulationService.fillPopulationOriSaleList()}"/>
                                 </p:menuitem>
                             </p:submenu>

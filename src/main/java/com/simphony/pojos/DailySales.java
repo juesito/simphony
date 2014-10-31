@@ -25,7 +25,7 @@ public class DailySales implements Cloneable {
     private Long detAssociates;
     private Long detRetires;
     private Long detPublico;
-    private Double detIncome;
+    private Double detIncome = 0.0;
     private Double detNom;
     private int kms;
     
@@ -50,6 +50,14 @@ public class DailySales implements Cloneable {
     public DailySales(Guide guide, Double detIncome) {
         this.guide = guide;
         this.detIncome = detIncome;
+        rowId = (int) (Math.random()*5000+1);
+        normalMode = true;
+    }
+
+    public DailySales(Guide guide, Double detIncome, Long detAssociates) {
+        this.guide = guide;
+        this.detIncome = detIncome;
+        this.detAssociates = detAssociates;
         rowId = (int) (Math.random()*5000+1);
         normalMode = true;
     }

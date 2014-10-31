@@ -30,14 +30,14 @@
                                     <p:row>
                                         <p:column>
 
-                                            <p:selectOneMenu id="origin" value="#{saleBean.sale.origin}" 
+                                            <p:selectOneMenu id="origin" value="#{reservationsBean.sale.origin}" 
                                                              converter="populationConverter" 
                                                              style="width:160px" required="true" 
                                                              requiredMessage="Origen Requerido">
                                                 <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.chooseopt}"  />
                                                 <f:selectItems value="#{boxPopulationService.populationOriSaleList}" />
                                                 <p:ajax event="change" update=":saleForm:destiny" 
-                                                        listener="#{boxPopulationService.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
+                                                        listener="#{boxPopulationService.fillPopulationDesSaleList(reservationsBean.sale.origin.id)}"   />
                                             </p:selectOneMenu>
                                         </p:column>
 
@@ -50,7 +50,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:selectOneMenu id="destiny" value="#{saleBean.sale.destiny}" 
+                                            <p:selectOneMenu id="destiny" value="#{reservationsBean.sale.destiny}" 
                                                              converter="populationConverter" 
                                                              style="width:160px" required="true" 
                                                              requiredMessage="Destino requerido">
@@ -69,12 +69,12 @@
                                     <p:row>
                                         <p:column>
                                             <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                                        pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
+                                                        pages="2" showOn="button" value="#{reservationsBean.sale.tripDate}"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column style="padding-top: 25px;">
-                                            <p:commandButton value="buscar" actionListener="#{saleBean.findItinearies()}" 
+                                            <p:commandButton value="buscar" actionListener="#{reservationsBean.findItinearies()}" 
                                                              ajax="true" styleClass="button-rounded" 
                                                              update=":saleForm:sale-panel :main-form:growl"   >
                                              <f:actionListener  binding="#{payRollBean.fillPayRolls()}"/>                                
@@ -91,12 +91,12 @@
                             <!-- Itinerario Grid -->
                             <p:panel id="sale-panel">
                                 <!-- first phase -->
-                                <p:panelGrid id="sale-detail-grid" rendered="#{saleBean.sale.existRoutes}">
+                                <p:panelGrid id="sale-detail-grid" rendered="#{reservationsBean.sale.existRoutes}">
                                     <p:row>
                                         <p:column colspan="2">
                                             <p:outputLabel value="Seleccione una Ruta." style=" font-size:15px " />
-                                            <p:dataTable id="dic" value="#{saleBean.model}" var="ic" style="padding-top: 12px;"
-                                                         selectionMode="single" selection="#{saleBean.selected}" 
+                                            <p:dataTable id="dic" value="#{reservationsBean.model}" var="ic" style="padding-top: 12px;"
+                                                         selectionMode="single" selection="#{reservationsBean.selected}" 
                                                          rowKey="#{ic.rowId}" emptyMessage="Sin tarifas registradas"  >
                                                 <p:column headerText="hr Salida"> 
                                                     <p:outputLabel value="#{ic.formatDepartureTime}" />
@@ -125,7 +125,7 @@
                                     <p:row>
                                         <p:column style="padding-top: 25px;">
                                             <p:commandButton icon="ui-icon-star" value="Seleccionar Asientos"
-                                                             actionListener="#{saleBean.findAvailability(vendorBean.current)}"
+                                                             actionListener="#{reservationsBean.findAvailability(vendorBean.current)}"
                                                              ajax="true" partialSubmit="true" process=":saleForm:sale-panel" 
                                                              update=":saleForm:sale-detail-grid :saleForm:sale-seat-grid :saleForm:sale-input
                                                              :saleForm:sale-seat-grid :main-form:growl :saleForm:sale-panel :saleForm:seatsForBook">
@@ -139,11 +139,11 @@
 
                             <!-- Seats Grid -->
                             <p:panel id="seatsForBook">
-                                <p:panelGrid id="sale-seat-grid" rendered="#{saleBean.sale.availability}">
+                                <p:panelGrid id="sale-seat-grid" rendered="#{reservationsBean.sale.availability}">
 
                                     <p:row>
                                         <p:column>
-                                            <p:dataGrid var="seat" value="#{saleBean.seat}" columns="4" 
+                                            <p:dataGrid var="seat" value="#{reservationsBean.seat}" columns="4" 
                                                         rows="40" paginator="false" id="seats" styleClass="grid-seats-main"
                                                         >
 
@@ -151,13 +151,13 @@
                                                     Asientos disponibles
                                                 </f:facet>
 
-                                                <p:panel styleClass="#{saleBean.columnClass(seat.id)}" rendered="#{seat.seat ne 'OC'}">
+                                                <p:panel styleClass="#{reservationsBean.columnClass(seat.id)}" rendered="#{seat.seat ne 'OC'}">
 
-                                                    <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
+                                                    <p:commandLink update=":saleForm:selectedSeatsList" action="#{reservationsBean.addSeat}" 
                                                                    title="Seleccione asiento" >
 
                                                         <p:outputLabel value="#{seat.seat}" />
-                                                        <f:setPropertyActionListener value="#{seat}" target="#{saleBean.selectedSeat}" />
+                                                        <f:setPropertyActionListener value="#{seat}" target="#{reservationsBean.selectedSeat}" />
                                                     </p:commandLink>
 
 
@@ -169,14 +169,14 @@
                                         </p:column>
                                         <p:column>
                                             <!-- lista de asientos ocupados -->
-                                            <p:dataList value="#{saleBean.saleDetail}" id="selectedSeatsList" 
+                                            <p:dataList value="#{reservationsBean.saleDetail}" id="selectedSeatsList" 
                                                         var="unselectedseatList" type="ordered" itemType="none" styleClass="reservedSeat-grid" >
                                                 <f:facet name="header">
                                                     <p:outputLabel value="Asientos elegidos" style="font-size: 12px;" />
                                                 </f:facet>
-                                                <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.removeSeat}" 
+                                                <p:commandLink update=":saleForm:selectedSeatsList" action="#{reservationsBean.removeSeat}" 
                                                                title="Seleccione asiento" ajax="true">
-                                                    <f:setPropertyActionListener value="#{unselectedseatList}" target="#{saleBean.unSelectedDetail}" />
+                                                    <f:setPropertyActionListener value="#{unselectedseatList}" target="#{reservationsBean.unSelectedDetail}" />
                                                     <p:outputLabel value="#{unselectedseatList.seat.seat}" />
 
                                                 </p:commandLink>                                                                                                
@@ -187,13 +187,13 @@
                                         <p:column colspan="2">
                                             <p:commandButton value="Confirmar Asientos" icon="ui-icon-cart"
                                                              update=":main-form:growl"
-                                                             action="#{saleBean.toReservationsConfirm()}"  ajax="true">
+                                                             action="#{reservationsBean.toReservationsConfirm()}"  ajax="true">
                                             </p:commandButton>
                                         </p:column>
                                         <p:column colspan="2">
                                             <p:commandButton value="Cancelar" icon="ui-icon-arrowreturnthick-1-w"
                                                              action="toSale"  ajax="false" immediate="true">
-                                                <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                                <f:actionListener  binding="#{reservationsBean.clearSale()}"/>
                                             </p:commandButton>
                                         </p:column>
                                     </p:row>
