@@ -22,6 +22,21 @@
                                         </p:column>
                                     </p:row>
                                     <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Tipo de viaje" />
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="padding-top: 25px;">
+                                            <p:selectOneRadio id="travelService" value="#{saleBean.sale.travelService}">
+                                                <f:selectItem itemLabel="Sencillo" itemValue="S" />
+                                                <f:selectItem itemLabel="Redondo" itemValue="R" />
+                                                <p:ajax event="change"  update=":saleForm:sale-input"
+                                                        />
+                                            </p:selectOneRadio>
+                                        </p:column>                                    
+                                    </p:row>
+                                    <p:row>
                                         <p:column style="padding-top: 25px;">
                                             <p:outputLabel value="Saliendo de:" />
                                         </p:column>                                    
@@ -31,12 +46,12 @@
                                             <p:autoComplete value="#{saleBean.sale.origin}" id="origin" 
                                                             completeMethod="#{populationBean.autoComplete}" 
                                                             scrollHeight="200" style="position: relative;"
-                                                    var="p" itemLabel="#{p.description}" itemValue="#{p}" forceSelection="true" 
-                                                    converter="populationConverter" >
+                                                            var="p" itemLabel="#{p.description}" itemValue="#{p}" forceSelection="true" 
+                                                            converter="populationConverter" >
                                                 <p:ajax event="itemSelect" update=":saleForm:destiny" 
                                                         listener="#{populationBean.fillPopulationDesSaleList(saleBean.sale.origin.id)}"   />
                                             </p:autoComplete>
-                        
+
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -50,10 +65,10 @@
                                             <p:autoComplete value="#{saleBean.sale.destiny}" id="destiny" 
                                                             completeMethod="#{populationBean.autoCompleteDestiny}" 
                                                             scrollHeight="200" style="position: relative;"
-                                                    var="p" itemLabel="#{p.description}" itemValue="#{p}" forceSelection="true" 
-                                                    converter="populationConverter" >
+                                                            var="p" itemLabel="#{p.description}" itemValue="#{p}" forceSelection="true" 
+                                                            converter="populationConverter" >
                                             </p:autoComplete>
-                                       
+
                                         </p:column>
 
                                     </p:row>
@@ -67,6 +82,21 @@
                                             <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
                                                         pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
                                         </p:column>
+                                    </p:row>
+
+
+                                    <p:row>
+
+                                        <p:column >
+                                            <p:outputLabel value="Fecha regreso:" id="roundedService" rendered="#{saleBean.sale.travelService eq 'R'}" />
+                                        </p:column> 
+                                    </p:row>
+                                    <p:row>
+                                        <p:column >
+                                            <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                                        pages="2" showOn="button" value="#{saleBean.sale.backDate}"
+                                                        rendered="#{saleBean.sale.travelService eq 'R'}"/>
+                                        </p:column> 
                                     </p:row>
                                     <p:row>
                                         <p:column style="padding-top: 25px;">
@@ -103,7 +133,7 @@
                                                 <p:column headerText="Tiempo recorrido">
                                                     <p:outputLabel value="#{ic.cost.formatRouteTime}" />
                                                 </p:column>
-                                                 <p:column headerText="Tipo ruta">                                                    
+                                                <p:column headerText="Tipo ruta">                                                    
                                                     <p:outputLabel value="#{ic.itinerary.formatTypeOfRoute}" />
                                                 </p:column>
                                                 <p:column headerText="Ocup" style="width:27px">
@@ -112,8 +142,40 @@
                                                 <p:column headerText="Disp" style="width:22px">
                                                     <p:outputLabel value="#{ic.freeSeats}" />
                                                 </p:column>
-                                               <p:column headerText="Vía" style="width:120px">
+                                                <p:column headerText="Vía" style="width:120px">
                                                     <p:outputLabel value="#{ic.itinerary.via}" />
+                                                </p:column>
+                                            </p:dataTable>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:outputLabel value="Seleccione una ruta de regreso." 
+                                                           style="padding-top: 30px; font-size:15px " />
+                                            <p:dataTable id="dicb" value="#{saleBean.modelToBack}" var="icb" style="padding-top: 12px;"
+                                                         selectionMode="single" selection="#{saleBean.selectedToBack}" 
+                                                         rowKey="#{icb.rowId}" emptyMessage="Sin tarifas registradas"
+                                                         rendered="#{saleBean.sale.travelService eq 'R'}">
+                                                <p:column headerText="hr Salida"> 
+                                                    <p:outputLabel value="#{icb.formatDepartureTime}" />
+                                                </p:column>
+                                                <p:column headerText="Costo">
+                                                    <p:outputLabel value="#{icb.cost.cost}" />
+                                                </p:column>
+                                                <p:column headerText="Tiempo recorrido">
+                                                    <p:outputLabel value="#{icb.cost.formatRouteTime}" />
+                                                </p:column>
+                                                <p:column headerText="Tipo ruta">                                                    
+                                                    <p:outputLabel value="#{icb.itinerary.formatTypeOfRoute}" />
+                                                </p:column>
+                                                <p:column headerText="Ocup" style="width:27px">
+                                                    <p:outputLabel value="#{icb.reservedSeats}" />
+                                                </p:column>
+                                                <p:column headerText="Disp" style="width:22px">
+                                                    <p:outputLabel value="#{icb.freeSeats}" />
+                                                </p:column>
+                                                <p:column headerText="Vía" style="width:120px">
+                                                    <p:outputLabel value="#{icb.itinerary.via}" />
                                                 </p:column>
                                             </p:dataTable>
                                         </p:column>
@@ -194,6 +256,70 @@
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
+                                
+                                
+                                <!-- this is new -->
+                                <p:panelGrid id="sale-seat-grid" 
+                                             rendered="#{saleBean.sale.availability}">
+                                    <p:row>
+                                        <p:column>
+                                            <p:dataGrid var="seatToBack" value="#{saleBean.seatToBack}" columns="4" rows="40"
+                                                        paginator="false" id="seatsToBack" styleClass="grid-seats-main" >
+
+                                                <f:facet name="header">
+                                                    Asientos disponibles de regreso
+                                                </f:facet>
+
+                                                <p:panel styleClass="#{saleBean.columnClass(seatToBack.id)}" rendered="#{seatToBack.seat ne 'OC'}">
+
+                                                    <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.addSeat}" 
+                                                                   title="Seleccione asiento">
+
+                                                        <p:outputLabel value="#{seat.seat}" />
+                                                        <f:setPropertyActionListener value="#{seatToBack}" target="#{saleBean.selectedSeat}" />
+                                                    </p:commandLink>
+
+
+                                                </p:panel>
+                                                <p:outputLabel value="#{seatToBack.seat}" rendered="#{seatToBack.seat eq 'OC'}" />
+
+
+                                            </p:dataGrid>
+                                        </p:column>
+                                        <p:column>
+                                            <!-- lista de asientos ocupados -->
+                                            <p:dataList value="#{saleBean.saleDetail}" id="selectedSeatsList" 
+                                                        var="unselectedseatList" type="ordered" itemType="none" 
+                                                        styleClass="reservedSeat-grid" emptyMessage=" ">
+                                                <f:facet name="header">
+                                                    <p:outputLabel value="Asientos elegidos" style="font-size: 12px;" />
+                                                </f:facet>
+                                                <p:commandLink update=":saleForm:selectedSeatsList" action="#{saleBean.removeSeat}" 
+                                                               title="Seleccione asiento" ajax="true">
+                                                    <f:setPropertyActionListener value="#{unselectedseatList}" target="#{saleBean.unSelectedDetail}" />
+                                                    <p:outputLabel value="#{unselectedseatList.seat.seat}" />
+
+                                                </p:commandLink>                                                                                                
+                                            </p:dataList>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2">
+                                            <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
+                                                             update=":main-form:growl"
+                                                             action="#{saleBean.toSaleConfirm()}"  ajax="true">
+                                                <f:actionListener  binding="#{payTypeBean.fillPayType()}"/>
+                                            </p:commandButton>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:commandButton value="Cancelar" icon="ui-icon-arrowreturnthick-1-w"
+                                                             action="toSale"  ajax="false" immediate="true">
+                                                <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                                
                             </p:panel>
                         </div>
                     </h:form>

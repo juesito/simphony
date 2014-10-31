@@ -81,7 +81,15 @@ public class Sale implements Serializable, IConfigurable {
     @Column(name = "TipoServicio")
     @Basic
     private String serviceType;
+    
+    @Column(name = "TipoViaje")
+    @Basic
+    private String travelService;
 
+    @Transient
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date backDate;
+    
     @Transient
     private boolean partner;
 
@@ -354,6 +362,21 @@ public class Sale implements Serializable, IConfigurable {
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
+
+    public String getTravelService() {
+        return travelService;
+    }
+
+    public void setTravelService(String travelService) {
+        this.travelService = travelService;
+    }
+
+    public Date getBackDate() {
+        return backDate;
+    }
+
+    public void setBackDate(Date backDate) {
+        this.backDate = backDate;
+    }
     
-        
 }

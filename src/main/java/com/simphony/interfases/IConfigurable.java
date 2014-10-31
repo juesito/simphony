@@ -40,6 +40,9 @@ public interface IConfigurable {
 
     final String _SALE_TYPE_PUBLIC = "P";
     final String _SALE_TYPE_ASSOCIATE = "A";
+    
+    final String _SALE_SINGLE_TRAVEL = "S";
+    final String _SALE_ROUNDED_TRAVEL = "R";
 
     // Simple Yes or NO
     final String _YES = "S";
