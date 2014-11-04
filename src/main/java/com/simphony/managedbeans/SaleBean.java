@@ -305,123 +305,25 @@ public class SaleBean implements IConfigurable {
      */
     public void findAvailability(Vendor vendor) throws CloneNotSupportedException {
 
-        
         if (selected != null) {
-            
-            if(this.sale.getTravelService().equals(_SALE_SINGLE_TRAVEL)){
-                seat = findAvailableSeats(this.selected, this.sale.getTripDate(), vendor.getNick());
-            }else{
-                seat = findAvailableSeats(this.selected, this.sale.getTripDate(), vendor.getNick());
-                
-                if(!seat.isEmpty()){
-                    seatToBack = findAvailableSeats(this.selectedToBack, this.sale.getBackDate(), vendor.getNick());
-                }
-            }
-            /*
-            //Asignamos la fecha de la venta            
-            this.sale.setTripDate(this.selected.getDepartureTime());
 
-            Long ori = selected.getCost().getOrigin().getId();
-            Long des = selected.getCost().getDestiny().getId();
-            Long route = selected.getItinerary().getRoute().getId();
+            if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL)) {
+                if (selectedToBack != null) {
+                    seat = findAvailableSeats(this.selected, this.sale.getTripDate(), vendor.getNick());
 
-            //Obtenemos el itinerario padre
-            Itinerary rootItinerary
-                    = itineraryService.getItineraryRepository().findOne(route);
-
-            Calendar cal = Calendar.getInstance();
-            Calendar calTime = (Calendar) cal.clone();
-            Calendar calTimeTmp = Calendar.getInstance();
-
-            calTimeTmp.setTime(sale.getTripDate());
-            calTime.setTime(rootItinerary.getDepartureTime());
-            calTime.set(calTimeTmp.get(Calendar.YEAR), calTimeTmp.get(Calendar.MONTH), calTimeTmp.get(Calendar.DAY_OF_MONTH));
-
-            if (calTime.getTime().compareTo(this.sale.getTripDate()) > 0) {
-                calTime.add(Calendar.DAY_OF_MONTH, -1);
-            }
-            rootItinerary.setDepartureTime(calTime.getTime());
-
-            //Validamos la guia padre
-            guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
-            if (guideRoot == null) {
-                guideRoot = new Guide();
-                guideRoot.setUsrModify(vendor.getNick());
-                guideRoot.setGuideType(_LOCAL);
-                guideRoot.setCreateDate(new Date());
-                guideRoot.setStatus(_GUIDE_TYPE_OPEN);
-                guideRoot.setGuideReference("Sin Referencia");
-                guideRoot.setDepartureDate(rootItinerary.getDepartureTime());
-                guideRoot = this.createRootGuide(guideRoot, rootItinerary);
-            }
-
-            guide = guideService.getRepository().findByItineraryAndDate(ori, des, sale.getTripDate(), route);
-            Integer maxLimitCarrie = 0;
-
-            if (guide != null) {
-                // Validación de asientos
-                guide.setNewGuide(false);
-                maxLimitCarrie = guide.getQuota();
-
-            } else {
-                //seat = seatService.getRepository().findAllAvailable();
-                guide = new Guide(true);
-            }
-
-            seat.clear();
-
-            //Obtenemos el limite de pasajeros en esa guia
-            if (maxLimitCarrie > 0) {
-                Pageable topTen = new PageRequest(0, maxLimitCarrie);
-                seat = seatService.getRepository().findAllAvailable(topTen);
-            } else {
-                seat = seatService.getRepository().findAllAvailable();
-            }
-
-            Seat occupiedPattern = seatService.getRepository().findOccupiedSeatPattern();
-            List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guideRoot.getRootGuide(), guideRoot.getRootRoute());
-
-            for (ReservedSeats reserved : reservedSeats) {
-
-                if (seat.contains(reserved.getSeat())) {
-                    int index = seat.indexOf(reserved.getSeat());
-
-                    if (this.selected.getItinerary().getSequence() == 0
-                            && this.selected.isNormalMode()) {
-                        seat.set(index, occupiedPattern);
-                    } else if (reserved.getFinalSequence() == 0) {  //Parten del mismo origen   
-                        seat.set(index, occupiedPattern);
-                    } else if (selected.getItinerary().getSequence() == reserved.getInitialSequence()) {
-                        seat.set(index, occupiedPattern);
-                        //Alt 10  -  Initial 0
-                    } else if (!this.selected.isNormalMode()
-                            && (selected.getAlternateItinerary().getSequence() < reserved.getFinalSequence()
-                            && selected.getAlternateItinerary().getSequence() > reserved.getInitialSequence())) {
-                        seat.set(index, occupiedPattern);
-                    } else if (!this.selected.isNormalMode()
-                            && (reserved.getInitialSequence() >= selected.getItinerary().getSequence()
-                            && selected.getAlternateItinerary().getSequence() >= reserved.getFinalSequence())) {
-                        seat.set(index, occupiedPattern);
-                    } else if (!this.selected.isNormalMode()
-                            && (reserved.getInitialSequence() <= selected.getItinerary().getSequence()
-                            && selected.getAlternateItinerary().getSequence() >= reserved.getFinalSequence()
-                            && reserved.getFinalSequence() > selected.getItinerary().getSequence())) {
-                        seat.set(index, occupiedPattern);
+                    if (!seat.isEmpty()) {
+                        seatToBack = findAvailableSeats(this.selectedToBack, this.sale.getBackDate(), vendor.getNick());
                     }
-
+                } else {
+                    GrowlBean.simplyWarmMessage("No selecciono registro destino", "Es necesario seleccionar");
                 }
+            } else {
+                seat = findAvailableSeats(this.selected, this.sale.getTripDate(), vendor.getNick());
             }
 
             this.sale.setAvailability(true);
             this.sale.setExistRoutes(false);
         } else {
-            GrowlBean.simplyWarmMessage("No selecciono registro", "Es necesario seleccionar");
-        }
-
-            */
-            this.sale.setAvailability(true);
-            this.sale.setExistRoutes(false);
-        }else {
             GrowlBean.simplyWarmMessage("No selecciono registro", "Es necesario seleccionar");
         }
     }
@@ -432,12 +334,12 @@ public class SaleBean implements IConfigurable {
      * @param selectedItinerary
      * @param dateFounded
      * @param vendorNick
-     * @return 
+     * @return
      */
     public List<Seat> findAvailableSeats(ItineraryCost selectedItinerary, Date dateFounded, String vendorNick) {
-        
+
         List<Seat> currentSeat;
-        
+
         //Asignamos la fecha de la venta            
         this.sale.setTripDate(selectedItinerary.getDepartureTime());
 
@@ -479,7 +381,7 @@ public class SaleBean implements IConfigurable {
         Integer maxLimitCarrie = 0;
 
         if (guide != null) {
-            // Validación de asientos
+            // ValidaciÃ³n de asientos
             guide.setNewGuide(false);
             maxLimitCarrie = guide.getQuota();
 
@@ -529,7 +431,7 @@ public class SaleBean implements IConfigurable {
 
             }
         }
-        
+
         return currentSeat;
     }
 
@@ -775,7 +677,7 @@ public class SaleBean implements IConfigurable {
 
         }
 
-        GrowlBean.simplyWarmMessage("Se ha guardado la Reservación", "Reservación guardada con exito!");
+        GrowlBean.simplyWarmMessage("Se ha guardado la ReservaciÃ³n", "ReservaciÃ³n guardada con exito!");
         this.clearSale();
 
         return "toReservations";
@@ -803,7 +705,7 @@ public class SaleBean implements IConfigurable {
             }
 
             if (!saleExist) {
-                GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una reservación con esos datos");
+                GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una reservaciÃ³n con esos datos");
             }
 
         } else if (mode == 2) {
@@ -816,7 +718,7 @@ public class SaleBean implements IConfigurable {
                 }
 
                 if (!saleExist) {
-                    GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una reservación con esos datos");
+                    GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una reservaciÃ³n con esos datos");
                 }
             }
         }
@@ -968,7 +870,7 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * Confirmamos la Reservación
+     * Confirmamos la ReservaciÃ³n
      *
      * @return
      */
@@ -1270,7 +1172,7 @@ public class SaleBean implements IConfigurable {
             GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");
 
         } else {
-            GrowlBean.simplyWarmMessage("Sin selección", "No se ha seleccionado asiento para cancelar!");
+            GrowlBean.simplyWarmMessage("Sin selecciÃ³n", "No se ha seleccionado asiento para cancelar!");
         }
         return toReturn;
 
@@ -1459,7 +1361,7 @@ public class SaleBean implements IConfigurable {
             } else {
                 String status = guideService.getRepository().selectStatus(pendingSale.getSale().getId());
                 if (status.equals("CL")) {
-                    GrowlBean.simplyWarmMessage("Guía Cerrada", "La Guía de viaje ya fue cerrada...");
+                    GrowlBean.simplyWarmMessage("GuÃ­a Cerrada", "La GuÃ­a de viaje ya fue cerrada...");
                     pendingSale = new SaleDetail();
                 }
             }
@@ -1526,7 +1428,7 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * Muestra el diálogo de la venta pendiente
+     * Muestra el diÃ¡logo de la venta pendiente
      *
      */
     public void pendingSaleDialog() {
@@ -1569,7 +1471,5 @@ public class SaleBean implements IConfigurable {
     public void setSeatToBack(List<Seat> seatToBack) {
         this.seatToBack = seatToBack;
     }
-    
-    
 
 }
