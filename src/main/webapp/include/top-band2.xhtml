@@ -60,6 +60,12 @@
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxSalePointService.fillBox()}"/>
                                 </p:menuitem>
+                                <p:menuitem value="Ventas por Mes" action="#{reportsBean.toTotalSales()}" ajax="false"
+                                            styleClass="miMenuItem">
+                                </p:menuitem>
+                                <p:menuitem value="Ventas por Semana" action="#{reportsBean.toWeekSales()}" ajax="false"
+                                            styleClass="miMenuItem">
+                                </p:menuitem>
                                 <p:menuitem value="Ingresos por Autobús" action="#{reportsBean.toBusIncome()}" ajax="false"
                                             styleClass="miMenuItem">
                                     <f:actionListener  binding="#{boxBusService.fillBox()}"/>

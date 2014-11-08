@@ -31,7 +31,7 @@
                                 <p:outputLabel value="#{worker.id}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_name}" filterBy="#{worker.name}"
-                                      filterMatchMode="contains" >
+                                      filterMatchMode="contains" style="width:200px" >
                                 <p:outputLabel value="#{worker.getFullName()}" />
                             </p:column>
                             <p:column headerText="#{msgs.cat_incomeDate}" >
@@ -55,15 +55,9 @@
                                 <p:commandButton process="workerDT" 
                                                  update=":form:workerDetail" icon="ui-icon-search" 
                                                  value="#{msgs.but_visualize}" oncomplete="PF('workerDialog').show()" />
-                                <p:commandButton process="workerDT" 
+                                <p:commandButton process= "workerDT" 
                                                  icon="ui-icon-wrench" ajax="false"
-                                                 value="#{msgs.but_modify}" action="#{workersBean.modifyWorker()}" />
-                                <h:commandLink>
-                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
-                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
-                                    
-                                    <p:dataExporter type="xls" target="workerDT" fileName="#{msgs.cat_workers}" />
-                                </h:commandLink>
+                                                 value="#{msgs.but_modify}" action="#{workersBean.modifyWorkers()}" />
                             </f:facet>
 
                         </p:dataTable>
@@ -79,27 +73,24 @@
                         <!-- detalle agremiados -->
                         <p:dialog header="#{msgs.cat_detail} #{msgs.cat_worker}" widgetVar="workerDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="false">
-                            <p:outputPanel id="workerDetail" style="text-align:center;">
-                                <p:panelGrid  columns="2" rendered="#{not empty workersBean.selected}" columnClasses="label,value" >
+                            <p:outputPanel id="workerDetail" style="text-align:left;">
+                                <p:panelGrid  columns="4" rendered="#{not empty workersBean.selected}" columnClasses="label,value" >
                                     
                                     <h:outputText value="Id" />
                                     <h:outputText value="#{workersBean.selected.id}" />
 
                                     <h:outputText value="#{msgs.cat_name}:" />
-                                    <h:outputText value="#{workersBean.selected.name}" />
+                                    <h:outputText value="#{workersBean.selected.getFullName()}" />
                                                                        
+                                    <h:outputText value="#{msgs.cat_workerType}:" />
+                                    <h:outputText value="#{workersBean.selected.workerType}" />
+
                                     <h:outputText value="#{msgs.cat_incomeDate}:" />
                                     <h:outputText value="#{workersBean.selected.incomeDate}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_position}:" />
                                     <h:outputText value="#{workersBean.selected.position}" />
                                                                        
-                                    <h:outputText value="#{msgs.cat_entidad}:" />
-                                    <h:outputText value="#{workersBean.selected.entidad}" />
-
-                                    <h:outputText value="#{msgs.cat_workerType}:" />
-                                    <h:outputText value="#{workersBean.selected.workerType}" />
-
                                     <h:outputText value="#{msgs.cat_curp}:" />
                                     <h:outputText value="#{workersBean.selected.curp}" />
 
@@ -118,20 +109,17 @@
                                     <h:outputText value="#{msgs.cat_address}:" />
                                     <h:outputText value="#{workersBean.selected.address}" />
                                                                        
-                                    <h:outputText value="CP" />
+                                    <h:outputText value="#{msgs.cat_entidad}:" />
+                                    <h:outputText value="#{workersBean.selected.entidad}" />
+
+                                    <h:outputText value="#{msgs.cat_zipCode}" />
                                     <h:outputText value="#{workersBean.selected.zipCode}" />
                                                                        
-                                    <h:outputText value="Lugar de nacimiento" />
+                                    <h:outputText value="#{msgs.cat_birthPlace}:" />
                                     <h:outputText value="#{workersBean.selected.birthPlace}" />
                                                                        
                                     <h:outputText value="#{msgs.cat_maritalStatus}:" />
                                     <h:outputText value="#{workersBean.selected.maritalStatus}" />
-                                    
-                                    <h:outputText value="#{msgs.cat_phone}:" />
-                                    <h:outputText value="#{workersBean.selected.phoneId}" />
-                                    
-                                    <h:outputText value="#{msgs.cat_degree}:" />
-                                    <h:outputText value="#{workersBean.selected.degree}" />
                                     
                                     <h:outputText value="#{msgs.cat_payType}:" />
                                     <h:outputText value="#{workersBean.selected.payType}" />
@@ -145,14 +133,41 @@
                                     <h:outputText value="#{msgs.cat_bankClabe}:" />
                                     <h:outputText value="#{workersBean.selected.bankClabe}" />
                                     
-                                    <h:outputText value="#{msgs.cat_status}:" />
-                                    <h:outputText value="#{workersBean.selected.formatStatus}" />
+                                    <h:outputText value="Email:" />
+                                    <h:outputText value="#{workersBean.selected.email}" />
                                     
                                     <h:outputText value="#{msgs.cat_bloodType}:" />
                                     <h:outputText value="#{workersBean.selected.bloodType}" />
                                     
-                                    <h:outputText value="#{msgs.cat_accidentContact}:" />
+                                    <h:outputText value="#{msgs.cat_contact}:" />
                                     <h:outputText value="#{workersBean.selected.accidentContact}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_phoneId}:" />
+                                    <h:outputText value="#{workersBean.selected.contactPhone}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_phoneId}:" />
+                                    <h:outputText value="#{workersBean.selected.phoneId}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_degree}:" />
+                                    <h:outputText value="#{workersBean.selected.degree}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_status}:" />
+                                    <h:outputText value="#{workersBean.selected.formatStatus}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_licenseExpedition}:" />
+                                    <h:outputText value="#{workersBean.selected.licenseExpedition}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_licenseExpiry}:" />
+                                    <h:outputText value="#{workersBean.selected.licenseExpiry}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_licenseCountersign}:" />
+                                    <h:outputText value="#{workersBean.selected.licenseCountersign}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_bus}:" />
+                                    <h:outputText value="#{workersBean.selected.assignedBus}" />
+                                    
+                                    <h:outputText value="#{msgs.cat_illness}:" />
+                                    <h:outputText value="#{workersBean.selected.illness}" />
                                     
                                     <h:outputText value="#{msgs.cat_createDate}:" />
                                     <h:outputText value="#{workersBean.selected.createDate}" />

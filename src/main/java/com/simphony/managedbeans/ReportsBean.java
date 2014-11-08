@@ -15,16 +15,12 @@ import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
 import com.simphony.models.DailySalesModel;
 import com.simphony.pojos.DailySales;
-import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -60,6 +56,7 @@ public class ReportsBean implements IConfigurable {
     private Double totCor;
     private Double totPag;
     private int totKms;
+    private Long totPassengers = (long) 0;
 
     @ManagedProperty(value = "#{reportsService}")
     private ReportsService reportsService;
@@ -128,6 +125,16 @@ public class ReportsBean implements IConfigurable {
     public String toDriverManIncome() {
         this.clearReports();
         return "toDriverManIncome";
+    }
+
+    public String toTotalSales() {
+        this.clearReports();
+        return "toTotalSales";
+    }
+
+    public String toWeekSales() {
+        this.clearReports();
+        return "toWeekSales";
     }
 
     /**
@@ -289,6 +296,7 @@ public class ReportsBean implements IConfigurable {
      * @throws java.text.ParseException
      */
     public void findBusIncome() throws ParseException, CloneNotSupportedException {
+        clearVar();
         Calendar finDate = Calendar.getInstance();
         finDate.setTime(this.fecFin);
         finDate.add(Calendar.HOUR, 23);
@@ -336,7 +344,167 @@ public class ReportsBean implements IConfigurable {
             }
             modelDS = new DailySalesModel(listDailySales);
         } else {
-            GrowlBean.simplyErrorMessage("Error de datos", "Falta AutobÃºs o fechas...");
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
+        }
+
+    }
+
+    /**
+     * Buscamos ingresos Totales
+     *
+     * @throws java.text.ParseException
+     */
+    public void findTotalSales() throws ParseException, CloneNotSupportedException {
+        clearVar();
+        Calendar finDate = Calendar.getInstance();
+        finDate.setTime(this.fecFin);
+        finDate.add(Calendar.HOUR, 23);
+        finDate.add(Calendar.MINUTE, 59);
+        Date finD = finDate.getTime();
+
+        if (this.fecIni != null && this.fecFin != null) {
+            listDailySales.clear();
+            DailySales dsAnt = new DailySales();
+            List<DailySales> c = reportsService.getReportsRepository().totalSales(this.fecIni, finD);
+            if (c.size() > 0) {
+                int lDay = 0;
+                Double detNom = 0.0;
+                Double detEfe = 0.0;
+                Double detCor = 0.0;
+                Double detPag = 0.0;
+                Double detTot = 0.0;
+                Long detPass = (long) 0;
+                totVta = 0.0;
+                totEfe = 0.0;
+                totPassengers = new Long(0);
+                int vrIndex = 0;
+                for (DailySales ds : c) {
+                    if (ds.getrDay() != lDay && vrIndex != 0) {
+                        dsAnt.setrDay(lDay);
+                        dsAnt.setrTotNom(detNom);
+                        dsAnt.setrTotEfe(detEfe);
+                        dsAnt.setrTotCor(detCor);
+                        dsAnt.setrTotPag(detPag);
+                        dsAnt.setrTotVta(detTot);
+                        dsAnt.setPassengers(detPass);
+                        listDailySales.add(dsAnt);
+                        dsAnt = new DailySales();
+                        lDay = ds.getrDay();
+                        detNom = 0.0;
+                        detEfe = 0.0;
+                        detCor = 0.0;   
+                        detPag = 0.0;
+                        detTot = 0.0;
+                        detPass = new Long(0);
+                   }
+                    switch (ds.getDetAssociates().intValue()) {
+                        case 1:
+                            detNom = detNom + ds.getDetNom();
+                            totNom = totNom + ds.getDetNom();
+                            break;
+                        case 2:
+                            detEfe = detEfe + ds.getDetNom();
+                            totEfe = totEfe + ds.getDetNom();
+                            break;
+                        case 3:
+                            detCor = detCor + ds.getDetNom();
+                            totCor = totCor + ds.getDetNom();
+                            break;
+                        case 4:
+                            detPag = detPag + ds.getDetNom();
+                            totPag = totPag + ds.getDetNom();
+                            break;
+                    }
+                    detTot = detTot + ds.getDetNom();
+                    totVta = totVta + ds.getDetNom();
+                    detPass = detPass + ds.getPassengers();
+                    totPassengers = totPassengers + ds.getPassengers();
+                    if (vrIndex == 0) {
+                        lDay = ds.getrDay();
+                        vrIndex += 1;
+                    }
+                }
+
+                dsAnt.setrDay(lDay);
+                dsAnt.setrTotNom(detNom);
+                dsAnt.setrTotEfe(detEfe);
+                dsAnt.setrTotCor(detCor);
+                dsAnt.setrTotPag(detPag);
+                dsAnt.setrTotVta(detTot);
+                dsAnt.setPassengers(detPass);
+                listDailySales.add(dsAnt);
+            }
+            modelDS = new DailySalesModel(listDailySales);
+        } else {
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta fechas...");
+        }
+
+    }
+
+    /**
+     * Buscamos ingresos Totales
+     *
+     * @throws java.text.ParseException
+     */
+    public void findWeekSales() throws ParseException, CloneNotSupportedException {
+        clearVar();
+        Calendar fecQuery = Calendar.getInstance();
+        Calendar finDate = Calendar.getInstance();
+        finDate.setTime(this.fecFin);
+        finDate.add(Calendar.HOUR, 23);
+        finDate.add(Calendar.MINUTE, 59);
+        Date finD = finDate.getTime();
+        int dayWeek = 0;
+
+        if (this.fecIni != null && this.fecFin != null) {
+            listDailySales.clear();
+            DailySales dsAnt = new DailySales();
+            listDailySales.add(new DailySales());
+            listDailySales.add(new DailySales());
+            listDailySales.add(new DailySales());
+            listDailySales.add(new DailySales());
+            listDailySales.add(new DailySales());
+            listDailySales.add(new DailySales());
+            listDailySales.add(new DailySales());
+            List<DailySales> c = reportsService.getReportsRepository().weekSales(this.fecIni, finD);
+            if (c.size() > 0) {
+                int lDay = 0;
+                for (DailySales ds : c) {
+                    finDate.setTime(ds.getRFec());
+                    dayWeek = finDate.get(Calendar.DAY_OF_WEEK) - 1;
+                    if (dayWeek == 0) {
+                        dayWeek = 7;
+                    }
+                    dsAnt = (DailySales) listDailySales.get(dayWeek-1).clone();
+                    switch (ds.getDetAssociates().intValue()) {
+                        case 1:
+                            dsAnt.setrTotNom(dsAnt.getrTotNom() + ds.getDetNom());
+                            totNom = totNom + ds.getDetNom();
+                            break;
+                        case 2:
+                            dsAnt.setrTotEfe(dsAnt.getrTotEfe() + ds.getDetNom());
+                            totEfe = totEfe + ds.getDetNom();
+                            break;
+                        case 3:
+                            dsAnt.setrTotCor(dsAnt.getrTotCor() + ds.getDetNom());
+                            totCor = totCor + ds.getDetNom();
+                            break;
+                        case 4:
+                            dsAnt.setrTotPag(dsAnt.getrTotPag() + ds.getDetNom());
+                            totPag = totPag + ds.getDetNom();
+                            break;
+                    }
+                    totVta = totVta + ds.getDetNom();
+                    dsAnt.setPassengers(dsAnt.getPassengers() + ds.getPassengers());
+                    totPassengers = totPassengers + ds.getPassengers();
+                    dsAnt.setrDay(dayWeek);
+                    dsAnt.setrTotVta(dsAnt.getrTotVta() + ds.getDetNom());
+                    listDailySales.set(dayWeek-1, dsAnt);
+                }
+            }
+            modelDS = new DailySalesModel(listDailySales);
+        } else {
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta fecha...");
         }
 
     }
@@ -347,6 +515,7 @@ public class ReportsBean implements IConfigurable {
      * @throws java.text.ParseException
      */
     public void findDriverManIncome() throws ParseException, CloneNotSupportedException {
+        clearVar();
         Calendar finDate = Calendar.getInstance();
         finDate.setTime(this.fecFin);
         finDate.add(Calendar.HOUR, 23);
@@ -408,6 +577,7 @@ public class ReportsBean implements IConfigurable {
      * @throws java.text.ParseException
      */
     public void findDailySalesMonth() throws ParseException {
+        clearVar();
         totMov = new Long(0);
         totAgr = new Long(0);
         totPub = new Long(0);
@@ -507,6 +677,7 @@ public class ReportsBean implements IConfigurable {
         totAgr = new Long(0);
         totPub = new Long(0);
         totRet = new Long(0);
+        totPassengers = new Long(0);
         totVta = 0.0;
         totEfe = 0.0;
         totNom = 0.0;
@@ -516,6 +687,20 @@ public class ReportsBean implements IConfigurable {
         guide = new Guide();
         fecIni = new Date();
         fecFin = new Date();
+    }
+    
+    public void clearVar() {
+        totMov = new Long(0);
+        totAgr = new Long(0);
+        totPub = new Long(0);
+        totRet = new Long(0);
+        totPassengers = new Long(0);
+        totVta = 0.0;
+        totEfe = 0.0;
+        totNom = 0.0;
+        totCor = 0.0;
+        totPag = 0.0;
+        totKms = 0;
     }
 
     public Sale getSale() {
@@ -654,28 +839,36 @@ public class ReportsBean implements IConfigurable {
         this.totKms = totKms;
     }
 
+    public Long getTotPassengers() {
+        return totPassengers;
+    }
+
+    public void setTotPassengers(Long totPassengers) {
+        this.totPassengers = totPassengers;
+    }
+
     public void viewSalesReport() throws JRException, ClassNotFoundException {
         jasperService.setReportName("Tarifas.jasper");
         jasperService.builtReport(_REPORT_PDF);
     }
 
-    public void viewGuidesReport() throws JRException, ClassNotFoundException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        java.sql.Date frm_dte = null;
-        java.sql.Time frm_time = null;
-        
-        try {
-            frm_dte = (java.sql.Date) sdf.parse("2014-10-15 05:00:00");
-            frm_time = (java.sql.Time) sdf.parse("05:00:00");
-        } catch (ParseException ex) {
-            Logger.getLogger(ReportsBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("fechaSalida", frm_dte);
-        parameters.put("hora", frm_time);
-        
-        jasperService.setReportName("guide.jasper");
-        jasperService.builtReport(parameters, _REPORT_PDF);
+    public void viewGuidesReport(Date fecSal, Long rootId) throws JRException, ClassNotFoundException {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//        java.sql.Date frm_dte = null;
+//        java.sql.Time frm_time = null;
+
+//        try {
+//            frm_dte = (java.sql.Date) sdf.parse("2014-10-15 05:00:00");
+//            frm_time = (java.sql.Time) sdf.parse("05:00:00");
+//        } catch (ParseException ex) {
+//            Logger.getLogger(ReportsBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+            HashMap<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("fechaSalida", fecSal);
+            parameters.put("rootId", rootId);
+
+            jasperService.setReportName("guide.jasper");
+            jasperService.builtReport(parameters, _REPORT_PDF);
     }
 
     public void viewSaleDetailReport(Long vendorId, Date fIni, Date fFin) throws JRException, ClassNotFoundException {
@@ -684,17 +877,16 @@ public class ReportsBean implements IConfigurable {
         finDate.add(Calendar.HOUR, 23);
         finDate.add(Calendar.MINUTE, 59);
         Date finD = finDate.getTime();
-        BigDecimal id = new BigDecimal(vendorId);
 
         if (this.sale.getVendor().getId() != null && this.sale.getCreateDate() != null) {
-        
+
             HashMap<String, Object> parameters = new HashMap<String, Object>();
             parameters.put("user", vendorId);
             parameters.put("fecIni", fIni);
-            parameters.put("fecFin", finD );
+            parameters.put("fecFin", finD);
 
             jasperService.setReportName("DetailSale.jasper");
-           jasperService.builtReport(parameters, _REPORT_PDF);
+            jasperService.builtReport(parameters, _REPORT_PDF);
         } else {
             GrowlBean.simplyErrorMessage("Error de datos", "Falta Vendedor o fecha...");
         }

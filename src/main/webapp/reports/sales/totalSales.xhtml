@@ -13,27 +13,11 @@
             <ui:define name="content">
                 <!-- panel para agregar -->
                 <h:form id="form" style="padding-top: 25px; " >
-                    <p:outputLabel value="Ingresos por Operador" class="welcome-title" />
+                    <p:outputLabel value="Venta diaria por Día del Mes" class="welcome-title" />
 
                     <div id="sale-daily" class="guide-header-detail" style="padding-top: 25px; ">
 
                         <p:panelGrid  id="sale-daily" styleClass="guide-header">
-                            <p:row>
-                                <p:column>
-                                    <p:outputLabel value="#{msgs.cat_driverMan}:" />
-                                </p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="driverMan" value="#{reportsBean.guide.driverMan1}" 
-                                                     converter="driverManConverter" 
-                                                     style="width:300px" required="true" 
-                                                     tabindex="1" >
-                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_driverMan}"  />
-                                        <f:selectItems value="#{boxDriverManService.driverManList}"/>
-                                        <p:ajax event="click" update=":form:sale-daily" /> 
-                                    </p:selectOneMenu>
-                                    <p:message for="driverMan" />
-                                </p:column>
-                            </p:row>
                             <p:row>
                                <p:column>
                                    <p:outputLabel value="Del:" />
@@ -52,56 +36,76 @@
                                                pages="2" showOn="button" value="#{reportsBean.fecFin}"/>
                                </p:column>
                             </p:row>
-                           <p:row>
-                                <p:column style="padding-top: 20px; ">
-                                    <p:commandButton value="Procesar" actionListener="#{reportsBean.findDriverManIncome()}" 
+                            <p:row>
+                                <p:column style="padding-top: 25px; ">
+                                    <p:commandButton value="Procesar" actionListener="#{reportsBean.findTotalSales()}" 
                                                     ajax="true" styleClass="button-rounded" icon="ui-icon-play"
                                                     update=":form:saleDetailDT :form:sale-daily :form:footer" >
                                    </p:commandButton>
+                                </p:column>
+                                <p:column style="padding-top: 25px; ">
+                                <h:commandLink>
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/Utilities/xls.png" 
+                                         alt="Exportar Excel" title="Exportar Excel" style="width: 28px;height: 25px;"  align="top" />
+                                    
+                                    <p:dataExporter type="xls" target="saleDetailDT" fileName="VentasPorDia" />
+                                </h:commandLink>
                                 </p:column>
                             </p:row>
 
                         </p:panelGrid>
                     </div>
 
-                    <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
+                    <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 10px; ">
                         <!-- Data table -->
                         <p:dataTable id="saleDetailDT" value="#{reportsBean.modelDS}" var="ic" 
-                                     emptyMessage="Sin ingresos registrados" rows="14"
+                                      emptyMessage="Sin ventas registradas"  rows="17"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}">
-                            <p:column headerText="#{msgs.cat_date}" >
-                                <p:outputLabel value="#{ic.guide.formatDepartureDate}" />
+                            <p:column headerText="Dia" >
+                                <p:outputLabel value="#{ic.rDay}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_departureTime}" >
-                                <p:outputLabel value="#{ic.guide.formatDepartureTime}" />
+                            <p:column headerText="Efectivo" >
+                                <p:outputLabel value="#{ic.rTotEfe}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_origin}" >
-                                <p:outputLabel value="#{ic.guide.origin.description}" />
+                            <p:column headerText="Nomina" >
+                                <p:outputLabel value="#{ic.rTotNom}" />
+                                </p:column>
+                            <p:column headerText="Cortesia" >
+                                <p:outputLabel value="#{ic.rTotCor}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_destiny}" >
-                                <p:outputLabel value="#{ic.guide.destiny.description}" />
+                            <p:column headerText="Pagaré" >
+                                <p:outputLabel value="#{ic.rTotPag}" />
                             </p:column>
-                            <p:column headerText="#{msgs.cat_bus}" >
-                                <p:outputLabel value="#{ic.guide.bus.number}" />
+                            <p:column headerText="Total" >
+                                <p:outputLabel value="#{ic.rTotVta}" />
                             </p:column>
-                            <p:column headerText="Kms" >
-                                <p:outputLabel value="#{ic.kms}" />
-                            </p:column>
-                            <p:column headerText="#{msgs.cat_income}" >
-                                <p:outputLabel value="#{ic.detIncome}" />
+                            <p:column headerText="Pasajeros" >
+                                <p:outputLabel value="#{ic.passengers}" />
                             </p:column>
                         </p:dataTable>
                         <p:panelGrid  id="footer" styleClass="guide-header">
                             <p:row>
-                            <p:column style="width:740px;">
-                                <p:outputLabel value="Total:" style="text-align: right;"  />
+                            <p:column style="width:320px;" >
+                                <p:outputLabel value="Totales:" />
                             </p:column>
-                            <p:column style="width:120px" >
-                                <p:outputLabel value="#{reportsBean.totKms}" />
+                            <p:column style="width:250px" >
+                                     <p:outputLabel value="#{reportsBean.totEfe}" />
                             </p:column>
-                            <p:column style="width:40px" >
-                                <p:outputLabel value="#{reportsBean.totVta}" />
+                            <p:column style="width:250px" >
+                                    <p:outputLabel value="#{reportsBean.totNom}" />
+                            </p:column>
+                            <p:column style="width:250px" >
+                                    <p:outputLabel value="#{reportsBean.totCor}" />
+                            </p:column>
+                            <p:column style="width:250px" >
+                                    <p:outputLabel value="#{reportsBean.totPag}" />
+                            </p:column>
+                            <p:column style="width:250px" >
+                                    <p:outputLabel value="#{reportsBean.totVta}" />
+                            </p:column>
+                            <p:column style="width:150px" >
+                                    <p:outputLabel value="#{reportsBean.totPassengers}" />
                             </p:column>
                             </p:row>
                         </p:panelGrid>

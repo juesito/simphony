@@ -69,11 +69,26 @@ public interface ReportsRepository extends JpaRepository<Sale, Long> {
     public List<DailySales> driverManIncome(@Param("driverManId") Long busId, @Param("iniDate") Date iniDate,
                                        @Param("finDate") Date finDate);
     
-//    @Query("SELECT NEW com.simphony.pojos.DailySales(p, s, " +
+    @Query("SELECT NEW com.simphony.pojos.DailySales( YEAR(s.tripDate),MONTH(s.tripDate), DAY(s.tripDate), p.payType.id," +
+           " sum(p.amount),  SUM(s.passengers) )" +
+           " FROM  Payment p, Sale s " +
+           " WHERE  s.tripDate BETWEEN :iniDate AND :finDate AND s.id = p.sale.id  " +
+           " GROUP BY YEAR(s.tripDate),MONTH(s.tripDate), DAY(s.tripDate), p.payType.id " +
+           " ORDER BY YEAR(s.tripDate),MONTH(s.tripDate), DAY(s.tripDate )")
+    public List<DailySales> totalSales(@Param("iniDate") Date iniDate, @Param("finDate") Date finDate);
+
+    @Query("SELECT NEW com.simphony.pojos.DailySales( s.tripDate, p.payType.id, sum(p.amount), SUM(s.passengers))" +
+           " FROM  Payment p, Sale s " +
+           " WHERE  s.tripDate BETWEEN :iniDate AND :finDate AND s.id = p.sale.id " +
+           " GROUP BY s.tripDate, p.payType.id  " +
+           " ORDER BY s.tripDate ")
+    public List<DailySales> weekSales(@Param("iniDate") Date iniDate, @Param("finDate") Date finDate);
+
+//    @Query("SELECT NEW com.simphony.pojos.DailySales(s,p ) " +
 //           " FROM Payment p, Sale s " +
 //           " WHERE s.id = p.sale.id " +
 //           " AND s.tripDate BETWEEN :iniDate AND :finDate " +
-//           " GROUP BY s.tripDate " )
+//           " GROUP BY s.tripDate, p " )
 //    public List<DailySales> dailySalesMonth(@Param("iniDate") Date iniDate, @Param("finDate") Date finDate);
 
 //    select g.*, (SELECT SUM(importe) from detalleventa dv, detalleguia dg 

@@ -45,7 +45,7 @@
                                     <p:column>
                                         <p:outputLabel value="#{msgs.cat_driverMan}1:" />
                                     </p:column>
-                                    <p:column>
+                                    <p:column style="width: 250px;">
                                         <p:outputLabel value="#{guideBean.selected.guide.fullName1}" />
                                     </p:column>
                                 </p:row>
@@ -59,7 +59,7 @@
                                     <p:column>
                                         <p:outputLabel value="#{msgs.cat_driverMan}2:" />
                                     </p:column>
-                                    <p:column>
+                                    <p:column style="width: 250px;" >
                                         <p:outputLabel value="#{guideBean.selected.guide.fullName2}" />
                                     </p:column>
                                 </p:row>
@@ -73,8 +73,14 @@
                                     <p:column>
                                         <p:outputLabel value="Titular1:" />
                                     </p:column>
-                                    <p:column>
+                                    <p:column style="width: 120px;">
                                         <p:outputLabel id="tit1" value="#{guideBean.tit1}" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Pasajeros:" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="#{guideBean.passengers}" />
                                     </p:column>
                                 </p:row>
 
@@ -106,15 +112,12 @@
                                 </p:column>
                                 <!-- Footer -->
                                 <f:facet name="footer">
-                                <p:commandButton value="#{msgs.but_cancel}" action="#{guideBean.cancelGuide()}"
+                                <p:commandButton value="#{msgs.but_back}" action="#{guideBean.cancelGuide()}"
                                                  icon="ui-icon-arrowreturnthick-1-w"
                                                  id="cancelAdd" process="@this" immediate="true" ajax="false"/>
-                                 <p:commandButton value="#{msgs.but_print}" type="button" icon="ui-icon-print">  
-                                    <p:printer target=":form:guide-complete" />  
-                                </p:commandButton>  
                                 <p:commandButton process="costDT" 
                                                  icon="ui-icon-print" ajax="false"
-                                                 value="Jasper" action="#{reportsBean.viewGuidesReport()}" />
+                                                 value="#{msgs.but_print}" action="#{reportsBean.viewGuidesReport(guideBean.selected.guide.departureDate, guideBean.selected.guide.rootRoute)}" />
                                 </f:facet>
                             </p:dataTable>
                         </div>
