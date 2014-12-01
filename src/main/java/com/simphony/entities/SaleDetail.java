@@ -93,6 +93,23 @@ public  class SaleDetail implements Serializable, IConfigurable {
     public void update(SaleDetail saleDetail){
         this.status = saleDetail.getStatus();
      }
+    
+    /**
+     * actualizamos para los viajes redondos
+     * @param saleDetail 
+     */
+    public void updateToRounded(SaleDetail saleDetail){
+        this.status = saleDetail.getStatus();
+        this.amount = saleDetail.getAmount();
+        this.associate = saleDetail.getAssociate();
+        this.associateKey = saleDetail.getAssociateKey();
+        this.discount = saleDetail.getDiscount();
+        this.customerName = saleDetail.getCustomerName();
+        this.note = saleDetail.getNote();
+        this.bolType = saleDetail.getBolType();
+        
+        
+     }
 
     /**
      * Limpiamos el detalle de la venta.

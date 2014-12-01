@@ -69,4 +69,7 @@ public interface IConfigurable {
     final String _REPORT_PATH = "C:\\JasperReportsSimphony\\";
     final String _REPORT_PDF = "application/pdf";
     final String _REPORT_HTML = "text/html";
+    
+    final String _TO_BACK = "B";
+    final String _TO_ORIGIN = "O";
 }

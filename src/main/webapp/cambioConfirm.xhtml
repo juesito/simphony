@@ -12,225 +12,309 @@
 
                 <ui:define name="content"> 
                     <h:form id="SaleForm">
-                        <div class="box-content-sale" >
-                            <!-- choice your origin and destiny -->
-                            <p:panel id="sale-input" >
-                                <p:panelGrid styleClass="sale-schedule-panel" >
-                                    <p:row>
-                                        <p:column colspan="2">
-                                            <p:outputLabel value="Resumen" style=" font-size:20px " />
-                                        </p:column>
-                                    </p:row>
-                                    
-                                    <p:row>
-                                        <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="Origen:" />
-                                        </p:column>
-                                        <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="#{saleBean.selected.cost.origin.description}" />
-                                        </p:column>
+                        <p:tabView id="tvs" cache="true" dynamic="true">
+                            <p:tab title="Datos origen">
 
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Destino:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.selected.cost.destiny.description}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Fecha:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Hora:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.selected.formatDepartureTime}" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Pasajeros:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="#{saleBean.sale.passengers}" />
-                                        </p:column>
-                                    </p:row>
-                                    
-                                    <p:row>
-                                        <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="Sub total:" />
-                                        </p:column>
-                                        <p:column style="padding-top: 20px;">
-                                            <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Descuento:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <p:outputLabel value="Total:" />
-                                        </p:column>
-                                        <p:column>
-                                            <p:outputLabel value="$#{saleBean.sale.amount}" style="color:red !important;" />
-                                        </p:column>
-                                    </p:row>
-                                </p:panelGrid>
-                            </p:panel>
+                                <div class="box-content-sale" >
 
-                        </div>
+                                    <!-- choice your origin and destiny -->
+                                    <p:panel id="sale-input" >
+                                        <p:panelGrid styleClass="sale-schedule-panel" >
+                                            <p:row>
+                                                <p:column colspan="2">
+                                                    <p:outputLabel value="Resumen de viaje" style=" font-size:20px " />
+                                                </p:column>
+                                            </p:row>
 
-                        <!-- Seats Grid -->
-                        <div class="box-content-sale-detail2" >
-                            <p:panelGrid id="sale-seat-grid" 
-                                         style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
-                                <p:row>
-                                    <p:column>
-                                        <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="2" 
-                                                    rows="4" paginator="true" id="seats" paginatorTemplate="{PageLinks}"
-                                                    styleClass="grid-seats-main" paginatorPosition="bottom" >
+                                            <p:row>
+                                                <p:column style="padding-top: 20px;">
+                                                    <p:outputLabel value="Origen:" />
+                                                </p:column>
+                                                <p:column style="padding-top: 20px;">
+                                                    <p:outputLabel value="#{saleBean.selected.cost.origin.description}" />
+                                                </p:column>
 
-                                            <f:facet name="header">
-                                                Datos del pasajero
-                                            </f:facet>
-                                            <p:panelGrid styleClass="inner-seat-grid">
-                                                <p:row>
-                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
-                                                        <p:outputLabel value="Asiento:"  />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:outputLabel value="#{seat.seat.seat}" />
-                                                    </p:column>
-                                                </p:row>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Destino:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="#{saleBean.selected.cost.destiny.description}" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Fecha:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="#{saleBean.sale.formatTripTime}" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Hora:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="#{saleBean.selected.formatDepartureTime}" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Pasajeros:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="#{saleBean.sale.passengers}" />
+                                                </p:column>
+                                            </p:row>
 
-                                                <p:row>
-                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
-                                                        <p:outputLabel value="Agremiado:"  />
-                                                    </p:column>
-                                                    <p:column >
-                                                        <p:inputText id="associateKey" value="#{seat.associateKey}" size="8"   >
-                                                            <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
-                                                        </p:inputText>
-                                                        <p:commandButton title="Buscar Agremiado" action="#{saleBean.findAssociate(seat)}"
-                                                                         icon="ui-icon-search" ajax="true" style="background-color: #FFF;"
-                                                                         update=":SaleForm:sale-seat-grid :main-form:growl" >
-                                                        </p:commandButton>
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
-                                                        <p:outputLabel value="Nombre:"  />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:inputText id="name" value="#{seat.customerName}" size="30"  />
-                                                        <p:watermark for="name" value="Nombre" />
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
-                                                        <p:outputLabel value="Nota:"  />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:inputText id="note" value="#{seat.note}" size="30"  />
-                                                        <p:watermark for="note" value="Nota" />
-                                                    </p:column>
-                                                </p:row>
-                                                <p:row>
-                                                    <p:column style="background-color: #6DAD65; color:#FFF;">
-                                                        <p:outputLabel value="Tipo bol:"  />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:selectOneRadio id="console" value="#{seat.bolType}" 
-                                                                          >
-                                                            <f:selectItem itemLabel="Jubilado" itemValue="J" />
-                                                            <f:selectItem itemLabel="No jubilado" itemValue="P" />
-                                                            <p:ajax event="change" update=":SaleForm:sale-input" 
-                                                                    listener="#{saleBean.calculateRetireeDiscount(saleBean.saleDetail)}" />
-                                                        </p:selectOneRadio>
-                                                    </p:column>
-                                                </p:row>
-                                            </p:panelGrid>
-                                        </p:dataGrid>
-                                    </p:column>
-                                </p:row>                                        
+                                            <p:row rendered="#{saleBean.sale.travelService eq 'S'}">
+                                                <p:column style="padding-top: 20px;">
+                                                    <p:outputLabel value="Sub total:" />
+                                                </p:column>
+                                                <p:column style="padding-top: 20px;">
+                                                    <p:outputLabel value="$#{saleBean.sale.subTotal}" style="color:red !important;" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row rendered="#{saleBean.sale.travelService eq 'S'}">
+                                                <p:column>
+                                                    <p:outputLabel value="Descuento:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="$#{saleBean.sale.discount}" style="color:red !important;" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row rendered="#{saleBean.sale.travelService eq 'S'}">
+                                                <p:column>
+                                                    <p:outputLabel value="Total:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="$#{saleBean.sale.amount}" style="color:red !important;" />
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>
 
-                            </p:panelGrid>
+                                        <!-- Datos del viaje de regreso -->
+                                        <p:panelGrid styleClass="sale-schedule-panel" rendered="#{saleBean.sale.travelService eq 'R'}">
+                                            <p:row>
+                                                <p:column colspan="2">
+                                                    <p:outputLabel value="Resumen regreso" style=" font-size:20px " />
+                                                </p:column>
+                                            </p:row>
 
-                            <!-- Captura de pagos -->
-                            <p:panelGrid id="sale-payment-grid"  
-                                         style="margin-top: 15px; border: 0px solid #225A01; width: 100%;">
-                                 <p:row>
-                                    <p:column>
-                                        <p:outputLabel value="Pago:" class="welcome-title" />
-                                    </p:column>
-                                </p:row>                                        
-                                <p:row>
-                                    <p:column>
-                                        <p:dataGrid var="payment" value="#{payTypeBean.list}" columns="2" 
-                                                    rows="4" paginator="false" id="payment" styleClass="grid-seats-main">
-                                            <p:panelGrid>
-                                                <p:row>
-                                                    <p:column colspan="2"> 
-                                                        <p:outputLabel value="#{payment.description}" />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:inputText value="#{payment.amount}" size="10" rendered="#{not payTypeBean.isNominalPayType(payment.description)}" />
-                                                        <p:outputLabel value="#{payment.amount}" rendered="#{payTypeBean.isNominalPayType(payment.description)}" />
-                                                    </p:column>
-                                                    <p:column>
-                                                        <p:inputText id="payInfo" value="#{payment.paymentInfo}" size="18" rendered="#{payment.reference eq 'S'}"
-                                                                     style="background-color: #FFF; " />
-                                                        <p:watermark for="payInfo" value="Información del Pago" />
-                                                    </p:column>
-                                                </p:row>
-                                            </p:panelGrid>
+                                            <p:row>
+                                                <p:column style="padding-top: 20px;">
+                                                    <p:outputLabel value="Origen:" />
+                                                </p:column>
+                                                <p:column style="padding-top: 20px;">
+                                                    <p:outputLabel value="#{saleBean.selectedToBack.cost.origin.description}" />
+                                                </p:column>
 
-                                        </p:dataGrid>
-                                    </p:column>
-                                </p:row>                
-                                <p:row>
-                                    <p:column>
-                                        <p:commandButton rendered="#{payTypeBean.existNominalPayType}" update=":main-form:growl :formPayRoll"
-                                                         action="#{saleBean.validateAssociates()}" ajax="true"
-                                                         value="Folios nomina"/>
-                                        <p:commandButton update=":main-form:growl " action="#{saleBean.pendingSaleDialog()}"
-                                                          ajax="true"  value="Venta Pendiente"/>
-                                    </p:column>
-                                </p:row>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Destino:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="#{saleBean.selectedToBack.cost.destiny.description}" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Fecha:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="#{saleBean.saleToBack.formatTripTime}" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Hora:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="#{saleBean.selectedToBack.formatDepartureTime}" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Pasajeros:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="#{saleBean.saleToBack.passengers}" />
+                                                </p:column>
+                                            </p:row>
 
-                            </p:panelGrid>
+                                            <p:row>
+                                                <p:column style="padding-top: 20px;">
+                                                    <p:outputLabel value="Sub total:" />
+                                                </p:column>
+                                                <p:column style="padding-top: 20px;">
+                                                    <p:outputLabel value="$#{saleBean.saleToBack.subTotal + saleBean.sale.subTotal}" style="color:red !important;" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Descuento:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="$#{saleBean.saleToBack.discount + saleBean.sale.discount}" style="color:red !important;" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="Total:" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="$#{saleBean.saleToBack.amount + saleBean.sale.amount}" style="color:red !important;" />
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>
+
+                                    </p:panel>
+
+                                </div>
+
+                                <!-- Seats Grid -->
+                                <div class="box-content-sale-detail2" >
+                                    <p:panelGrid id="sale-seat-grid" 
+                                                 style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
+                                        <p:row>
+                                            <p:column>
+                                                <p:dataGrid var="seat" value="#{saleBean.saleDetail}" columns="2" 
+                                                            rows="4" paginator="true" id="seats" paginatorTemplate="{PageLinks}"
+                                                            styleClass="grid-seats-main" paginatorPosition="bottom" >
+
+                                                    <f:facet name="header">
+                                                        Datos del pasajero
+                                                    </f:facet>
+                                                    <p:panelGrid styleClass="inner-seat-grid">
+                                                        <p:row>
+                                                            <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                                <p:outputLabel value="Asiento:"  />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <p:outputLabel value="#{seat.seat.seat}" />
+                                                            </p:column>
+                                                        </p:row>
+
+                                                        <p:row>
+                                                            <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                                <p:outputLabel value="Agremiado:"  />
+                                                            </p:column>
+                                                            <p:column >
+                                                                <p:inputText id="associateKey" value="#{seat.associateKey}" size="8"   >
+                                                                    <f:validator validatorId="com.simphony.validators.AssociateEmptyValidator" />
+                                                                </p:inputText>
+                                                                <p:commandButton title="Buscar Agremiado" action="#{saleBean.findAssociate(seat)}"
+                                                                                 icon="ui-icon-search" ajax="true" style="background-color: #FFF;"
+                                                                                 update=":SaleForm:tvs:sale-seat-grid :main-form:growl" >
+                                                                </p:commandButton>
+                                                            </p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                                <p:outputLabel value="Nombre:"  />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <p:inputText id="name" value="#{seat.customerName}" size="30"  />
+                                                                <p:watermark for="name" value="Nombre" />
+                                                            </p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                                <p:outputLabel value="Nota:"  />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <p:inputText id="note" value="#{seat.note}" size="30"  />
+                                                                <p:watermark for="note" value="Nota" />
+                                                            </p:column>
+                                                        </p:row>
+                                                        <p:row>
+                                                            <p:column style="background-color: #6DAD65; color:#FFF;">
+                                                                <p:outputLabel value="Tipo bol:"  />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <p:selectOneRadio id="console" value="#{seat.bolType}" 
+                                                                                  >
+                                                                    <f:selectItem itemLabel="Jubilado" itemValue="J" />
+                                                                    <f:selectItem itemLabel="No jubilado" itemValue="P" />
+                                                                    <p:ajax event="change" update=":SaleForm:tvs:sale-input" 
+                                                                            listener="#{saleBean.calculateRetireeDiscount(saleBean.saleDetail)}" />
+                                                                </p:selectOneRadio>
+                                                            </p:column>
+                                                        </p:row>
+                                                    </p:panelGrid>
+                                                </p:dataGrid>
+                                            </p:column>
+                                        </p:row>                                        
+
+                                    </p:panelGrid>
+
+                                    <!-- Captura de pagos -->
+                                    <p:panelGrid id="sale-payment-grid"  
+                                                 style="margin-top: 15px; border: 0px solid #225A01; width: 100%;">
+                                        <p:row>
+                                            <p:column>
+                                                <p:outputLabel value="Pago:" class="welcome-title" />
+                                            </p:column>
+                                        </p:row>                                        
+                                        <p:row>
+                                            <p:column>
+                                                <p:dataGrid var="payment" value="#{payTypeBean.list}" columns="2" 
+                                                            rows="4" paginator="false" id="payment" styleClass="grid-seats-main">
+                                                    <p:panelGrid>
+                                                        <p:row>
+                                                            <p:column colspan="2"> 
+                                                                <p:outputLabel value="#{payment.description}" />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <p:inputText value="#{payment.amount}" size="10" rendered="#{not payTypeBean.isNominalPayType(payment.description)}" />
+                                                                <p:outputLabel value="#{payment.amount}" rendered="#{payTypeBean.isNominalPayType(payment.description)}" />
+                                                            </p:column>
+                                                            <p:column>
+                                                                <p:inputText id="payInfo" value="#{payment.paymentInfo}" size="18" rendered="#{payment.reference eq 'S'}"
+                                                                             style="background-color: #FFF; " />
+                                                                <p:watermark for="payInfo" value="InformaciÃ³n del Pago" />
+                                                            </p:column>
+                                                        </p:row>
+                                                    </p:panelGrid>
+
+                                                </p:dataGrid>
+                                            </p:column>
+                                        </p:row>                
+                                        <p:row>
+                                            <p:column>
+                                                <p:commandButton rendered="#{payTypeBean.existNominalPayType}" update=":main-form:growl :formPayRoll"
+                                                                 action="#{saleBean.validateAssociates()}" ajax="true"
+                                                                 value="Folios nomina"/>
+                                                <p:commandButton update=":main-form:growl " action="#{saleBean.pendingSaleDialog()}"
+                                                                 ajax="true"  value="Venta Pendiente"/>
+                                            </p:column>
+                                        </p:row>
+
+                                    </p:panelGrid>
 
 
-                            <!-- botones de control -->
-                            <p:panelGrid style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
-                                <p:row>
-                                    <p:column>
-                                        <p:commandButton value="Cancelar" ajax="false" immediate="true" 
-                                                         icon="ui-icon-arrowreturnthick-1-w"
-                                                         action="toSale" style="float: right;" >
-                                            <f:actionListener  binding="#{saleBean.clearSale()}"/>
-                                        </p:commandButton>
-                                        <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list, payRollBean.list)}"
-                                                         style="float: right;">
-                                        </p:commandButton>
-                                    </p:column>
-                                </p:row>
-                            </p:panelGrid>
+                                    <!-- botones de control -->
+                                    <p:panelGrid style="margin-top: 15px;border: 0px solid #225A01; width: 100%;">
+                                        <p:row>
+                                            <p:column>
+                                                <p:commandButton value="Cancelar" ajax="false" immediate="true" 
+                                                                 icon="ui-icon-arrowreturnthick-1-w"
+                                                                 action="toSale" style="float: right;" >
+                                                    <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                                </p:commandButton>
+                                                <p:commandButton value="Guardar" ajax="false" action="#{saleBean.validateSale(vendorBean.current, payTypeBean.list, payRollBean.list)}"
+                                                                 style="float: right;">
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
 
-                        </div>
+                                </div>
+                            </p:tab>
+                            
+                        </p:tabView>
                     </h:form>
                     <p:dialog id="idPayRoll" widgetVar="payRollVar"
                               width="500" height="500" header="Nomina">
