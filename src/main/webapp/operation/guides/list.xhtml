@@ -17,7 +17,7 @@
                         
                          <br />
                         <!-- Data table de usuarios -->
-                        <p:dataTable value="#{guideBean.list}" var="guide" style="font-size: 12px;"
+                        <p:dataTable value="#{guideBean.model}" var="guide" style="font-size: 12px;"
                                      selectionMode="single" selection="#{guideBean.selected}" 
                                      rowKey="#{guide.guide.id}" id="guideDT"
                                      emptyMessage="#{msgs.no_records_found}" rows="20"

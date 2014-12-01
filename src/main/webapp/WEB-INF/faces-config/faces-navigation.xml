@@ -188,6 +188,14 @@
             <from-outcome>toDailySalesPoint</from-outcome>
             <to-view-id>/reports/salePoint/dailySales.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>toTotalSales</from-outcome>
+            <to-view-id>/reports/sales/totalSales.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>toWeekSales</from-outcome>
+            <to-view-id>/reports/sales/weekSales.xhtml</to-view-id>
+        </navigation-case>
        <navigation-case>
             <from-outcome>toBusIncome</from-outcome>
             <to-view-id>/reports/bus/income.xhtml</to-view-id>

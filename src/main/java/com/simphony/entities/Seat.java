@@ -115,6 +115,7 @@ public class Seat implements Serializable, Cloneable {
     
     public void update(Seat updatedSeat){
         this.id = updatedSeat.id;
+        this.seat = updatedSeat.seat;
         this.createDate = updatedSeat.createDate;
     }
 

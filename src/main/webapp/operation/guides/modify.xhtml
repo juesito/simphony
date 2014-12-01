@@ -26,8 +26,7 @@
                                 <p:column>
                                     <p:selectOneMenu id="bus" value="#{guideBean.guide.bus}" 
                                                      converter="busConverter" 
-                                                     style="width:100px" required="true" 
-                                                     tabindex="1" >
+                                                     style="width:100px" tabindex="1" >
                                         <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_bus}"  />
                                         <f:selectItems value="#{boxBusService.busList}"/>
                                     </p:selectOneMenu>
@@ -41,8 +40,7 @@
                                 <p:column>
                                     <p:selectOneMenu id="driverMan1" value="#{guideBean.guide.driverMan1}" 
                                                      converter="driverManConverter" 
-                                                     style="width:250px" required="true" 
-                                                     tabindex="2" >
+                                                     style="width:250px" tabindex="2" >
                                         <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_driverMan}"  />
                                         <f:selectItems value="#{boxDriverManService.driverManList}"/>
                                     </p:selectOneMenu>
@@ -56,8 +54,7 @@
                                 <p:column>
                                     <p:selectOneMenu id="driverMan2" value="#{guideBean.guide.driverMan2}" 
                                                      converter="driverManConverter" 
-                                                     style="width:250px" required="true" 
-                                                     tabindex="3" >
+                                                     style="width:250px" tabindex="3" >
                                         <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_driverMan}"  />
                                         <f:selectItems value="#{boxDriverManService.driverManList}"/>
                                     </p:selectOneMenu>

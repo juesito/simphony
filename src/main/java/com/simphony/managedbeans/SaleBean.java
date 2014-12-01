@@ -1112,8 +1112,8 @@ public class SaleBean implements IConfigurable, Serializable {
      * @return
      */
     public String columnClass(int value) {
-        Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42};
-        Integer[] arraLeft = new Integer[]{3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43};
+        Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50};
+        Integer[] arraLeft = new Integer[]{3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47, 51};
 
         String customClass = "window";
         if (Arrays.asList(arraRight).contains(value)) {
@@ -1366,7 +1366,7 @@ public class SaleBean implements IConfigurable, Serializable {
             } else {
                 String status = guideService.getRepository().selectStatus(pendingSale.getSale().getId());
                 if (status.equals("CL")) {
-                    GrowlBean.simplyWarmMessage("GuÃƒÆ’Ã‚Â­a Cerrada", "La GuÃƒÆ’Ã‚Â­a de viaje ya fue cerrada...");
+                    GrowlBean.simplyWarmMessage("GuÃ­a Cerrada", "La Guía de viaje ya fue cerrada...");
                     pendingSale = new SaleDetail();
                 }
             }

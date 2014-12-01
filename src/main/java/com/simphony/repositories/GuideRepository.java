@@ -63,13 +63,39 @@ public interface GuideRepository extends JpaRepository<Guide, Long> {
     @Modifying(clearAutomatically=true)
     @Transactional
     @Query("UPDATE Guide g " +
-         "  SET g.bus.id = :idBus, g.driverMan1.id = :idDriverMan1, g.driverMan2.id = :idDriverMan2, g.quota = :quota, g.status = :status "+
+         "  SET g.bus.id = :idBus, g.quota = :quota, g.status = :status "+
          "  WHERE g.rootGuide = :idRoute " +
          "  AND g.departureDate = :departureDate")
-    public void updateGuide(@Param("idRoute")Long idRoot, @Param("idBus")Long idBus, @Param("idDriverMan1")Long idDriverMan1,
-            @Param("idDriverMan2")Long idDriverMan2, @Param("quota")Integer quota, @Param("status")String status,
-            @Param("departureDate") Date departureDate);
+    public void updateGuide1(@Param("idRoute")Long idRoot, @Param("idBus")Long idBus, @Param("quota")Integer quota,
+            @Param("status")String status, @Param("departureDate") Date departureDate);
+
+    @Modifying(clearAutomatically=true)
+    @Transactional
+    @Query("UPDATE Guide g " +
+         "  SET g.driverMan1.id = :idDriverMan1, g.quota = :quota, g.status = :status "+
+         "  WHERE g.rootGuide = :idRoute " +
+         "  AND g.departureDate = :departureDate")
+    public void updateGuide2(@Param("idRoute")Long idRoot, @Param("idDriverMan1")Long idDriverMan1,
+            @Param("quota")Integer quota, @Param("status")String status, @Param("departureDate") Date departureDate);
  
+    @Modifying(clearAutomatically=true)
+    @Transactional
+    @Query("UPDATE Guide g " +
+         "  SET g.driverMan2.id = :idDriverMan2, g.quota = :quota, g.status = :status "+
+         "  WHERE g.rootGuide = :idRoute " +
+         "  AND g.departureDate = :departureDate")
+    public void updateGuide3(@Param("idRoute")Long idRoot, @Param("idDriverMan2")Long idDriverMan2,
+            @Param("quota")Integer quota, @Param("status")String status, @Param("departureDate") Date departureDate);
+
+    @Modifying(clearAutomatically=true)
+    @Transactional
+    @Query("UPDATE Guide g " +
+         "  SET g.quota = :quota, g.status = :status "+
+         "  WHERE g.rootGuide = :idRoute " +
+         "  AND g.departureDate = :departureDate")
+    public void updateGuide4(@Param("idRoute")Long idRoot, @Param("quota")Integer quota, 
+                @Param("status")String status, @Param("departureDate") Date departureDate);
+
     @Query("SELECT status from Guide g " +
        " WHERE g.id IN  ( SELECT d.guide.id FROM GuideDetail d " +
        " WHERE d.sale.id = :saleId) " )
