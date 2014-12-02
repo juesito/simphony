@@ -140,9 +140,7 @@ public class SaleBean implements IConfigurable, Serializable {
      */
     public ItineraryCostModel findAvailabilities(Date dateFind, Long origin, Long destiny) throws ParseException {
         Calendar now = Calendar.getInstance();
-        
-        Guide innerGuide = new Guide();
-        Guide innerRootGuide = new Guide();
+
 
         ItineraryCostModel currentModel = new ItineraryCostModel();
 
@@ -189,7 +187,7 @@ public class SaleBean implements IConfigurable, Serializable {
                 itineraryCost1.setDepartureTime(calendar.getTime());
 
                 rootItinerary.setDepartureTime(calTime.getTime());
-                
+
                 guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
 
                 if (guideRoot != null) {
@@ -365,7 +363,8 @@ public class SaleBean implements IConfigurable, Serializable {
      * @param travelType
      * @return
      */
-    public List<Seat> findAvailableSeats(ItineraryCost selectedItinerary, Date dateFounded, String vendorNick, String travelType) throws CloneNotSupportedException {
+    public List<Seat> findAvailableSeats(ItineraryCost selectedItinerary, Date dateFounded,
+            String vendorNick, String travelType) throws CloneNotSupportedException {
 
         List<Seat> currentSeat;
         Guide innerGuide = new Guide();
@@ -408,17 +407,17 @@ public class SaleBean implements IConfigurable, Serializable {
             innerRootGuide = this.createRootGuide(innerRootGuide, rootItinerary);
         }
 
-        guide = guideService.getRepository().findByItineraryAndDate(ori, des, dateFounded, route);
+        innerGuide = guideService.getRepository().findByItineraryAndDate(ori, des, dateFounded, route);
         Integer maxLimitCarrie = 0;
 
-        if (guide != null) {
+        if (innerGuide != null) {
             // Validacion de asientos
-            guide.setNewGuide(false);
+            innerGuide.setNewGuide(false);
             maxLimitCarrie = guide.getQuota();
 
         } else {
             //seat = seatService.getRepository().findAllAvailable();
-            guide = new Guide(true);
+            innerGuide = new Guide(true);
         }
 
         //Obtenemos el limite de pasajeros en esa guia
@@ -430,7 +429,7 @@ public class SaleBean implements IConfigurable, Serializable {
         }
 
         Seat occupiedPattern = seatService.getRepository().findOccupiedSeatPattern();
-        List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(guideRoot.getRootGuide(), guideRoot.getRootRoute());
+        List<ReservedSeats> reservedSeats = saleService.getReservedSeatsRepository().findAllReserved(innerRootGuide.getRootGuide(), innerRootGuide.getRootRoute());
 
         for (ReservedSeats reserved : reservedSeats) {
 
@@ -472,6 +471,15 @@ public class SaleBean implements IConfigurable, Serializable {
             guideToBack = guideRoot = (Guide)innerGuide.clone();
         }
 
+        //Asignamos las guias correspondientes
+        if (travelType.equals(_TO_ORIGIN)) {
+            guideRoot = (Guide) innerRootGuide.clone();
+            guide = (Guide) innerGuide.clone();
+        } else {
+            guideRootToBack = (Guide) innerRootGuide.clone();
+            guideToBack = (Guide) innerGuide.clone();
+        }
+
         return currentSeat;
     }
 
@@ -484,12 +492,15 @@ public class SaleBean implements IConfigurable, Serializable {
      * @param saveSale
      * @param saveSelected
      * @param saveGuide
+     * @param saveRootGuide
+     * @param saveDetail
      * @param innerSale
      * @throws java.lang.CloneNotSupportedException
      */
-    public void save(Vendor vendor, List<PayType> payTypeList, 
+    public void save(Vendor vendor, List<PayType> payTypeList,
             List<PayRoll> payRollList, Sale saveSale, ItineraryCost saveSelected,
-            Guide saveGuide, Guide saveRootGuide) throws CloneNotSupportedException {
+            Guide saveGuide, Guide saveRootGuide, List<SaleDetail> saveDetail,
+            String type) throws CloneNotSupportedException {
 
         // Guardamos si hubo venta pendiente.
         if (pendingSale.getId() != null) {
@@ -503,7 +514,7 @@ public class SaleBean implements IConfigurable, Serializable {
         saveSale.setCreateDate(new Date());
 
         //Guardamos la venta
-        saveSale = saleService.getSaleRepository().save(saveSale);
+        saveSale = saleService.getSaleRepository().saveAndFlush(saveSale);
 
         // Guardamos la guia
         if (saveGuide.isNewGuide()) {
@@ -523,10 +534,10 @@ public class SaleBean implements IConfigurable, Serializable {
                 saveGuide.setDestiny(saveSelected.getCost().getDestiny());
                 saveGuide.setFinaDestiny(saveRootGuide.getDestiny());
 
-                guideService.getRepository().save(saveGuide);
+                guideService.getRepository().saveAndFlush(saveGuide);
                 saveGuide.setRootGuide(saveGuide.getId());
                 saveGuide.update(saveGuide);
-                saveGuide = guideService.getRepository().save(saveGuide);
+                saveGuide = guideService.getRepository().saveAndFlush(saveGuide);
 
             } else {
 
@@ -535,7 +546,7 @@ public class SaleBean implements IConfigurable, Serializable {
                 saveGuide.setRootRoute(saveRootGuide.getRootRoute());
                 saveGuide.setRootGuide(saveRootGuide.getId());
                 saveGuide.setFinaDestiny(saveRootGuide.getDestiny());
-                guideService.getRepository().save(saveGuide);
+                guideService.getRepository().saveAndFlush(saveGuide);
 
             }
         }
@@ -548,7 +559,7 @@ public class SaleBean implements IConfigurable, Serializable {
             GuideDetail guideDetail = new GuideDetail();
             guideDetail.setGuide(saveGuide);
             guideDetail.setSale(saveSale);
-            guideService.getDetailRepository().save(guideDetail);
+            guideService.getDetailRepository().saveAndFlush(guideDetail);
 
         }
 
@@ -578,6 +589,69 @@ public class SaleBean implements IConfigurable, Serializable {
     public void saveDetailSale(SaleDetail innerDetail){
     
         //Guardamos el detalle de la venta
+        saveDetailSale(saveDetail, saveSale, saveSelected, saveGuide,
+                saveRootGuide);
+
+        //Guardamos los pagos
+        if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL) && type.equals(_TO_ORIGIN)) {
+            for (PayType payType : payTypeList) {
+                if (payType.getAmount() > 0.0) {
+                    Payment payment = new Payment(payType, saveSale);
+                    saleService.getPaymentRepository().saveAndFlush(payment);
+                }
+            }
+
+            //Guardamos el tipo de pago nominal en caso de existir
+            for (PayRoll pr : payRollList) {
+                if (pr.getAmount() > 0.0) {
+                    pr.setSale(saveSale);
+                    this.saleService.getPayrollRepository().saveAndFlush(pr);
+                }
+            }
+
+        } else if (this.sale.getTravelService().equals(_SALE_SINGLE_TRAVEL) && type.equals(_TO_ORIGIN)) {
+
+            for (PayType payType : payTypeList) {
+                if (payType.getAmount() > 0.0) {
+                    Payment payment = new Payment(payType, saveSale);
+                    saleService.getPaymentRepository().saveAndFlush(payment);
+                }
+            }
+
+            //Guardamos el tipo de pago nominal en caso de existir
+            for (PayRoll pr : payRollList) {
+                if (pr.getAmount() > 0.0) {
+                    pr.setSale(saveSale);
+                    this.saleService.getPayrollRepository().saveAndFlush(pr);
+                }
+            }
+
+        }
+
+        if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL) && 
+                type.equals(_TO_BACK)) {
+            GrowlBean.simplyWarmMessage(
+                    "Se ha guardado la venta", "Venta guardada con exito!");
+        } else if (this.sale.getTravelService().equals(_SALE_SINGLE_TRAVEL) && 
+                type.equals(_TO_ORIGIN)) {
+            GrowlBean.simplyWarmMessage(
+                    "Se ha guardado la venta", "Venta guardada con exito!");
+        }
+
+    }
+
+    /**
+     *
+     * @param innerDetail
+     * @param saveSale
+     * @param saveSelected
+     * @param saveGuide
+     * @param saveRootGuide
+     */
+    public void saveDetailSale(List<SaleDetail> innerDetail, Sale saveSale, ItineraryCost saveSelected,
+            Guide saveGuide, Guide saveRootGuide) {
+
+        //Guardamos el detalle de la venta
         for (SaleDetail dtSale : innerDetail) {
 
             //Guardamos los asientos ocupados            
@@ -595,7 +669,7 @@ public class SaleBean implements IConfigurable, Serializable {
             }
             reservedSeat.setSeat(dtSale.getSeat());
 
-            saleService.getReservedSeatsRepository().save(reservedSeat);
+            saleService.getReservedSeatsRepository().saveAndFlush(reservedSeat);
 
             //Guardamos el detalle de venta
             dtSale.setSale(sale);
@@ -621,12 +695,10 @@ public class SaleBean implements IConfigurable, Serializable {
             dtSale.setIdResSeat(reservedSeat.getId());
             dtSale.setCustomerName(dtSale.getCustomerName().toUpperCase());
             dtSale.update(dtSale);
-            saleService.getDetailRepository().save(dtSale);
+            saleService.getDetailRepository().saveAndFlush(dtSale);
         }
     }
-    
-    
-    
+
     /**
      * Validamos lo necesario para la venta
      *
@@ -659,7 +731,7 @@ public class SaleBean implements IConfigurable, Serializable {
         }
 
         if (sale.getTravelService().equals(_SALE_SINGLE_TRAVEL)) {
-            
+
             //Validamos el monto recibido
             if (amountPayed < sale.getAmount()) {
                 GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto ingresado");
@@ -668,19 +740,29 @@ public class SaleBean implements IConfigurable, Serializable {
                 GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
                 msgNav = "toSaleConfirm";
             } else {
-                this.save(vendor, payTypeList, payRollList, sale);
+                this.save(vendor, payTypeList, payRollList, sale, this.selected, guide, guideRoot, saleDetail, _TO_ORIGIN);
+                this.clearSale();
             }
         } else if (sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL)) {
+
             //Validamos el monto recibido de ambos viajes
             if (amountPayed < sale.getAmount() + saleToBack.getAmount()) {
                 GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto ingresado");
                 msgNav = "toSaleConfirm";
-            } else if (amountPayed > sale.getAmount()) {
+            } else if (amountPayed > sale.getAmount() + saleToBack.getAmount()) {
                 GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
                 msgNav = "toSaleConfirm";
             } else {
-                this.save(vendor, payTypeList, payRollList, sale);
-                this.save(vendor, payTypeList, payRollList, saleToBack);
+                this.save(vendor, payTypeList, payRollList, sale, this.selected, this.guide, this.guideRoot, saleDetail, _TO_ORIGIN);
+
+                //Actualizamos los valores del detalle de regreso
+                for (int i = 0; i < saleDetailToBack.size(); i++) {
+                    saleDetailToBack.get(i).updateToRounded(saleDetail.get(i));
+                }
+
+                this.save(vendor, payTypeList, payRollList, saleToBack, this.selectedToBack, this.guideToBack,
+                        this.guideRootToBack, saleDetailToBack, _TO_BACK);
+                this.clearSale();
             }
         }
 
@@ -820,11 +902,16 @@ public class SaleBean implements IConfigurable, Serializable {
      */
     public void clearSale() {
         this.sale = new Sale();
+        this.saleToBack = new Sale();
         this.sale.setTripDate(new Date());
         this.saleDetail = new ArrayList<SaleDetail>();
+        this.saleDetailToBack = new ArrayList<SaleDetail>();
         this.guide = new Guide();
+        this.guideToBack = new Guide();
         this.guideRoot = new Guide();
+        this.guideRootToBack = new Guide();
         this.selected = new ItineraryCost();
+        this.selectedToBack = new ItineraryCost();
         this.pendingSale = new SaleDetail();
     }
 
@@ -1059,8 +1146,8 @@ public class SaleBean implements IConfigurable, Serializable {
      * @return
      */
     public String columnClass(int value) {
-        Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42};
-        Integer[] arraLeft = new Integer[]{3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43};
+        Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50};
+        Integer[] arraLeft = new Integer[]{3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47, 51};
 
         String customClass = "window";
         if (Arrays.asList(arraRight).contains(value)) {
@@ -1313,7 +1400,7 @@ public class SaleBean implements IConfigurable, Serializable {
             } else {
                 String status = guideService.getRepository().selectStatus(pendingSale.getSale().getId());
                 if (status.equals("CL")) {
-                    GrowlBean.simplyWarmMessage("GuÃƒÆ’Ã‚Â­a Cerrada", "La GuÃƒÆ’Ã‚Â­a de viaje ya fue cerrada...");
+                    GrowlBean.simplyWarmMessage("GuÃ­a Cerrada", "La Guía de viaje ya fue cerrada...");
                     pendingSale = new SaleDetail();
                 }
             }

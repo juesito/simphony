@@ -53,18 +53,10 @@
                                </p:column>
                             </p:row>
                             <p:row>
-                                <p:column style="padding-top: 15px;">
-                                    <p:outputLabel value="#{msgs.cat_income}:" />
-                                </p:column>
-                                <p:column style="width: 120px; padding-top: 15px; ">
-                                    <p:outputLabel value="#{reportsBean.totVta}"  />
-                                </p:column>
-                            </p:row>
-                            <p:row>
                                 <p:column style="padding-top: 20px; ">
                                     <p:commandButton value="Procesar" actionListener="#{reportsBean.findBusIncome()}" 
                                                     ajax="true" styleClass="button-rounded" icon="ui-icon-play"
-                                                    update=":form:saleDetailDT :form:sale-daily" >
+                                                    update=":form:saleDetailDT :form:sale-daily :form:footer" >
                                    </p:commandButton>
                                 </p:column>
                             </p:row>
@@ -75,7 +67,7 @@
                     <div id="guide-detail-detail" class="guide-detail-detail" style="padding-top: 25px; ">
                         <!-- Data table -->
                         <p:dataTable id="saleDetailDT" value="#{reportsBean.modelDS}" var="ic" 
-                                     emptyMessage="Sin ingresos registrados" rows="12"
+                                     emptyMessage="Sin ingresos registrados" rows="14"
                                      paginator="true" paginatorPosition="bottom"
                                      paginatorTemplate="{PageLinks}">
                             <p:column headerText="#{msgs.cat_date}" >
@@ -93,8 +85,17 @@
                             <p:column headerText="#{msgs.cat_income}" >
                                 <p:outputLabel value="#{ic.detIncome}" />
                             </p:column>
-
                         </p:dataTable>
+                        <p:panelGrid  id="footer" styleClass="guide-header">
+                            <p:row>
+                            <p:column style="width:850px;">
+                                <p:outputLabel value="Total:" style="text-align: right;"  />
+                            </p:column>
+                            <p:column style="width:50px" >
+                                <p:outputLabel value="#{reportsBean.totVta}" />
+                            </p:column>
+                            </p:row>
+                        </p:panelGrid>
 
                     </div>
                    

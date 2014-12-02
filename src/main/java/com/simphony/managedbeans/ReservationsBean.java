@@ -581,8 +581,8 @@ public class ReservationsBean implements IConfigurable {
      * @return
      */
     public String columnClass(int value) {
-        Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42};
-        Integer[] arraLeft = new Integer[]{3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43};
+        Integer[] arraRight = new Integer[]{2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46};
+        Integer[] arraLeft = new Integer[]{3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47};
 
         String customClass = "window";
         if (Arrays.asList(arraRight).contains(value)) {

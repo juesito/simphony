@@ -397,7 +397,7 @@ public  class Workers extends Person implements Serializable, Cloneable {
 
 
   public String getFullName(){
-      String fullName = super.getSecondLastName().trim() + " "+ super.getFirstLastName().trim() + " " + super.getName().trim();
+      String fullName = super.getName().trim() + " " + super.getSecondLastName().trim() + " "+ super.getFirstLastName().trim() ;
       return fullName;
   }
   

@@ -197,7 +197,7 @@ public class WorkersBean implements IConfigurable {
         Workers workersUpdated = this.service.getRepository().findOne(this.workers.getId());
 
         if (workersUpdated == null) {
-            throw new PersonException("Agremiado no existente");
+            throw new PersonException("Empleado no existente");
         }
 
         workers.setLastUpdate(cal.getTime());

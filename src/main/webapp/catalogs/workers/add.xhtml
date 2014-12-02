@@ -25,23 +25,23 @@
                                 </p:column>
                                 <p:column>
                                     <p:selectOneMenu  id="type" effect="blind" value="#{workersBean.workers.workerType}" 
-                                                      style="width: 120px;" >
+                                                      style="width: 120px;" tabindex="1">
                                         <f:selectItem itemLabel="Vendedor" itemValue="Vendedor" />
                                         <f:selectItem itemLabel="Operador" itemValue="Operador" />                                        
                                         <f:selectItem itemLabel="Administrativo" itemValue="Administrativo" />                                        
                                         <p:ajax event="change" update="add" />
                                     </p:selectOneMenu>
                                 </p:column>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_payType}:" />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu  effect="blind" value="#{workersBean.workers.payType}" 
-                                                      style="width: 120px;" >
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_payType}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.payType}" 
+                                                      style="width: 120px;" tabindex="17" >
                                         <f:selectItem itemLabel="Efectivo" itemValue="Efectivo" />
                                         <f:selectItem itemLabel="Depósito" itemValue="Depósito" />                                        
-                                     </p:selectOneMenu>
-                            </p:column>
+                                    </p:selectOneMenu>
+                                </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
@@ -52,13 +52,13 @@
                                                  tabindex="2" requiredMessage="#{msgs.req_name}" style="width:160px"/>
                                     <p:message for="name" />
                                 </p:column>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_bank}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.bank}" maxlength="35" tabindex="9"
-                                             style="width:160px"/>
-                            </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_bank}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.bank}" maxlength="35" tabindex="18"
+                                                 style="width:160px"/>
+                                </p:column>
 
                             </p:row>
                             <p:row>
@@ -72,10 +72,10 @@
                                     <p:message for="lastName" />
                                 </p:column>
                                 <p:column>
-                                   <p:outputLabel value="#{msgs.cat_bankCount}:" />
+                                    <p:outputLabel value="#{msgs.cat_bankCount}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{workersBean.workers.bankCount}" maxlength="35" tabindex="10"
+                                    <p:inputText value="#{workersBean.workers.bankCount}" maxlength="35" tabindex="19"
                                                  style="width:160px"/>
                                 </p:column>
 
@@ -94,228 +94,228 @@
                                     <p:outputLabel value="#{msgs.cat_bankClabe}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{workersBean.workers.bankClabe}" maxlength="30" tabindex="11"
+                                    <p:inputText value="#{workersBean.workers.bankClabe}" maxlength="30" tabindex="20"
                                                  style="width:160px"/>
                                 </p:column>
 
                             </p:row>
 
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_position}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.position}" maxlength="35" 
-                                             tabindex="5" style="width:160px" />
-                            </p:column>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_position}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.position}" maxlength="35" 
+                                                 tabindex="5" style="width:160px" />
+                                </p:column>
                                 <p:column>
                                     <p:outputLabel value="Email:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{workersBean.workers.email}" maxlength="100" tabindex="12"
+                                    <p:inputText value="#{workersBean.workers.email}" maxlength="100" tabindex="21"
                                                  style="width:160px"/>
                                 </p:column>
 
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                 <p:outputLabel value="#{msgs.cat_incomeDate}:" />
-                            </p:column>
-                             <p:column>
-                                  <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                              pages="2" showOn="button" value="#{workersBean.workers.incomeDate}"/>
-                              </p:column>
-                              <p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_incomeDate}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" tabindex="6"
+                                                pages="2" showOn="button" value="#{workersBean.workers.incomeDate}"/>
+                                </p:column>
+                                <p:column>
                                     <p:outputLabel value="#{msgs.cat_bloodType}:" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{workersBean.workers.bloodType}" maxlength="20" tabindex="13" 
+                                    <p:inputText value="#{workersBean.workers.bloodType}" maxlength="20" tabindex="22" 
                                                  style="width:100px"/>
                                 </p:column>
 
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_curp}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.curp}" maxlength="18"
-                                             tabindex="7" style="width:130px"/>
-                            </p:column>
-                            <p:column>
-                                 <p:outputLabel value="#{msgs.cat_contact}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.accidentContact}" maxlength="50" 
-                                              tabindex="14" style="width:200px"/>
-                            </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_rfc}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.rfc}" maxlength="15"
-                                             tabindex="7" style="width:100px"/>
-                            </p:column>
-                            <p:column>
-                                 <p:outputLabel value="#{msgs.cat_contactPhone}:" />
-                            </p:column>
-                            <p:column>
-                                 <p:inputText value="#{workersBean.workers.contactPhone}" maxlength="10" 
-                                              tabindex="14" style="width:80px"/>
-                             </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_nss}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.nss}" maxlength="25"
-                                             tabindex="7" style="width:100px"/>
-                            </p:column>
-                            <p:column>
-                                 <p:outputLabel value="#{msgs.cat_phoneId}:" />
-                            </p:column>
-                            <p:column>
-                                 <p:inputText value="#{workersBean.workers.phoneId}" maxlength="15" 
-                                              tabindex="14" style="width:80px"/>
-                            </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_imssSalary}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.imssSalary}" maxlength="10"
-                                             tabindex="7" style="width:80px"/>
-                            </p:column>
-                            <p:column>
-                                 <p:outputLabel value="#{msgs.cat_degree}:" />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu  effect="blind" value="#{workersBean.workers.degree}" 
-                                                      style="width: 120px;" >
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_curp}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.curp}" maxlength="18"
+                                                 tabindex="7" style="width:130px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_contact}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.accidentContact}" maxlength="50" 
+                                                 tabindex="23" style="width:200px"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_rfc}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.rfc}" maxlength="15"
+                                                 tabindex="8" style="width:100px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_contactPhone}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.contactPhone}" maxlength="10" 
+                                                 tabindex="24" style="width:80px"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_nss}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.nss}" maxlength="25"
+                                                 tabindex="9" style="width:100px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.phoneId}" maxlength="15" 
+                                                 tabindex="25" style="width:80px"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_imssSalary}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.imssSalary}" maxlength="10"
+                                                 tabindex="10" style="width:80px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_degree}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.degree}" 
+                                                      style="width: 120px;" tabindex="26">
                                         <f:selectItem itemLabel="Primaria" itemValue="Primaria" />
                                         <f:selectItem itemLabel="Secundaria" itemValue="Secundaria" />                                        
                                         <f:selectItem itemLabel="Preparatoria" itemValue="Preparatoria" />                                        
                                         <f:selectItem itemLabel="Universidad" itemValue="Universidad" />                                        
                                     </p:selectOneMenu>
-                            </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_baseSalary}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.baseSalary}" maxlength="10"
-                                             tabindex="7" style="width:80px"/>
-                            </p:column>
-                            <p:column>
-                                 <p:outputLabel value="#{msgs.cat_status}:" />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu  effect="blind" value="#{workersBean.workers.status}" 
-                                                      style="width: 140px;" >
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_baseSalary}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.baseSalary}" maxlength="10"
+                                                 tabindex="11" style="width:80px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_status}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.status}" 
+                                                      style="width: 140px;" tabindex="27">
                                         <f:selectItem itemLabel="Activo" itemValue="A" />
                                         <f:selectItem itemLabel="Inactivo" itemValue="I" />                                        
                                         <f:selectItem itemLabel="Suspensión laboral" itemValue="S" />                                        
                                         <f:selectItem itemLabel="En demanda" itemValue="D" />                                        
                                     </p:selectOneMenu>
-                             </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_address}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.address}" maxlength="100"
-                                             tabindex="7" style="width:300px"/>
-                            </p:column>
-                             <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                 <p:outputLabel value="#{msgs.cat_licenseExpedition}:" />
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                  <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                              pages="2" showOn="button" value="#{workersBean.workers.licenseExpedition}"/>
-                            </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_entidad}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.entidad}" maxlength="30"
-                                             tabindex="7" style="width:100px"/>
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                 <p:outputLabel value="#{msgs.cat_licenseExpiry}:" />
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                  <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                              pages="2" showOn="button" value="#{workersBean.workers.licenseExpiry}"/>
-                            </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_zipCode}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.zipCode}" maxlength="10"
-                                             tabindex="7" style="width:50px"/>
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                 <p:outputLabel value="#{msgs.cat_licenseCountersign}:" />
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                  <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
-                                              pages="2" showOn="button" value="#{workersBean.workers.licenseCountersign}"/>
-                            </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_birthPlace}:" />
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{workersBean.workers.birthPlace}" maxlength="35"
-                                             tabindex="7" style="width:100px"/>
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                 <p:outputLabel value="#{msgs.cat_bus}:" />
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                <p:inputText value="#{workersBean.workers.assignedBus}" maxlength="6" 
-                                              tabindex="14" style="width:60px"/>
-                            </p:column>
-                         </p:row>
-                         <p:row>
-                            <p:column>
-                                <p:outputLabel value="#{msgs.cat_maritalStatus}:" />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu  effect="blind" value="#{workersBean.workers.maritalStatus}" 
-                                                      style="width: 120px;" >
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_address}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.address}" maxlength="100"
+                                                 tabindex="12" style="width:300px"/>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_licenseExpedition}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" tabindex="28"
+                                                pages="2" showOn="button" value="#{workersBean.workers.licenseExpedition}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_entidad}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.entidad}" maxlength="30"
+                                                 tabindex="13" style="width:100px"/>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_licenseExpiry}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" tabindex="29"
+                                                pages="2" showOn="button" value="#{workersBean.workers.licenseExpiry}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.zipCode}" maxlength="10"
+                                                 tabindex="14" style="width:50px"/>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_licenseCountersign}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}"> 
+                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" tabindex="30"
+                                                pages="2" showOn="button" value="#{workersBean.workers.licenseCountersign}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_birthPlace}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.birthPlace}" maxlength="35"
+                                                 tabindex="15" style="width:100px"/>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_bus}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:inputText value="#{workersBean.workers.assignedBus}" maxlength="6" 
+                                                 tabindex="31" style="width:60px"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_maritalStatus}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.maritalStatus}" 
+                                                      style="width: 120px;" tabindex="16" >
                                         <f:selectItem itemLabel="Soltero" itemValue="Soltero" />
                                         <f:selectItem itemLabel="Casado" itemValue="Casado" />                                        
                                         <f:selectItem itemLabel="Viudo" itemValue="Viudo" />                                        
                                         <f:selectItem itemLabel="Divorciado" itemValue="Divorciado" />                                        
                                         <f:selectItem itemLabel="Unión libre" itemValue="Unión libre" />                                        
                                     </p:selectOneMenu>
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                 <p:outputLabel value="#{msgs.cat_illness}:" />
-                            </p:column>
-                            <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
-                                <p:selectOneMenu  effect="blind" value="#{workersBean.workers.maritalStatus}" 
-                                                      style="width: 120px;" >
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_illness}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.illness}" 
+                                                      style="width: 120px;"  tabindex="32">
                                         <f:selectItem itemLabel="Ninguna" itemValue="Ninguna" />
                                         <f:selectItem itemLabel="Hipertensión" itemValue="Hipertensión" />
                                         <f:selectItem itemLabel="Diabetes" itemValue="Diabetes" />                                        
                                         <f:selectItem itemLabel="Obesidad" itemValue="Obesidad" />                                        
                                     </p:selectOneMenu>
-                            </p:column>
-                         </p:row>
-                           
+                                </p:column>
+                            </p:row>
+
                             <p:row>
                                 <p:column colspan="2" ></p:column>
                                 <p:column style="padding-top: 35px; ">
@@ -340,6 +340,315 @@
 
                         <!-- Grid para agregar entidad -->                    
                         <p:panelGrid style="margin: 0 auto;" styleClass="borderPanelGrid">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_workerType}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  id="type" effect="blind" value="#{workersBean.workers.workerType}" 
+                                                      style="width: 120px;" tabindex="1">
+                                        <f:selectItem itemLabel="Vendedor" itemValue="Vendedor" />
+                                        <f:selectItem itemLabel="Operador" itemValue="Operador" />                                        
+                                        <f:selectItem itemLabel="Administrativo" itemValue="Administrativo" />                                        
+                                        <p:ajax event="change" update="modify" />
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_payType}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.payType}" 
+                                                      style="width: 120px;" tabindex="17" >
+                                        <f:selectItem itemLabel="Efectivo" itemValue="Efectivo" />
+                                        <f:selectItem itemLabel="Depósito" itemValue="Depósito" />                                        
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_name}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="name" value="#{workersBean.workers.name}" required="true" maxlength="25" 
+                                                 tabindex="2" requiredMessage="#{msgs.req_name}" style="width:160px"/>
+                                    <p:message for="name" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_bank}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.bank}" maxlength="35" tabindex="18"
+                                                 style="width:160px"/>
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_firstLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="lastName" value="#{workersBean.workers.secondLastName}" 
+                                                 required="true" tabindex="3" maxlength="25"  style="width:160px"
+                                                 requiredMessage="#{msgs.req_lastName}:"/>
+                                    <p:message for="lastName" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_bankCount}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.bankCount}" maxlength="35" tabindex="19"
+                                                 style="width:160px"/>
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_secondLastName}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="secondName" value="#{workersBean.workers.firstLastName}" required="true" 
+                                                 tabindex="4" requiredMessage="#{msgs.req_lastName}" maxlength="25"  
+                                                 style="width:160px"/>
+                                    <p:message for="secondName" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_bankClabe}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.bankClabe}" maxlength="30" tabindex="20"
+                                                 style="width:160px"/>
+                                </p:column>
+
+                            </p:row>
+
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_position}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.position}" maxlength="35" 
+                                                 tabindex="5" style="width:160px" />
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="Email:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.email}" maxlength="100" tabindex="21"
+                                                 style="width:160px"/>
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_incomeDate}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" tabindex="6"
+                                                pages="2" showOn="button" value="#{workersBean.workers.incomeDate}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_bloodType}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.bloodType}" maxlength="20" tabindex="22" 
+                                                 style="width:100px"/>
+                                </p:column>
+
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_curp}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.curp}" maxlength="18"
+                                                 tabindex="7" style="width:130px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_contact}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.accidentContact}" maxlength="50" 
+                                                 tabindex="23" style="width:200px"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_rfc}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.rfc}" maxlength="15"
+                                                 tabindex="8" style="width:100px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_contactPhone}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.contactPhone}" maxlength="10" 
+                                                 tabindex="24" style="width:80px"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_nss}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.nss}" maxlength="25"
+                                                 tabindex="9" style="width:100px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_phoneId}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.phoneId}" maxlength="15" 
+                                                 tabindex="25" style="width:80px"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_imssSalary}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.imssSalary}" maxlength="10"
+                                                 tabindex="10" style="width:80px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_degree}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.degree}" 
+                                                      style="width: 120px;" tabindex="26">
+                                        <f:selectItem itemLabel="Primaria" itemValue="Primaria" />
+                                        <f:selectItem itemLabel="Secundaria" itemValue="Secundaria" />                                        
+                                        <f:selectItem itemLabel="Preparatoria" itemValue="Preparatoria" />                                        
+                                        <f:selectItem itemLabel="Universidad" itemValue="Universidad" />                                        
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_baseSalary}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.baseSalary}" maxlength="10"
+                                                 tabindex="11" style="width:80px"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_status}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.status}" 
+                                                      style="width: 140px;" tabindex="27">
+                                        <f:selectItem itemLabel="Activo" itemValue="A" />
+                                        <f:selectItem itemLabel="Inactivo" itemValue="I" />                                        
+                                        <f:selectItem itemLabel="Suspensión laboral" itemValue="S" />                                        
+                                        <f:selectItem itemLabel="En demanda" itemValue="D" />                                        
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_address}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.address}" maxlength="100"
+                                                 tabindex="12" style="width:300px"/>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_licenseExpedition}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" tabindex="28"
+                                                pages="2" showOn="button" value="#{workersBean.workers.licenseExpedition}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_entidad}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.entidad}" maxlength="30"
+                                                 tabindex="13" style="width:100px"/>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_licenseExpiry}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" tabindex="29"
+                                                pages="2" showOn="button" value="#{workersBean.workers.licenseExpiry}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_zipCode}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.zipCode}" maxlength="10"
+                                                 tabindex="14" style="width:50px"/>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_licenseCountersign}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}"> 
+                                    <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" tabindex="30"
+                                                pages="2" showOn="button" value="#{workersBean.workers.licenseCountersign}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_birthPlace}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{workersBean.workers.birthPlace}" maxlength="35"
+                                                 tabindex="15" style="width:100px"/>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_bus}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:inputText value="#{workersBean.workers.assignedBus}" maxlength="6" 
+                                                 tabindex="31" style="width:60px"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_maritalStatus}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.maritalStatus}" 
+                                                      style="width: 120px;" tabindex="16" >
+                                        <f:selectItem itemLabel="Soltero" itemValue="Soltero" />
+                                        <f:selectItem itemLabel="Casado" itemValue="Casado" />                                        
+                                        <f:selectItem itemLabel="Viudo" itemValue="Viudo" />                                        
+                                        <f:selectItem itemLabel="Divorciado" itemValue="Divorciado" />                                        
+                                        <f:selectItem itemLabel="Unión libre" itemValue="Unión libre" />                                        
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:outputLabel value="#{msgs.cat_illness}:" />
+                                </p:column>
+                                <p:column rendered="#{workersBean.workers.workerType eq 'Operador'}">
+                                    <p:selectOneMenu  effect="blind" value="#{workersBean.workers.illness}" 
+                                                      style="width: 120px;"  tabindex="32">
+                                        <f:selectItem itemLabel="Ninguna" itemValue="Ninguna" />
+                                        <f:selectItem itemLabel="Hipertensión" itemValue="Hipertensión" />
+                                        <f:selectItem itemLabel="Diabetes" itemValue="Diabetes" />                                        
+                                        <f:selectItem itemLabel="Obesidad" itemValue="Obesidad" />                                        
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column colspan="2" ></p:column>
+                                <p:column style="padding-top: 35px; ">
+                                    <p:commandButton value="#{msgs.but_save}" action="#{workersBean.update(userBean.alternativeUser)}"
+                                                     ajax="false" update="main-form:growl" icon="ui-icon-disk"/>
+                                </p:column>
+                                <p:column style="padding-top: 35px; ">
+                                    <p:commandButton value="#{msgs.but_cancel}" action="#{workersBean.cancelWorkers()}"
+                                                     id="cancelAdd" process="@this" immediate="true" ajax="false" 
+                                                     icon="ui-icon-arrowreturnthick-1-w"/>
+                                </p:column>
+                            </p:row>
                         </p:panelGrid>
 
                     </h:form>

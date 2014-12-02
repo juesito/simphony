@@ -151,7 +151,7 @@
                                     <p:row>
                                         <p:column>
                                             <p:outputLabel value="Seleccione una ruta de regreso." 
-                                                           style="padding-top: 30px; font-size:15px " />
+                                                           style="padding-top: 30px; font-size:15px " rendered="#{saleBean.sale.travelService eq 'R'}" />
                                             <p:dataTable id="dicb" value="#{saleBean.modelToBack}" var="icb" style="padding-top: 12px;"
                                                          selectionMode="single" selection="#{saleBean.selectedToBack}" 
                                                          rowKey="#{icb.rowId}" emptyMessage="Sin tarifas registradas"
@@ -241,9 +241,22 @@
                                                 </p:dataList>
                                             </p:column>
                                         </p:row>
+                                        <p:row>
+                                            <p:column>
+                                                <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
+                                                                 update=":main-form:growl" 
+                                                                 action="#{saleBean.toSaleConfirm()}"  ajax="true">
+                                                    <f:actionListener  binding="#{payTypeBean.fillPayType()}"/>
+                                                </p:commandButton>
+                                                <p:commandButton value="Cancelar" icon="ui-icon-arrowreturnthick-1-w"
+                                                                 action="toSale"  ajax="false" immediate="true">
+                                                    <f:actionListener  binding="#{saleBean.clearSale()}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:row>
                                     </p:panelGrid>
                                 </p:tab>
-                                
+
                                 <p:tab title="Regreso" id="sst2" rendered="#{saleBean.sale.availability and saleBean.sale.travelService eq 'R'}">
                                     <p:panelGrid id="sale-seat-grid-return" >
                                         <p:row>
@@ -289,15 +302,7 @@
                                     </p:panelGrid>
                                 </p:tab>
                             </p:tabView>
-                            <p:commandButton value="Confirmar Boletos" icon="ui-icon-cart"
-                                             update=":main-form:growl"
-                                             action="#{saleBean.toSaleConfirm()}"  ajax="true">
-                                <f:actionListener  binding="#{payTypeBean.fillPayType()}"/>
-                            </p:commandButton>
-                            <p:commandButton value="Cancelar" icon="ui-icon-arrowreturnthick-1-w"
-                                             action="toSale"  ajax="false" immediate="true">
-                                <f:actionListener  binding="#{saleBean.clearSale()}"/>
-                            </p:commandButton>
+
 
                         </div>
                     </h:form>

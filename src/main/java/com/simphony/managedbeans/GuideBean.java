@@ -13,6 +13,7 @@ import com.simphony.entities.User;
 import com.simphony.exceptions.PersonException;
 import com.simphony.interfases.IConfigurable;
 import static com.simphony.interfases.IConfigurable._MODIFY;
+import com.simphony.models.GuideModel;
 import com.simphony.pojos.DailySales;
 import com.simphony.tools.MessageProvider;
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class GuideBean implements IConfigurable {
     private List<DailySales> list = new ArrayList<DailySales>();
     private List<SaleDetail> listDetail = new ArrayList<SaleDetail>();
     private List<DailySales> listTemporal = new ArrayList<DailySales>();
+    private GuideModel model = new GuideModel();
+
 
     @ManagedProperty(value = "#{guideService}")
     private GuideService guideService;
@@ -53,6 +56,7 @@ public class GuideBean implements IConfigurable {
     private Calendar cal = Calendar.getInstance();
     private String tit1 = "";
     private String tit2 = "";
+    private int passengers = 0;
 
     /**
      * Creates a new instance of GuideBean
@@ -138,6 +142,22 @@ public class GuideBean implements IConfigurable {
         this.tit2 = tit2;
     }
 
+    public int getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(int passengers) {
+        this.passengers = passengers;
+    }
+
+    public GuideModel getModel() {
+        return model;
+    }
+
+    public void setModel(GuideModel model) {
+        this.model = model;
+    }
+
     /**
      * Controlador para modificar Guide
      *
@@ -216,7 +236,8 @@ public class GuideBean implements IConfigurable {
             gClone.setDetAssociates(totPas);
             list.add(gClone);
         }
-    }
+        model = new GuideModel(list);
+}
 
     /**
      * Controlador para el Deatlle
@@ -226,6 +247,7 @@ public class GuideBean implements IConfigurable {
     public String guideDetail() {
         if (this.selected != null) {
             listDetail.clear();
+            passengers = 0;   
 //            listDetail = guideService.getRepository().qryGuideDetailLocal(this.selected.getDepartureDate(), this.selected.getOrigin().getId());
 //            listDetail = guideService.getRepository().qryGuideDetail(this.selected.getId());
             for (DailySales gd : listTemporal) {
@@ -236,6 +258,7 @@ public class GuideBean implements IConfigurable {
                     Iterator<SaleDetail> cu = c.iterator();
                     while (cu.hasNext()) {
                         listDetail.add(cu.next());
+                        passengers += 1;
                     }
                 }
             }
@@ -313,9 +336,24 @@ public class GuideBean implements IConfigurable {
                 guide.setLastUpdate(cal.getTime());
                 guideUpdated.update(this.guide);
 
-                this.guideService.getRepository().updateGuide(guideUpdated.getRootGuide(), guideUpdated.getBus().getId(), 
-                        guideUpdated.getDriverMan1().getId(), guideUpdated.getDriverMan2().getId(), guideUpdated.getQuota(), 
+                if(guide.getBus() != null){
+                    this.guideService.getRepository().updateGuide1(guideUpdated.getRootGuide(), guideUpdated.getBus().getId(), 
+                        guideUpdated.getQuota(), guideUpdated.getStatus(), guideUpdated.getDepartureDate());
+                }
+                if(guide.getDriverMan1()!= null){
+                    this.guideService.getRepository().updateGuide2(guideUpdated.getRootGuide(),  
+                        guideUpdated.getDriverMan1().getId(), guideUpdated.getQuota(), 
                         guideUpdated.getStatus(), guideUpdated.getDepartureDate());
+                }
+                if(guide.getDriverMan2()!= null){
+                    this.guideService.getRepository().updateGuide3(guideUpdated.getRootGuide(),  
+                        guideUpdated.getDriverMan2().getId(), guideUpdated.getQuota(), 
+                        guideUpdated.getStatus(), guideUpdated.getDepartureDate());
+                }
+                if(guide.getBus() == null && guide.getDriverMan1() == null && guide.getDriverMan2() == null){
+                    this.guideService.getRepository().updateGuide4(guideUpdated.getRootGuide(),  
+                        guideUpdated.getQuota(), guideUpdated.getStatus(), guideUpdated.getDepartureDate());
+                }
 
                 GrowlBean.simplyInfoMessage(mp.getValue("msj_success"), " " + mp.getValue("msj_record_update"));
                 guide = new Guide();
@@ -327,7 +365,7 @@ public class GuideBean implements IConfigurable {
     }
 
         /**
-     * cerramos la Guía para su venta.
+     * cerramos la GuÃ­a para su venta.
      *
      * @throws com.simphony.exceptions.PersonException
      */
@@ -337,7 +375,7 @@ public class GuideBean implements IConfigurable {
         Guide guideUpdated = this.guideService.getRepository().findOne(selected.getGuide().getId());
 
         if (guideUpdated == null) {
-            throw new PersonException("Guía no existente");
+            throw new PersonException("GuÃ­a no existente");
         }
         Guide guide = this.selected.getGuide();
         guideUpdated.update(guide);
