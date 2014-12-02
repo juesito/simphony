@@ -31,6 +31,7 @@ import com.simphony.interfases.IConfigurable;
 import com.simphony.models.ItineraryCostModel;
 import com.simphony.pojos.ItineraryCost;
 import com.simphony.pojos.ReservedSeatInDetailSale;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,31 +54,43 @@ import org.springframework.data.domain.Pageable;
  */
 @ManagedBean
 @SessionScoped
-public class SaleBean implements IConfigurable {
+public class SaleBean implements IConfigurable, Serializable {
 
     private Sale sale = new Sale();
+    private Sale saleToBack = new Sale();
     private Sale cancelledSale = new Sale();
-    private SaleDetail pendingSale = new SaleDetail();
+
     private Cost cost = new Cost();
     private Guide guide = new Guide();
     private Guide guideRoot = new Guide();
-    private Seat selectedSeat = new Seat();
+    private Guide guideToBack = new Guide();
+    private Guide guideRootToBack = new Guide();
+
     private Associate associate = new Associate();
-    private ItineraryCost selected = new ItineraryCost();
-    private ItineraryCost selectedToBack = new ItineraryCost();
-    private SaleDetail unSelectedDetail = new SaleDetail();
-    private SaleDetail saleDetailSelected = new SaleDetail();
+
     private ItineraryCostModel model = new ItineraryCostModel();
     private ItineraryCostModel modelToBack = new ItineraryCostModel();
+
+    List<ReservedSeatInDetailSale> reservedSeatInDetailSale = new ArrayList();
     ReservedSeatInDetailSale selectedReservedSeatInDetailSale = new ReservedSeatInDetailSale();
 
-    private List<Seat> seat = new ArrayList();
-    List<Seat> seatToBack = new ArrayList();
+    private Seat selectedSeat = new Seat();
+    private Seat selectedSeatToBack = new Seat();
     private List<Sale> list = new ArrayList();
-    private List<PayRoll> payRollList = new ArrayList();
+    private List<Seat> seats = new ArrayList();
+    private List<Seat> seatsToBack = new ArrayList();
     private List<Seat> selectedSeats = new ArrayList<Seat>();
-    List<ReservedSeatInDetailSale> reservedSeatInDetailSale = new ArrayList();
+
+    private List<PayRoll> payRollList = new ArrayList();
+
+    private SaleDetail pendingSale = new SaleDetail();
+    private SaleDetail unSelectedDetail = new SaleDetail();
+    private SaleDetail saleDetailSelected = new SaleDetail();
     private List<SaleDetail> saleDetail = new ArrayList<SaleDetail>();
+    private List<SaleDetail> saleDetailToBack = new ArrayList<SaleDetail>();
+
+    private ItineraryCost selected = new ItineraryCost();
+    private ItineraryCost selectedToBack = new ItineraryCost();
     private List<ItineraryCost> itineraryCost = new ArrayList<ItineraryCost>();
 
     private boolean existSelectedAssociates = false;
@@ -116,8 +129,20 @@ public class SaleBean implements IConfigurable {
 
     }
 
+    /**
+     * Buscamos los itinerarios disponibles
+     *
+     * @param dateFind
+     * @param origin
+     * @param destiny
+     * @return
+     * @throws ParseException
+     */
     public ItineraryCostModel findAvailabilities(Date dateFind, Long origin, Long destiny) throws ParseException {
         Calendar now = Calendar.getInstance();
+        
+        Guide innerGuide = new Guide();
+        Guide innerRootGuide = new Guide();
 
         ItineraryCostModel currentModel = new ItineraryCostModel();
 
@@ -134,6 +159,7 @@ public class SaleBean implements IConfigurable {
                     it.getAlternateItinerary().setSequence(it.getAlternateItinerary().getSequence() + 5);
                 }
                 itineraryCost.add(it);
+
             }
         }
 
@@ -163,6 +189,7 @@ public class SaleBean implements IConfigurable {
                 itineraryCost1.setDepartureTime(calendar.getTime());
 
                 rootItinerary.setDepartureTime(calTime.getTime());
+                
                 guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
 
                 if (guideRoot != null) {
@@ -244,6 +271,7 @@ public class SaleBean implements IConfigurable {
                 sale.setAvailability(false);
 
             } else {
+
                 sale.setExistRoutes(false);
                 sale.setAvailability(true);
                 GrowlBean.simplyErrorMessage("No se encontraron rutas", "Rutas no disponibles");
@@ -309,16 +337,16 @@ public class SaleBean implements IConfigurable {
 
             if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL)) {
                 if (selectedToBack != null) {
-                    seat = findAvailableSeats(this.selected, this.sale.getTripDate(), vendor.getNick());
+                    seats = findAvailableSeats(this.selected, this.sale.getTripDate(), vendor.getNick(), _TO_ORIGIN);
 
-                    if (!seat.isEmpty()) {
-                        seatToBack = findAvailableSeats(this.selectedToBack, this.sale.getBackDate(), vendor.getNick());
+                    if (!seats.isEmpty()) {
+                        seatsToBack = findAvailableSeats(this.selectedToBack, this.sale.getBackDate(), vendor.getNick(), _TO_BACK);
                     }
                 } else {
                     GrowlBean.simplyWarmMessage("No selecciono registro destino", "Es necesario seleccionar");
                 }
             } else {
-                seat = findAvailableSeats(this.selected, this.sale.getTripDate(), vendor.getNick());
+                seats = findAvailableSeats(this.selected, this.sale.getTripDate(), vendor.getNick(), _TO_ORIGIN);
             }
 
             this.sale.setAvailability(true);
@@ -334,11 +362,14 @@ public class SaleBean implements IConfigurable {
      * @param selectedItinerary
      * @param dateFounded
      * @param vendorNick
+     * @param travelType
      * @return
      */
-    public List<Seat> findAvailableSeats(ItineraryCost selectedItinerary, Date dateFounded, String vendorNick) {
+    public List<Seat> findAvailableSeats(ItineraryCost selectedItinerary, Date dateFounded, String vendorNick, String travelType) throws CloneNotSupportedException {
 
         List<Seat> currentSeat;
+        Guide innerGuide = new Guide();
+        Guide innerRootGuide = new Guide();
 
         //Asignamos la fecha de la venta            
         this.sale.setTripDate(selectedItinerary.getDepartureTime());
@@ -365,23 +396,23 @@ public class SaleBean implements IConfigurable {
         rootItinerary.setDepartureTime(calTime.getTime());
 
         //Validamos la guia padre
-        guideRoot = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
-        if (guideRoot == null) {
-            guideRoot = new Guide();
-            guideRoot.setUsrModify(vendorNick.toUpperCase().trim());
-            guideRoot.setGuideType(_LOCAL);
-            guideRoot.setCreateDate(new Date());
-            guideRoot.setStatus(_GUIDE_TYPE_OPEN);
-            guideRoot.setGuideReference("Sin Referencia");
-            guideRoot.setDepartureDate(rootItinerary.getDepartureTime());
-            guideRoot = this.createRootGuide(guideRoot, rootItinerary);
+        innerRootGuide = guideService.getRepository().findRootGuide(route, rootItinerary.getDepartureTime());
+        if (innerRootGuide == null) {
+            innerRootGuide = new Guide();
+            innerRootGuide.setUsrModify(vendorNick.toUpperCase().trim());
+            innerRootGuide.setGuideType(_LOCAL);
+            innerRootGuide.setCreateDate(new Date());
+            innerRootGuide.setStatus(_GUIDE_TYPE_OPEN);
+            innerRootGuide.setGuideReference("Sin Referencia");
+            innerRootGuide.setDepartureDate(rootItinerary.getDepartureTime());
+            innerRootGuide = this.createRootGuide(innerRootGuide, rootItinerary);
         }
 
         guide = guideService.getRepository().findByItineraryAndDate(ori, des, dateFounded, route);
         Integer maxLimitCarrie = 0;
 
         if (guide != null) {
-            // ValidaciÃ³n de asientos
+            // Validacion de asientos
             guide.setNewGuide(false);
             maxLimitCarrie = guide.getQuota();
 
@@ -431,6 +462,15 @@ public class SaleBean implements IConfigurable {
 
             }
         }
+        
+        //Asignamos las guias correspondientes
+        if(travelType.equals(_TO_ORIGIN)){
+            guideRoot = (Guide)innerRootGuide.clone();
+            guide = guideRoot = (Guide)innerGuide.clone();
+        }else{
+            guideRootToBack = (Guide)innerRootGuide.clone();
+            guideToBack = guideRoot = (Guide)innerGuide.clone();
+        }
 
         return currentSeat;
     }
@@ -441,55 +481,61 @@ public class SaleBean implements IConfigurable {
      * @param vendor
      * @param payTypeList
      * @param payRollList
+     * @param saveSale
+     * @param saveSelected
+     * @param saveGuide
+     * @param innerSale
      * @throws java.lang.CloneNotSupportedException
      */
-    public void save(Vendor vendor, List<PayType> payTypeList, List<PayRoll> payRollList) throws CloneNotSupportedException {
+    public void save(Vendor vendor, List<PayType> payTypeList, 
+            List<PayRoll> payRollList, Sale saveSale, ItineraryCost saveSelected,
+            Guide saveGuide, Guide saveRootGuide) throws CloneNotSupportedException {
 
         // Guardamos si hubo venta pendiente.
         if (pendingSale.getId() != null) {
             this.modifyPendingSale(vendor);
 
-            sale.setIdRefSale(pendingSale.getId());
-            sale.setServiceType(_PENDING);
+            saveSale.setIdRefSale(pendingSale.getId());
+            saveSale.setServiceType(_PENDING);
         }
-        sale.setVendor(vendor);
-        sale.setStatus(_SALED);
-        sale.setCreateDate(new Date());
+        saveSale.setVendor(vendor);
+        saveSale.setStatus(_SALED);
+        saveSale.setCreateDate(new Date());
 
         //Guardamos la venta
-        sale = saleService.getSaleRepository().save(sale);
+        saveSale = saleService.getSaleRepository().save(saveSale);
 
         // Guardamos la guia
-        if (guide.isNewGuide()) {
+        if (saveGuide.isNewGuide()) {
 
-            guide.setUsrModify(vendor.getNick());
-            guide.setCreateDate(new Date());
-            guide.setStatus(_GUIDE_TYPE_OPEN);
-            guide.setGuideType(_FOREING);
-            guide.setGuideReference("Sin Referencia");
-            guide.setDepartureDate(sale.getTripDate());
+            saveGuide.setUsrModify(vendor.getNick());
+            saveGuide.setCreateDate(new Date());
+            saveGuide.setStatus(_GUIDE_TYPE_OPEN);
+            saveGuide.setGuideType(_FOREING);
+            saveGuide.setGuideReference("Sin Referencia");
+            saveGuide.setDepartureDate(saveSale.getTripDate());
 
-            if (this.selected.isNormalMode()) {
+            if (saveSelected.isNormalMode()) {
 
-                guide.setRootGuide(0L);
-                guide.setRootRoute(this.selected.getItinerary().getId());
-                guide.setOrigin(this.selected.getCost().getOrigin());
-                guide.setDestiny(this.selected.getCost().getDestiny());
-                guide.setFinaDestiny(guideRoot.getDestiny());
+                saveGuide.setRootGuide(0L);
+                saveGuide.setRootRoute(saveSelected.getItinerary().getId());
+                saveGuide.setOrigin(saveSelected.getCost().getOrigin());
+                saveGuide.setDestiny(saveSelected.getCost().getDestiny());
+                saveGuide.setFinaDestiny(saveRootGuide.getDestiny());
 
-                guideService.getRepository().save(guide);
-                guide.setRootGuide(guide.getId());
-                guide.update(guide);
-                guide = guideService.getRepository().save(guide);
+                guideService.getRepository().save(saveGuide);
+                saveGuide.setRootGuide(saveGuide.getId());
+                saveGuide.update(saveGuide);
+                saveGuide = guideService.getRepository().save(saveGuide);
 
             } else {
 
-                guide.setOrigin(this.selected.getCost().getOrigin());
-                guide.setDestiny(this.selected.getCost().getDestiny());
-                guide.setRootRoute(guideRoot.getRootRoute());
-                guide.setRootGuide(guideRoot.getId());
-                guide.setFinaDestiny(guideRoot.getDestiny());
-                guideService.getRepository().save(guide);
+                saveGuide.setOrigin(saveSelected.getCost().getOrigin());
+                saveGuide.setDestiny(saveSelected.getCost().getDestiny());
+                saveGuide.setRootRoute(saveRootGuide.getRootRoute());
+                saveGuide.setRootGuide(saveRootGuide.getId());
+                saveGuide.setFinaDestiny(saveRootGuide.getDestiny());
+                guideService.getRepository().save(saveGuide);
 
             }
         }
@@ -497,30 +543,55 @@ public class SaleBean implements IConfigurable {
         /**
          * Guardamos el detalle de la guia
          */
-        if (guide != null) {
+        if (saveGuide != null) {
 
             GuideDetail guideDetail = new GuideDetail();
-            guideDetail.setGuide(guide);
-            guideDetail.setSale(sale);
+            guideDetail.setGuide(saveGuide);
+            guideDetail.setSale(saveSale);
             guideService.getDetailRepository().save(guideDetail);
 
         }
 
+        
+
+        //Guardamos los pagos
+        for (PayType payType : payTypeList) {
+            if (payType.getAmount() > 0.0) {
+                Payment payment = new Payment(payType, saveSale);
+                saleService.getPaymentRepository().save(payment);
+            }
+        }
+
+        //Guardamos el tipo de pago nominal en caso de existir
+        for (PayRoll pr : payRollList) {
+            if (pr.getAmount() > 0.0) {
+                pr.setSale(saveSale);
+                this.saleService.getPayrollRepository().save(pr);
+            }
+        }
+
+        GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
+        this.clearSale();
+
+    }
+
+    public void saveDetailSale(SaleDetail innerDetail){
+    
         //Guardamos el detalle de la venta
-        for (SaleDetail dtSale : this.saleDetail) {
+        for (SaleDetail dtSale : innerDetail) {
 
             //Guardamos los asientos ocupados            
             ReservedSeats reservedSeat = new ReservedSeats();
-            reservedSeat.setGuideId(guide.getRootGuide());
-            reservedSeat.setRouteId(guide.getRootRoute());
-            reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
+            reservedSeat.setGuideId(saveGuide.getRootGuide());
+            reservedSeat.setRouteId(saveGuide.getRootRoute());
+            reservedSeat.setRouteType(saveSelected.getItinerary().getTypeOfRoute());
 
             ///Aqui modifique si es local la ruta antes tenia 0 0
-            reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
-            if (this.selected.isNormalMode()) {
-                reservedSeat.setFinalSequence(this.selected.getItinerary().getSequence());
+            reservedSeat.setInitialSequence(saveSelected.getItinerary().getSequence());
+            if (saveSelected.isNormalMode()) {
+                reservedSeat.setFinalSequence(saveSelected.getItinerary().getSequence());
             } else {
-                reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
+                reservedSeat.setFinalSequence(saveSelected.getAlternateItinerary().getSequence());
             }
             reservedSeat.setSeat(dtSale.getSeat());
 
@@ -532,7 +603,7 @@ public class SaleBean implements IConfigurable {
 
             if (pendingSale.getId() != null) {
                 dtSale.setServiceType(_PENDING);
-                dtSale.setIdRefSale(sale.getId());
+                dtSale.setIdRefSale(saveSale.getId());
             } else {
                 dtSale.setServiceType("");
                 dtSale.setIdRefSale(new Long(0));
@@ -552,180 +623,10 @@ public class SaleBean implements IConfigurable {
             dtSale.update(dtSale);
             saleService.getDetailRepository().save(dtSale);
         }
-
-        //Guardamos los pagos
-        for (PayType payType : payTypeList) {
-            if (payType.getAmount() > 0.0) {
-                Payment payment = new Payment(payType, sale);
-                saleService.getPaymentRepository().save(payment);
-            }
-        }
-
-        //Guardamos el tipo de pago nominal en caso de existir
-        for (PayRoll pr : payRollList) {
-            if (pr.getAmount() > 0.0) {
-                pr.setSale(this.sale);
-                this.saleService.getPayrollRepository().save(pr);
-            }
-        }
-
-        GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
-        this.clearSale();
-
     }
-
-    /**
-     * *
-     *
-     * @param vendor
-     * @throws java.lang.CloneNotSupportedException
-     */
-    public String saveReservations(Vendor vendor) throws CloneNotSupportedException {
-
-        sale.setVendor(vendor);
-        sale.setStatus(_RESERVATED);
-        sale.setCreateDate(new Date());
-
-        //Guardamos la venta
-        sale = saleService.getSaleRepository().save(sale);
-
-        // Guardamos la guia
-        if (guide.isNewGuide()) {
-
-            guide.setUsrModify(vendor.getNick());
-            guide.setCreateDate(new Date());
-            guide.setStatus(_GUIDE_TYPE_OPEN);
-            guide.setGuideType(_FOREING);
-            guide.setGuideReference("Sin Referencia");
-            guide.setDepartureDate(sale.getTripDate());
-
-            if (this.selected.isNormalMode()) {
-
-                guide.setRootGuide(0L);
-                guide.setRootRoute(this.selected.getItinerary().getId());
-                guide.setOrigin(this.selected.getCost().getOrigin());
-                guide.setDestiny(this.selected.getCost().getDestiny());
-                guide.setFinaDestiny(guideRoot.getDestiny());
-
-                guideService.getRepository().save(guide);
-                guide.setRootGuide(guide.getId());
-                guide.update(guide);
-                guide = guideService.getRepository().save(guide);
-
-            } else {
-
-                guide.setOrigin(this.selected.getCost().getOrigin());
-                guide.setDestiny(this.selected.getCost().getDestiny());
-                guide.setRootRoute(guideRoot.getRootRoute());
-                guide.setRootGuide(guideRoot.getId());
-                guide.setFinaDestiny(guideRoot.getDestiny());
-                guideService.getRepository().save(guide);
-
-            }
-        }
-
-        /**
-         * Guardamos el detalle de la guia
-         */
-        if (guide != null) {
-
-            GuideDetail guideDetail = new GuideDetail();
-            guideDetail.setGuide(guide);
-            guideDetail.setSale(sale);
-            guideService.getDetailRepository().save(guideDetail);
-
-        }
-
-        //Guardamos el detalle de la venta
-        for (SaleDetail dtSale : this.saleDetail) {
-
-            //Guardamos el detalle de venta
-            dtSale.setSale(sale);
-            dtSale.setStatus(_RESERVATED);
-
-            if (dtSale.getAssociateKey().isEmpty()) {
-                dtSale.setAssociate(associateService.getRepository().getOne(1L));
-                dtSale.setType(_SALE_TYPE_PUBLIC);
-            } else {
-                dtSale.setType(_SALE_TYPE_ASSOCIATE);
-                associateService.getRepository().save(dtSale.getAssociate());
-            }
-
-            if (dtSale.getBolType().equals(_RETIREE)) {
-                dtSale.setDiscount(dtSale.getAmount() * _RETIREE_DISCOUNT);
-            }
-            dtSale.setCustomerName(dtSale.getCustomerName().toUpperCase());
-
-            saleService.getDetailRepository().save(dtSale);
-
-            //Guardamos los asientos ocupados            
-            ReservedSeats reservedSeat = new ReservedSeats();
-            reservedSeat.setGuideId(guide.getRootGuide());
-            reservedSeat.setRouteId(guide.getRootRoute());
-            reservedSeat.setRouteType(this.selected.getItinerary().getTypeOfRoute());
-
-            ///Aqui modifique si es local la ruta antes tenia 0 0
-            reservedSeat.setInitialSequence(this.selected.getItinerary().getSequence());
-            if (this.selected.isNormalMode()) {
-                reservedSeat.setFinalSequence(this.selected.getItinerary().getSequence());
-            } else {
-                reservedSeat.setFinalSequence(this.selected.getAlternateItinerary().getSequence());
-            }
-            reservedSeat.setSeat(dtSale.getSeat());
-
-            saleService.getReservedSeatsRepository().save(reservedSeat);
-
-        }
-
-        GrowlBean.simplyWarmMessage("Se ha guardado la ReservaciÃ³n", "ReservaciÃ³n guardada con exito!");
-        this.clearSale();
-
-        return "toReservations";
-    }
-
-    /**
-     * Buscamos Reservaciones
-     *
-     * @param mode
-     * @return
-     */
-    public String findReservations(Integer mode) {
-        boolean saleExist = false;
-        reservedSeatInDetailSale.clear();
-
-        if (mode == 0) {
-
-            for (Sale saleTmp : saleService.getSaleRepository().findRes(this.cancelledSale.getOrigin().getId(),
-                    this.cancelledSale.getDestiny().getId(),
-                    this.cancelledSale.getTripDate())) {
-                for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().findSeatsBySale(saleTmp.getId(), "R")) {
-                    reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
-                    saleExist = true;
-                }
-            }
-
-            if (!saleExist) {
-                GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una reservaciÃ³n con esos datos");
-            }
-
-        } else if (mode == 2) {
-            if (!unSelectedDetail.getCustomerName().isEmpty()) {
-
-                for (ReservedSeatInDetailSale reservedSeatInDetailSaleTmp : saleService.getDetailRepository().
-                        findSeatsByCustomerName(unSelectedDetail.getCustomerName().trim().toUpperCase(), "R")) {
-                    reservedSeatInDetailSale.add(reservedSeatInDetailSaleTmp);
-                    saleExist = true;
-                }
-
-                if (!saleExist) {
-                    GrowlBean.simplyWarmMessage("Sin resultados", "No se ha encotrado una reservaciÃ³n con esos datos");
-                }
-            }
-        }
-
-        return "toCancelRes";
-    }
-
+    
+    
+    
     /**
      * Validamos lo necesario para la venta
      *
@@ -757,15 +658,30 @@ public class SaleBean implements IConfigurable {
 
         }
 
-        //Validamos el monto recibido
-        if (amountPayed < sale.getAmount()) {
-            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto ingresado");
-            msgNav = "toSaleConfirm";
-        } else if (amountPayed > sale.getAmount()) {
-            GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
-            msgNav = "toSaleConfirm";
-        } else {
-            this.save(vendor, payTypeList, payRollList);
+        if (sale.getTravelService().equals(_SALE_SINGLE_TRAVEL)) {
+            
+            //Validamos el monto recibido
+            if (amountPayed < sale.getAmount()) {
+                GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto ingresado");
+                msgNav = "toSaleConfirm";
+            } else if (amountPayed > sale.getAmount()) {
+                GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
+                msgNav = "toSaleConfirm";
+            } else {
+                this.save(vendor, payTypeList, payRollList, sale);
+            }
+        } else if (sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL)) {
+            //Validamos el monto recibido de ambos viajes
+            if (amountPayed < sale.getAmount() + saleToBack.getAmount()) {
+                GrowlBean.simplyWarmMessage("Monto entregado erroneo", "No es suficiente el monto ingresado");
+                msgNav = "toSaleConfirm";
+            } else if (amountPayed > sale.getAmount()) {
+                GrowlBean.simplyWarmMessage("Monto entregado erroneo", "El monto ingresado es superior al solicitado");
+                msgNav = "toSaleConfirm";
+            } else {
+                this.save(vendor, payTypeList, payRollList, sale);
+                this.save(vendor, payTypeList, payRollList, saleToBack);
+            }
         }
 
         return msgNav;
@@ -827,64 +743,73 @@ public class SaleBean implements IConfigurable {
      */
     public String toSaleConfirm() {
         String msgNav = "toSaleConfirm";
-        if (this.sale.getPassengers() == saleDetail.size()) {
+        boolean isError = false;
 
-            this.sale.setTripDate(this.selected.getDepartureTime());
-            sale.setOrigin(this.selected.getCost().getOrigin());
-            sale.setDestiny(this.selected.getCost().getDestiny());
+        if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL)) {
 
-            //Calculamos el total de la venta considerando los descuentos por jubilados
-            Double subTotal = selected.getCost().getCost() * this.saleDetail.size();
-            Double discount = 0.0;
+            if (saleDetail.size() > 0 && saleDetailToBack.size() > 0) {
 
-            Double amount = subTotal - discount;
+                this.sale.setTripDate(this.selected.getDepartureTime());
+                sale.setOrigin(this.selected.getCost().getOrigin());
+                sale.setDestiny(this.selected.getCost().getDestiny());
 
-            sale.setSubTotal(subTotal);
-            sale.setDiscount(discount);
-            sale.setAmount(amount);
-            cantOriginal = sale.getAmount();
+                //Calculamos el total de la venta considerando los descuentos por jubilados
+                Double subTotal = selected.getCost().getCost() * this.saleDetail.size();
+                Double discount = 0.0;
 
-        } else {
-            GrowlBean.simplyWarmMessage("Asientos incompletos", "No Se han asigando los asientos solicitados");
-            msgNav = "toSale";
+                Double amount = subTotal - discount;
+
+                sale.setSubTotal(subTotal);
+                sale.setDiscount(discount);
+                sale.setAmount(amount);
+                sale.setPassengers(this.saleDetail.size());
+                cantOriginal = sale.getAmount();
+
+                //Now we configure the sale to return
+                this.saleToBack.setTripDate(this.selectedToBack.getDepartureTime());
+                this.saleToBack.setOrigin(this.selectedToBack.getCost().getOrigin());
+                this.saleToBack.setOrigin(this.selectedToBack.getCost().getDestiny());
+
+                subTotal = this.selectedToBack.getCost().getCost() * this.saleDetailToBack.size();
+                amount = subTotal - discount;
+
+                this.saleToBack.setSubTotal(subTotal);
+                this.saleToBack.setDiscount(discount);
+                this.saleToBack.setAmount(amount);
+                this.saleToBack.setPassengers(this.saleDetailToBack.size());
+
+            } else {
+                isError = true;
+                msgNav = "toSale";
+            }
+
+        } else if (this.sale.getTravelService().equals(_SALE_SINGLE_TRAVEL)) {
+
+            if (saleDetail.size() > 0) {
+
+                this.sale.setTripDate(this.selected.getDepartureTime());
+                sale.setOrigin(this.selected.getCost().getOrigin());
+                sale.setDestiny(this.selected.getCost().getDestiny());
+
+                //Calculamos el total de la venta considerando los descuentos por jubilados
+                Double subTotal = selected.getCost().getCost() * this.saleDetail.size();
+                Double discount = 0.0;
+
+                Double amount = subTotal - discount;
+
+                sale.setSubTotal(subTotal);
+                sale.setDiscount(discount);
+                sale.setAmount(amount);
+                cantOriginal = sale.getAmount();
+
+            } else {
+                isError = true;
+                msgNav = "toSale";
+            }
         }
 
-        return msgNav;
-    }
-
-    public String toReservations() {
-        sale = new Sale();
-        cancelledSale = new Sale();
-        unSelectedDetail = new SaleDetail();
-        reservedSeatInDetailSale = new ArrayList();
-        selectedReservedSeatInDetailSale = new ReservedSeatInDetailSale();
-        return "toReservations";
-    }
-
-    public String toCancelRes() {
-        cancelledSale = new Sale();
-        unSelectedDetail = new SaleDetail();
-        reservedSeatInDetailSale = new ArrayList();
-        selectedReservedSeatInDetailSale = new ReservedSeatInDetailSale();
-        return "toCancelRes";
-    }
-
-    /**
-     * Confirmamos la ReservaciÃ³n
-     *
-     * @return
-     */
-    public String toReservationsConfirm() {
-        String msgNav = "toReservationsConfirm";
-        if (this.sale.getPassengers() == saleDetail.size()) {
-
-            this.sale.setTripDate(this.selected.getDepartureTime());
-            sale.setOrigin(this.selected.getCost().getOrigin());
-            sale.setDestiny(this.selected.getCost().getDestiny());
-
-        } else {
+        if (isError) {
             GrowlBean.simplyWarmMessage("Asientos incompletos", "No Se han asigando los asientos solicitados");
-            msgNav = "toRservations";
         }
 
         return msgNav;
@@ -904,21 +829,57 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * Agregamos el asiento seleccionado
+     * Removemos el asiento seleccionado
+     *
+     * @param type
+     * @param selectedInnerSeat
      */
-    public void addSeat() {
+    public void removeSeat(String type, SaleDetail selectedInnerSeat) {
+
+        if (type.equals(_TO_ORIGIN)) {
+            if (selectedInnerSeat != null) {
+                saleDetail.remove(selectedInnerSeat);
+            }
+        } else if (type.equals(_TO_BACK)) {
+            if (saleDetailToBack != null) {
+                saleDetailToBack.remove(selectedInnerSeat);
+            }
+        }
+    }
+
+    /**
+     * Agregamos el asiento seleccionado
+     *
+     * @param type
+     * @param selectedInnerSeat
+     */
+    public void addSeat(String type, Seat selectedInnerSeat) {
         String bolType = "";
         boolean exist = false;
-        if (this.selectedSeat != null) {
-            for (SaleDetail sl : saleDetail) {
-                if (this.selectedSeat.getSeat().trim().equals(sl.getSeat().getSeat().trim())) {
-                    exist = true;
+
+        if (type.equals(_TO_ORIGIN)) {
+            if (selectedInnerSeat != null) {
+                for (SaleDetail sl : saleDetail) {
+                    if (selectedInnerSeat.getSeat().trim().equals(sl.getSeat().getSeat().trim())) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedInnerSeat, new Customer(), associate, bolType);
+                    saleDetail.add(saleDetailTmp);
                 }
             }
-            if (!exist) {
-                SaleDetail saleDetailTmp = new SaleDetail(this.selected.getCost().getCost(), selectedSeat, new Customer(), associate, bolType);
-                saleDetail.add(saleDetailTmp);
-                this.sale.setPassengers(this.sale.getPassengers() + 1);
+        } else if (type.equals(_TO_BACK)) {
+            if (this.selectedSeatToBack != null) {
+                for (SaleDetail sl : saleDetailToBack) {
+                    if (selectedInnerSeat.getSeat().trim().equals(sl.getSeat().getSeat().trim())) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    SaleDetail saleDetailTmp = new SaleDetail(this.selectedToBack.getCost().getCost(), selectedInnerSeat, new Customer(), associate, bolType);
+                    saleDetailToBack.add(saleDetailTmp);
+                }
             }
         }
     }
@@ -947,12 +908,12 @@ public class SaleBean implements IConfigurable {
 
     }
 
-    public List<Seat> getSeat() {
-        return seat;
+    public List<Seat> getSeats() {
+        return seats;
     }
 
-    public void setSeat(List<Seat> seat) {
-        this.seat = seat;
+    public void setSeat(List<Seat> seats) {
+        this.seats = seats;
     }
 
     public SeatService getSeatService() {
@@ -1172,7 +1133,7 @@ public class SaleBean implements IConfigurable {
             GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");
 
         } else {
-            GrowlBean.simplyWarmMessage("Sin selecciÃ³n", "No se ha seleccionado asiento para cancelar!");
+            GrowlBean.simplyWarmMessage("Sin selecciÃƒÆ’Ã‚Â³n", "No se ha seleccionado asiento para cancelar!");
         }
         return toReturn;
 
@@ -1326,15 +1287,6 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * Removemos el asiento seleccionado
-     */
-    public void removeSeat() {
-        if (unSelectedDetail != null) {
-            saleDetail.remove(unSelectedDetail);
-        }
-    }
-
-    /**
      * Buscamos venta pendiente
      */
     public void findPendingSale() {
@@ -1361,7 +1313,7 @@ public class SaleBean implements IConfigurable {
             } else {
                 String status = guideService.getRepository().selectStatus(pendingSale.getSale().getId());
                 if (status.equals("CL")) {
-                    GrowlBean.simplyWarmMessage("GuÃ­a Cerrada", "La GuÃ­a de viaje ya fue cerrada...");
+                    GrowlBean.simplyWarmMessage("GuÃƒÆ’Ã‚Â­a Cerrada", "La GuÃƒÆ’Ã‚Â­a de viaje ya fue cerrada...");
                     pendingSale = new SaleDetail();
                 }
             }
@@ -1428,7 +1380,7 @@ public class SaleBean implements IConfigurable {
     }
 
     /**
-     * Muestra el diÃ¡logo de la venta pendiente
+     * Muestra el diÃƒÆ’Ã‚Â¡logo de la venta pendiente
      *
      */
     public void pendingSaleDialog() {
@@ -1464,12 +1416,36 @@ public class SaleBean implements IConfigurable {
         this.selectedToBack = selectedToBack;
     }
 
-    public List<Seat> getSeatToBack() {
-        return seatToBack;
+    public List<Seat> getSeatsToBack() {
+        return seatsToBack;
     }
 
-    public void setSeatToBack(List<Seat> seatToBack) {
-        this.seatToBack = seatToBack;
+    public void setSeatsToBack(List<Seat> seatToBack) {
+        this.seatsToBack = seatToBack;
+    }
+
+    public Seat getSelectedSeatToBack() {
+        return selectedSeatToBack;
+    }
+
+    public void setSelectedSeatToBack(Seat selectedSeatToBack) {
+        this.selectedSeatToBack = selectedSeatToBack;
+    }
+
+    public List<SaleDetail> getSaleDetailToBack() {
+        return saleDetailToBack;
+    }
+
+    public void setSaleDetailToBack(List<SaleDetail> saleDetailToBack) {
+        this.saleDetailToBack = saleDetailToBack;
+    }
+
+    public Sale getSaleToBack() {
+        return saleToBack;
+    }
+
+    public void setSaleToBack(Sale saleToBack) {
+        this.saleToBack = saleToBack;
     }
 
 }
