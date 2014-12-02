@@ -562,31 +562,6 @@ public class SaleBean implements IConfigurable, Serializable {
             guideService.getDetailRepository().saveAndFlush(guideDetail);
 
         }
-
-        
-
-        //Guardamos los pagos
-        for (PayType payType : payTypeList) {
-            if (payType.getAmount() > 0.0) {
-                Payment payment = new Payment(payType, saveSale);
-                saleService.getPaymentRepository().save(payment);
-            }
-        }
-
-        //Guardamos el tipo de pago nominal en caso de existir
-        for (PayRoll pr : payRollList) {
-            if (pr.getAmount() > 0.0) {
-                pr.setSale(saveSale);
-                this.saleService.getPayrollRepository().save(pr);
-            }
-        }
-
-        GrowlBean.simplyWarmMessage("Se ha guardado la venta", "Venta guardada con exito!");
-        this.clearSale();
-
-    }
-
-    public void saveDetailSale(SaleDetail innerDetail){
     
         //Guardamos el detalle de la venta
         saveDetailSale(saveDetail, saveSale, saveSelected, saveGuide,
