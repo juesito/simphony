@@ -572,30 +572,7 @@ public class SaleBean implements IConfigurable, Serializable {
             guideService.getDetailRepository().saveAndFlush(guideDetail);
 
         }
-
-        if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL) && 
-                type.equals(_TO_BACK)) {
-            GrowlBean.simplyWarmMessage(
-                    "Se ha guardado la venta", "Venta guardada con exito!");
-        } else if (this.sale.getTravelService().equals(_SALE_SINGLE_TRAVEL) && 
-                type.equals(_TO_ORIGIN)) {
-            GrowlBean.simplyWarmMessage(
-                    "Se ha guardado la venta", "Venta guardada con exito!");
-        }
-
-    }
-
-    /**
-     *
-     * @param innerDetail
-     * @param saveSale
-     * @param saveSelected
-     * @param saveGuide
-     * @param saveRootGuide
-     */
-    public void saveDetailSale(List<SaleDetail> innerDetail, Sale saveSale, ItineraryCost saveSelected,
-            Guide saveGuide, Guide saveRootGuide) {
-
+        
         //Guardamos el detalle de la venta
         saveDetailSale(saveDetail, saveSale, saveSelected, saveGuide,
                 saveRootGuide);
