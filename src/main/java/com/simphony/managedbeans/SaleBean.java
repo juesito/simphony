@@ -481,6 +481,15 @@ public class SaleBean implements IConfigurable, Serializable {
             guideToBack = (Guide) innerGuide.clone();
         }
 
+        //Asignamos las guias correspondientes
+        if (travelType.equals(_TO_ORIGIN)) {
+            guideRoot = (Guide) innerRootGuide.clone();
+            guide = (Guide) innerGuide.clone();
+        } else {
+            guideRootToBack = (Guide) innerRootGuide.clone();
+            guideToBack = (Guide) innerGuide.clone();
+        }
+
         return currentSeat;
     }
 
@@ -495,7 +504,7 @@ public class SaleBean implements IConfigurable, Serializable {
      * @param saveGuide
      * @param saveRootGuide
      * @param saveDetail
-     * @param type
+     * @param innerSale
      * @throws java.lang.CloneNotSupportedException
      */
     public void save(Vendor vendor, List<PayType> payTypeList,
@@ -563,7 +572,30 @@ public class SaleBean implements IConfigurable, Serializable {
             guideService.getDetailRepository().saveAndFlush(guideDetail);
 
         }
-    
+
+        if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL) && 
+                type.equals(_TO_BACK)) {
+            GrowlBean.simplyWarmMessage(
+                    "Se ha guardado la venta", "Venta guardada con exito!");
+        } else if (this.sale.getTravelService().equals(_SALE_SINGLE_TRAVEL) && 
+                type.equals(_TO_ORIGIN)) {
+            GrowlBean.simplyWarmMessage(
+                    "Se ha guardado la venta", "Venta guardada con exito!");
+        }
+
+    }
+
+    /**
+     *
+     * @param innerDetail
+     * @param saveSale
+     * @param saveSelected
+     * @param saveGuide
+     * @param saveRootGuide
+     */
+    public void saveDetailSale(List<SaleDetail> innerDetail, Sale saveSale, ItineraryCost saveSelected,
+            Guide saveGuide, Guide saveRootGuide) {
+
         //Guardamos el detalle de la venta
         saveDetailSale(saveDetail, saveSale, saveSelected, saveGuide,
                 saveRootGuide);
@@ -1196,7 +1228,7 @@ public class SaleBean implements IConfigurable, Serializable {
             GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");
 
         } else {
-            GrowlBean.simplyWarmMessage("Sin selecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n", "No se ha seleccionado asiento para cancelar!");
+            GrowlBean.simplyWarmMessage("Sin selecciÃƒÆ’Ã‚Â³n", "No se ha seleccionado asiento para cancelar!");
         }
         return toReturn;
 
@@ -1376,7 +1408,7 @@ public class SaleBean implements IConfigurable, Serializable {
             } else {
                 String status = guideService.getRepository().selectStatus(pendingSale.getSale().getId());
                 if (status.equals("CL")) {
-                    GrowlBean.simplyWarmMessage("GuÃƒÂ­a Cerrada", "La GuÃ­a de viaje ya fue cerrada...");
+                    GrowlBean.simplyWarmMessage("GuÃ­a Cerrada", "La Guía de viaje ya fue cerrada...");
                     pendingSale = new SaleDetail();
                 }
             }
@@ -1443,7 +1475,7 @@ public class SaleBean implements IConfigurable, Serializable {
     }
 
     /**
-     * Muestra el diÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡logo de la venta pendiente
+     * Muestra el diÃƒÆ’Ã‚Â¡logo de la venta pendiente
      *
      */
     public void pendingSaleDialog() {
