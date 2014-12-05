@@ -82,7 +82,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                            <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="es" 
                                                         pages="2" showOn="button" value="#{saleBean.sale.tripDate}"/>
                                         </p:column>
                                     </p:row>
@@ -93,7 +93,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column >
-                                            <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="mx" 
+                                            <p:calendar pattern="dd/MMM/yyyy" mode="popup" size="13" locale="es" 
                                                         pages="2" showOn="button" value="#{saleBean.sale.backDate}"
                                                         rendered="#{saleBean.sale.travelService eq 'R'}"/>
                                         </p:column> 
@@ -261,7 +261,7 @@
                                     <p:panelGrid id="sale-seat-grid-return" >
                                         <p:row>
                                             <p:column>
-                                                <p:dataGrid var="seatsr" value="#{saleBean.seats}" columns="4" rows="40"
+                                                <p:dataGrid var="seatsr" value="#{saleBean.seatsToBack}" columns="4" rows="40"
                                                             paginator="false" id="seats-return" styleClass="grid-seats-main" >
 
                                                     <f:facet name="header">

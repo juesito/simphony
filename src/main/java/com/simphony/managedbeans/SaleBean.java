@@ -362,6 +362,7 @@ public class SaleBean implements IConfigurable, Serializable {
      * @param vendorNick
      * @param travelType
      * @return
+     * @throws java.lang.CloneNotSupportedException
      */
     public List<Seat> findAvailableSeats(ItineraryCost selectedItinerary, Date dateFounded,
             String vendorNick, String travelType) throws CloneNotSupportedException {
@@ -494,7 +495,7 @@ public class SaleBean implements IConfigurable, Serializable {
      * @param saveGuide
      * @param saveRootGuide
      * @param saveDetail
-     * @param innerSale
+     * @param type
      * @throws java.lang.CloneNotSupportedException
      */
     public void save(Vendor vendor, List<PayType> payTypeList,
@@ -1195,7 +1196,7 @@ public class SaleBean implements IConfigurable, Serializable {
             GrowlBean.simplyWarmMessage("Se ha cancelado", "Asiento cancelado con exito!");
 
         } else {
-            GrowlBean.simplyWarmMessage("Sin selecciÃƒÆ’Ã‚Â³n", "No se ha seleccionado asiento para cancelar!");
+            GrowlBean.simplyWarmMessage("Sin selecciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n", "No se ha seleccionado asiento para cancelar!");
         }
         return toReturn;
 
@@ -1375,7 +1376,7 @@ public class SaleBean implements IConfigurable, Serializable {
             } else {
                 String status = guideService.getRepository().selectStatus(pendingSale.getSale().getId());
                 if (status.equals("CL")) {
-                    GrowlBean.simplyWarmMessage("GuÃ­a Cerrada", "La Guía de viaje ya fue cerrada...");
+                    GrowlBean.simplyWarmMessage("GuÃƒÂ­a Cerrada", "La GuÃ­a de viaje ya fue cerrada...");
                     pendingSale = new SaleDetail();
                 }
             }
@@ -1442,7 +1443,7 @@ public class SaleBean implements IConfigurable, Serializable {
     }
 
     /**
-     * Muestra el diÃƒÆ’Ã‚Â¡logo de la venta pendiente
+     * Muestra el diÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡logo de la venta pendiente
      *
      */
     public void pendingSaleDialog() {

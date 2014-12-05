@@ -114,6 +114,8 @@ public class Sale implements Serializable, IConfigurable {
         this.status = _SALED;
         this.createDate = new Date();
         this.tripDate = new Date();
+        this.travelService = _SALE_SINGLE_TRAVEL;
+        this.backDate = new Date();
     }
 
     public void clear() {
@@ -124,6 +126,8 @@ public class Sale implements Serializable, IConfigurable {
         this.amount = 0.0;
         this.retirees = 0;
         this.subTotal = 0.0;
+        this.travelService = _SALE_SINGLE_TRAVEL;
+        this.backDate = new Date();
  
     }
     
