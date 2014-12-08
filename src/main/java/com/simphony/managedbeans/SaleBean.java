@@ -504,7 +504,7 @@ public class SaleBean implements IConfigurable, Serializable {
      * @param saveGuide
      * @param saveRootGuide
      * @param saveDetail
-     * @param innerSale
+     * @param type
      * @throws java.lang.CloneNotSupportedException
      */
     public void save(Vendor vendor, List<PayType> payTypeList,
@@ -521,6 +521,7 @@ public class SaleBean implements IConfigurable, Serializable {
         }
         saveSale.setVendor(vendor);
         saveSale.setStatus(_SALED);
+        saveSale.setServiceType(saveSale.getTravelService());
         saveSale.setCreateDate(new Date());
 
         //Guardamos la venta
@@ -578,7 +579,7 @@ public class SaleBean implements IConfigurable, Serializable {
                 saveRootGuide);
 
         //Guardamos los pagos
-        if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL) && type.equals(_TO_ORIGIN)) {
+        if (saveSale.getTravelService().equals(_SALE_ROUNDED_TRAVEL) && type.equals(_TO_ORIGIN)) {
             for (PayType payType : payTypeList) {
                 if (payType.getAmount() > 0.0) {
                     Payment payment = new Payment(payType, saveSale);
@@ -657,8 +658,9 @@ public class SaleBean implements IConfigurable, Serializable {
             saleService.getReservedSeatsRepository().saveAndFlush(reservedSeat);
 
             //Guardamos el detalle de venta
-            dtSale.setSale(sale);
+            dtSale.setSale(saveSale);
             dtSale.setStatus(_SALED);
+            dtSale.setServiceType(saveSale.getServiceType());
 
             if (pendingSale.getId() != null) {
                 dtSale.setServiceType(_PENDING);
@@ -745,6 +747,7 @@ public class SaleBean implements IConfigurable, Serializable {
                     saleDetailToBack.get(i).updateToRounded(saleDetail.get(i));
                 }
 
+                saleToBack.setServiceType(_SALE_ROUNDED_TRAVEL);
                 this.save(vendor, payTypeList, payRollList, saleToBack, this.selectedToBack, this.guideToBack,
                         this.guideRootToBack, saleDetailToBack, _TO_BACK);
                 this.clearSale();
@@ -868,7 +871,8 @@ public class SaleBean implements IConfigurable, Serializable {
                 sale.setDiscount(discount);
                 sale.setAmount(amount);
                 cantOriginal = sale.getAmount();
-
+                sale.setPassengers(this.saleDetail.size());
+                
             } else {
                 isError = true;
                 msgNav = "toSale";
