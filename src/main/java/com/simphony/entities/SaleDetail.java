@@ -77,8 +77,8 @@ public  class SaleDetail implements Serializable, IConfigurable {
         this.discount = 0.0;
         this.bolType = _PASSENGER;
         this.serviceType = "";
-        this.idRefSale = new Long(0);
-        this.idResSeat = new Long(0);
+        this.idRefSale = 0L;
+        this.idResSeat = 0L;
     }
 
     public SaleDetail(double amount, Seat seat, Customer customer, Associate associate, String bolType) {
@@ -88,6 +88,8 @@ public  class SaleDetail implements Serializable, IConfigurable {
         this.bolType = bolType;
         associate = new Associate();
         this.bolType = _PASSENGER;
+        this.idRefSale = 0L;
+        this.idResSeat = 0L;
     }
     
     public void update(SaleDetail saleDetail){
@@ -98,15 +100,16 @@ public  class SaleDetail implements Serializable, IConfigurable {
      * actualizamos para los viajes redondos
      * @param saleDetail 
      */
-    public void updateToRounded(SaleDetail saleDetail){
+    public void updateToRounded(SaleDetail saleDetail, Long referenceSale){
         this.status = saleDetail.getStatus();
-        this.amount = saleDetail.getAmount();
+        //this.amount = saleDetail.getAmount();
         this.associate = saleDetail.getAssociate();
         this.associateKey = saleDetail.getAssociateKey();
         this.discount = saleDetail.getDiscount();
         this.customerName = saleDetail.getCustomerName();
-        this.note = saleDetail.getNote();
+        this.note = saleDetail.getNote() + " - Regreso";
         this.bolType = saleDetail.getBolType();
+        this.idRefSale = referenceSale;
         
         
      }
