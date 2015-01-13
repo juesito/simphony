@@ -121,6 +121,21 @@
                                     <p:message for="type" />
                                 </p:column>
                             </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_printer}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="printer" value="#{vendorBean.vendor.printer}" 
+                                                     converter="printerConverter" style="width:160px" 
+                                                     required="true" requiredMessage="#{msgs.cat_printer}" >
+                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_printer}"  />
+                                        <f:selectItems value="#{boxPrinterService.printerList}" />
+
+                                    </p:selectOneMenu>
+                                    <p:message for="printer" />
+                                </p:column>
+                            </p:row>
 
                             <p:row>
                                 <p:column colspan="2"></p:column>
@@ -245,6 +260,21 @@
                                         <f:selectItem itemLabel="Normal" itemValue="N" />                                        
                                     </p:selectOneMenu>
                                     <p:message for="typeMd" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="#{msgs.cat_printer}:" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="mprinter" value="#{vendorBean.vendor.printer}" 
+                                                     converter="printerConverter" style="width:160px" 
+                                                     required="true" requiredMessage="#{msgs.cat_printer}" >
+                                        <f:selectItem noSelectionOption="true" itemValue="" itemLabel="#{msgs.cat_printer}"  />
+                                        <f:selectItems value="#{boxPrinterService.printerList}" />
+
+                                    </p:selectOneMenu>
+                                    <p:message for="mprinter" />
                                 </p:column>
                             </p:row>
 

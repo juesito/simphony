@@ -9,7 +9,9 @@ import com.simphony.beans.AssociateService;
 import com.simphony.beans.CostService;
 import com.simphony.beans.GuideService;
 import com.simphony.beans.ItineraryService;
+import com.simphony.beans.JasperService;
 import com.simphony.beans.PayRollService;
+import com.simphony.beans.PrinterService;
 import com.simphony.beans.SaleService;
 import com.simphony.beans.SeatService;
 import com.simphony.entities.Associate;
@@ -25,6 +27,7 @@ import com.simphony.entities.ReservedSeats;
 import com.simphony.entities.Sale;
 import com.simphony.entities.SaleDetail;
 import com.simphony.entities.Seat;
+import com.simphony.entities.Ticket;
 import com.simphony.entities.User;
 import com.simphony.entities.Vendor;
 import com.simphony.interfases.IConfigurable;
@@ -33,16 +36,19 @@ import com.simphony.pojos.ItineraryCost;
 import com.simphony.pojos.ReservedSeatInDetailSale;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import net.sf.jasperreports.engine.JRException;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
 import org.springframework.data.domain.PageRequest;
@@ -117,6 +123,9 @@ public class SaleBean implements IConfigurable, Serializable {
 
     @ManagedProperty(value = "#{payRollService}")
     private PayRollService payRollService;
+    
+    @ManagedProperty(value = "#{jasperService}")
+    private JasperService jasperService;
 
     /**
      * Creates a new instance of SaleBean
@@ -510,7 +519,7 @@ public class SaleBean implements IConfigurable, Serializable {
     public void save(Vendor vendor, List<PayType> payTypeList,
             List<PayRoll> payRollList, Sale saveSale, ItineraryCost saveSelected,
             Guide saveGuide, Guide saveRootGuide, List<SaleDetail> saveDetail,
-            String type) throws CloneNotSupportedException {
+            String type) throws CloneNotSupportedException, JRException, ClassNotFoundException {
 
         // Guardamos si hubo venta pendiente.
         if (pendingSale.getId() != null) {
@@ -614,6 +623,13 @@ public class SaleBean implements IConfigurable, Serializable {
 
         }
 
+        //Imprimimos el ticket
+        jasperService.setPrinterName(saveSale.getVendor().getPrinter().getBrand().trim());
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("id_vta", saveSale.getId());
+        jasperService.printTicket(parameters);
+        
+        
         if (this.sale.getTravelService().equals(_SALE_ROUNDED_TRAVEL) && 
                 type.equals(_TO_BACK)) {
             GrowlBean.simplyWarmMessage(
@@ -683,6 +699,26 @@ public class SaleBean implements IConfigurable, Serializable {
             dtSale.setCustomerName(dtSale.getCustomerName().toUpperCase());
             dtSale.update(dtSale);
             saleService.getDetailRepository().saveAndFlush(dtSale);
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY EEEE");
+            SimpleDateFormat shf = new SimpleDateFormat("HH:mm");
+            //Creamos el ticket
+            Ticket ticket = new Ticket();
+            ticket.setSaleId(saveSale.getId());
+            ticket.setTravelDate(sdf.format(saveSale.getTripDate()));
+            ticket.setTravelHour(shf.format(saveSale.getTripDate()));
+            ticket.setOrigin(saveSale.getOrigin().getDescription().toUpperCase());
+            ticket.setDestiny(saveSale.getDestiny().getDescription().toUpperCase());
+            ticket.setSeatNumber(dtSale.getSeat().getSeat());
+            ticket.setPassenger(dtSale.getCustomerName());
+            ticket.setNota(dtSale.getNote());
+            ticket.setSaleDate(sdf.format(saveSale.getCreateDate()));
+            ticket.setSaleHour(shf.format(saveSale.getCreateDate()));
+            ticket.setVendorName(saveSale.getVendor().getName() + " " 
+                    + saveSale.getVendor().getFirstLastName() + " " + saveSale.getVendor().getSecondLastName());
+            
+            saleService.getTicketRepository().saveAndFlush(ticket);                   
+            
         }
     }
 
@@ -695,7 +731,7 @@ public class SaleBean implements IConfigurable, Serializable {
      * @return
      * @throws CloneNotSupportedException
      */
-    public String validateSale(Vendor vendor, List<PayType> payTypeList, List<PayRoll> payRollList) throws CloneNotSupportedException {
+    public String validateSale(Vendor vendor, List<PayType> payTypeList, List<PayRoll> payRollList) throws CloneNotSupportedException, JRException, ClassNotFoundException {
         Double amountPayed = 0.0;
         String msgNav = "toSale";
 
@@ -1523,5 +1559,17 @@ public class SaleBean implements IConfigurable, Serializable {
     public void setSaleToBack(Sale saleToBack) {
         this.saleToBack = saleToBack;
     }
+
+    public JasperService getJasperService() {
+        return jasperService;
+    }
+
+    public void setJasperService(JasperService jasperService) {
+        this.jasperService = jasperService;
+    }
+
+      
+    
+    
 
 }

@@ -34,6 +34,9 @@ public class Vendor extends Person implements Serializable, Cloneable {
     @Basic
     private String type;
 
+    @ManyToOne(targetEntity = Printer.class)
+    private Printer printer;
+    
     public Vendor() {
 
     }
@@ -44,6 +47,7 @@ public class Vendor extends Person implements Serializable, Cloneable {
         this.password = vendorUpdated.getPassword();
         this.salePoint = vendorUpdated.getSalePoint();
         this.type = vendorUpdated.getType();
+        this.setPrinter(vendorUpdated.getPrinter());
     }
 
     @PreUpdate
@@ -104,6 +108,15 @@ public class Vendor extends Person implements Serializable, Cloneable {
         return "Vendor{" + "nick=" + nick + ", workCenter=" + workCenter + ", password=" + password + ", population=" + population + '}';
     }
 
+    public Printer getPrinter() {
+        return printer;
+    }
+
+    public void setPrinter(Printer printer) {
+        this.printer = printer;
+    }
+
+    
     
     @Override
     public Object clone() throws CloneNotSupportedException {

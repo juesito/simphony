@@ -11,13 +11,19 @@
                     <p:growl id="growl" showDetail="true" />
                 </h:form>
                 <div id="marco-right-title">
+                    <!--
+                    <input type="button" onclick="printTextArea()" value="Print Text"/>
+                    -->
                     <h:form>
+                        
                         <p:menubar styleClass="miMenu" rendered="#{userBean.current.looged or 
                                                                    vendorBean.current.looged}">
                             <p:submenu label="#{vendorBean.current.name}" rendered="#{vendorBean.current.name ne '' and !userBean.current.looged}">
                                 <p:menuitem value="   Inicio   " action="toindex"/>
                                 <p:menuitem value="Administrar" action="toLogin" rendered="#{!userBean.current.looged}"
                                             ajax="false"/>
+                                <p:menuitem value="Printer" action="#{reportsBean.reportTest()}" ajax="true"/>
+                                
                                 
                             </p:submenu>
                             <p:submenu label="#{userBean.current.name}" rendered="#{userBean.current.name ne ''}">

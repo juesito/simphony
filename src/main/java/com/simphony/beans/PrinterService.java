@@ -7,6 +7,9 @@
 package com.simphony.beans;
 
 import com.simphony.repositories.PrinterRepository;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,5 +30,7 @@ public class PrinterService {
     public void setPrinterRepository(PrinterRepository printerRepository) {
         this.printerRepository = printerRepository;
     }
+    
+    
     
 }

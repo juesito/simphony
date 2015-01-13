@@ -17,6 +17,21 @@
         <link href="#{facesContext.externalContext.requestContextPath}/resources/css/global.css" rel="stylesheet" type="text/css" />
         <title>Simphony</title>
         <script language="javascript" src="#{facesContext.externalContext.requestContextPath}/resources/css/clock.js"></script>
+
+
+        <script type="text/javascript">
+            function printTextArea() {
+                childWindow = window.open('', 'childWindow', 'location=yes, menubar=yes, toolbar=yes, height=100');
+                childWindow.document.open();
+                childWindow.document.write('<html><head></head><body>');
+                childWindow.document.write('<p>Hello World</p>');
+                childWindow.document.write('</body></html>');
+                childWindow.print();
+                childWindow.document.close();
+                childWindow.close();
+            }
+        </script>
+
     </h:head>
 
     <h:body onload="startTime()">

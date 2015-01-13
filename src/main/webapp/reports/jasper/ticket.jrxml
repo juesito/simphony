@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ticket" pageWidth="200" pageHeight="200" whenNoDataType="BlankPage" columnWidth="185" leftMargin="10" rightMargin="5" topMargin="5" bottomMargin="5" uuid="2502a9af-ce2c-4804-be54-4dfa4f0c3f9b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_vta" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[22L]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     boletos."id" AS boletos_id,
+     boletos."destino" AS boletos_destino,
+     boletos."nota" AS boletos_nota,
+     boletos."origen" AS boletos_origen,
+     boletos."pasajero" AS boletos_pasajero,
+     boletos."fechaImpresion" AS boletos_fechaImpresion,
+     boletos."fechaVenta" AS boletos_fechaVenta,
+     boletos."horaVenta" AS boletos_horaVenta,
+     boletos."folioVenta" AS boletos_folioVenta,
+     boletos."asiento" AS boletos_asiento,
+     boletos."fechaViaje" AS boletos_fechaViaje,
+     boletos."horaViaje" AS boletos_horaViaje,
+     boletos."vendedor" AS boletos_vendedor
+FROM
+     "dbo"."boletos" boletos
+WHERE
+     folioVenta = $P!{id_vta}]]>
+	</queryString>
+	<field name="boletos_id" class="java.math.BigDecimal"/>
+	<field name="boletos_destino" class="java.lang.String"/>
+	<field name="boletos_nota" class="java.lang.String"/>
+	<field name="boletos_origen" class="java.lang.String"/>
+	<field name="boletos_pasajero" class="java.lang.String"/>
+	<field name="boletos_fechaImpresion" class="java.sql.Timestamp"/>
+	<field name="boletos_fechaVenta" class="java.lang.String"/>
+	<field name="boletos_horaVenta" class="java.lang.String"/>
+	<field name="boletos_folioVenta" class="java.math.BigDecimal"/>
+	<field name="boletos_asiento" class="java.lang.String"/>
+	<field name="boletos_fechaViaje" class="java.lang.String"/>
+	<field name="boletos_horaViaje" class="java.lang.String"/>
+	<field name="boletos_vendedor" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="190">
+			<textField>
+				<reportElement x="63" y="26" width="124" height="15" uuid="4abe08b3-3bbf-4173-9751-8399fbd28480"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_destino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="6" width="124" height="15" uuid="281d734d-9244-4f13-acd5-c3702ce1d621"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_origen}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="25" width="56" height="15" backcolor="#000000" uuid="e916d5c4-84a4-4d0f-940d-45c7cd78c802"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-1" y="123" width="56" height="15" backcolor="#000000" uuid="aea9420a-3f81-4098-a64d-a5f4d06ecc3f"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-1" y="89" width="105" height="15" backcolor="#000000" uuid="bdb580b7-fa53-461e-8d84-30e65e1494aa"/>
+			</rectangle>
+			<textField>
+				<reportElement x="6" y="70" width="100" height="14" uuid="2ee586c3-9ea1-4d34-bb6f-51619e714878"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_fechaViaje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="70" width="25" height="14" uuid="77d982db-f26a-4fe3-b554-918e7477d71b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_horaViaje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="143" y="70" width="43" height="14" uuid="0dfd4818-d192-4360-b9ff-87142a9b3090"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_asiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="105" width="183" height="15" uuid="1e2e26e2-4bb2-4cfa-9574-9f271596c6aa"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_pasajero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="123" width="126" height="16" uuid="8dd68449-027e-4946-ac08-3f3c3c8305c9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-2" y="124" width="55" height="15" forecolor="#FFFFFF" uuid="b1e29a2d-8662-4d2c-837c-220ca56ecf15"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_folioVenta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="89" width="101" height="15" forecolor="#FFFFFF" uuid="fdcd832c-7ed7-451a-9f26-8f91b93622bb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Pasajero:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="158" width="189" height="15" uuid="4971f045-8e94-42fc-b759-74904e17a9a3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_vendedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="172" width="100" height="14" uuid="c10e8ab8-2892-45d5-a2c9-33d11fa5d2d6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_fechaVenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="172" width="85" height="14" uuid="b7b2b7e0-2b65-4693-8f0c-a3823f9c9ba9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{boletos_horaVenta}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="-2" y="142" width="189" height="15" backcolor="#000000" uuid="c081ccf3-d121-46c8-8ac6-678f36e8979d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-1" y="143" width="188" height="15" forecolor="#FFFFFF" uuid="8bb1a969-8e73-4267-95db-289d8f2a8fc9"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Información Venta]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="189" width="100" height="1" uuid="540a8c02-eda5-48bb-b783-51c9adca5a50"/>
+			</break>
+			<rectangle>
+				<reportElement x="0" y="6" width="56" height="15" backcolor="#000000" uuid="a250f546-1511-4f30-8fff-999d0e844ef5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="6" width="45" height="15" forecolor="#FFFFFF" uuid="d75e8147-8981-4ed0-8759-89bacaad1f7b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORIGEN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="25" width="56" height="15" forecolor="#FFFFFF" uuid="c91fc5a3-9a85-40af-b389-3aa8193a927e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESTINO:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-2" y="51" width="185" height="15" backcolor="#000000" uuid="67157088-cf8d-465c-8251-7c6a74fd0dbd"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="5" y="52" width="82" height="15" forecolor="#FFFFFF" uuid="c1fae69a-0db3-4cb8-a266-8ad4d565319b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="52" width="27" height="15" forecolor="#FFFFFF" uuid="8a7cba00-933c-45d7-bc1c-ae43fa3506e0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="52" width="43" height="15" forecolor="#FFFFFF" uuid="27ac5fbf-3c91-4be7-b59e-577692b50410"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Asiento]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="187" width="182" height="1" uuid="c9cbbdc9-b956-44d1-8daf-24c079e0d166"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

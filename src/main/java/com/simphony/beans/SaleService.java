@@ -11,6 +11,7 @@ import com.simphony.repositories.PaymentRepository;
 import com.simphony.repositories.ReservedSeatsRepository;
 import com.simphony.repositories.SaleDetailRepository;
 import com.simphony.repositories.SaleRepository;
+import com.simphony.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +36,9 @@ public class SaleService {
     
     @Autowired
     PayRollRepository payrollRepository;
+    
+    @Autowired
+    TicketRepository ticketRepository;
     
     public SaleRepository getSaleRepository() {
         return saleRepository;
@@ -75,4 +79,14 @@ public class SaleService {
     public void setPayrollRepository(PayRollRepository payrollRepository) {
         this.payrollRepository = payrollRepository;
     }
+
+    public TicketRepository getTicketRepository() {
+        return ticketRepository;
+    }
+
+    public void setTicketRepository(TicketRepository ticketRepository) {
+        this.ticketRepository = ticketRepository;
+    }
+    
+    
 }

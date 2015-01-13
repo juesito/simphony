@@ -3,9 +3,8 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[SELECT
-     *,
      ventas."id" AS ventas_id,
      ventas."montoVenta" AS ventas_montoVenta,
      ventas."fechaCreacion" AS ventas_fechaCreacion,
@@ -18,25 +17,6 @@
 FROM
      "ventas" ventas]]>
 	</queryString>
-	<field name="id" class="java.math.BigDecimal"/>
-	<field name="montoVenta" class="java.lang.Double"/>
-	<field name="fechaCreacion" class="java.sql.Timestamp"/>
-	<field name="pasajeros" class="java.lang.Integer"/>
-	<field name="jubilados" class="java.lang.Integer"/>
-	<field name="fechaSalida" class="java.sql.Timestamp"/>
-	<field name="tipo" class="java.lang.String"/>
-	<field name="associate_id" class="java.math.BigDecimal"/>
-	<field name="cancelVendor_id" class="java.math.BigDecimal"/>
-	<field name="destiny_id" class="java.math.BigDecimal"/>
-	<field name="origin_id" class="java.math.BigDecimal"/>
-	<field name="vendor_id" class="java.math.BigDecimal"/>
-	<field name="descuento" class="java.lang.Double"/>
-	<field name="subtotal" class="java.lang.Double"/>
-	<field name="fechaModificacion" class="java.sql.Timestamp"/>
-	<field name="estatus" class="java.lang.String"/>
-	<field name="usuarioCancel" class="java.lang.String"/>
-	<field name="ventaReferenciada" class="java.math.BigDecimal"/>
-	<field name="TipoServicio" class="java.lang.String"/>
 	<field name="ventas_id" class="java.math.BigDecimal"/>
 	<field name="ventas_montoVenta" class="java.lang.Double"/>
 	<field name="ventas_fechaCreacion" class="java.sql.Timestamp"/>
@@ -97,16 +77,16 @@ FROM
 	<detail>
 		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="66" y="0" width="100" height="20" uuid="04b7d05a-3238-4091-ad54-92e41fb321f1"/>
-				<textFieldExpression><![CDATA[$F{pasajeros}]]></textFieldExpression>
+				<reportElement x="167" y="2" width="129" height="20" uuid="3c9497dc-8d05-4f8a-b5e2-ca6eefff7061"/>
+				<textFieldExpression><![CDATA[$F{ventas_fechaSalida}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="18" y="0" width="48" height="20" uuid="5621d5be-3df6-4f26-8cf1-dcfd62f30ec7"/>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				<reportElement x="66" y="2" width="100" height="20" uuid="19b2b6db-9283-4dbd-8094-444a4289311d"/>
+				<textFieldExpression><![CDATA[$F{ventas_pasajeros}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="166" y="0" width="100" height="20" uuid="882d157b-e58b-49fb-bc22-e4eda0acae9d"/>
-				<textFieldExpression><![CDATA[$F{fechaSalida}]]></textFieldExpression>
+				<reportElement x="20" y="2" width="34" height="20" uuid="283b761a-0d65-4263-bd3f-edccf09f867b"/>
+				<textFieldExpression><![CDATA[$F{ventas_id}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

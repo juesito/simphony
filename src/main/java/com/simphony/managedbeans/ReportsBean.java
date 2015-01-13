@@ -291,7 +291,7 @@ public class ReportsBean implements IConfigurable {
     }
 
     /**
-     * Buscamos ingresos por autobÃºs
+     * Buscamos ingresos por autobÃƒÂºs
      *
      * @throws java.text.ParseException
      */
@@ -344,7 +344,7 @@ public class ReportsBean implements IConfigurable {
             }
             modelDS = new DailySalesModel(listDailySales);
         } else {
-            GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta AutobÃºs o fechas...");
         }
 
     }
@@ -566,7 +566,7 @@ public class ReportsBean implements IConfigurable {
             }
             modelDS = new DailySalesModel(listDailySales);
         } else {
-            GrowlBean.simplyErrorMessage("Error de datos", "Falta Autobús o fechas...");
+            GrowlBean.simplyErrorMessage("Error de datos", "Falta AutobÃºs o fechas...");
         }
 
     }
@@ -853,16 +853,6 @@ public class ReportsBean implements IConfigurable {
     }
 
     public void viewGuidesReport(Date fecSal, Long rootId) throws JRException, ClassNotFoundException {
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//        java.sql.Date frm_dte = null;
-//        java.sql.Time frm_time = null;
-
-//        try {
-//            frm_dte = (java.sql.Date) sdf.parse("2014-10-15 05:00:00");
-//            frm_time = (java.sql.Time) sdf.parse("05:00:00");
-//        } catch (ParseException ex) {
-//            Logger.getLogger(ReportsBean.class.getName()).log(Level.SEVERE, null, ex);
-//        }
             HashMap<String, Object> parameters = new HashMap<String, Object>();
             parameters.put("fechaSalida", fecSal);
             parameters.put("rootId", rootId);
@@ -870,6 +860,16 @@ public class ReportsBean implements IConfigurable {
             jasperService.setReportName("guide.jasper");
             jasperService.builtReport(parameters, _REPORT_PDF);
     }
+    
+    public void reportTest() throws JRException, ClassNotFoundException{
+        jasperService.setReportName("ticket.jasper");
+        Long id_vta = 23L;
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("id_vta", id_vta);
+        //jasperService.fillTicket();
+        jasperService.printTicket(parameters);
+    }
+    
 
     public void viewSaleDetailReport(Long vendorId, Date fIni, Date fFin) throws JRException, ClassNotFoundException {
         Calendar finDate = Calendar.getInstance();
